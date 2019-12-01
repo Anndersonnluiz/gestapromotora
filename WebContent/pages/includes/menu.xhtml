@@ -1,0 +1,134 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><p:outputLabel value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"/></a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sair</a>
+        </li>
+      </ul>
+    </nav>
+
+   <div class="container-fluid">
+    
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+        
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/gestapromotora/dashboard.jsf">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(atual)</span>
+                </a>
+              </li>
+              <li class="nav-item, dropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span data-feather="file-plus"></span>
+                  Cadastros
+                </a>
+                <ul class="dropdown-menu">
+                	<li style="font-size:12px;">
+				     	<a class="nav-link" href="pages/usuario/consUsuario.jsf">
+		                  <span data-feather="user"></span>
+		                  Usuários 
+		                </a>
+		                <a class="nav-link" href="#">
+		                  <span data-feather="users"></span>
+		                  Colaborador 
+		                </a>
+	                </li>
+			    </ul>
+              </li>
+              <li class="nav-item, dropdown">
+                <a class="nav-link"  href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span data-feather="archive"></span>
+                  Contratos
+                </a>
+                 <ul class="dropdown-menu">
+                	<li style="font-size:12px;">
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="list"></span>
+		                  Listagem 
+		                </a>
+		                <a class="nav-link" href="#">
+		                  <span data-feather="file-plus"></span>
+		                  Adicionar Contrato 
+		                </a>
+		                <a class="nav-link" href="#">
+		                  <span data-feather="file-text"></span>
+		                  Portabilidade 
+		                </a>
+		                <a class="nav-link" href="#">
+		                  <span data-feather="users"></span>
+		                  Demais Operações 
+		                </a>
+		                <a class="nav-link" href="#">
+		                  <span data-feather="users"></span>
+		                  Roteiros 
+		                </a>
+	                </li>
+			    </ul>
+              </li>
+              <li class="nav-item, dropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span data-feather="file"></span>
+                  Fisico
+                </a>
+                <ul class="dropdown-menu">
+                	<li style="font-size:12px;">
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="dollar-sign"></span>
+		                  3 - Pago ao Cliente 
+		                </a>
+	                </li>
+			    </ul>
+              </li>
+              <li class="nav-item, dropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span data-feather="dollar-sign"></span>
+                  Financeiro
+                </a>
+                <ul class="dropdown-menu">
+                	<li style="font-size:12px;">
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="dollar-sign"></span>
+		                  Coefi. Comissão 
+		                </a>
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="dollar-sign"></span>
+		                  Pag. Comissão 
+		                </a>
+	                </li>
+			    </ul>
+              </li>
+              <li class="nav-item, dropdown">
+                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span data-feather="activity"></span>
+                  Produção
+                </a>
+                <ul class="dropdown-menu">
+                	<li style="font-size:12px;">
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="users"></span>
+		                  Corretores 
+		                </a>
+				     	<a class="nav-link" href="#">
+		                  <span data-feather="users"></span>
+		                  Empresa 
+		                </a>
+	                </li>
+			    </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+		
+      </div>
+    </div>
+</h:form>
