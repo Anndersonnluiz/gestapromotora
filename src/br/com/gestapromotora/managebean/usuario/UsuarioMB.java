@@ -1,15 +1,21 @@
 package br.com.gestapromotora.managebean.usuario;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Usuario;
+import br.com.gestapromotora.util.Criptografia;
 
 @Named
 @ViewScoped
@@ -58,6 +64,33 @@ public class UsuarioMB implements Serializable{
 		}
 	}
 	
+	
+	public String novoUsuario() {
+		return "cadUsuario";
+	}
+	
+	
+	public String editar(Usuario usuario) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("usuario", usuario);
+		return "cadUsuario";
+	}
+	
+	
+	public void resetarSenhaUsuario(Usuario usuario) {
+        String senhaResetada;
+        try {
+            senhaResetada = Criptografia.encript("senha");
+            if (usuario != null) {
+                usuario.setSenha(senhaResetada);
+                UsuarioFacade usuarioFacade = new UsuarioFacade();
+                usuarioFacade.salvar(usuario);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 	
 	
 	
