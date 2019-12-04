@@ -100,7 +100,7 @@ public class CadUsuarioMB implements Serializable {
 		salvarDadosBancarios();
 		usuario.setDadosbancario(dadosbancario);
 		if (usuario.getIdusuario() == null) {
-			usuario.setSenha("6NlaUfOvSjsTS/a7aAohOg==");
+			usuario.setSenha("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
 			usuario = usuarioFacade.salvar(usuario);
 		} else {
 			usuario = usuarioFacade.salvar(usuario);
@@ -112,6 +112,10 @@ public class CadUsuarioMB implements Serializable {
 	public void salvarDadosBancarios() {
 		DadosBancarioFacade dadosBancarioFacade = new DadosBancarioFacade();
 		dadosbancario = dadosBancarioFacade.salvar(dadosbancario);
+	}
+	
+	public String cancelar() {
+		return "consUsuario";
 	}
 	
 	

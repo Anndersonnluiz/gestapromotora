@@ -35,6 +35,8 @@ public class Usuario implements Serializable{
     private String email;
     @Column(name = "senha")
     private String senha;
+    @Column(name = "sala")
+    private String sala;
     @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
     @ManyToOne(optional = false)
     private Tipocolaborador tipocolaborador;
@@ -98,6 +100,16 @@ public class Usuario implements Serializable{
 	}
     
     
+	public String getSala() {
+		return sala;
+	}
+
+
+	public void setSala(String sala) {
+		this.sala = sala;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

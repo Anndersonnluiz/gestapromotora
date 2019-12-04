@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15749664519580" configfile="/gestapromotora/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf15749664723171" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf15749664723171" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130 pf15754836778060 pf15754836778061" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf15749664723194" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15749664723182" path="index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="dashboard.xhtml" id="pf15749664723195" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15749664723183" path="dashboard.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/consUsuario.xhtml" id="pf15750424029342" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15750424029331" path="pages/usuario/consUsuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/cadUsuario.xhtml" id="pf15752833665151" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15752833665130" path="pages/usuario/cadUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/consUsuario.xhtml" id="pf15750424029342" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15750424029331" path="pages/usuario/consUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/cadUsuario.xhtml" id="pf15752833665151" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf15752833665130" path="pages/usuario/cadUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/consTipoColarador.xhtml" id="pf15754836778062" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15754836778060" path="pages/tipocolaborador/consTipoColarador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/cadTipoColaborador.xhtml" id="pf15754836778063" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf15754836778061" path="pages/tipocolaborador/cadTipoColaborador.xhtml"/>
   <links id="pf15749664723182" target="pf15749664723194" source="pf15749664723171" outcome="index" redirect="true"/>
   <links id="pf15749664723183" target="pf15749664723195" source="pf15749664723171" outcome="dashboard" redirect="true"/>
   <links id="pf15750424029331" target="pf15750424029342" source="pf15749664723171" outcome="consUsuario" redirect="true"/>
   <links id="pf15752833665130" target="pf15752833665151" source="pf15749664723171" outcome="cadUsuario" redirect="true"/>
+  <links id="pf15754836778060" target="pf15754836778062" source="pf15749664723171" outcome="consTipoColarador" redirect="true"/>
+  <links id="pf15754836778061" target="pf15754836778063" source="pf15749664723171" outcome="cadTipoColaborador" redirect="true"/>
 </pageflow:Pageflow>

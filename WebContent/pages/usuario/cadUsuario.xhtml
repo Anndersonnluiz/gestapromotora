@@ -33,24 +33,20 @@
 							class="form-control" id="inputEmail4" placeholder="Email"/>
 				</div>
 				<div class="form-group col-md-6">
-					<label for="inputSala">Sala</label> <h:inputText
+					<label for="inputSala">Sala</label> <h:inputText value="#{cadUsuarioMB.usuario.sala}"
 						class="form-control" id="inputSala" placeholder="Sala"/>
 				</div>
 			</div>
 			
 			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="inputTipoColaborador">Tipo Colaborador</label> 
-						
-						<select id="inputTipoColaborador"
-							class="form-control">
-							<option selected="selected" value="teste">Escolher...</option>
-							<ui:repeat var="tipocolaborador" value="#{cadUsuarioMB.listaTipoColaborador}">
-								<option value="#">
-									<p:outputLabel value="#{tipocolabordor.descricao}"/>
-								</option>
-							</ui:repeat> 
-						</select>
+				<div class="form-group cpç-md-12">
+					<label for="exampleInputPerfil">Tipo Colaborador</label>
+					<h:selectOneMenu  id="exampleInputPerfil"  style="width: 300px;"  value="#{cadUsuarioMB.tipocolaborador}" converter="TipoColaboradorConverter"
+                              styleClass="form-control">
+		                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
+		                    <f:selectItems  value="#{cadUsuarioMB.listaTipoColaborador}" var="colaboradorselecionado" itemLabel="#{colaboradorselecionado.descricao}" itemValue="#{colaboradorselecionado}"/>
+		                    <f:attribute name="listarPerfil" value="#{cadUsuarioMB.listaTipoColaborador}"/>
+                	</h:selectOneMenu>
 				</div>
 			</div>
 			<br/>
@@ -69,22 +65,22 @@
 						</select>
 				</div>
 				<div class="form-group col-md-6">
-					<label >Titular</label> <h:inputText
+					<label >Titular</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.titular}"
 						class="form-control" placeholder="Titular"/>
 				</div>
 			</div>
 			
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label >Cód. Banco</label> <h:inputText
+					<label >Cód. Banco</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.cdbanco}"
 						class="form-control" placeholder="Código do banco"/>
 				</div>
 				<div class="form-group col-md-4">
-					<label >Agência</label> <h:inputText
-						class="form-control" placeholder="Código Interno"/>
+					<label >Agência</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.agencia}"
+						class="form-control" placeholder="Agência"/>
 				</div>
 				<div class="form-group col-md-4">
-					<label >Dig. Agência</label> <h:inputText
+					<label >Dig. Agência</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.digitoagencia}"
 						class="form-control"  placeholder="Digito da agência"/>
 				</div>
 			</div>
@@ -92,18 +88,18 @@
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label >Tipo conta</label> 
-					<select 
-							class="form-control" >
-							<option selected="selected" value="teste">Conta Salario</option>
-							<option value="#">Conta Corrente</option>
-						</select>
+					<h:selectOneMenu   style="width: 100%;"  value="#{cadUsuarioMB.dadosbancario.tipoconta}"
+                              styleClass="form-control">
+		                    <f:selectItem  itemLabel="Conta Salario" itemValue="Conta Salario" />
+		                    <f:selectItem  itemLabel="Conta Corrente" itemValue="Conta Corrente" /> 
+		            </h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-4">
-					<label >N° Conta</label> <h:inputText
+					<label >N° Conta</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.nconta}"
 						class="form-control"  placeholder="Número da conta"/>
 				</div>
 				<div class="form-group col-md-4">
-					<label >Dig. Conta</label> <h:inputText
+					<label >Dig. Conta</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.digitoconta}"
 						class="form-control"  placeholder="Digito da conta"/>
 				</div>
 			</div>
@@ -112,7 +108,7 @@
 			<br/>
 			<hr/>
 			<div align="center">
-				<p:commandLink styleClass="btn btn-danger" value="Cancelar" action="#{cadUsuarioMB.salvarUsuario()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-danger" value="Cancelar" action="#{cadUsuarioMB.cancelar()}"/>
 				<p:commandLink ajax="false" styleClass="btn btn-dark" style="margin-left:2%;" value="Salvar" action="#{cadUsuarioMB.salvar()}"/>
 			</div>
 			<br/><br/>
