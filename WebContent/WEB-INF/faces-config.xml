@@ -59,6 +59,62 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consBanco</from-outcome>
+			<to-view-id>pages/banco/consBanco.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadBanco</from-outcome>
+			<to-view-id>pages/banco/cadBanco.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consOrgaoBanco</from-outcome>
+			<to-view-id>pages/banco/consOrgaoBanco.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadOrgaoBanco</from-outcome>
+			<to-view-id>pages/banco/cadOrgaoBanco.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consCliente</from-outcome>
+			<to-view-id>pages/cliente/consCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCliente</from-outcome>
+			<to-view-id>pages/cliente/cadCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
     
 	<application>
         <action-listener>

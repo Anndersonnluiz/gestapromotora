@@ -4,6 +4,9 @@
 		<class>br.com.gestapromotora.model.Tipocolaborador</class>
 		<class>br.com.gestapromotora.model.Dadosbancario</class>
 		<class>br.com.gestapromotora.model.Usuario</class>
+		<class>br.com.gestapromotora.model.Banco</class>
+		<class>br.com.gestapromotora.model.OrgaoBanco</class>
+		<class>br.com.gestapromotora.model.Cliente</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestapromotora?useTimezone=true&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

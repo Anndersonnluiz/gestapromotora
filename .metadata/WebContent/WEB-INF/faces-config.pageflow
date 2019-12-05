@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15749664519580" configfile="/gestapromotora/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf15749664723171" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130 pf15754836778060 pf15754836778061" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1906" id="pf15749664723171" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130 pf15754836778060 pf15754836778061 pf15755581244370 pf15755581244371 pf15755657074004 pf15755657074005" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf15749664723194" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15749664723182" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="dashboard.xhtml" id="pf15749664723195" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15749664723183" path="dashboard.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/consUsuario.xhtml" id="pf15750424029342" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15750424029331" path="pages/usuario/consUsuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/cadUsuario.xhtml" id="pf15752833665151" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf15752833665130" path="pages/usuario/cadUsuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/consTipoColarador.xhtml" id="pf15754836778062" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15754836778060" path="pages/tipocolaborador/consTipoColarador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/cadTipoColaborador.xhtml" id="pf15754836778063" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf15754836778061" path="pages/tipocolaborador/cadTipoColaborador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dashboard.xhtml" x="338" y="562" id="pf15749664723195" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15749664723183" path="dashboard.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/consUsuario.xhtml" x="338" y="946" id="pf15750424029342" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15750424029331" path="pages/usuario/consUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/usuario/cadUsuario.xhtml" x="338" y="1330" id="pf15752833665151" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15752833665130" path="pages/usuario/cadUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/consTipoColarador.xhtml" x="338" y="1714" id="pf15754836778062" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15754836778060" path="pages/tipocolaborador/consTipoColarador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/tipocolaborador/cadTipoColaborador.xhtml" x="338" y="2098" id="pf15754836778063" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf15754836778061" path="pages/tipocolaborador/cadTipoColaborador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consBanco.xhtml" x="338" y="2482" id="pf15755581244372" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf15755581244370" path="pages/banco/consBanco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadBanco.xhtml" x="338" y="2866" id="pf15755581244373" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf15755581244371" path="pages/banco/cadBanco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consOrgaoBanco.xhtml" x="338" y="3250" id="pf15755657074006" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" inlinks="pf15755657074004" path="pages/banco/consOrgaoBanco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadOrgaoBanco.xhtml" x="338" y="3634" id="pf15755657074007" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" inlinks="pf15755657074005" path="pages/banco/cadOrgaoBanco.xhtml"/>
   <links id="pf15749664723182" target="pf15749664723194" source="pf15749664723171" outcome="index" redirect="true"/>
   <links id="pf15749664723183" target="pf15749664723195" source="pf15749664723171" outcome="dashboard" redirect="true"/>
   <links id="pf15750424029331" target="pf15750424029342" source="pf15749664723171" outcome="consUsuario" redirect="true"/>
   <links id="pf15752833665130" target="pf15752833665151" source="pf15749664723171" outcome="cadUsuario" redirect="true"/>
   <links id="pf15754836778060" target="pf15754836778062" source="pf15749664723171" outcome="consTipoColarador" redirect="true"/>
   <links id="pf15754836778061" target="pf15754836778063" source="pf15749664723171" outcome="cadTipoColaborador" redirect="true"/>
+  <links id="pf15755581244370" target="pf15755581244372" source="pf15749664723171" outcome="consBanco" redirect="true"/>
+  <links id="pf15755581244371" target="pf15755581244373" source="pf15749664723171" outcome="cadBanco" redirect="true"/>
+  <links id="pf15755657074004" target="pf15755657074006" source="pf15749664723171" outcome="consOrgaoBanco" redirect="true"/>
+  <links id="pf15755657074005" target="pf15755657074007" source="pf15749664723171" outcome="cadOrgaoBanco" redirect="true"/>
 </pageflow:Pageflow>

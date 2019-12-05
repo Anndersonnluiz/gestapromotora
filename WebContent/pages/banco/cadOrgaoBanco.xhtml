@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmCadastroUsuario">
+			<h4>Cadastro de Orgãos: <p:outputLabel value="#{cadOrgaoBancoMB.banco.nome}"/></h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="inputNome">Nome</label> 
+					<h:inputText  value="#{cadOrgaoBancoMB.orgaoBanco.nome}"
+						class="form-control" id="inputNome" placeholder="Nome"/>
+				</div>
+			</div>
+			
+			<br/>
+			<hr/>
+			<div align="center">
+				<p:commandLink ajax="false" styleClass="btn btn-danger" value="Cancelar" action="#{cadOrgaoBancoMB.cancelar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-dark" style="margin-left:2%;" value="Salvar" action="#{cadOrgaoBancoMB.salvar()}"/>
+			</div>
+			<br/><br/>
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
