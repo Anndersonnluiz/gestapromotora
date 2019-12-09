@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmCadastroUsuario">
+			<h4>Cadastro de Cliente</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputNomeTabela">Nome Tabela</label>
+					<h:inputText value="#{cadCoeficienteMB.coeficiente.nometabela}"
+						class="form-control" id="inputNomeTabela" placeholder="Nome" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputNomeProduto">Nome Produto</label>
+					<h:inputText value="#{cadCoeficienteMB.coeficiente.nomeproduto}"
+						class="form-control" id="inputNomeProduto" placeholder="CPF" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputRG">Tipo Tabela</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadCoeficienteMB.coeficiente.tipotabela}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Tabela Mensal" itemValue="Tabela Mensal" />
+						<f:selectItem itemLabel="Tabela Diaria" itemValue="Tabela Diaria" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputRG">Tipo de Operações</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadCoeficienteMB.coeficiente.tipooperacoes}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Operações Normais"
+							itemValue="Operacoes Normais" />
+						<f:selectItem itemLabel="Operações Cartão"
+							itemValue="Operacoes Cartao" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="codigotabela">Código Tabela</label>
+					<h:inputText value="#{cadCoeficienteMB.coeficiente.codigotabela}"
+						class="form-control" id="codigotabela" placeholder="Nome" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="formatizacao">Formatização Digital</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadUsuarioMB.dadosbancario.tipoconta}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Não" itemValue="Nao" />
+						<f:selectItem itemLabel="Sim" itemValue="Sim" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="stautustabela">Status Tabela</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadUsuarioMB.dadosbancario.tipoconta}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Normal" itemValue="Normal" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="taxasjuros">Taxa de Juros</label>
+					<h:panelGrid columns="3" style="width:100%;">
+						<h:inputText value="#{cadCoeficienteMB.coeficiente.taxasjurosini}"
+							class="form-control" id="jurosini" placeholder="CPF">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:inputText>
+						<p:outputLabel value="até" />
+						<h:inputText value="#{cadCoeficienteMB.coeficiente.taxasjurosfin}"
+							class="form-control" id="jurosfin" placeholder="CPF">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:inputText>
+					</h:panelGrid>
+				</div>
+			</div>
+			
+			<br/>
+			<h6>Operações Permitidas</h6>
+			<hr/>
+			<div class="form-row">
+
+				<div class="form-group col-md-12">
+					<h:panelGrid columns="4" style="width:100%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.aberturaconta}" />
+							<h:outputText value="Abertura de conta" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.compradividarefin}" />
+							<h:outputText value="Compra de Divida + Refinanciamento"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.margemlivrerefin}" />
+							<h:outputText value="Margem Livre + Refinanciamento"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.portabilidademargemrefin}" />
+							<h:outputText value="Portabilidade + Margem Livre + Refin"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+
+
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.refinportabilidade}" />
+							<h:outputText value="Refinanciamento da Portabilidade"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.compradivida}" />
+							<h:outputText value="Compra de Divida" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.compradividarefin}" />
+							<h:outputText value="Compra de divida + Refin + Margem Livre"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.portabilidade}" />
+							<h:outputText value="Portabilidade" style="margin-left:2%;" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.portabilidaderefin}" />
+							<h:outputText value="Portabilidade + Refin"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.refinportabilidademargem}" />
+							<h:outputText
+								value="Refinanciamento da Portabilidade + Margem Livre"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.compradividamargem}" />
+							<h:outputText value="Compra de Divida + Margem Livre"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.margemlivre}" />
+							<h:outputText value="Margem Livre (Novo)" style="margin-left:2%;" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.portabilidademargem}" />
+							<h:outputText value="Portabilidade + Margem Livre"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.refinanciamento}" />
+							<h:outputText value="Refinanciamento" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.refinanciamentorec}" />
+							<h:outputText value="Refinanciamento Rec" style="margin-left:2%;" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</div>
+
+			</div>
+			
+			<br/>
+			<h6>Tipos de Colaboradores Permitidos</h6>
+			<hr/>
+			<div class="form-row">
+
+				<div class="form-group col-md-12">
+					<h:panelGrid columns="4" style="width:70%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.comercial}" />
+							<h:outputText value="Comercial" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.comercialrestricao}" />
+							<h:outputText value="Comercial com restrições"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.corretorexterno}" />
+							<h:outputText value="Corretor Externo"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.corretorinterno}" />
+							<h:outputText value="Corretor Interno"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+
+
+						
+					</h:panelGrid>
+				</div>
+
+			</div>
+			
+			
+			<br/>
+			<h6>Sub-Grupos Permitidos</h6>
+			<hr/>
+			<div class="form-row">
+
+				<div class="form-group col-md-12">
+					<h:panelGrid columns="4" style="width:70%;">
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.semgrupo}" />
+							<h:outputText value="Sem Grupo" style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.comercialrestricao}" />
+							<h:outputText value="Comercial com restrições"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.cobranca}" />
+							<h:outputText value="Cobrança"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadCoeficienteMB.coeficiente.retencao}" />
+							<h:outputText value="Retenção"
+								style="margin-left:2%;" />
+						</h:panelGroup>
+
+
+						
+					</h:panelGrid>
+				</div>
+
+			</div>
+			
+
+
+
+			<br />
+			<hr />
+			<div align="center">
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					value="Cancelar" action="#{cadCoeficienteMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-dark"
+					style="margin-left:2%;" value="Salvar" action="#{cadCoeficienteMB.salvar()}" />
+			</div>
+			<br />
+			<br />
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

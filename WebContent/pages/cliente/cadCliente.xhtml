@@ -1,10 +1,248 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmCadastroUsuario">
+			<h4>Cadastro de Cliente</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-</body>
+			<h6>Dados pessoais</h6>
+			<hr/>
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputNome">Nome</label>
+					<h:inputText value="#{cadClienteMB.cliente.nome}"
+						class="form-control" id="inputNome" placeholder="Nome" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputCpf">CPF</label>
+					<h:inputText value="#{cadClienteMB.cliente.cpf}"
+						class="form-control" id="inputCpf" placeholder="CPF" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputRG">RG</label>
+					<h:inputText value="#{cadClienteMB.cliente.rg}"
+						class="form-control" id="inputRG" placeholder="RG" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="dataNasc">Data Nascimento</label>
+					<h:inputText class="form-control" id="dataNasc"
+						value="#{cadClienteMB.cliente.nascimento}" mask="99/99/9999">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:inputText>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputOrgaoEmissor">Orgão Emissor</label>
+					<h:inputText value="#{cadClienteMB.cliente.orgaroemissor}"
+						class="form-control" id="inputOrgaoEmissor" placeholder="Nome" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputufrg">UF - RG</label>
+					<h:inputText value="#{cadClienteMB.cliente.ufrg}"
+						class="form-control" id="inputufrg" placeholder="UF - RG" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="dataEmissao">Data Emissão</label>
+					<h:inputText class="form-control" id="dataEmissao"
+						value="#{cadClienteMB.cliente.emissao}" mask="99/99/9999">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputNaturalidade">Naturalidade</label>
+					<h:inputText value="#{cadClienteMB.cliente.naturalidade}"
+						class="form-control" id="inputNaturalidade"
+						placeholder="Naturalidade" />
+				</div>
+			</div>
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputUfNaturalidade">UF - Naturalidade</label>
+					<h:inputText value="#{cadClienteMB.cliente.ufnaturalidade}"
+						class="form-control" id="inputUfNaturalidade"
+						placeholder="Estado da Naturalidade" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputnomepai">Nome Pai</label>
+					<h:inputText value="#{cadClienteMB.cliente.nomepai}"
+						class="form-control" id="inputnomepai" placeholder="Nome Pai" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputnomemae">Noma Mãe</label>
+					<h:inputText value="#{cadClienteMB.cliente.nomemae}"
+						class="form-control" id="inputnomemae" placeholder="Nome Mãe" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputValorSalario">Valor Salário</label>
+					<h:inputText value="#{cadClienteMB.cliente.valorsalario}"
+						class="form-control" id="inputValorSalario"
+						placeholder="Valor de Salário" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+			</div>
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputResidencial">Telefone Residencial</label>
+					<h:inputText value="#{cadClienteMB.cliente.telefoneresidencial}"
+						class="form-control" id="inputResidencial"
+						placeholder="Telefone Residencial" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputcomercial">Telefone Comercial</label>
+					<h:inputText value="#{cadClienteMB.cliente.telefonecomercial}"
+						class="form-control" id="inputcomercial"
+						placeholder="Telefone Comercial" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputcelular">Telefone Celular</label>
+					<h:inputText value="#{cadClienteMB.cliente.telefonecelular}"
+						class="form-control" id="inputcelular" placeholder="Nome Mãe" />
+				</div>
+			</div>
+
+			<br />
+
+			<h6>Endereço</h6>
+			<hr/>
+			
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputCEP">CEP</label>
+
+					<h:panelGrid columns="2" style="width:100%;">
+						<h:inputText value="#{cadClienteMB.cliente.cep}"
+							class="form-control" id="inputCEP" placeholder="CEP" />
+						<p:commandLink id="btnConfirmar" value="Buscar"
+							update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado"
+							action="#{cadClienteMB.buscarendereco()}" ajax="false"
+							styleClass="btn btn-dark" />
+					</h:panelGrid>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputTipoLogradouro">Tipo Logradouro</label>
+					<h:inputText value="#{cadClienteMB.cliente.tipologradouro}"
+						class="form-control" id="inputTipoLogradouro"
+						placeholder="Tipo Logradouro" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputlogradouro">Logradouro</label>
+					<h:inputText value="#{cadClienteMB.cliente.logradouro}"
+						class="form-control" id="inputlogradouro" placeholder="Logradouro" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputNumero">Número</label>
+					<h:inputText value="#{cadClienteMB.cliente.numero}"
+						class="form-control" id="inputNumero" placeholder="Número" />
+				</div>
+			</div>
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="inputComplemento">Complemento</label>
+					<h:inputText value="#{cadClienteMB.cliente.complemento}"
+						class="form-control" id="inputComplemento" placeholder="CEP" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputBairro">Bairro</label>
+					<h:inputText value="#{cadClienteMB.cliente.bairro}"
+						class="form-control" id="inputBairro" placeholder="Bairro" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputCidade">Cidade</label>
+					<h:inputText value="#{cadClienteMB.cliente.cidade}"
+						class="form-control" id="inputCidade" placeholder="Cidade" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputUfEstado">UF - Estado</label>
+					<h:inputText value="#{cadClienteMB.cliente.ufestado}"
+						class="form-control" id="inputUfEstado" placeholder="UF Estado" />
+				</div>
+			</div>
+
+
+			<br />
+
+			<h6>Dados Bancarios</h6>
+			<hr/>
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label>Titular</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.titular}"
+						class="form-control" placeholder="Titular" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Cód. Banco</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.cdbanco}"
+						class="form-control" placeholder="Código do banco" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Agência</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.agencia}"
+						class="form-control" placeholder="Agência" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Dig. Agência</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.digitoagencia}"
+						class="form-control" placeholder="Digito da agência" />
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label>Tipo conta</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadClienteMB.dadosbancario.tipoconta}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
+						<f:selectItem itemLabel="Conta Corrente"
+							itemValue="Conta Corrente" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label>N° Conta</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.nconta}"
+						class="form-control" placeholder="Número da conta" />
+				</div>
+				<div class="form-group col-md-3">
+					<label>Dig. Conta</label>
+					<h:inputText value="#{cadClienteMB.dadosbancario.digitoconta}"
+						class="form-control" placeholder="Digito da conta" />
+				</div>
+			</div>
+
+
+
+			<br />
+			<hr />
+			<div align="center">
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					value="Cancelar" action="#{cadClienteMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-dark"
+					style="margin-left:2%;" value="Salvar"
+					action="#{cadClienteMB.salvar()}" />
+			</div>
+			<br />
+			<br />
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

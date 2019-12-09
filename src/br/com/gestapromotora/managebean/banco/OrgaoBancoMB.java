@@ -24,6 +24,7 @@ public class OrgaoBancoMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<OrgaoBanco> listaOrgao;
 	private Banco banco;
+	private OrgaoBanco orgaobanco;
 	
 	
 	@PostConstruct
@@ -31,7 +32,12 @@ public class OrgaoBancoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		banco = (Banco) session.getAttribute("banco");
+		orgaobanco = (OrgaoBanco) session.getAttribute("orgaobanco");
 		session.removeAttribute("banco");
+		session.removeAttribute("orgaobanco");
+		if (banco == null) {
+			banco = orgaobanco.getBanco();
+		}
 		gerarListaOrgao();
 	}
 
@@ -88,6 +94,21 @@ public class OrgaoBancoMB implements Serializable{
 	public String voltar(){
 		return "consBanco";
 	}
+	
+	
+	public String consultaCoeficiente(OrgaoBanco orgaoBanco) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("orgaobanco", orgaoBanco);
+		return "consCoeficiente";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

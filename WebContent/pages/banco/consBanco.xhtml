@@ -30,13 +30,13 @@
 					<h:outputText value="#{banco.nome}" />
 				</p:column>
 				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false" action="#{bancoMB.editar(banco)}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
 					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaos(banco)}" title="Orgãos Vinculados"
-						style="text-align: left;color:black;">
+						style="text-align: left;color:black;"> 
 						<span data-feather="archive"></span>
 					</p:commandLink>
 				</p:column>
