@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmConsultaBanco">
+			<h4>Consulta de Contrato</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+			<p:dataTable id="idTabelaContrato" var="cliente"
+				value="#{clienteMB.listaCliente}" style="border:none;"
+				class="tabelacontas" scrollRows="10" scrollable="true"
+				scrollHeight="300" selectionMode="single"
+				rowKey="#{cliente.idcliente}">
+
+
+				<p:column headerText="Código" sortBy="#{cliente.nome}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="Corretor" sortBy="#{cliente.nascimento}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.nascimento}" >
+						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{cliente.cpf}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				<p:column headerText="CPF" sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				<p:column headerText="Banco/Órgão" sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				<p:column headerText="Operação" sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				<p:column headerText="Situação" sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				<p:column headerText="Valor Parcela" sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				<p:column headerText="Data Pag." sortBy="#{cliente.rg}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.rg}" />
+				</p:column>
+				
+				<p:column headerText=""
+					style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+						style="text-align: left;color:black;">
+						<span data-feather="edit"></span>
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

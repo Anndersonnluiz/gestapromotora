@@ -95,6 +95,14 @@ public class CoeficienteMB implements Serializable{
 	}
 	
 	
+	public String novosValores(Coeficiente coeficiente) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("coeficiente", coeficiente);
+		return "consValoresCoeficiente";
+	}
+	
+	
 	
 	
 	

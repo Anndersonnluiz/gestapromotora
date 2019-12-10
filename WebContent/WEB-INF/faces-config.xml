@@ -129,6 +129,25 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
+			<from-outcome>cadValoresCoeficiente</from-outcome>
+			<to-view-id>pages/banco/cadValoresCoeficiente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consValoresCoeficiente</from-outcome>
+			<to-view-id>pages/banco/consValoresCoeficiente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
 			<from-outcome>cadCoeficiente</from-outcome>
 			<to-view-id>pages/banco/cadCoeficiente.xhtml</to-view-id>
 			<redirect />
