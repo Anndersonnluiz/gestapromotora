@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15749664519580" configfile="/gestapromotora/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2290" id="pf15749664723171" referenceLink="//@navigationRule.13/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130 pf15754836778060 pf15754836778061 pf15755581244370 pf15755581244371 pf15755657074004 pf15755657074005 pf15759067978860 pf15759067978861 pf15759067978862 pf15759966161870 pf15759966161871 pf15759966161872" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2290" id="pf15749664723171" referenceLink="//@navigationRule.17/@fromViewId|" outlinks="pf15749664723182 pf15749664723183 pf15750424029331 pf15752833665130 pf15754836778060 pf15754836778061 pf15755581244370 pf15755581244371 pf15755657074004 pf15755657074005 pf15759067978860 pf15759067978861 pf15759067978862 pf15759966161870 pf15759966161871 pf15759966161872 pf15760721247600 pf15760721247601" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf15749664723194" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15749664723182" path="index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="dashboard.xhtml" x="338" y="562" id="pf15749664723195" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15749664723183" path="dashboard.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/usuario/consUsuario.xhtml" x="338" y="946" id="pf15750424029342" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15750424029331" path="pages/usuario/consUsuario.xhtml"/>
@@ -13,10 +13,12 @@
   <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadOrgaoBanco.xhtml" x="338" y="3634" id="pf15755657074007" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" inlinks="pf15755657074005" path="pages/banco/cadOrgaoBanco.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/cliente/consCliente.xhtml" x="338" y="4018" id="pf15759067978874" referenceLink="//@navigationRule.10/@navigationCase.0/@toViewId|" inlinks="pf15759067978860" path="pages/cliente/consCliente.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/cliente/cadCliente.xhtml" x="338" y="4402" id="pf15759067978875" referenceLink="//@navigationRule.11/@navigationCase.0/@toViewId|" inlinks="pf15759067978861" path="pages/cliente/cadCliente.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consCoeficiente.xhtml" id="pf15759067978876" referenceLink="//@navigationRule.14/@navigationCase.0/@toViewId|" inlinks="pf15759067978862" path="pages/banco/consCoeficiente.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadCoeficiente.xhtml" id="pf15759067978877" referenceLink="//@navigationRule.15/@navigationCase.0/@toViewId|" inlinks="pf15759966161870" path="pages/banco/cadCoeficiente.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consValoresCoeficiente.xhtml" id="pf15759966161883" referenceLink="//@navigationRule.14/@navigationCase.0/@toViewId|" inlinks="pf15759966161871" path="pages/banco/consValoresCoeficiente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consCoeficiente.xhtml" id="pf15759067978876" referenceLink="//@navigationRule.12/@navigationCase.0/@toViewId|" inlinks="pf15759067978862" path="pages/banco/consCoeficiente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadCoeficiente.xhtml" id="pf15759067978877" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" inlinks="pf15759966161870" path="pages/banco/cadCoeficiente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/banco/consValoresCoeficiente.xhtml" id="pf15759966161883" referenceLink="//@navigationRule.16/@navigationCase.0/@toViewId|" inlinks="pf15759966161871" path="pages/banco/consValoresCoeficiente.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="pages/banco/cadValoresCoeficiente.xhtml" id="pf15759966161884" referenceLink="//@navigationRule.13/@navigationCase.0/@toViewId|" inlinks="pf15759966161872" path="pages/banco/cadValoresCoeficiente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/contrato/consContrato.xhtml" id="pf15760721247612" referenceLink="//@navigationRule.16/@navigationCase.0/@toViewId|" inlinks="pf15760721247600" path="pages/contrato/consContrato.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/contrato/cadContrato.xhtml" id="pf15760721247613" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" inlinks="pf15760721247601" path="pages/contrato/cadContrato.xhtml"/>
   <links id="pf15749664723182" target="pf15749664723194" source="pf15749664723171" outcome="index" redirect="true"/>
   <links id="pf15749664723183" target="pf15749664723195" source="pf15749664723171" outcome="dashboard" redirect="true"/>
   <links id="pf15750424029331" target="pf15750424029342" source="pf15749664723171" outcome="consUsuario" redirect="true"/>
@@ -33,4 +35,6 @@
   <links id="pf15759966161870" target="pf15759067978877" source="pf15749664723171" outcome="cadCoeficiente" redirect="true"/>
   <links id="pf15759966161871" target="pf15759966161883" source="pf15749664723171" outcome="consValoresCoeficiente" redirect="true"/>
   <links id="pf15759966161872" target="pf15759966161884" source="pf15749664723171" outcome="cadValoresCoeficiente" redirect="true"/>
+  <links id="pf15760721247600" target="pf15760721247612" source="pf15749664723171" outcome="consContrato" redirect="true"/>
+  <links id="pf15760721247601" target="pf15760721247613" source="pf15749664723171" outcome="cadContrato" redirect="true"/>
 </pageflow:Pageflow>

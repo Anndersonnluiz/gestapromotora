@@ -15,7 +15,7 @@ public class TipoColaboradorConverter implements Converter{
 	
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
 		@SuppressWarnings("unchecked")
-		List<Tipocolaborador> listaTipoColaborador = (List<Tipocolaborador>) arg1.getAttributes().get("listarPerfil");
+		List<Tipocolaborador> listaTipoColaborador = (List<Tipocolaborador>) arg1.getAttributes().get("listaTipoColaborador");
 	    if (listaTipoColaborador != null) {
 	        for (Tipocolaborador tipocolaborador : listaTipoColaborador) {
 	            if (tipocolaborador.getDescricao().equalsIgnoreCase(arg2)) {

@@ -20,6 +20,12 @@ public class ClienteFacade {
 		clienteDao = new ClienteDao();
 		return clienteDao.consultar(idusuario);
 	}
+	
+	public Cliente consultarCpf(String cpf) {
+		clienteDao = new ClienteDao();
+		return clienteDao.consultarCpf(cpf);
+	}
+
 
 	public List<Cliente> lista(String sql) {
 		clienteDao = new ClienteDao();

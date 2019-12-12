@@ -1,6 +1,7 @@
 package br.com.gestapromotora.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "contrato")
@@ -57,14 +60,37 @@ public class Contrato implements Serializable{
 	private float parceladivergente;
 	@Column(name = "valoroperacaodivergente")
 	private float valoroperacaodivergente;
+	@Column(name = "tipooperacao")
+	private String tipooperacao;
+	@Column(name = "assinadobanco")
+	private boolean assinadobanco;
+	@Column(name = "situacao")
+	private String situacao;
+	@Column(name = "secretaria")
+	private String secretaria;
 	@Column(name = "valorclientedivergente")
 	private float valorclientedivergente;
-	@JoinColumn(name = "coeficiente_idcoeficiente", referencedColumnName = "idcoeficiente")
+	@Column(name = "datacadastro")
+	@Temporal(TemporalType.DATE)
+	private Date datacadastro;
+	@Column(name = "matricula")
+	private String matricula;
+	@Column(name = "senha")
+	private String senha;
+	@Column(name = "senhacontracheque")
+	private String senhacontracheque;
+	@JoinColumn(name = "valorcoeficiente_idvalorcoeficiente", referencedColumnName = "idvalorcoeficiente")
 	@ManyToOne(optional = false)
-	private Coeficiente coeficiente;
+	private Valorescoeficiente valorescoeficiente;
 	@JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
 	@ManyToOne(optional = false)
 	private Cliente cliente;
+	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+	@ManyToOne(optional = false)
+	private Usuario usuario;
+	@JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
+	@ManyToOne(optional = false)
+	private Banco banco;
 	
 	
 	public Contrato() {
@@ -252,13 +278,13 @@ public class Contrato implements Serializable{
 	}
 
 
-	public Coeficiente getCoeficiente() {
-		return coeficiente;
+	public Valorescoeficiente getValorescoeficiente() {
+		return valorescoeficiente;
 	}
 
 
-	public void setCoeficiente(Coeficiente coeficiente) {
-		this.coeficiente = coeficiente;
+	public void setValorescoeficiente(Valorescoeficiente valorescoeficiente) {
+		this.valorescoeficiente = valorescoeficiente;
 	}
 
 
@@ -273,6 +299,106 @@ public class Contrato implements Serializable{
 	
 	
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getTipooperacao() {
+		return tipooperacao;
+	}
+
+
+	public void setTipooperacao(String tipooperacao) {
+		this.tipooperacao = tipooperacao;
+	}
+
+
+	public boolean isAssinadobanco() {
+		return assinadobanco;
+	}
+
+
+	public void setAssinadobanco(boolean assinadobanco) {
+		this.assinadobanco = assinadobanco;
+	}
+
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+
+	public String getSecretaria() {
+		return secretaria;
+	}
+
+
+	public void setSecretaria(String secretaria) {
+		this.secretaria = secretaria;
+	}
+
+
+	public Date getDatacadastro() {
+		return datacadastro;
+	}
+
+
+	public void setDatacadastro(Date datacadastro) {
+		this.datacadastro = datacadastro;
+	}
+
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+
+	public String getSenhacontracheque() {
+		return senhacontracheque;
+	}
+
+
+	public void setSenhacontracheque(String senhacontracheque) {
+		this.senhacontracheque = senhacontracheque;
+	}
+
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

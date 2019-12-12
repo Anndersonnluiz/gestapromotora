@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmConsultaBanco">
+			<h4>Consulta de Valores Coeficiente: <p:outputLabel value="#{selecioneCoeficienteMB.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}"/> >
+				<p:outputLabel value="#{selecioneCoeficienteMB.contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}"/> >
+				 <p:outputLabel value="#{selecioneCoeficienteMB.contrato.valorescoeficiente.coeficiente.nometabela}"/></h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+			<div align="right">
+				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{selecioneCoeficienteMB.voltar()}" />
+			</div>
+			<p:dataTable id="idTabelaBanco" var="valores"
+				value="#{selecioneCoeficienteMB.listaValores}" style="border:none;"
+				class="tabelacontas" scrollRows="10" scrollable="true"
+				scrollHeight="300" selectionMode="single"
+				rowKey="#{valores.idvalorescoeficiente}">
+
+
+				<p:column headerText="Nome Tabela" sortBy="#{valores.coeficiente.nometabela}"
+					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.coeficiente.nometabela}" />
+				</p:column>
+				
+				<p:column headerText="Prazo" sortBy="#{valores.prazo}"
+					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.prazo}" />
+				</p:column>
+
+				<p:column headerText="Coeficiente" sortBy="#{valores.coeficientevalor}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.coeficientevalor}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Outros Recebimentos" sortBy="#{valores.outrosrecebimentos}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.outrosrecebimentos}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Inicio" sortBy="#{valores.dataini}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.dataini}" >
+						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Fim" sortBy="#{valores.datafin}"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.datafin}" >
+						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText=""
+					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					<p:commandLink ajax="false" action="#{selecioneCoeficienteMB.selecionarCoeficiente(valores)}"
+						style="text-align: left;color:black;">
+						<span data-feather="check"></span>
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

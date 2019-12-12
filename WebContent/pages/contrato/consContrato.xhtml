@@ -11,50 +11,49 @@
 			<h4>Consulta de Contrato</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<p:dataTable id="idTabelaContrato" var="cliente"
-				value="#{clienteMB.listaCliente}" style="border:none;"
+			<p:dataTable id="idTabelaContrato" var="contrato"
+				value="#{contratoMB.listaContrato}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"
-				rowKey="#{cliente.idcliente}">
+				rowKey="#{contrato.idcontrato}">
 
 
-				<p:column headerText="Código" sortBy="#{cliente.nome}"
+				<p:column headerText="Código" sortBy="#{contrato.idcontrato}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.nome}" />
+					<h:outputText value="#{contrato.idcontrato}" />
 				</p:column>
-				<p:column headerText="Corretor" sortBy="#{cliente.nascimento}"
+				<p:column headerText="Corretor" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.nascimento}" >
-						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					<h:outputText value="#{contrato.usuario.nome}" >
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Nome" sortBy="#{cliente.cpf}"
+				<p:column headerText="Nome" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{cliente.cpf}" />
 				</p:column>
-				<p:column headerText="CPF" sortBy="#{cliente.rg}"
+				<p:column headerText="CPF" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{cliente.rg}" />
 				</p:column>
-				<p:column headerText="Banco/Órgão" sortBy="#{cliente.rg}"
+				<p:column headerText="Banco/Órgão"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.coeficiente.orgaobanco.banco.nome}/#{contrato.coeficiente.orgaobanco.nome}" />
+				</p:column>
+				<p:column headerText="Operação" 
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#" />
+				</p:column>
+				<p:column headerText="Situação" sortBy="#"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#" />
+				</p:column>
+				<p:column headerText="Valor Parcela" sortBy="#{contrato.valorparcela}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{cliente.rg}" />
 				</p:column>
-				<p:column headerText="Operação" sortBy="#{cliente.rg}"
+				<p:column headerText="Data Pag." sortBy="#"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
-				</p:column>
-				<p:column headerText="Situação" sortBy="#{cliente.rg}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
-				</p:column>
-				<p:column headerText="Valor Parcela" sortBy="#{cliente.rg}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
-				</p:column>
-				<p:column headerText="Data Pag." sortBy="#{cliente.rg}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
+					<h:outputText value="#" />
 				</p:column>
 				
 				<p:column headerText=""
