@@ -60,8 +60,6 @@ public class Contrato implements Serializable{
 	private float parceladivergente;
 	@Column(name = "valoroperacaodivergente")
 	private float valoroperacaodivergente;
-	@Column(name = "tipooperacao")
-	private String tipooperacao;
 	@Column(name = "assinadobanco")
 	private boolean assinadobanco;
 	@Column(name = "situacao")
@@ -91,6 +89,9 @@ public class Contrato implements Serializable{
 	@JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
 	@ManyToOne(optional = false)
 	private Banco banco;
+	@JoinColumn(name = "tipooperacao_idtipooperacao", referencedColumnName = "idtipooperacao")
+	@ManyToOne(optional = false)
+	private Tipooperacao tipooperacao;
 	
 	
 	public Contrato() {
@@ -309,12 +310,12 @@ public class Contrato implements Serializable{
 	}
 
 
-	public String getTipooperacao() {
+	public Tipooperacao getTipooperacao() {
 		return tipooperacao;
 	}
 
 
-	public void setTipooperacao(String tipooperacao) {
+	public void setTipooperacao(Tipooperacao tipooperacao) {
 		this.tipooperacao = tipooperacao;
 	}
 

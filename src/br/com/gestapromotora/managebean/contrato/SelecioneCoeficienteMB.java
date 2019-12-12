@@ -79,7 +79,14 @@ public class SelecioneCoeficienteMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		contrato.setValorescoeficiente(valorescoeficiente);
+		if (contrato.getTipooperacao().isMargem()) {
+			contrato.setValoroperacao(contrato.getParcela()/valorescoeficiente.getCoeficientevalor());
+		}else {
+			contrato.setValoroperacao((contrato.getParcela()/valorescoeficiente.getCoeficientevalor())-contrato.getValorquitar());
+		}
+		contrato.setValorcliente(contrato.getValoroperacao());
 		session.setAttribute("contrato", contrato);
+		session.setAttribute("orgaobanco", orgaobanco);
 		return "cadContrato";
 	}
 	

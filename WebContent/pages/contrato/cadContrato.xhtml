@@ -79,51 +79,17 @@
 				</div>
 				<div class="form-group col-md-4">
 					<label for="inputRG">Tipo de Operação</label>
-					<h:selectOneMenu style="width: 100%;"
+					<h:selectOneMenu id="tipooperacao" style="width: 100%;"
 						value="#{cadContratoMB.contrato.tipooperacao}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Abertura de conta"
-							itemValue="Abertura de conta" />
-						<f:selectItem itemLabel="Cartão c/saque"
-							itemValue="Cartao c/saque" />
-						<f:selectItem itemLabel="Cartão c/saque complementar à vista"
-							itemValue="Cartao c/saque complementar a vista" />
-						<f:selectItem itemLabel="Cartão c/saque complementar parcelado"
-							itemValue="Cartao c/saque complementar parcelado" />
-						<f:selectItem itemLabel="Cartão c/saque parcelado"
-							itemValue="Cartao c/saque parcelado" />
-						<f:selectItem itemLabel="Cartão s/saque"
-							itemValue="Cartao s/saque" />
-						<f:selectItem itemLabel="Compra dívida" itemValue="Compra divida" />
-						<f:selectItem itemLabel="Compra dívida + Margem Livre"
-							itemValue="Compra Divida + Margem Livre" />
-						<f:selectItem itemLabel="Compra de dívida + Refinanciamento"
-							itemValue="Compra de divida + Refinanciamento" />
-						<f:selectItem
-							itemLabel="Compra de dívida + Refinanciamento + Margem Livre"
-							itemValue="Compra de divida + Refinanciamento + Margem Livre" />
-						<f:selectItem itemLabel="Empréstimo Complementar INSS"
-							itemValue="Emprestimo Complementar INSS" />
-						<f:selectItem itemLabel="Margem Livre (Novo)"
-							itemValue="Margem Livre (Novo)" />
-						<f:selectItem itemLabel="Margem Livre + Refinanciamento"
-							itemValue="Margem Livre + Refinanciamento" />
-						<f:selectItem itemLabel="Portabilidade" itemValue="Portabilidade" />
-						<f:selectItem itemLabel="Portabilidade + Margem Livre"
-							itemValue="Portabilidade + Margem Livre" />
-						<f:selectItem itemLabel="Portabilidade + Margem Livre + Refin"
-							itemValue="Portabilidade + Margem Livre + Refin" />
-						<f:selectItem itemLabel="Portabilidade + Refin"
-							itemValue="Portabilidade + Refin" />
-						<f:selectItem itemLabel="Refinanciamento"
-							itemValue="Refinanciamento" />
-						<f:selectItem itemLabel="Refinanciamento da Portabilidade"
-							itemValue="Refinanciamento da Portabilidade" />
-						<f:selectItem
-							itemLabel="Refinanciamento da Portabilidade + Margem Livre"
-							itemValue="Refinanciamento da Portabilidade + Margem Livre" />
-						<f:selectItem itemLabel="Refinanciamento Rec"
-							itemValue="Refinanciamento Rec" />
+						converter="TipoOperacaoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadContratoMB.listaTipoOperacao}"
+							var="tipoOperacaoSelecionado"
+							itemLabel="#{tipoOperacaoSelecionado.descricao}"
+							itemValue="#{tipoOperacaoSelecionado}" />
+						<f:attribute name="listaTipoOperacao"
+							value="#{cadContratoMB.listaTipoOperacao}" />
 					</h:selectOneMenu>
 				</div>
 			</div>
@@ -402,23 +368,28 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label>Parcelas Pagas</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
+					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}" immediate="true"
 						id="parcelaspagas" class="form-control"
-						placeholder="Parcelas Pagas">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						placeholder="Parcelas Pagas"> 
+						<f:ajax event="blur" render="parcelaspagas"/>
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="parcelasrestantes" />
+						<f:ajax event="blur" render="percentualpago" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label>Total Parcelas</label>
-					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}"
+					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}" immediate="true"
 						id="totalparcelas" class="form-control"
 						placeholder="Parcelas Pagas">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<f:ajax event="blur" render="totalparcelas"/>
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="parcelasrestantes" />
+						<f:ajax event="blur" render="percentualpago" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label>% Pago</label>
-					<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
+					<h:inputText value="#{cadContratoMB.contrato.percentualpago}" immediate="true"
 						id="percentualpago" disabled="true" class="form-control"
 						placeholder="Percentual Pago">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -432,7 +403,6 @@
 					<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
 						id="parcelasrestantes" disabled="true" class="form-control"
 						placeholder="Parcelas Restantes">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
@@ -479,8 +449,8 @@
 				<div class="form-group col-md-3">
 					<label>Coeficiente e Prazo</label>
 					<div>
-						<p:commandLink id="btnCoeficiente" value="Selecionar"
-							action="#{cadContratoMB.selecionarCoeficiente()}" ajax="false"
+						<h:commandLink id="btnCoeficiente" value="Selecionar"
+							action="#{cadContratoMB.selecionarCoeficiente()}" 
 							styleClass="btn btn-dark" />
 					</div>
 				</div>
@@ -536,7 +506,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label>Valor Operação</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcela}"
+					<h:inputText value="#{cadContratoMB.contrato.valoroperacao}"
 						id="valoroperacao" disabled="true" class="form-control"
 						placeholder="Parcela">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -544,7 +514,7 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label>Valor Cliente</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcela}"
+					<h:inputText value="#{cadContratoMB.contrato.valorcliente}"
 						id="valorcliente" disabled="true" class="form-control"
 						placeholder="Parcela">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -572,7 +542,7 @@
 				<p:commandLink ajax="false" styleClass="btn btn-danger"
 					value="Cancelar" action="#" />
 				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					style="margin-left:2%;" value="Salvar" action="#" />
+					style="margin-left:2%;" value="Salvar" action="#{cadContratoMB.salvar()}" />
 			</div>
 			<br />
 			<br />

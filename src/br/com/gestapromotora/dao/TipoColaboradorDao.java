@@ -1,6 +1,5 @@
 package br.com.gestapromotora.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +11,7 @@ import br.com.gestapromotora.model.Tipocolaborador;
 
 public class TipoColaboradorDao {
 
-	public Tipocolaborador salvar(Tipocolaborador tipocolaborador) throws SQLException {
+	public Tipocolaborador salvar(Tipocolaborador tipocolaborador)  {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
@@ -24,7 +23,7 @@ public class TipoColaboradorDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Tipocolaborador> listar(String sql) throws SQLException {
+	public List<Tipocolaborador> listar(String sql)  {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery(sql);
@@ -33,7 +32,7 @@ public class TipoColaboradorDao {
 		return lista;
 	}
 
-	public void excluir(int idtipocolaborador) throws SQLException {
+	public void excluir(int idtipocolaborador)  {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();
 		EntityTransaction tx = manager.getTransaction();
