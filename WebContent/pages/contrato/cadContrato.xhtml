@@ -371,20 +371,18 @@
 					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}" immediate="true"
 						id="parcelaspagas" class="form-control"
 						placeholder="Parcelas Pagas"> 
-						<f:ajax event="blur" render="parcelaspagas"/>
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="parcelasrestantes" />
-						<f:ajax event="blur" render="percentualpago" />
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="percentualpago" />
+						<f:ajax event="blur" render="parcelasrestantes" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label>Total Parcelas</label>
-					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}" immediate="true"
+					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}" onchange="atualizar();"
 						id="totalparcelas" class="form-control"
 						placeholder="Parcelas Pagas">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-						<f:ajax event="blur" render="totalparcelas"/>
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="parcelasrestantes" />
-						<f:ajax event="blur" render="percentualpago" />
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="percentualpago" />
+						<f:ajax event="blur" render="parcelasrestantes" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
@@ -449,9 +447,10 @@
 				<div class="form-group col-md-3">
 					<label>Coeficiente e Prazo</label>
 					<div>
-						<h:commandLink id="btnCoeficiente" value="Selecionar"
+						<p:commandLink id="btnCoeficiente" value="Selecionar" ajax="false" 
 							action="#{cadContratoMB.selecionarCoeficiente()}" 
-							styleClass="btn btn-dark" />
+							styleClass="btn btn-dark" >
+						</p:commandLink>
 					</div>
 				</div>
 

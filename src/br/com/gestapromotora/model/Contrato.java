@@ -77,7 +77,17 @@ public class Contrato implements Serializable{
 	private String senha;
 	@Column(name = "senhacontracheque")
 	private String senhacontracheque;
-	@JoinColumn(name = "valorcoeficiente_idvalorcoeficiente", referencedColumnName = "idvalorcoeficiente")
+	@Column(name = "bloqueio")
+	private boolean bloqueio;
+	@Column(name = "fisico")
+	private boolean fisico;
+	@Column(name = "digitado")
+	private boolean digitado;
+	@Column(name = "descricaobloqueio")
+	private String descricaobloqueio;
+	@Column(name = "descricaodigitado")
+	private String descricaodigitado;
+	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
 	@JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
@@ -95,7 +105,9 @@ public class Contrato implements Serializable{
 	
 	
 	public Contrato() {
-	
+		bloqueio = false;
+		digitado = false;
+		fisico = false;
 	}
 
 
@@ -397,6 +409,56 @@ public class Contrato implements Serializable{
 
 	public void setBanco(Banco banco) {
 		this.banco = banco;
+	}
+
+
+	public boolean isBloqueio() {
+		return bloqueio;
+	}
+
+
+	public void setBloqueio(boolean bloqueio) {
+		this.bloqueio = bloqueio;
+	}
+
+
+	public boolean isFisico() {
+		return fisico;
+	}
+
+
+	public void setFisico(boolean fisico) {
+		this.fisico = fisico;
+	}
+
+
+	public boolean isDigitado() {
+		return digitado;
+	}
+
+
+	public void setDigitado(boolean digitado) {
+		this.digitado = digitado;
+	}
+
+
+	public String getDescricaobloqueio() {
+		return descricaobloqueio;
+	}
+
+
+	public void setDescricaobloqueio(String descricaobloqueio) {
+		this.descricaobloqueio = descricaobloqueio;
+	}
+
+
+	public String getDescricaodigitado() {
+		return descricaodigitado;
+	}
+
+
+	public void setDescricaodigitado(String descricaodigitado) {
+		this.descricaodigitado = descricaodigitado;
 	}
 
 

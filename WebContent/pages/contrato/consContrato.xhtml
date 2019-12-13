@@ -18,8 +18,8 @@
 				rowKey="#{contrato.idcontrato}">
 
 
-				<p:column headerText="Código" sortBy="#{contrato.idcontrato}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<p:column headerText="Código" 
+					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.idcontrato}" />
 				</p:column>
 				<p:column headerText="Corretor" 
@@ -29,27 +29,29 @@
 				</p:column>
 				<p:column headerText="Nome" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.cpf}" />
+					<h:outputText value="#{contrato.cliente.nome}" />
 				</p:column>
 				<p:column headerText="CPF" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
+					<h:outputText value="#{contrato.cliente.rg}" />
 				</p:column>
 				<p:column headerText="Banco/Órgão"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.coeficiente.orgaobanco.banco.nome}/#{contrato.coeficiente.orgaobanco.nome}" />
+					<h:outputText value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}/#{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
 				</p:column>
 				<p:column headerText="Operação" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.tipooperacao.descricao}" />
 				</p:column>
-				<p:column headerText="Situação" sortBy="#"
+				<p:column headerText="Situação" 
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.situacao}" />
 				</p:column>
 				<p:column headerText="Valor Parcela" sortBy="#{contrato.valorparcela}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{contrato.parcela}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Data Pag." sortBy="#"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -58,45 +60,46 @@
 				
 				<p:column headerText=""
 					style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
-						style="text-align: left;color:black;">
+					<p:commandLink ajax="false" action="#{contratoMB.editar(contrato)}"
+						style="text-align: left;color:black;" title="Editar">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#" title="Arquivos"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="folder-plus"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+					<p:commandLink ajax="false" action="#{contratoMB.bloquearEdicao(contrato)}" update=":frmConsultaBanco:growl, idTabelaContrato" 
+						style="text-align: left;color:black;" title="Bloqueio de contrato">
+						<span data-feather="#{contrato.descricaobloqueio}"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+					<p:commandLink ajax="false" action="#{contratoMB.digitarEdicao(contrato)}" update=":frmConsultaBanco:growl, idTabelaContrato" 
+						style="text-align: left;color:black;"  title="Digitalização">
+						<span data-feather="#{contrato.descricaodigitado}"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="check"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="alert-triangle"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="dollar-sign"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="briefcase"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="printer"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
+						<span data-feather="refresh-cw"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>

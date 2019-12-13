@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
@@ -14,6 +16,7 @@ import br.com.gestapromotora.facade.OrgaoBancoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -48,6 +51,45 @@ public class ContratoMB implements Serializable{
 		if (listaContrato == null) {
 			listaContrato = new ArrayList<Contrato>();
 		}
+	}
+	
+	
+	public String editar(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
+		return "cadContrato";
+	}
+	
+	
+	public void bloquearEdicao(Contrato contrato) {
+		if (contrato.isBloqueio()) {
+			contrato.setBloqueio(false);
+			contrato.setDescricaobloqueio("unlock");
+			Mensagem.lancarMensagemInfo("Desbloqueio de contrato feito com sucesso", "");
+		}else {
+			contrato.setBloqueio(true);
+			contrato.setDescricaobloqueio("lock");
+			Mensagem.lancarMensagemInfo("Bloqueio de contrato feito com sucesso", "");
+		}
+		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato = contratoFacade.salvar(contrato);
+	}
+	
+	
+	public void digitarEdicao(Contrato contrato) {
+		if (contrato.isDigitado()) {
+			contrato.setDigitado(false);
+			contrato.setDescricaodigitado("file");
+			Mensagem.lancarMensagemInfo("Desbloqueio de contrato desfeita com sucesso", "");
+		}else {
+			contrato.setDigitado(true);
+			contrato.setDescricaodigitado("file-text");
+			Mensagem.lancarMensagemInfo("Digitação de contrato feito com sucesso", "");
+		}
+		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato = contratoFacade.salvar(contrato);
 	}
 	
 	

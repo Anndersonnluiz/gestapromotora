@@ -267,6 +267,7 @@ public class CadContratoMB implements Serializable {
 		contrato.setCliente(salvarCliente());
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato.setSituacao("Agurdando Solicitação Digitalização");
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
 	}
