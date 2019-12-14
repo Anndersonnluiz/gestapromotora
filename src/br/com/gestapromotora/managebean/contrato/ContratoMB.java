@@ -10,12 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
-import br.com.gestapromotora.facade.OrgaoBancoFacade;
-import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
-import br.com.gestapromotora.model.OrgaoBanco;
 import br.com.gestapromotora.util.Mensagem;
 
 @Named
@@ -92,6 +88,13 @@ public class ContratoMB implements Serializable{
 		contrato = contratoFacade.salvar(contrato);
 	}
 	
+	
+	public String malote(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "cadMaloteContrato";
+	}
 	
 	
 	
