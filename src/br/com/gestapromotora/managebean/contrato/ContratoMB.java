@@ -97,6 +97,44 @@ public class ContratoMB implements Serializable{
 	}
 	
 	
+	public String historicopendencia(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "cadHistoricoPendencia";
+	}
+	
+	
+	public void entregueFisico(Contrato contrato) {
+		if (contrato.isFisico()) {
+			contrato.setFisico(false);
+			contrato.setDescricaofisico("x-circle");
+			Mensagem.lancarMensagemInfo("Contrato não entregue", "");
+		}else {
+			contrato.setFisico(true);
+			contrato.setDescricaofisico("check");
+			Mensagem.lancarMensagemInfo("Contrato Entregue", "");
+		}
+		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato = contratoFacade.salvar(contrato);
+	}
+	
+	
+	public String trocatTitular(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "trocarTitular";
+	}
+	
+	
+	public String financeiro(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "consFinanceiro";
+	}
+	
 	
 	
 

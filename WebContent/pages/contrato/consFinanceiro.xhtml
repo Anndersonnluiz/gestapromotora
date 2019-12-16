@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmCadastroUsuario">
+			<h4>Cadastro Financeiro</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="ade">ADE</label>
+					<h:inputText class="form-control" id="ade" 
+						value="#{financeiroMB.financeirocontrato.ade}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="dataade">Data ADE</label>
+					<h:inputText class="form-control" id="dataade" 
+						value="#{financeiroMB.financeirocontrato.dataade}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="numinternobanco">Número interno do banco</label>
+					<h:inputText class="form-control" id="numinternobanco" 
+						value="#{financeiroMB.financeirocontrato.numerointerno}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="datapagamento">Data pagamento</label>
+					<h:inputText class="form-control" id="datapagamento" 
+						value="#{financeiroMB.financeirocontrato.datapagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:inputText>
+				</div>
+			</div>
+			<div class="form-row">
+				
+				<div class="form-group col-md-3">
+					<label for="situacao">Status do contrato</label>
+					<h:selectOneMenu style="width: 100%;" 
+						value="#{financeiroMB.financeirocontrato.statuscontrato}"
+						styleClass="form-control" id="situacao">
+						<f:selectItem itemLabel="Aberto" itemValue="Aberto" />
+						<f:selectItem itemLabel="Pago" itemValue="Pago" />
+						<f:selectItem itemLabel="Cancelado" itemValue="Cancelado" />
+						<f:selectItem itemLabel="Pago - Creidito Enviado" itemValue="Pago - Credito Enviado" />
+						<f:selectItem itemLabel="Cartão/Contra Criada" itemValue="Cartao/Conta Criada" />
+						<f:selectItem itemLabel="Pré - Consistência" itemValue="Pre - Consistencia" />
+						<f:selectItem itemLabel="Desistência" itemValue="Desistencia" />
+						<f:selectItem itemLabel="Aguardando Retorno" itemValue="Aguardando Retorno" />
+						<f:selectItem itemLabel="Prevista" itemValue="Prevista" />
+						<f:selectItem itemLabel="Proposta Consistência Liberar" itemValue="Proposta Consistencia Liberar" />
+						<f:selectItem itemLabel="Portabilidade Finalizada" itemValue="Portabilidade Finalizada" />
+						<f:selectItem itemLabel="Solicitado" itemValue="Solicitado" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="observacao">Observação</label>
+					<h:inputText class="form-control" id="observacao" 
+						value="#{financeiroMB.financeirocontrato.observacao}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>.</label>
+					<div>
+						<p:commandLink ajax="false" styleClass="btn btn-dark"
+							style="margin-left:2%;" value="Confirmar"
+							action="#{financeiroMB.salvarFinanceiro()}" update="idTabelaFinanceiro, ade, dataade,
+							numinternobanco, datapagamento, situacao, observacao"/>
+					</div>
+				</div>
+			</div>
+			<br />
+			
+			<p:dataTable id="idTabelaFinanceiro" var="financeiro"
+				value="#{financeiroMB.listaFinanceiro}" style="border:none;"
+				class="tabelacontas" scrollRows="10" scrollable="true"
+				scrollHeight="300" selectionMode="single"  
+				rowKey="#{financeiro.idfinanceirocontrato}">
+				
+				<p:column headerText="ADE" sortBy="#{financeiro.ade}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.ade}" />
+				</p:column>
+				<p:column headerText="Data ADE" sortBy="#{financeiro.dataade}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.dataade}" >
+						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Núm interno banco" sortBy="#{financeiro.numerointerno}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.numerointerno}" />
+				</p:column>
+				<p:column headerText="Data Pagamento" sortBy="#{financeiro.datapagamento}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.datapagamento}" >
+						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Status" sortBy="#{financeiro.statuscontrato}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.statuscontrato}" />
+				</p:column>
+				<p:column headerText="Observação" sortBy="#{financeiro.observacao}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.observacao}" />
+				</p:column>
+				<p:column headerText="Colaborador" sortBy="#{financeiro.usuario.nome}"
+					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{financeiro.usuario.nome}" />
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -17,48 +17,47 @@
 				<div class="form-group col-md-3">
 					<label for="inputNome">Situação</label>
 					<h:selectOneMenu style="width: 100%;"
-						value="#{cadMaloteContratoMB.malotecontrato.malote}"
+						value="#{cadHistoricoPendenciaMB.historicopendencia.situacao}"
 						styleClass="form-control">
-						<f:selectItem itemLabel="Aberto" itemValue="Aberto" />
-						<f:selectItem itemLabel="Enviado"
-							itemValue="Enviado" />
+						<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
+						<f:selectItem itemLabel="Verificado" itemValue="Verificado" />
+						
 					</h:selectOneMenu>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-6">
 					<label for="razaopendencia">Razão da Pendência</label>
-					<h:inputText class="form-control" id="razaopendencia" disabled="true"
-						value="#">
+					<h:inputText class="form-control" id="razaopendencia" 
+						value="#{cadHistoricoPendenciaMB.historicopendencia.razaopendencia}">
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label for="datacadastro">.</label>
-
-					<p:commandLink ajax="false" styleClass="btn btn-dark"
-						style="margin-left:2%;" value="Confirmar"
-						action="#{cadMaloteContratoMB.salvarMalote()}" update="idTabelaMalote, datacadastro, inputNome"/>
+					<div>
+						<p:commandLink ajax="false" styleClass="btn btn-dark"
+							style="margin-left:2%;" value="Confirmar"
+							action="#{cadHistoricoPendenciaMB.salvarPendencia()}" update="idTabelaPendencia, razaopendencia, inputNome"/>
+					</div>
 				</div>
 			</div>
 			<br />
 			
-			<p:dataTable id="idTabelaMalote" var="malote"
-				value="#{cadMaloteContratoMB.listaMaloteContrato}" style="border:none;"
+			<p:dataTable id="idTabelaPendencia" var="pendencia"
+				value="#{cadHistoricoPendenciaMB.listaHistoricoPendencia}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"  
-				rowKey="#{malote.idmalotecontrato}">
+				rowKey="#{pendencia.idhistoricopendencia}">
 
-				<p:column headerText="Malote" sortBy="#{malote.malote}"
+				<p:column headerText="Situação" sortBy="#{pendencia.situacao}"
 					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{malote.malote}" />
+					<h:outputText value="#{pendencia.situacao}" />
 				</p:column>
-				<p:column headerText="Data Envio" sortBy="#{malote.dataenvio}"
+				<p:column headerText="Razão Pendência" sortBy="#{pendencia.razaopendencia}"
 					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{malote.dataenvio}" >
-						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-					</h:outputText>
+					<h:outputText value="#{pendencia.razaopendencia}" />
 				</p:column>
-				<p:column headerText="Colaborador" sortBy="#{malote.usuario.nome}"
+				<p:column headerText="Colaborador" sortBy="#{pendencia.usuario.nome}"
 					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{malote.usuario.nome}" />
+					<h:outputText value="#{pendencia.usuario.nome}" />
 				</p:column>
 			</p:dataTable>
 

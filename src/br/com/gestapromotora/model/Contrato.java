@@ -87,6 +87,11 @@ public class Contrato implements Serializable{
 	private String descricaobloqueio;
 	@Column(name = "descricaodigitado")
 	private String descricaodigitado;
+	@Column(name = "datapagamento")
+	@Temporal(TemporalType.DATE)
+	private Date datapagamento;
+	@Column(name = "descricaofisico")
+	private String descricaofisico;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -459,6 +464,26 @@ public class Contrato implements Serializable{
 
 	public void setDescricaodigitado(String descricaodigitado) {
 		this.descricaodigitado = descricaodigitado;
+	}
+
+
+	public Date getDatapagamento() {
+		return datapagamento;
+	}
+
+
+	public void setDatapagamento(Date datapagamento) {
+		this.datapagamento = datapagamento;
+	}
+
+
+	public String getDescricaofisico() {
+		return descricaofisico;
+	}
+
+
+	public void setDescricaofisico(String descricaofisico) {
+		this.descricaofisico = descricaofisico;
 	}
 
 

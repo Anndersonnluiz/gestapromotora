@@ -208,6 +208,36 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadHistoricoPendencia</from-outcome>
+			<to-view-id>pages/contrato/cadHistoricoPendencia.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>trocarTitular</from-outcome>
+			<to-view-id>pages/contrato/trocarTitular.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFinanceiro</from-outcome>
+			<to-view-id>pages/contrato/consFinanceiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
     
 	<application>
         <action-listener>

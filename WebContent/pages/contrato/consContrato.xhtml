@@ -55,7 +55,10 @@
 				</p:column>
 				<p:column headerText="Data Pag." sortBy="#"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.datapagamento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</p:column>
 				
 				<p:column headerText=""
@@ -76,15 +79,15 @@
 						style="text-align: left;color:black;"  title="Digitalização">
 						<span data-feather="#{contrato.descricaodigitado}"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false" action="#{contratoMB.entregueFisico(contrato)}"  update=":frmConsultaBanco:growl, idTabelaContrato" 
 						style="text-align: left;color:black;">
-						<span data-feather="check"></span>
+						<span data-feather="#{contrato.descricaofisico}"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false" action="#{contratoMB.historicopendencia(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="alert-triangle"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false" action="#{contratoMB.financeiro(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="dollar-sign"></span>
 					</p:commandLink>
@@ -97,7 +100,7 @@
 						style="text-align: left;color:black;">
 						<span data-feather="printer"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false" action="#{contratoMB.trocatTitular(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="refresh-cw"></span>
 					</p:commandLink>
