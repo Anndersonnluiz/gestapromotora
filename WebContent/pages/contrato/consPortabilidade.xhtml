@@ -14,76 +14,98 @@
 			<div align="right">				
 				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#" />
 			</div>
-			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
-				value="#" style="border:none;"
+			<p:dataTable id="idTabelaPortabilidade" var="contrato" editable="true"
+				value="#{portabilidadeMB.listaContrato}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"
-				rowKey="#">
+				rowKey="#{contrato.idcontrato}">
+
+				<p:ajax event="rowEdit" update=":frmConsultaBanco:growl, idTabelaPortabilidade" listener="#{portabilidadeMB.salvarSituacao}"/>
+				<p:ajax event="rowEditCancel" update=":frmConsultaBanco:growl" />
 
 
-				<p:column headerText="Cod Contrato" sortBy="#{coeficiente.nometabela}"
+				<p:column headerText="Código"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.idcontrato}" />
+				</p:column>
+				<p:column headerText="ADE"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#" />
 				</p:column>
-				<p:column headerText="ADE" sortBy="#{coeficiente.nomeproduto}"
+				<p:column headerText="Colaborador"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.usuario.nome}" />
 				</p:column>
-				<p:column headerText="Colaborador" sortBy="#{coeficiente.tipotabela}"
-					style="width:7%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Loja/Sala" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="Loja/Sala"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.usuario.sala}" />
 				</p:column>
-				<p:column headerText="CPF" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="CPF"
 					style="width:13%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{contrato.cliente.cpf}" />
 				</p:column>
-				<p:column headerText="Nome do Cliente" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="Nome do Cliente"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.cliente.nome}" />
+				</p:column>
+				<p:column headerText="Banco/Órgão"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText
+						value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}/
+						#{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
+				</p:column>
+				<p:column headerText="Operação"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.tipooperacao.descricao}" />
+				</p:column>
+				<p:column headerText="Digitado Corretor"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<span data-feather="#{contrato.descricaodigitado}"></span>
+				</p:column>
+				<p:column headerText="Valor Base"
+					sortBy="#{coeficiente.codigotabela}"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.parcela}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Situação"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{contrato.situacao}" />	
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu style="width: 100%;"
+								value="#{contrato.situacao}"
+								styleClass="form-control">
+								<f:selectItem itemLabel="Aguardando Digitação" itemValue="Aguardando Digitacao" />
+								<f:selectItem itemLabel="Contrato Cancelado"
+									itemValue="Contrato Cancelado" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Última Mudança de Situação"
+					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.ultimamudancasituacao}" />
+				</p:column>
+				<p:column headerText="Última Verificação"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#" />
 				</p:column>
-				<p:column headerText="Banco/Órgão" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+				<p:column headerText=""
+					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<p:rowEditor/>
 				</p:column>
-				<p:column headerText="Operação" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Digitado Corretor" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Valor Base" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Última Mudança de Situação" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Última Verificação" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Ações" sortBy="#{coeficiente.codigotabela}"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
 						<span data-feather="refresh-cw"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
-						style="text-align: left;color:black;">
-						<span data-feather="arrow-right"></span>
-					</p:commandLink>
+					
 					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
 						<span data-feather="eye"></span>

@@ -92,6 +92,9 @@ public class Contrato implements Serializable{
 	private Date datapagamento;
 	@Column(name = "descricaofisico")
 	private String descricaofisico;
+	@Column(name = "ultimamudancasituacao")
+	@Temporal(TemporalType.DATE)
+	private Date ultimamudancasituacao;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -484,6 +487,16 @@ public class Contrato implements Serializable{
 
 	public void setDescricaofisico(String descricaofisico) {
 		this.descricaofisico = descricaofisico;
+	}
+
+
+	public Date getUltimamudancasituacao() {
+		return ultimamudancasituacao;
+	}
+
+
+	public void setUltimamudancasituacao(Date ultimamudancasituacao) {
+		this.ultimamudancasituacao = ultimamudancasituacao;
 	}
 
 
