@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmConsultaBanco">
+			<h4>Consulta de Ajuda</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+			
+			<p:dataTable id="idTabelaAjuda" var="ajuda"
+				value="#{ajudaMB.listaAjuda}" style="border:none;"
+				class="tabelacontas" scrollRows="10" scrollable="true"
+				scrollHeight="300" selectionMode="single"
+				rowKey="#{ajuda.idajuda}">
+
+				<p:column headerText="Descrição" 
+					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{ajuda.descricao}" />
+				</p:column>
+
+				<p:column headerText="Link" 
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<a href="#{ajuda.link}" target="_blank">
+						<h:outputText value="#{ajuda.link}"/>
+					</a>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

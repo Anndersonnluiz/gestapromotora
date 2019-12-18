@@ -103,6 +103,11 @@ public class CadMaloteContratoMB implements Serializable{
 	}
 	
 	
+	public String voltar() {
+		return "consContrato";
+	}
+	
+	
 	
 
 	

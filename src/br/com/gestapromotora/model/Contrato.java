@@ -116,6 +116,9 @@ public class Contrato implements Serializable{
 		bloqueio = false;
 		digitado = false;
 		fisico = false;
+		descricaobloqueio = "unlock";
+		descricaodigitado = "file";
+		descricaofisico = "x-circle";
 	}
 
 

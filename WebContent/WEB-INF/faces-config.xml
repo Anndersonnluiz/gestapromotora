@@ -238,6 +238,24 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>alterarSituacao</from-outcome>
+			<to-view-id>pages/contrato/alterarSituacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consAjuda</from-outcome>
+			<to-view-id>pages/contrato/consAjuda.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
     
 	<application>
         <action-listener>

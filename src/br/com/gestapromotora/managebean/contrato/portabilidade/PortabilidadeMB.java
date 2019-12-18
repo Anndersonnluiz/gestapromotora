@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import br.com.gestapromotora.facade.ContratoFacade;
@@ -66,13 +69,20 @@ public class PortabilidadeMB implements Serializable{
 	}
 	
 	
-	public void salvarSituacao(RowEditEvent event) {
-		Contrato contrato = (Contrato) event.getObject();
-		ContratoFacade contratoFacade = new ContratoFacade();
-		contrato.setSituacao(situacao);
-		contrato = contratoFacade.salvar(contrato);
-		Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-		gerarListaPortabilidade();
+	public String editar(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
+		return "cadContrato";
+	}
+	
+	
+	public String alterarSituacao(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "alterarSituacao";
 	}
 	
 	

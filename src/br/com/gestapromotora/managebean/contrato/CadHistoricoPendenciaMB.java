@@ -99,6 +99,11 @@ public class CadHistoricoPendenciaMB implements Serializable{
 	}
 	
 	
+	public String voltar() {
+		return "consContrato";
+	}
+	
+	
 	
 	
 	

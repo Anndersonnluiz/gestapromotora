@@ -15,6 +15,7 @@
 		<class>br.com.gestapromotora.model.Malotecontrato</class>
 		<class>br.com.gestapromotora.model.Historicopendencia</class>
 		<class>br.com.gestapromotora.model.Financeirocontrato</class>
+		<class>br.com.gestapromotora.model.Ajuda</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestapromotora?useTimezone=true&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

@@ -289,6 +289,10 @@ public class CadContratoMB implements Serializable {
 	
 	
 	
+	public String cancelar() {
+		return "consContrato";
+	}
+	
 	
 	
 

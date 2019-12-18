@@ -11,26 +11,18 @@
 			<h4>Portabilidade</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">				
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#" />
-			</div>
-			<p:dataTable id="idTabelaPortabilidade" var="contrato" editable="true"
+			<p:dataTable id="idTabelaPortabilidade" var="contrato"
+				widgetVar="cellCars" editable="true" editMode="cell"
 				value="#{portabilidadeMB.listaContrato}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"
 				rowKey="#{contrato.idcontrato}">
 
-				<p:ajax event="rowEdit" update=":frmConsultaBanco:growl, idTabelaPortabilidade" listener="#{portabilidadeMB.salvarSituacao}"/>
-				<p:ajax event="rowEditCancel" update=":frmConsultaBanco:growl" />
 
 
 				<p:column headerText="Código"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.idcontrato}" />
-				</p:column>
-				<p:column headerText="ADE"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
 				</p:column>
 				<p:column headerText="Colaborador"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -58,12 +50,11 @@
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.tipooperacao.descricao}" />
 				</p:column>
-				<p:column headerText="Digitado Corretor"
+				<p:column headerText="Digitado"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<span data-feather="#{contrato.descricaodigitado}"></span>
 				</p:column>
 				<p:column headerText="Valor Base"
-					sortBy="#{coeficiente.codigotabela}"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.parcela}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
@@ -71,47 +62,29 @@
 				</p:column>
 				<p:column headerText="Situação"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{contrato.situacao}" />	
-						</f:facet>
-						<f:facet name="input">
-							<h:selectOneMenu style="width: 100%;"
-								value="#{contrato.situacao}"
-								styleClass="form-control">
-								<f:selectItem itemLabel="Aguardando Digitação" itemValue="Aguardando Digitacao" />
-								<f:selectItem itemLabel="Contrato Cancelado"
-									itemValue="Contrato Cancelado" />
-							</h:selectOneMenu>
-						</f:facet>
-					</p:cellEditor>
+					<h:outputText value="#{contrato.situacao}" />
 				</p:column>
-				<p:column headerText="Última Mudança de Situação"
+				<p:column headerText="Última Situação"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.ultimamudancasituacao}" />
-				</p:column>
-				<p:column headerText="Última Verificação"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText=""
-					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<p:rowEditor/>
+					<h:outputText value="#{contrato.ultimamudancasituacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false"
+						action="#{portabilidadeMB.alterarSituacao(contrato)}"
 						style="text-align: left;color:black;">
-						<span data-feather="refresh-cw"></span>
+						<span data-feather="arrow-right"></span>
 					</p:commandLink>
-					
-					<p:commandLink ajax="false" action="#"
+					<p:commandLink ajax="false" action="#{contratoMB.editar(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="eye"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
