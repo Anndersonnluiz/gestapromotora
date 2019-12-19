@@ -19,7 +19,6 @@ import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
-import br.com.gestapromotora.facade.TipoColaboradorFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
@@ -28,6 +27,7 @@ import br.com.gestapromotora.model.Dadosbancario;
 import br.com.gestapromotora.model.OrgaoBanco;
 import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Valorescoeficiente;
+import br.com.gestapromotora.util.Formatacao;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
@@ -242,6 +242,9 @@ public class CadContratoMB implements Serializable {
 	public String selecionarCoeficiente() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		cliente.setCpf(cpf);
+		cliente.setDadosbancario(dadosbancario);
+		contrato.setCliente(cliente);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", orgaoBanco);
 		return "selecioneCoeficiente";
@@ -268,6 +271,7 @@ public class CadContratoMB implements Serializable {
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
 		contrato.setSituacao("Agurdando Solicitação Digitalização");
+		contrato.setCodigocontrato(gerarCodigo());
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
 	}
@@ -292,6 +296,22 @@ public class CadContratoMB implements Serializable {
 	public String cancelar() {
 		return "consContrato";
 	}
+	
+	public String gerarCodigo() {
+		String codigo = "FF " + Formatacao.ConvercaoDataPadrao(new Date()) + " - ";
+		ContratoFacade contratoFacade = new ContratoFacade();
+		List<Contrato> lisContratos = contratoFacade.lista("Select c From Contrato c Where c.datacadastro='" + Formatacao.ConvercaoDataSql(new Date()) +
+				"'"); 
+		if (lisContratos == null) {
+			lisContratos = new ArrayList<Contrato>();
+		}
+		codigo = codigo + (lisContratos.size() + 1);
+		return codigo;
+	}
+	
+	
+	
+	
 	
 	
 	

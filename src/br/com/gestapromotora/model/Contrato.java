@@ -95,6 +95,8 @@ public class Contrato implements Serializable{
 	@Column(name = "ultimamudancasituacao")
 	@Temporal(TemporalType.DATE)
 	private Date ultimamudancasituacao;
+	@Column(name = "codigocontrato")
+	private String codigocontrato;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -500,6 +502,16 @@ public class Contrato implements Serializable{
 
 	public void setUltimamudancasituacao(Date ultimamudancasituacao) {
 		this.ultimamudancasituacao = ultimamudancasituacao;
+	}
+
+
+	public String getCodigocontrato() {
+		return codigocontrato;
+	}
+
+
+	public void setCodigocontrato(String codigocontrato) {
+		this.codigocontrato = codigocontrato;
 	}
 
 

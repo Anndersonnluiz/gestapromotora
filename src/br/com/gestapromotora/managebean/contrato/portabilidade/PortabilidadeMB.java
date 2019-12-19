@@ -10,12 +10,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
 
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Contrato;
-import br.com.gestapromotora.util.Mensagem;
+import br.com.gestapromotora.model.Usuario;
 
 @Named
 @ViewScoped
@@ -27,12 +26,17 @@ public class PortabilidadeMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Contrato> listaContrato;
 	private String situacao;
+	private List<Usuario> listaUsuario;
+	private String nomeCliente;
+	private String cpf;
+	private Usuario usuario;
 	
 	
 	
 	@PostConstruct
 	public void init() {
 		gerarListaPortabilidade();
+		gerarListaUsuario();
 	}
 
 
@@ -60,6 +64,54 @@ public class PortabilidadeMB implements Serializable{
 
 
 
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+
 	public void gerarListaPortabilidade() {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista("Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%'");
@@ -83,6 +135,36 @@ public class PortabilidadeMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		return "alterarSituacao";
+	}
+	
+	
+
+	public void gerarListaUsuario() {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
+		if (listaUsuario == null) {
+			listaUsuario = new ArrayList<Usuario>();
+		}
+	}
+	
+	
+	public void pesquisar() {
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +"%' and c.cliente.cpf like '%"+ cpf +"%'";
+		if (usuario != null && usuario.getIdusuario() != null) {
+			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
+		}
+		ContratoFacade contratoFacade = new ContratoFacade();
+		listaContrato = contratoFacade.lista(sql);
+		if (listaContrato == null) {
+			listaContrato = new ArrayList<Contrato>();
+		}
+	}
+	
+	public void limpar() {
+		gerarListaPortabilidade();
+		usuario = null;
+		nomeCliente = "";
+		cpf = "";
 	}
 	
 	
