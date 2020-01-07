@@ -61,16 +61,30 @@
 			<hr />
 
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-6">
 					<label for="usuario">Nova Situação</label>
 					<h:selectOneMenu   style="width: 100%;"  value="#{alterarSituacaoMB.situacao}"
                               styleClass="form-control">
 		                    <f:selectItem  itemLabel="Aguardando Digitação" itemValue="Aguardando Digitacao" />
+		                    <f:selectItem  itemLabel="Cancelado Exigencia Fisico" itemValue="Cancelado Exigencia Fisico" />
+		                    <f:selectItem  itemLabel="Cancelado Banco Aguardando Corretor" itemValue="Cancelado Banco Aguardando Corretor" />
+		                    <f:selectItem  itemLabel="Contrato Redigitado" itemValue="Contrato Redigitado" />
 		                    <f:selectItem  itemLabel="Contrato Cancelado" itemValue="Contrato Cancelado" /> 
+		                    <f:selectItem  itemLabel="Contrato Digitado" itemValue="Contrato Digitado" />
+		                    <f:selectItem  itemLabel="Inconsistência / Pendente Digitação" itemValue="Inconsistencia / Pendente Digitacao" />
+		                    <f:selectItem  itemLabel="Problemas Envio CIP" itemValue="Problemas Envio CIP" />
+		                    <f:selectItem  itemLabel="Saldo com divergencia - Operacional" itemValue="Saldo com divergencia - Operacional" />
+		                    <f:selectItem  itemLabel="Saldo informado - Pagamento Divida" itemValue="Saldo informado - Pagamento Divida" />
 		            </h:selectOneMenu>
 				</div>
+				<div class="form-group col-md-6">
+					<label for="detalhesituacao">Detalhe Situação</label>
+					<h:inputText class="form-control" id="detalhesituacao" 
+						value="#{alterarSituacaoMB.contrato.detalhesituacao}">
+					</h:inputText>
+				</div>
 			</div>
-			
+			 
 			<br/><br/>
 			<div align="center">
 				<p:commandLink ajax="false" styleClass="btn btn-danger"

@@ -97,6 +97,8 @@ public class Contrato implements Serializable{
 	private Date ultimamudancasituacao;
 	@Column(name = "codigocontrato")
 	private String codigocontrato;
+	@Column(name = "detalhesituacao")
+	private String detalhesituacao;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -515,6 +517,16 @@ public class Contrato implements Serializable{
 	}
 
 
+	public String getDetalhesituacao() {
+		return detalhesituacao;
+	}
+
+
+	public void setDetalhesituacao(String detalhesituacao) {
+		this.detalhesituacao = detalhesituacao;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -538,7 +550,7 @@ public class Contrato implements Serializable{
 
 	@Override
 	public String toString() {
-		return "br.com.gestapromotora.model.Contrato[ v=" + idcontrato + " ]";
+		return "br.com.gestapromotora.model.Contrato[ idcontrato=" + idcontrato + " ]";
 	}
 	
 	
