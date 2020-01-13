@@ -18,7 +18,7 @@ import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
-public class FinanceiroMB implements Serializable{
+public class FinanceiroMB implements Serializable {
 
 	/**
 	 * 
@@ -29,9 +29,7 @@ public class FinanceiroMB implements Serializable{
 	private Contrato contrato;
 	private Financeirocontrato financeirocontrato;
 	private List<Financeirocontrato> listaFinanceiro;
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -42,61 +40,42 @@ public class FinanceiroMB implements Serializable{
 		gerarListaFinanceiro();
 	}
 
-
-
 	public UsuarioLogadoMB getUsuarioLogadoMB() {
 		return usuarioLogadoMB;
 	}
-
-
 
 	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
-
-
 	public Contrato getContrato() {
 		return contrato;
 	}
-
-
 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
 
-
-
 	public Financeirocontrato getFinanceirocontrato() {
 		return financeirocontrato;
 	}
 
-
-
 	public void setFinanceirocontrato(Financeirocontrato financeirocontrato) {
 		this.financeirocontrato = financeirocontrato;
 	}
-	
-	
+
 	public List<Financeirocontrato> getListaFinanceiro() {
 		return listaFinanceiro;
 	}
 
-
-
 	public void setListaFinanceiro(List<Financeirocontrato> listaFinanceiro) {
 		this.listaFinanceiro = listaFinanceiro;
 	}
-
-
-
-	
+ 
 	public String voltar() {
-		return "consFinanceiro";
+		return "consContrato";
 	}
-	
-	
+
 	public void salvarFinanceiro() {
 		FinanceiroContratoFacade financeiroContratoFacade = new FinanceiroContratoFacade();
 		financeirocontrato.setContrato(contrato);
@@ -105,17 +84,14 @@ public class FinanceiroMB implements Serializable{
 		listaFinanceiro.add(financeirocontrato);
 		financeirocontrato = new Financeirocontrato();
 	}
-	
-	
+
 	public void gerarListaFinanceiro() {
 		FinanceiroContratoFacade financeiroContratoFacade = new FinanceiroContratoFacade();
-		listaFinanceiro = financeiroContratoFacade.lista("Select f From Financeirocontrato f WHERE f.contrato.idcontrato=" + contrato.getIdcontrato());
+		listaFinanceiro = financeiroContratoFacade
+				.lista("Select f From Financeirocontrato f WHERE f.contrato.idcontrato=" + contrato.getIdcontrato());
 		if (listaFinanceiro == null) {
 			listaFinanceiro = new ArrayList<Financeirocontrato>();
 		}
 	}
-	
-	
-	
 
 }

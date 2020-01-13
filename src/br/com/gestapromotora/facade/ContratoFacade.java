@@ -2,6 +2,7 @@ package br.com.gestapromotora.facade;
 
 import java.util.List;
 
+import br.com.gestapromotora.bean.FiltrosBean;
 import br.com.gestapromotora.dao.ContratoDao;
 import br.com.gestapromotora.model.Contrato;
 
@@ -23,5 +24,10 @@ public class ContratoFacade {
 	public List<Contrato> lista(String sql) {
 		contratoDao = new ContratoDao();
 		return contratoDao.lista(sql);
+	}
+	
+	public List<FiltrosBean> consultarNumSituacao() {
+		contratoDao = new ContratoDao();
+		return contratoDao.consultarNumSituacao();
 	}
 }

@@ -24,7 +24,7 @@
 				<div class="form-group col-md-3">
 					<label for="situacao">Situação</label>
 					<h:inputText class="form-control" id="situacao" disabled="true"
-						value="#{alterarSituacaoMB.contrato.situacao}">
+						value="#{alterarSituacaoMB.contrato.situacao.descricao}">
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
@@ -62,20 +62,19 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="usuario">Nova Situação</label>
-					<h:selectOneMenu   style="width: 100%;"  value="#{alterarSituacaoMB.situacao}"
-                              styleClass="form-control">
-		                    <f:selectItem  itemLabel="Aguardando Digitação" itemValue="Aguardando Digitacao" />
-		                    <f:selectItem  itemLabel="Cancelado Exigencia Fisico" itemValue="Cancelado Exigencia Fisico" />
-		                    <f:selectItem  itemLabel="Cancelado Banco Aguardando Corretor" itemValue="Cancelado Banco Aguardando Corretor" />
-		                    <f:selectItem  itemLabel="Contrato Redigitado" itemValue="Contrato Redigitado" />
-		                    <f:selectItem  itemLabel="Contrato Cancelado" itemValue="Contrato Cancelado" /> 
-		                    <f:selectItem  itemLabel="Contrato Digitado" itemValue="Contrato Digitado" />
-		                    <f:selectItem  itemLabel="Inconsistência / Pendente Digitação" itemValue="Inconsistencia / Pendente Digitacao" />
-		                    <f:selectItem  itemLabel="Problemas Envio CIP" itemValue="Problemas Envio CIP" />
-		                    <f:selectItem  itemLabel="Saldo com divergencia - Operacional" itemValue="Saldo com divergencia - Operacional" />
-		                    <f:selectItem  itemLabel="Saldo informado - Pagamento Divida" itemValue="Saldo informado - Pagamento Divida" />
-		            </h:selectOneMenu>
+					<label for="novasituacao">Nova Situação</label>
+					<h:selectOneMenu id="novasituacao" style="width: 100%;"
+						value="#{alterarSituacaoMB.situacao}"
+						converter="SituacaoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{alterarSituacaoMB.listaSituacao}"
+							var="situacaoSelecionado"
+							itemLabel="#{situacaoSelecionado.descricao}"
+							itemValue="#{situacaoSelecionado}" />
+						<f:attribute name="listaSituacao"
+							value="#{alterarSituacaoMB.listaSituacao}" />
+					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="detalhesituacao">Detalhe Situação</label>

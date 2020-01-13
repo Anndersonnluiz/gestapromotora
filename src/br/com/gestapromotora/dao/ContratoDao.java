@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import br.com.gestapromotora.bean.FiltrosBean;
 import br.com.gestapromotora.connection.ConectionFactory;
 import br.com.gestapromotora.model.Contrato;
 
@@ -46,5 +47,18 @@ public class ContratoDao {
 		List<Contrato> lista = q.getResultList();
 		manager.close();
 		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<FiltrosBean> consultarNumSituacao() {
+		EntityManager manager;
+		manager = ConectionFactory.getConnection();
+		Query q = manager.createQuery("Select c.situacao.identificador, count(c.situacao) from Contrato c Group By c.situacao");
+		List<FiltrosBean> listaFiltrosBean = null;
+		if (q.getResultList().size() > 0) {
+			listaFiltrosBean =  q.getResultList();
+		}
+		manager.close();
+		return listaFiltrosBean;
 	}
 }

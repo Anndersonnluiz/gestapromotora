@@ -62,8 +62,9 @@ public class Contrato implements Serializable{
 	private float valoroperacaodivergente;
 	@Column(name = "assinadobanco")
 	private boolean assinadobanco;
-	@Column(name = "situacao")
-	private String situacao;
+	@JoinColumn(name = "situacao_idsituacao", referencedColumnName = "idsituacao")
+	@ManyToOne(optional = false)
+	private Situacao situacao;
 	@Column(name = "secretaria")
 	private String secretaria;
 	@Column(name = "valorclientedivergente")
@@ -357,12 +358,12 @@ public class Contrato implements Serializable{
 	}
 
 
-	public String getSituacao() {
+	public Situacao getSituacao() {
 		return situacao;
 	}
 
 
-	public void setSituacao(String situacao) {
+	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
 	}
 

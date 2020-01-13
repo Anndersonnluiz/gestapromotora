@@ -19,6 +19,7 @@ import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
+import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
@@ -69,6 +70,8 @@ public class CadContratoMB implements Serializable {
 			dadosbancario = new Dadosbancario();
 			valorescoeficiente = new Valorescoeficiente();
 			contrato.setDatacadastro(new Date());
+			SituacaoFacade situacaoFacade = new SituacaoFacade();
+			contrato.setSituacao(situacaoFacade.consultar(4));
 		} else {
 			cliente = contrato.getCliente();
 			banco = orgaoBanco.getBanco();
@@ -270,7 +273,6 @@ public class CadContratoMB implements Serializable {
 		contrato.setCliente(salvarCliente());
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
-		contrato.setSituacao("Aguardando Solicitação Digitalização");
 		contrato.setCodigocontrato(gerarCodigo());
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
