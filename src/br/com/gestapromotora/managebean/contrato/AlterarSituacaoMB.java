@@ -27,6 +27,7 @@ public class AlterarSituacaoMB implements Serializable{
 	private Contrato contrato;
 	private Situacao situacao;
 	private List<Situacao> listaSituacao;
+	private String voltar;
 	
 	
 	
@@ -36,6 +37,8 @@ public class AlterarSituacaoMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		contrato = (Contrato) session.getAttribute("contrato");
 		session.removeAttribute("contrato");
+		voltar = (String) session.getAttribute("voltar");
+		session.removeAttribute("voltar");
 		situacao = contrato.getSituacao();
 		gerarListaSituacao();
 	}
@@ -97,7 +100,7 @@ public class AlterarSituacaoMB implements Serializable{
 		contrato.setSituacao(situacao);
 		contrato.setUltimamudancasituacao(new Date());
 		contrato = contratoFacade.salvar(contrato);
-		return "consPortabilidade";
+		return voltar;
 	}
 	
 	  

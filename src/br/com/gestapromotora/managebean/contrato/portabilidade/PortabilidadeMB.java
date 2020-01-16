@@ -71,6 +71,7 @@ public class PortabilidadeMB implements Serializable{
 	private int nCancelado;
 	private List<FiltrosBean> listaFiltrosBean;
 	private List<Contrato> listaContratoPesquisa;
+	private int nSituacao;
 	
 	
 	
@@ -647,7 +648,19 @@ public class PortabilidadeMB implements Serializable{
 
 
 
-	public void gerarListaPortabilidade(String situacao) {
+	public int getnSituacao() {
+		return nSituacao;
+	}
+
+
+
+	public void setnSituacao(int nSituacao) {
+		this.nSituacao = nSituacao;
+	}
+
+
+
+	public void gerarListaPortabilidade(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista("Select c From Contrato c WHERE c.tipooperacao.descricao like "
 				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao);
@@ -655,6 +668,7 @@ public class PortabilidadeMB implements Serializable{
 			listaContrato = new ArrayList<Contrato>();
 		}
 		mudarsituacao = true;
+		nSituacao = situacao;
 	}
 	
 	
@@ -671,6 +685,7 @@ public class PortabilidadeMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltar", "consPortabilidade");
 		return "alterarSituacao";
 	}
 	
@@ -686,7 +701,8 @@ public class PortabilidadeMB implements Serializable{
 	
 	
 	public void pesquisar() {
-		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +"%' and c.cliente.cpf like '%"+ cpf +"%'";
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
+				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao;
 		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
@@ -698,7 +714,7 @@ public class PortabilidadeMB implements Serializable{
 	}
 	
 	public void limpar() {
-		gerarListaPortabilidade("");
+		gerarListaPortabilidade(nSituacao);
 		usuario = null;
 		nomeCliente = "";
 		cpf = "";
@@ -911,7 +927,7 @@ public class PortabilidadeMB implements Serializable{
 				nPortabilidade = nPortabilidade + 1;
 			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 5) {
 				nRefinanciamento = nRefinanciamento + 1;
-			}else {
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 6){
 				nCancelados = nCancelados + 1;
 			}
 		}
