@@ -14,39 +14,7 @@
 
 
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="usuario">Corretor</label>
-					<h:inputText class="form-control" id="nomecliente"
-						value="#{historicoComissaoMB.nome}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="nomecliente">N°</label>
-					<h:inputText class="form-control" id="nomecliente"
-						value="#{historicoComissaoMB.cdinterno}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="cpf">Data</label>
-					<h:inputText class="form-control" id="cpf"
-						value="#{historicoComissaoMB.dataLancamento}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>.</label>
-					<div>
-						<p:commandLink ajax="false" styleClass="btn btn-dark"
-							value="Pesquisar" action="#{historicoComissaoMB.pesquisar()}"
-							update="idTabelaContrato" />
-						<p:commandLink ajax="false" style="margin-left:1%;"
-							styleClass="btn btn-success" value="Limpar"
-							action="#{historicoComissaoMB.limpar()}"
-							update="idTabelaComissao, cpf, nomecliente, usuario" />
-					</div>
-				</div>
-			</div>
-			<br/>
+			     
 			<p:dataTable id="idTabelaComissao" var="comissao"
 				value="#{historicoComissaoMB.listaComissao}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
@@ -56,7 +24,10 @@
 
 				<p:column headerText="Data"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissoa.datalancamnento}" />
+					<h:outputText value="#{comissao.datalancamento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Nº"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -64,7 +35,7 @@
 				</p:column>
 				<p:column headerText="Loja"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.sala}" />
+					<h:outputText value="#{comissao.usuario.sala}" />
 				</p:column>
 				<p:column headerText="Nome"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -72,19 +43,27 @@
 				</p:column>
 				<p:column headerText="PROD. LIQ"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.prodliq}" />
+					<h:outputText value="#{comissao.prodliq}">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="CMS BRUTA"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.cmsbruta}" />
+					<h:outputText value="#{comissao.cmdbruta}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="PROV./DESC"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.proddesc}" />
+					<h:outputText value="#{comissao.proddesc}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="CMS LIQ"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.cmsliq}" />
+					<h:outputText value="#{comissao.cmsliq}" >
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Tipo"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -93,6 +72,10 @@
 
 				<p:column headerText=""
 					style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					<p:commandLink ajax="false" action="#{historicoComissaoMB.editar(comissao)}"
+						style="text-align: left;color:black;" title="Editar">
+						<span data-feather="edit"></span> 
+					</p:commandLink>
 					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
 						<span data-feather="printer"></span>

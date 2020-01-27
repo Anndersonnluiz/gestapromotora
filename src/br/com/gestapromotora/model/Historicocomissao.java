@@ -30,7 +30,7 @@ public class Historicocomissao implements Serializable{
 	private Integer idhistoricocomissao;
 	@Column(name = "prodliq")
 	private float prodliq;
-	@Column(name = "cmdbruta")
+	@Column(name = "cmsbruta")
 	private float cmdbruta;
 	@Column(name = "proddesc")
 	private float proddesc;

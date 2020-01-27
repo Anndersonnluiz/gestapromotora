@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.model.Historicocomissao;
@@ -104,6 +106,13 @@ public class HistoricoComissaoMB implements Serializable{
 		cdinterno = 0;
 		dataLancamento = null;
 		gerarListaInicial();
+	}
+	
+	public String editar(Historicocomissao historicocomissao) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("historicocomissao", historicocomissao);
+		return "editarComissao";
 	}
 
 }

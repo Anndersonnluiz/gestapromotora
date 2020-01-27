@@ -103,6 +103,7 @@ public class TerceiraEtapaMB implements Serializable{
 	public void proximaEtapa(Contrato contrato) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		contrato.setSituacao(situacao);
+		contrato.setPendente(false);
 		contratoFacade.salvar(contrato);
 		gerarListaContrato();
 	}
