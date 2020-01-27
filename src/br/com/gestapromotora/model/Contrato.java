@@ -100,6 +100,8 @@ public class Contrato implements Serializable{
 	private String codigocontrato;
 	@Column(name = "detalhesituacao")
 	private String detalhesituacao;
+	@Column(name = "pendente")
+	private boolean pendente;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -121,6 +123,7 @@ public class Contrato implements Serializable{
 		bloqueio = false;
 		digitado = false;
 		fisico = false;
+		pendente = false;
 		descricaobloqueio = "unlock";
 		descricaodigitado = "file";
 		descricaofisico = "x-circle";
@@ -525,6 +528,16 @@ public class Contrato implements Serializable{
 
 	public void setDetalhesituacao(String detalhesituacao) {
 		this.detalhesituacao = detalhesituacao;
+	}
+
+
+	public boolean isPendente() {
+		return pendente;
+	}
+
+
+	public void setPendente(boolean pendente) {
+		this.pendente = pendente;
 	}
 
 

@@ -11,53 +11,86 @@
 			<h4>Histórico de Pagamento de Comissão</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">				
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#" />
+
+
+
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="usuario">Corretor</label>
+					<h:inputText class="form-control" id="nomecliente"
+						value="#{historicoComissaoMB.nome}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="nomecliente">N°</label>
+					<h:inputText class="form-control" id="nomecliente"
+						value="#{historicoComissaoMB.cdinterno}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="cpf">Data</label>
+					<h:inputText class="form-control" id="cpf"
+						value="#{historicoComissaoMB.dataLancamento}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>.</label>
+					<div>
+						<p:commandLink ajax="false" styleClass="btn btn-dark"
+							value="Pesquisar" action="#{historicoComissaoMB.pesquisar()}"
+							update="idTabelaContrato" />
+						<p:commandLink ajax="false" style="margin-left:1%;"
+							styleClass="btn btn-success" value="Limpar"
+							action="#{historicoComissaoMB.limpar()}"
+							update="idTabelaComissao, cpf, nomecliente, usuario" />
+					</div>
+				</div>
 			</div>
-			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
-				value="#" style="border:none;"
+			<br/>
+			<p:dataTable id="idTabelaComissao" var="comissao"
+				value="#{historicoComissaoMB.listaComissao}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"
-				rowKey="#">
+				rowKey="#{comissao.idhistoricocomissao}">
 
 
-				<p:column headerText="Data" sortBy="#{coeficiente.nometabela}"
+				<p:column headerText="Data"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{comissoa.datalancamnento}" />
 				</p:column>
-				<p:column headerText="Nº" sortBy="#{coeficiente.nomeproduto}"
+				<p:column headerText="Nº"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{comissao.usuario.cdinterno}" />
 				</p:column>
-				<p:column headerText="Loja" sortBy="#{coeficiente.tipotabela}"
+				<p:column headerText="Loja"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{comissao.sala}" />
 				</p:column>
-				<p:column headerText="Nome" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="Nome"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{comissao.usuario.nome}" />
 				</p:column>
-				<p:column headerText="PROD. LIQ" sortBy="#{coeficiente.codigotabela}"
-					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+				<p:column headerText="PROD. LIQ"
+					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{comissao.prodliq}" />
 				</p:column>
-				<p:column headerText="CMS BRUTA" sortBy="#{coeficiente.codigotabela}"
-					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+				<p:column headerText="CMS BRUTA"
+					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{comissao.cmsbruta}" />
 				</p:column>
-				<p:column headerText="PROV./DESC" sortBy="#{coeficiente.codigotabela}"
-					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+				<p:column headerText="PROV./DESC"
+					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{comissao.proddesc}" />
 				</p:column>
-				<p:column headerText="CMS LIQ" sortBy="#{coeficiente.codigotabela}"
-					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+				<p:column headerText="CMS LIQ"
+					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{comissao.cmsliq}" />
 				</p:column>
-				<p:column headerText="Tipo" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="Tipo"
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
+					<h:outputText value="#{comissao.tipo}" />
 				</p:column>
-				
+
 				<p:column headerText=""
 					style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false" action="#"

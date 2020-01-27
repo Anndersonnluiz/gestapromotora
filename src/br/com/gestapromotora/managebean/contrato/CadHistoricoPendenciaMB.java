@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.HistoricoPendenciaFacade;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Historicopendencia;
@@ -94,6 +95,11 @@ public class CadHistoricoPendenciaMB implements Serializable{
 		historicopendencia.setContrato(contrato);
 		historicopendencia.setUsuario(usuarioLogadoMB.getUsuario());
 		historicopendencia = historicoPendenciaFacade.salvar(historicopendencia);
+		if (!contrato.isPendente()) {
+			ContratoFacade contratoFacade = new ContratoFacade();
+			contrato.setPendente(true);
+			contratoFacade.salvar(contrato);
+		}
 		listaHistoricoPendencia.add(historicopendencia);
 		historicopendencia = new Historicopendencia();
 	}

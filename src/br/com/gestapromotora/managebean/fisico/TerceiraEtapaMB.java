@@ -1,0 +1,114 @@
+package br.com.gestapromotora.managebean.fisico;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.SituacaoFacade;
+import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Situacao;
+import br.com.gestapromotora.util.Mensagem;
+
+@Named
+@ViewScoped
+public class TerceiraEtapaMB implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<Contrato> listaContrato;
+	private Situacao situacao;
+	
+	
+	
+	@PostConstruct
+	public void init() {
+		gerarListaContrato();
+		buscarSituacao();
+	}
+
+
+
+	public List<Contrato> getListaContrato() {
+		return listaContrato;
+	}
+
+
+
+	public void setListaContrato(List<Contrato> listaContrato) {
+		this.listaContrato = listaContrato;
+	}
+	
+	
+	
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
+	}
+
+
+
+	public void bloquearEdicao(Contrato contrato) {
+		if (contrato.isBloqueio()) {
+			contrato.setBloqueio(false);
+			contrato.setDescricaobloqueio("unlock");
+			Mensagem.lancarMensagemInfo("Desbloqueio de contrato feito com sucesso", "");
+		}else {
+			contrato.setBloqueio(true);
+			contrato.setDescricaobloqueio("lock");
+			Mensagem.lancarMensagemInfo("Bloqueio de contrato feito com sucesso", "");
+		}
+		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato = contratoFacade.salvar(contrato);
+	}
+	
+	
+
+	public String editar(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
+		return "cadContrato";
+	}
+	
+	
+	public void gerarListaContrato() {
+		ContratoFacade contratoFacade = new ContratoFacade();
+		listaContrato = contratoFacade.lista("Select c From Contrato c WHERE c.pendente=true and c.datapagamento is not null and c.situacao.idsituacao=16");
+		if (listaContrato == null) {
+			listaContrato = new ArrayList<Contrato>();
+		}
+	}
+	
+	
+	public void buscarSituacao() {
+		SituacaoFacade situacaoFacade = new SituacaoFacade();
+		situacao = situacaoFacade.consultar(33);
+	}
+	
+	public void proximaEtapa(Contrato contrato) {
+		ContratoFacade contratoFacade = new ContratoFacade();
+		contrato.setSituacao(situacao);
+		contratoFacade.salvar(contrato);
+		gerarListaContrato();
+	}
+	
+	
+	
+	
+
+}

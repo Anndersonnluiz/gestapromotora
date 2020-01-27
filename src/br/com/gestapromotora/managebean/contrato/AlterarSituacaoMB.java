@@ -12,8 +12,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Situacao;
 
 @Named
@@ -99,11 +101,28 @@ public class AlterarSituacaoMB implements Serializable{
 		ContratoFacade contratoFacade = new ContratoFacade();
 		contrato.setSituacao(situacao);
 		contrato.setUltimamudancasituacao(new Date());
+		if (situacao.getIdsituacao() == 16) {
+			contrato.setDatapagamento(new Date());
+			salvarComissao();
+		}
 		contrato = contratoFacade.salvar(contrato);
 		return voltar;
 	}
 	
-	  
+	
+	public void salvarComissao() {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		Historicocomissao historicocomissao = new Historicocomissao();
+		historicocomissao.setCmdbruta(0f);
+		historicocomissao.setCmsliq(0f);
+		historicocomissao.setContrato(contrato);
+		historicocomissao.setDatalancamento(new Date());
+		historicocomissao.setProddesc(0f);
+		historicocomissao.setProdliq(0f);
+		historicocomissao.setTipo("Pendente");
+		historicocomissao.setUsuario(contrato.getUsuario());
+		historicocomissao = historicoComissaoFacade.salvar(historicocomissao);
+	}
 	
 	
 	
