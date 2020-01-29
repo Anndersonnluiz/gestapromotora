@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Mensagem;
+import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
@@ -24,6 +26,8 @@ public class ContratoMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Contrato> listaContrato;
 	private List<Usuario> listaUsuario;
 	private String nomeCliente;
@@ -90,7 +94,11 @@ public class ContratoMB implements Serializable{
 
 	public void gerarListaContrato() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		listaContrato = contratoFacade.lista("Select c From Contrato c");
+		String sql = "Select c From Contrato c";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			sql = sql + " WHERE c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		listaContrato = contratoFacade.lista(sql);
 		if (listaContrato == null) {
 			listaContrato = new ArrayList<Contrato>();
 		}

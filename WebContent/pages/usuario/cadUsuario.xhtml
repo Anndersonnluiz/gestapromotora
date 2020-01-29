@@ -39,7 +39,7 @@
 			</div>
 			
 			<div class="form-row">
-				<div class="form-group cpç-md-12">
+				<div class="form-group cpç-md-8">
 					<label for="exampleInputPerfil">Tipo Colaborador</label>
 					<h:selectOneMenu  id="exampleInputPerfil"  style="width: 300px;"  value="#{cadUsuarioMB.tipocolaborador}" converter="TipoColaboradorConverter"
                               styleClass="form-control">
@@ -47,6 +47,14 @@
 		                    <f:selectItems  value="#{cadUsuarioMB.listaTipoColaborador}" var="colaboradorselecionado" itemLabel="#{colaboradorselecionado.descricao}" itemValue="#{colaboradorselecionado}"/>
 		                    <f:attribute name="listaTipoColaborador" value="#{cadUsuarioMB.listaTipoColaborador}"/>
                 	</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-4" style="margin-left: 2%;">
+					<label>Acesso Geral no Sistema</label>
+					<br/>
+					<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadUsuarioMB.usuario.acessogeral}" />
+						</h:panelGroup>    
 				</div>
 			</div>
 			<br/>

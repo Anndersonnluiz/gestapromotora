@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Usuario;
+import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
@@ -23,6 +25,8 @@ public class DemaisOperacoesMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Contrato> listaContrato;
 	private String situacao;
 	private List<Usuario> listaUsuario;
@@ -451,8 +455,12 @@ public class DemaisOperacoesMB implements Serializable{
 	
 	public void gerarListaPortabilidade(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		listaContrato = contratoFacade.lista("Select c From Contrato c WHERE c.tipooperacao.descricao not like "
-				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao);
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
+				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao;
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		listaContrato = contratoFacade.lista(sql);
 		if (listaContrato == null) {
 			listaContrato = new ArrayList<Contrato>();
 		}
@@ -492,8 +500,10 @@ public class DemaisOperacoesMB implements Serializable{
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
 				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao;
-		if (usuario != null && usuario.getIdusuario() != null) {
+		if (usuarioLogadoMB.getUsuario().isAcessogeral() && usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
+		}else {
+			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista(sql);
@@ -623,7 +633,11 @@ public class DemaisOperacoesMB implements Serializable{
 	
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		listaContratoPesquisa = contratoFacade.lista("Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'");
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		listaContratoPesquisa = contratoFacade.lista(sql);
 		if (listaContratoPesquisa == null) {
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
