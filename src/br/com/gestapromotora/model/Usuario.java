@@ -37,6 +37,10 @@ public class Usuario implements Serializable{
     private String senha;
     @Column(name = "sala")
     private String sala;
+    @Column(name = "ativo")
+    private boolean ativo;
+    @Column(name = "descricaoativo")
+    private String descricaoativo;
     @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
     @ManyToOne(optional = false)
     private Tipocolaborador tipocolaborador;
@@ -107,6 +111,26 @@ public class Usuario implements Serializable{
 
 	public void setSala(String sala) {
 		this.sala = sala;
+	}
+
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+
+	public String getDescricaoativo() {
+		return descricaoativo;
+	}
+
+
+	public void setDescricaoativo(String descricaoativo) {
+		this.descricaoativo = descricaoativo;
 	}
 
 

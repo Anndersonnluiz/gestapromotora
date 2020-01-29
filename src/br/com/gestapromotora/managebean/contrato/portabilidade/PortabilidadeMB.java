@@ -912,7 +912,7 @@ public class PortabilidadeMB implements Serializable{
 	
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		listaContratoPesquisa = contratoFacade.lista("Select c From Contrato c");
+		listaContratoPesquisa = contratoFacade.lista("Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%'");
 		if (listaContratoPesquisa == null) {
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}

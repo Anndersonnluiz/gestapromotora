@@ -304,6 +304,44 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consOrgaoBancoRoteiro</from-outcome>
+			<to-view-id>pages/roteiros/consOrgaoBancoRoteiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consBancoRoteiro</from-outcome>
+			<to-view-id>pages/roteiros/consBancoRoteiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadRoteiro</from-outcome>
+			<to-view-id>pages/roteiros/cadRoteiro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>anexarArquivo</from-outcome>
+			<to-view-id>pages/contrato/anexarArquivo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
     
 	<application>
         <action-listener>

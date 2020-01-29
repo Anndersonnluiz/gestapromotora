@@ -29,6 +29,8 @@ public class OrgaoBanco implements Serializable{
 	private String nome; @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
     @ManyToOne(optional = false)
     private Banco banco;
+	@Column(name = "link")
+	private String link;
 	
 	
 	
@@ -73,6 +75,18 @@ public class OrgaoBanco implements Serializable{
 	}
 	
 	
+	public String getLink() {
+		return link;
+	}
+
+
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

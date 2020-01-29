@@ -17,6 +17,10 @@
         <param-name>maxSize</param-name>
         <param-value>100000</param-value>
     </context-param>
+    <context-param>
+	    <param-name>primefaces.UPLOADER</param-name>
+	    <param-value>auto|native|commons</param-value>
+	</context-param>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -31,6 +35,7 @@
   	<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
   </listener>
   
+ 
   
    <resource-env-ref>  
 	    <description>Object factory for the CDI Bean Manager</description>  

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +27,9 @@ public class Tipocolaborador implements Serializable {
 	private Integer idtipocolaborador;
 	@Column(name = "descricao")
 	private String descricao;
+    @JoinColumn(name = "acessocolaborador_idacessocolaborador", referencedColumnName = "idacessocolaborador")
+    @ManyToOne(optional = false)
+    private Acessocolaborador acessocolaborador;
 
 	public Tipocolaborador() {
 
@@ -44,6 +49,16 @@ public class Tipocolaborador implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	
+
+	public Acessocolaborador getAcessocolaborador() {
+		return acessocolaborador;
+	}
+
+	public void setAcessocolaborador(Acessocolaborador acessocolaborador) {
+		this.acessocolaborador = acessocolaborador;
 	}
 
 	@Override

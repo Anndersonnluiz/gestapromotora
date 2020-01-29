@@ -95,7 +95,31 @@ public class Coeficiente implements Serializable{
 	
 	
 	public Coeficiente() {
-	
+		aberturaconta = true;
+		compradividarefin = true;
+		margemlivrerefin = true;
+		portabilidademargemrefin = true;
+		refinportabilidade = true;
+		compradivida = true;
+		compradividarefinmargem = true;
+		compradividamargem = true;
+		emprestimocomplementar = true;
+		margemlivre = true;
+		portabilidademargem = true;
+		refinanciamento = true;
+		refinanciamentorec = true;
+		portabilidade = true;
+		portabilidaderefin = true;
+		refinportabilidademargem = true;
+		comercial = true;
+		coordenador = true;
+		corretorexterno = true;
+		corretorinterno = true;
+		semgrupo = true;
+		comercialrestricao = true;
+		cobranca = true;
+		retencao = true;
+		tipooperacoes = true;
 	}
 
 

@@ -15,7 +15,8 @@
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
 				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{valoresCoeficienteMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#{valoresCoeficienteMB.novosValores()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" 
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarvalores}" action="#{valoresCoeficienteMB.novosValores()}" />
 			</div>
 			<p:dataTable id="idTabelaBanco" var="valores"
 				value="#{valoresCoeficienteMB.listaValoresCoeficiente}" style="border:none;"
@@ -55,7 +56,7 @@
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false" action="#{valoresCoeficienteMB.editar(valores)}"
-						style="text-align: left;color:black;">
+						style="text-align: left;color:black;" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarvalores}">
 						<span data-feather="edit"></span>
 					</p:commandLink>
 				</p:column>

@@ -96,11 +96,24 @@ public class OrgaoBancoMB implements Serializable{
 	}
 	
 	
+	public String voltarRoteiro(){
+		return "consBancoRoteiro";
+	}
+	
+	
 	public String consultaCoeficiente(OrgaoBanco orgaoBanco) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("orgaobanco", orgaoBanco);
 		return "consCoeficiente";
+	}
+	
+	
+	public String inserirLink(OrgaoBanco orgaoBanco) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("orgaobanco", orgaoBanco);
+		return "cadRoteiro";
 	}
 	
 	

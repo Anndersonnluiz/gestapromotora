@@ -80,7 +80,12 @@ public class BancoMB implements Serializable{
 		return "consOrgaoBanco";
 	}
 	
-	
+	public String listaOrgaosRoteiro(Banco banco) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("banco", banco);
+		return "consOrgaoBancoRoteiro";
+	}
 	
 	
 	

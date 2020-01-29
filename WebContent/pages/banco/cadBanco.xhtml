@@ -14,7 +14,7 @@
 
 
 			<div class="form-row">
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-4">
 					<label for="inputCodigo">Código</label> 
 					<h:inputText  value="#{cadBancoMB.banco.codigo}"
 						class="form-control" id="inputCodigo" placeholder="Código do Banco"/>
@@ -28,8 +28,8 @@
 			<br/>
 			<hr/>
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-danger" value="Cancelar" action="#{cadBancoMB.cancelar()}"/>
-				<p:commandLink ajax="false" styleClass="btn btn-dark" style="margin-left:2%;" value="Salvar" action="#{cadBancoMB.salvar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-dark"  value="Salvar" action="#{cadBancoMB.salvar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;" value="Cancelar" action="#{cadBancoMB.cancelar()}"/>
 			</div>
 			<br/><br/>
 			

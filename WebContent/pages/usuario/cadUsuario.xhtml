@@ -45,7 +45,7 @@
                               styleClass="form-control">
 		                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
 		                    <f:selectItems  value="#{cadUsuarioMB.listaTipoColaborador}" var="colaboradorselecionado" itemLabel="#{colaboradorselecionado.descricao}" itemValue="#{colaboradorselecionado}"/>
-		                    <f:attribute name="listarPerfil" value="#{cadUsuarioMB.listaTipoColaborador}"/>
+		                    <f:attribute name="listaTipoColaborador" value="#{cadUsuarioMB.listaTipoColaborador}"/>
                 	</h:selectOneMenu>
 				</div>
 			</div>
@@ -104,12 +104,11 @@
 				</div>
 			</div>
 			
-			
 			<br/>
 			<hr/>
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-danger" value="Cancelar" action="#{cadUsuarioMB.cancelar()}"/>
-				<p:commandLink ajax="false" styleClass="btn btn-dark" style="margin-left:2%;" value="Salvar" action="#{cadUsuarioMB.salvar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar" action="#{cadUsuarioMB.salvar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;" value="Cancelar" action="#{cadUsuarioMB.cancelar()}"/>
 			</div>
 			<br/><br/>
 			

@@ -14,7 +14,8 @@
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
 				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{coeficienteMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#{coeficienteMB.novoCoeficiente()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" 
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}" action="#{coeficienteMB.novoCoeficiente()}" />
 			</div>
 			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
 				value="#{coeficienteMB.listaCoeficiente}" style="border:none;"
@@ -42,7 +43,7 @@
 				
 				<p:column headerText=""
 					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{coeficienteMB.editar(coeficiente)}"
+					<p:commandLink ajax="false" action="#{coeficienteMB.editar(coeficiente)}" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>

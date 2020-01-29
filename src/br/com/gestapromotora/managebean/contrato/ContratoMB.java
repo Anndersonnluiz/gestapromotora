@@ -212,7 +212,9 @@ public class ContratoMB implements Serializable{
 	}
 	
 	
-	
+	public String anexarArquivo() {
+		return "anexarArquivo";
+	}
 	
 	
 	

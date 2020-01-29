@@ -42,6 +42,7 @@ public class CadUsuarioMB implements Serializable {
 			dadosbancario = new Dadosbancario();
 		} else {
 			buscarDadosBancarios(usuario);
+			tipocolaborador = usuario.getTipocolaborador();
 		}
 		gerarListaTipoColaborador();
 	}
@@ -96,7 +97,7 @@ public class CadUsuarioMB implements Serializable {
 
 	public String salvar() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		usuario.setTipocolaborador(listaTipoColaborador.get(0));
+		usuario.setTipocolaborador(tipocolaborador);
 		salvarDadosBancarios();
 		usuario.setDadosbancario(dadosbancario);
 		if (usuario.getIdusuario() == null) {

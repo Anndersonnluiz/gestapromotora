@@ -46,9 +46,10 @@
 				<div class="form-group col-md-4">
 					<label for="inputNome">Banco</label>
 					<h:panelGrid columns="2" style="width:100%;">
-						<h:selectOneMenu id="exampleBanco" style="width: 100%;" immediate="true"
-							value="#{cadContratoMB.banco}" converter="BancoConverter"
-							styleClass="form-control" onchange="orgaobanco">
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{cadContratoMB.banco}"
+							converter="BancoConverter" styleClass="form-control"
+							onchange="orgaobanco">
 							<f:selectItem itemLabel="Selecione" itemValue="0"
 								noSelectionOption="true" />
 							<f:selectItems value="#{cadContratoMB.listaBanco}"
@@ -58,8 +59,8 @@
 								value="#{cadContratoMB.listaBanco}" />
 						</h:selectOneMenu>
 						<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
-							action="#{cadContratoMB.gerarListaOrgao()}" ajax="false" update="orgaobanco"
-							styleClass="btn btn-dark" />
+							action="#{cadContratoMB.gerarListaOrgao()}" ajax="false"
+							update="orgaobanco" styleClass="btn btn-dark" />
 					</h:panelGrid>
 				</div>
 				<div class="form-group col-md-4">
@@ -368,28 +369,30 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label>Parcelas Pagas</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}" immediate="true"
-						id="parcelaspagas" class="form-control"
-						placeholder="Parcelas Pagas"> 
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="percentualpago" />
+					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
+						immediate="true" id="parcelaspagas" class="form-control"
+						placeholder="Parcelas Pagas">
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
+							render="percentualpago" />
 						<f:ajax event="blur" render="parcelasrestantes" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label>Total Parcelas</label>
-					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}" onchange="atualizar();"
-						id="totalparcelas" class="form-control"
+					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}"
+						onchange="atualizar();" id="totalparcelas" class="form-control"
 						placeholder="Parcelas Pagas">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}" render="percentualpago" />
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
+							render="percentualpago" />
 						<f:ajax event="blur" render="parcelasrestantes" />
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
 					<label>% Pago</label>
-					<h:inputText value="#{cadContratoMB.contrato.percentualpago}" immediate="true"
-						id="percentualpago" disabled="true" class="form-control"
-						placeholder="Percentual Pago">
+					<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
+						immediate="true" id="percentualpago" disabled="true"
+						class="form-control" placeholder="Percentual Pago">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
@@ -447,9 +450,9 @@
 				<div class="form-group col-md-3">
 					<label>Coeficiente e Prazo</label>
 					<div>
-						<p:commandLink id="btnCoeficiente" value="Selecionar" ajax="false" 
-							action="#{cadContratoMB.selecionarCoeficiente()}" 
-							styleClass="btn btn-dark" >
+						<p:commandLink id="btnCoeficiente" value="Selecionar" ajax="false"
+							action="#{cadContratoMB.selecionarCoeficiente()}"
+							styleClass="btn btn-dark">
 						</p:commandLink>
 					</div>
 				</div>
@@ -521,6 +524,27 @@
 				</div>
 			</div>
 			<br />
+			<h6>Anexos</h6>
+			<hr />
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="exampleFormControlFile1">Anexe um arquivo</label> <input type="file" class="form-control-file"
+						id="exampleFormControlFile1" />
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Tipo de Documento</label> 
+					<h:selectOneMenu  id="tipodocumento"
+						value="#"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Contrato" itemValue="Contrato" />
+						<f:selectItem itemLabel="Ficha"
+							itemValue="Ficha" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+			<br />
 			<h6>Outros Informações</h6>
 			<hr />
 			<div class="form-row">
@@ -538,10 +562,11 @@
 			<br />
 			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					value="Cancelar" action="#{cadContratoMB.cancelar()}" />
 				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					style="margin-left:2%;" value="Salvar" action="#{cadContratoMB.salvar()}" />
+					 value="Salvar"
+					action="#{cadContratoMB.salvar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
+					value="Cancelar" action="#{cadContratoMB.cancelar()}" />
 			</div>
 			<br />
 			<br />

@@ -8,7 +8,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.facade.AcessoColaboradorFacade;
 import br.com.gestapromotora.facade.TipoColaboradorFacade;
+import br.com.gestapromotora.model.Acessocolaborador;
 import br.com.gestapromotora.model.Tipocolaborador;
 
 @Named
@@ -30,6 +32,7 @@ public class CadTipoColaboradorMB implements Serializable{
 		session.removeAttribute("tipocolaborador");
 		if (tipocolaborador == null) {
 			tipocolaborador = new Tipocolaborador();
+			tipocolaborador.setAcessocolaborador(new Acessocolaborador());
 		}
 	}
 
@@ -46,6 +49,8 @@ public class CadTipoColaboradorMB implements Serializable{
 	
 	
 	public String salvar() {
+		AcessoColaboradorFacade acessoColaboradorFacade = new AcessoColaboradorFacade();
+		tipocolaborador.setAcessocolaborador(acessoColaboradorFacade.salvar(tipocolaborador.getAcessocolaborador()));
 		TipoColaboradorFacade tipoColaboradorFacade = new TipoColaboradorFacade();
 		tipocolaborador = tipoColaboradorFacade.salvar(tipocolaborador);
 		return "consTipoColaborador";

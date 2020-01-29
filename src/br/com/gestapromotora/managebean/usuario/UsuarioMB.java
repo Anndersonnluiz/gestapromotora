@@ -92,6 +92,18 @@ public class UsuarioMB implements Serializable{
         }
     }
 	
+	public void ativarDesativarUsuario(Usuario usuario) {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		if (usuario.isAtivo()) {
+			usuario.setAtivo(false);
+			usuario.setDescricaoativo("x-circle");
+		}else {
+			usuario.setAtivo(true);
+			usuario.setDescricaoativo("check");
+		}
+		usuarioFacade.salvar(usuario);
+	}
+	
 	
 	
 	

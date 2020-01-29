@@ -48,6 +48,10 @@
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
+					<p:commandLink ajax="false" action="#{usuarioMB.ativarDesativarUsuario(usuario)}"  update=":frmConsultaUsuario:growl, idTabelaUsuario" 
+						style="text-align: left;color:black;">
+						<span data-feather="#{usuario.descricaoativo}"></span>
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 		</h:form>

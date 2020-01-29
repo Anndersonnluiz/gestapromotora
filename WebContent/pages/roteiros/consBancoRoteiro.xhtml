@@ -8,13 +8,9 @@
 	<ui:define name="corpo">
 		<br />
 		<h:form id="frmConsultaBanco">
-			<h4>Consulta de Banco</h4>
+			<h4>Roteiros > Consulta de Banco</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
-					 ajax="false" styleClass="btn btn-dark" value="Novo" action="#{bancoMB.novoBanco()}" />
-			</div>
 			<p:dataTable id="idTabelaBanco" var="banco"
 				value="#{bancoMB.listaBanco}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
@@ -22,21 +18,17 @@
 				rowKey="#{banco.idbanco}">
 
 				<p:column headerText="Código" sortBy="#{banco.codigo}"
-					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{banco.codigo}" />
 				</p:column>
 
 				<p:column headerText="Nome" sortBy="#{banco.nome}"
-					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{banco.nome}" />
 				</p:column>
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{bancoMB.editar(banco)}" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaos(banco)}" title="Orgãos Vinculados"
+					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaosRoteiro(banco)}" title="Orgãos Vinculados"
 						style="text-align: left;color:black;"> 
 						<span data-feather="list"></span>
 					</p:commandLink>
