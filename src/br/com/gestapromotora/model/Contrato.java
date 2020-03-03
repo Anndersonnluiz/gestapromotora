@@ -102,6 +102,8 @@ public class Contrato implements Serializable{
 	private String detalhesituacao;
 	@Column(name = "pendente")
 	private boolean pendente;
+	@Column(name = "margemutilizada")
+	private float margemutilizada;
 	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
@@ -538,6 +540,16 @@ public class Contrato implements Serializable{
 
 	public void setPendente(boolean pendente) {
 		this.pendente = pendente;
+	}
+
+
+	public float getMargemutilizada() {
+		return margemutilizada;
+	}
+
+
+	public void setMargemutilizada(float margemutilizada) {
+		this.margemutilizada = margemutilizada;
 	}
 
 

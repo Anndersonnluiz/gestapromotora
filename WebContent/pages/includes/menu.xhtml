@@ -1,138 +1,128 @@
 <h:form xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><p:outputLabel value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"/></a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <p:commandLink ajax="false" action="#{usuarioLogadoMB.deslogar()}" value="Sair" styleClass="nav-link" />
-        </li>
-      </ul>
-    </nav>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-   <div class="container-fluid">
-    
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-        
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="/gestapromotora/dashboard.jsf">
-                  <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(atual)</span>
-                </a>
-              </li>
-              <li class="nav-item, dropdown">
-                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span data-feather="file-plus"></span>
-                  Cadastros
-                </a>
-                <ul class="dropdown-menu">
-                	<li style="font-size:12px;">
-		                <a class="nav-link" href="/gestapromotora/pages/banco/consBanco.jsf">
-		                  <span data-feather="dollar-sign"></span>
-		                  Banco 
-		                </a>
-		                 <a class="nav-link" href="/gestapromotora/pages/cliente/consCliente.jsf">
-		                  <span data-feather="users"></span>
-		                  Cliente 
-		                </a>
-		                 <h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrar}">
-			                <a class="nav-link" href="/gestapromotora/pages/tipocolaborador/consTipoColaborador.jsf">
-			                  <span data-feather="users"></span>
-			                  Tipo Colaborador 
-			                </a>
-					     	<a class="nav-link" href="/gestapromotora/pages/usuario/consUsuario.jsf">
-			                  <span data-feather="user"></span>
-			                  Gerênciamento colaborador 
-			                </a>
-			             </h:panelGroup>
-	                </li>
-			    </ul>
-              </li>
-              <li class="nav-item, dropdown">
-                <a class="nav-link"  href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span data-feather="archive"></span>
-                  Contratos
-                </a>
-                 <ul class="dropdown-menu">
-                	<li style="font-size:12px;">
-				     	<a class="nav-link" href="/gestapromotora/pages/contrato/consContrato.jsf">
-		                  <span data-feather="list"></span>
-		                  Listagem 
-		                </a>
-		                <a class="nav-link" href="/gestapromotora/pages/contrato/cadContrato.jsf">
-		                  <span data-feather="file-plus"></span>
-		                  Adicionar Contrato 
-		                </a>
-		                <a class="nav-link" href="/gestapromotora/pages/contrato/consPortabilidade.jsf">
-		                  <span data-feather="file-text"></span>
-		                  Portabilidade 
-		                </a>
-		                <a class="nav-link" href="/gestapromotora/pages/contrato/consDemaisOperacoes.jsf">
-		                  <span data-feather="users"></span>
-		                  Demais Operações 
-		                </a>
-		                <a class="nav-link" href="/gestapromotora/pages/roteiros/consBancoRoteiro.jsf">
-		                  <span data-feather="users"></span>
-		                  Roteiro 
-		                </a>
-	                </li>
-			    </ul>
-              </li>
-              <li class="nav-item, dropdown">
-                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span data-feather="file"></span>
-                  Fisico
-                </a>
-                <ul class="dropdown-menu">
-                	<li style="font-size:12px;">
-                		 <h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
-					     	<a class="nav-link" href="/gestapromotora/pages/fisico/cons3etapa.jsf">
-			                  <span data-feather="dollar-sign"></span>
-			                  3 - Pago ao Cliente 
-			                </a>
-			             </h:panelGroup>
-			              <h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
-				                <a class="nav-link" href="/gestapromotora/pages/fisico/cons4etapa.jsf">
-				                  <span data-feather="dollar-sign"></span>
-				                  4 - Envio de Malote 
-				                </a>
-				           </h:panelGroup>
-	                </li>
-			    </ul>
-              </li>
-              <li class="nav-item, dropdown">
-                <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span data-feather="dollar-sign"></span>
-                  Financeiro
-                </a>
-                <ul class="dropdown-menu">
-                	<li style="font-size:12px;">
-                		 <h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-					     	<a class="nav-link" href="/gestapromotora/pages/comissoes/consPagamentoComissao.jsf">
-			                  <span data-feather="dollar-sign"></span>
-			                  Pag. Comissão 
-			                </a>
-			             </h:panelGroup>
-	                </li>
-			    </ul>
-              </li>
-              <li class="nav-item" >
-                <a class="nav-link" href="/gestapromotora/pages/ajuda/consAjuda.jsf" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span data-feather="activity"></span>
-                  Ajuda
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-		
-      </div>
-    </div>
+
+	<nav
+		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><p:outputLabel
+				value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}" /></a>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"><p:commandLink ajax="false"
+					action="#{usuarioLogadoMB.deslogar()}" value="Sair"
+					styleClass="nav-link" /></li>
+		</ul>
+	</nav>
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+
+					<ul class="nav flex-column">
+						<li class="nav-item"><a class="nav-link active"
+							href="/gestapromotora/dashboard.jsf"> <span
+								data-feather="home"></span> Dashboard <span class="sr-only">(atual)</span>
+						</a></li>
+						<li class="nav-item, dropdown"><a class="nav-link" href="#"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> <span data-feather="file-plus"></span>
+								Cadastros
+						</a>
+							<ul class="dropdown-menu">
+								<li style="font-size: 12px;"><a class="nav-link"
+									href="/gestapromotora/pages/banco/consBanco.jsf"> <span
+										data-feather="dollar-sign"></span> Banco
+								</a> <a class="nav-link"
+									href="/gestapromotora/pages/cliente/consCliente.jsf"> <span
+										data-feather="users"></span> Cliente
+								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+										<a class="nav-link"
+											href="/gestapromotora/pages/tipocolaborador/consTipoColaborador.jsf">
+											<span data-feather="users"></span> Tipo Colaborador
+										</a>
+										<a class="nav-link"
+											href="/gestapromotora/pages/usuario/consUsuario.jsf"> <span
+											data-feather="user"></span> Gerênciamento colaborador
+										</a>
+									</h:panelGroup></li>
+							</ul></li>
+						<li class="nav-item, dropdown"><a class="nav-link" href="#"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> <span data-feather="archive"></span>
+								Contratos
+						</a>
+							<ul class="dropdown-menu">
+								<li style="font-size: 12px;"><a class="nav-link"
+									href="/gestapromotora/pages/contrato/consContrato.jsf"> <span
+										data-feather="list"></span> Listagem
+								</a> <a class="nav-link"
+									href="/gestapromotora/pages/contrato/confDadosContrato.jsf"> <span
+										data-feather="file-plus"></span> Adicionar Contrato
+								</a> <a class="nav-link"
+									href="/gestapromotora/pages/contrato/consPortabilidade.jsf">
+										<span data-feather="file-text"></span> Portabilidade
+								</a> <a class="nav-link"
+									href="/gestapromotora/pages/contrato/consDemaisOperacoes.jsf">
+										<span data-feather="users"></span> Demais Operações
+								</a> <a class="nav-link"
+									href="/gestapromotora/pages/roteiros/consBancoRoteiro.jsf">
+										<span data-feather="users"></span> Roteiro
+								</a></li>
+							</ul></li>
+						<li class="nav-item, dropdown"><h:panelGroup
+								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
+								<a class="nav-link" href="#" data-toggle="dropdown"
+									role="button" aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="file"></span> Fisico
+								</a>
+								<ul class="dropdown-menu">
+									<li style="font-size: 12px;"><h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
+											<a class="nav-link"
+												href="/gestapromotora/pages/fisico/cons3etapa.jsf"> <span
+												data-feather="dollar-sign"></span> 3 - Pago ao Cliente
+											</a>
+										</h:panelGroup> <h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
+											<a class="nav-link"
+												href="/gestapromotora/pages/fisico/cons4etapa.jsf"> <span
+												data-feather="dollar-sign"></span> 4 - Envio de Malote
+											</a>
+										</h:panelGroup></li>
+								</ul>
+							</h:panelGroup></li>
+						<li class="nav-item, dropdown"><a class="nav-link" href="#"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> <span data-feather="dollar-sign"></span>
+								Financeiro
+						</a>
+							<ul class="dropdown-menu">
+								<li style="font-size: 12px;"><h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+										<a class="nav-link"
+											href="/gestapromotora/pages/comissoes/consPagamentoComissao.jsf">
+											<span data-feather="dollar-sign"></span> Pag. Comissão
+										</a>
+									</h:panelGroup></li>
+							</ul></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/gestapromotora/pages/usuario/alterarSenha.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="activity"></span> Ajuda
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/gestapromotora/pages/usuario/alterarSenha.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="refresh-cw"></span> Alterar Senha
+						</a></li>
+					</ul>
+				</div>
+			</nav>
+
+		</div>
+	</div>
 </h:form>

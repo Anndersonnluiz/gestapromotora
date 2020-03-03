@@ -58,7 +58,7 @@
 									</a> <a class="nav-link" href="pages/cliente/consCliente.jsf">
 											<span data-feather="users"></span> Cliente
 									</a> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrar}">
+											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
 												data-feather="users"></span> Tipo Colaborador
@@ -77,7 +77,7 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/contrato/consContrato.jsf"> <span
 											data-feather="list"></span> Listagem
-									</a> <a class="nav-link" href="pages/contrato/cadContrato.jsf">
+									</a> <a class="nav-link" href="pages/contrato/confDadosContrato.jsf">
 											<span data-feather="file-plus"></span> Adicionar Contrato
 									</a> <a class="nav-link"
 										href="pages/contrato/consPortabilidade.jsf"> <span
@@ -89,24 +89,28 @@
 											<span data-feather="users"></span> Roteiro
 									</a></li>
 								</ul></li>
-							<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="file"></span>
-									Fisico
-							</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
-											<a class="nav-link" href="pages/fisico/cons3etapa.jsf"> <span
-												data-feather="dollar-sign"></span> 3 - Pago ao Cliente
-											</a>
-										</h:panelGroup> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
-											<a class="nav-link" href="pages/fisico/cons4etapa.jsf"> <span
-												data-feather="dollar-sign"></span> 4 - Envio de Malote
-											</a>
-										</h:panelGroup></li>
-								</ul></li>
+							<li class="nav-item, dropdown"><h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
+									<a class="nav-link" href="#" data-toggle="dropdown"
+										role="button" aria-haspopup="true" aria-expanded="false">
+										<span data-feather="file"></span> Fisico
+									</a>
+									<ul class="dropdown-menu">
+										<li style="font-size: 12px;"><h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
+												<a class="nav-link" href="pages/fisico/cons3etapa.jsf">
+													<span data-feather="dollar-sign"></span> 3 - Pago ao
+													Cliente
+												</a>
+											</h:panelGroup> <h:panelGroup
+												rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
+												<a class="nav-link" href="pages/fisico/cons4etapa.jsf">
+													<span data-feather="dollar-sign"></span> 4 - Envio de
+													Malote
+												</a>
+											</h:panelGroup></li>
+									</ul>
+								</h:panelGroup></li>
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false"> <span data-feather="dollar-sign"></span>
@@ -125,6 +129,11 @@
 								href="pages/ajuda/consAjuda.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="activity"></span> Ajuda
+							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/usuario/alterarSenha.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="refresh-cw"></span> Alterar Senha
 							</a></li>
 						</ul>
 					</div>
@@ -182,7 +191,7 @@
 					<div
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">Dashboard</h1>
-						
+
 					</div>
 
 					<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
@@ -247,45 +256,48 @@
 				</main>
 			</div>
 		</div>
-<br/><br/>
+		<br />
+		<br />
 		<!-- Ícones -->
 		<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 		<script>
-      feather.replace()
-    </script>
+			feather.replace()
+		</script>
 
 		<!-- Gráficos -->
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
-    </script>
+			var ctx = document.getElementById("myChart");
+			var myChart = new Chart(ctx, {
+				type : 'line',
+				data : {
+					labels : [ "Sunday", "Monday", "Tuesday", "Wednesday",
+							"Thursday", "Friday", "Saturday" ],
+					datasets : [ {
+						data : [ 15339, 21345, 18483, 24003, 23489, 24092,
+								12034 ],
+						lineTension : 0,
+						backgroundColor : 'transparent',
+						borderColor : '#007bff',
+						borderWidth : 4,
+						pointBackgroundColor : '#007bff'
+					} ]
+				},
+				options : {
+					scales : {
+						yAxes : [ {
+							ticks : {
+								beginAtZero : false
+							}
+						} ]
+					},
+					legend : {
+						display : false,
+					}
+				}
+			});
+		</script>
 
 
 		<!-- JavaScript (Opcional) -->

@@ -19,7 +19,6 @@ import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
-import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
@@ -53,6 +52,7 @@ public class CadContratoMB implements Serializable {
 	private Tipooperacao tipooiperacao;
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
+	private Banco bancoDadosBancario;
 
 	@PostConstruct
 	public void init() {
@@ -60,33 +60,23 @@ public class CadContratoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		contrato = (Contrato) session.getAttribute("contrato");
 		orgaoBanco = (OrgaoBanco) session.getAttribute("orgaobanco");
+		banco = (Banco) session.getAttribute("banco");
 		session.removeAttribute("orgaobanco");
 		session.removeAttribute("contrato");
+		cliente = contrato.getCliente();
+		banco = orgaoBanco.getBanco();
 		gerarListaBanco();
-		gerarListaTipoOperacao();
-		if (contrato == null) {
-			contrato = new Contrato();
+		valorescoeficiente = contrato.getValorescoeficiente();
+		if (cliente != null) {
+			if (cliente.getDadosbancario() != null) {
+				dadosbancario = cliente.getDadosbancario();
+			}
+			cpf = cliente.getCpf();
+		} else {
 			cliente = new Cliente();
 			dadosbancario = new Dadosbancario();
-			valorescoeficiente = new Valorescoeficiente();
-			contrato.setDatacadastro(new Date());
-			SituacaoFacade situacaoFacade = new SituacaoFacade();
-			contrato.setSituacao(situacaoFacade.consultar(4));
-		} else {
-			cliente = contrato.getCliente();
-			banco = orgaoBanco.getBanco();
-			gerarListaOrgao();
-			valorescoeficiente = contrato.getValorescoeficiente();
-			if (cliente != null) {
-				if (cliente.getDadosbancario() != null) {
-					dadosbancario = cliente.getDadosbancario();
-				}
-				cpf = cliente.getCpf();
-			}else {
-				cliente = new Cliente();
-				dadosbancario = new Dadosbancario();
-			}
 		}
+		bancoDadosBancario = dadosbancario.getBanco();
 	}
 
 	public List<Banco> getListaBanco() {
@@ -193,13 +183,21 @@ public class CadContratoMB implements Serializable {
 		this.usuarioLogadoMB = usuarioLogadoMB;
 	}
 
+	public Banco getBancoDadosBancario() {
+		return bancoDadosBancario;
+	}
+
+	public void setBancoDadosBancario(Banco bancoDadosBancario) {
+		this.bancoDadosBancario = bancoDadosBancario;
+	}
+
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b");
-		if (listaBanco == null) {
-			listaBanco = new ArrayList<Banco>();
+		listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum'");
+		if (listaBancoOperacao == null) {
+			listaBancoOperacao = new ArrayList<Banco>();
 		}
-		listaBancoOperacao = listaBanco;
+		listaBanco = listaBancoOperacao;
 	}
 
 	public void gerarListaOrgao() {
@@ -246,6 +244,9 @@ public class CadContratoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		cliente.setCpf(cpf);
+		if (bancoDadosBancario != null) {
+			dadosbancario.setBanco(bancoDadosBancario);
+		}
 		cliente.setDadosbancario(dadosbancario);
 		contrato.setCliente(cliente);
 		session.setAttribute("contrato", contrato);
@@ -266,9 +267,8 @@ public class CadContratoMB implements Serializable {
 			contrato.setPercentualpago((contrato.getParcelaspagas() * 100) / contrato.getTotalparcelas());
 			contrato.setParcelasrestantes(contrato.getTotalparcelas() - contrato.getParcelaspagas());
 		}
-	}  
-	
-	
+	}
+
 	public String salvar() {
 		contrato.setCliente(salvarCliente());
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
@@ -277,45 +277,42 @@ public class CadContratoMB implements Serializable {
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
 	}
-	
-	
 
 	public Cliente salvarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
+		if (bancoDadosBancario == null || bancoDadosBancario.getIdbanco() == null) {
+			BancoFacade bancoFacade = new BancoFacade();
+			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome='Nenhum'");
+			if (listaBanco == null) {
+				listaBanco = new ArrayList<Banco>();
+			}
+			bancoDadosBancario = listaBanco.get(0);
+		}
 		salvarDadosBancarios();
 		cliente.setDadosbancario(dadosbancario);
 		return clienteFacade.salvar(cliente);
 	}
 
-
 	public void salvarDadosBancarios() {
 		DadosBancarioFacade dadosBancarioFacade = new DadosBancarioFacade();
+		dadosbancario.setBanco(bancoDadosBancario);
 		dadosbancario = dadosBancarioFacade.salvar(dadosbancario);
 	}
-	
-	
-	
+
 	public String cancelar() {
 		return "consContrato";
 	}
-	
+
 	public String gerarCodigo() {
 		String codigo = "FF " + Formatacao.ConvercaoDataPadrao(new Date()) + " - ";
 		ContratoFacade contratoFacade = new ContratoFacade();
-		List<Contrato> lisContratos = contratoFacade.lista("Select c From Contrato c Where c.datacadastro='" + Formatacao.ConvercaoDataSql(new Date()) +
-				"'"); 
+		List<Contrato> lisContratos = contratoFacade.lista(
+				"Select c From Contrato c Where c.datacadastro='" + Formatacao.ConvercaoDataSql(new Date()) + "'");
 		if (lisContratos == null) {
 			lisContratos = new ArrayList<Contrato>();
 		}
 		codigo = codigo + (lisContratos.size() + 1);
 		return codigo;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -1,6 +1,8 @@
 package br.com.gestapromotora.managebean.cliente;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.bean.ControladorCEPBean;
 import br.com.gestapromotora.bean.EnderecoBean;
+import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
+import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Dadosbancario;
 
@@ -25,6 +29,8 @@ public class CadClienteMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Cliente cliente;
 	private Dadosbancario dadosbancario;
+	private Banco bancoDadosBancario;
+	private List<Banco> listaBanco;
 	
 	
 	@PostConstruct
@@ -33,11 +39,13 @@ public class CadClienteMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		cliente = (Cliente) session.getAttribute("cliente");
 		session.removeAttribute("cliente");
+		gerarListaBanco();
 		if (cliente == null) {
 			cliente = new Cliente();
 			dadosbancario = new Dadosbancario();
 		}else {
 			buscarDadosBancarios(cliente.getDadosbancario());
+			bancoDadosBancario = dadosbancario.getBanco();
 		}
 	}
 
@@ -63,6 +71,26 @@ public class CadClienteMB implements Serializable{
 	
 	
 	
+	public Banco getBancoDadosBancario() {
+		return bancoDadosBancario;
+	}
+
+
+	public void setBancoDadosBancario(Banco bancoDadosBancario) {
+		this.bancoDadosBancario = bancoDadosBancario;
+	}
+
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+
 	public String cancelar() {
 		return "consCliente";
 	}
@@ -70,6 +98,14 @@ public class CadClienteMB implements Serializable{
 	
 	public String salvar() {
 		ClienteFacade clienteFacade = new ClienteFacade();
+		if (bancoDadosBancario == null || bancoDadosBancario.getIdbanco() == null) {
+			BancoFacade bancoFacade = new BancoFacade();
+			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome='Nenhum'");
+			if (listaBanco == null) {
+				listaBanco = new ArrayList<Banco>();
+			}
+			bancoDadosBancario = listaBanco.get(0);
+		}
 		salvarDadosBancarios();
 		cliente.setDadosbancario(dadosbancario);
 		clienteFacade.salvar(cliente);
@@ -79,6 +115,7 @@ public class CadClienteMB implements Serializable{
 
 	public void salvarDadosBancarios() {
 		DadosBancarioFacade dadosBancarioFacade = new DadosBancarioFacade();
+		dadosbancario.setBanco(bancoDadosBancario);
 		dadosbancario = dadosBancarioFacade.salvar(dadosbancario);
 	}
 	
@@ -109,6 +146,15 @@ public class CadClienteMB implements Serializable{
 	        String tipo = endereco.getLogradouro().substring(0, posicao +1);
 	        cliente.setLogradouro(logradouro);
 	        cliente.setTipologradouro(tipo);
+		}
+	}
+	
+	
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum'");
+		if (listaBanco == null) {
+			listaBanco = new ArrayList<Banco>();
 		}
 	}
 	

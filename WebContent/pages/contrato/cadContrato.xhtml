@@ -45,53 +45,19 @@
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label for="inputNome">Banco</label>
-					<h:panelGrid columns="2" style="width:100%;">
-						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
-							immediate="true" value="#{cadContratoMB.banco}"
-							converter="BancoConverter" styleClass="form-control"
-							onchange="orgaobanco">
-							<f:selectItem itemLabel="Selecione" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems value="#{cadContratoMB.listaBanco}"
-								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
-								itemValue="#{bancoSelecionado}" />
-							<f:attribute name="listaBanco"
-								value="#{cadContratoMB.listaBanco}" />
-						</h:selectOneMenu>
-						<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
-							action="#{cadContratoMB.gerarListaOrgao()}" ajax="false"
-							update="orgaobanco" styleClass="btn btn-dark" />
-					</h:panelGrid>
+					<h:inputText value="#{cadContratoMB.banco.nome}" disabled="true"
+						class="form-control" placeholder="Banco" />
 				</div>
 				<div class="form-group col-md-4">
 					<label for="orgaobanco">Orgão</label>
-					<h:selectOneMenu id="orgaobanco" style="width: 100%;"
-						value="#{cadContratoMB.orgaoBanco}"
-						converter="OrgaoBancoConverter" styleClass="form-control">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadContratoMB.listaOrgaoBanco}"
-							var="orgaoBancoSelecionado"
-							itemLabel="#{orgaoBancoSelecionado.nome}"
-							itemValue="#{orgaoBancoSelecionado}" />
-						<f:attribute name="listaOrgao"
-							value="#{cadContratoMB.listaOrgaoBanco}" />
-					</h:selectOneMenu>
+					<h:inputText value="#{cadContratoMB.orgaoBanco.nome}"
+						disabled="true" class="form-control" placeholder="Orgão" />
 				</div>
 				<div class="form-group col-md-4">
 					<label for="inputRG">Tipo de Operação</label>
-					<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-						value="#{cadContratoMB.contrato.tipooperacao}"
-						converter="TipoOperacaoConverter" styleClass="form-control">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadContratoMB.listaTipoOperacao}"
-							var="tipoOperacaoSelecionado"
-							itemLabel="#{tipoOperacaoSelecionado.descricao}"
-							itemValue="#{tipoOperacaoSelecionado}" />
-						<f:attribute name="listaTipoOperacao"
-							value="#{cadContratoMB.listaTipoOperacao}" />
-					</h:selectOneMenu>
+					<h:inputText
+						value="#{cadContratoMB.contrato.tipooperacao.descricao}"
+						disabled="true" class="form-control" placeholder="Operação" />
 				</div>
 			</div>
 			<br />
@@ -302,15 +268,20 @@
 			<h6>Dados Bancarios</h6>
 			<hr />
 			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Titular</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.titular}"
-						id="titular" class="form-control" placeholder="Titular" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Cód. Banco</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.cdbanco}"
-						id="ocdbanco" class="form-control" placeholder="Código do banco" />
+				<div class="form-group col-md-5">
+					<label>Banco</label>
+					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+						immediate="true" value="#{cadContratoMB.bancoDadosBancario}"
+						converter="BancoConverter" styleClass="form-control"
+						onchange="orgaobanco">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadContratoMB.listaBanco}"
+							var="bancoSelecionado"
+							itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+							itemValue="#{bancoSelecionado}" />
+						<f:attribute name="listaBanco" value="#{cadContratoMB.listaBanco}" />
+					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-3">
 					<label>Agência</label>
@@ -399,7 +370,7 @@
 			</div>
 
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label>Parcelas Restantes</label>
 					<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
 						id="parcelasrestantes" disabled="true" class="form-control"
@@ -414,31 +385,43 @@
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label>Parcela</label>
 					<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
 						class="form-control" placeholder="Parcela">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label>Valor Quitar</label>
 					<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
 						id="valorquitar" class="form-control" placeholder="Valor Quitar">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label>Saldo Inadimplência</label>
 					<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
-						id="saldoinadimplencia" disabled="true" class="form-control"
+						disabled="true" class="form-control"
 						placeholder="Saldo Inadimplência">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
+			</div>
+
+			<div class="form-row">
+				<h:panelGroup
+					rendered="#{cadContratoMB.contrato.tipooperacao.margem}">
+					<div class="form-group col-md-3">
+						<label>Margem Utilizada</label>
+						<h:inputText value="#{cadContratoMB.contrato.margemutilizada}"
+							id="saldoinadimplencia" class="form-control"
+							placeholder="Saldo Inadimplência">
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
+						</h:inputText>
+					</div>
+				</h:panelGroup>
 				<div class="form-group col-md-3">
 					<label>Tarifa</label>
 					<h:inputText value="#{cadContratoMB.contrato.tarifa}" id="tarifa"
@@ -491,8 +474,6 @@
 							value="#{cadContratoMB.valorescoeficiente.coeficientevalor}"
 							id="coeficienteresultado" disabled="true" class="form-control"
 							placeholder="Coeficiente">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
 						</h:inputText>
 					</div>
 				</div>
@@ -528,19 +509,17 @@
 			<hr />
 			<div class="form-row">
 				<div class="form-group col-md-12">
-					<label for="exampleFormControlFile1">Anexe um arquivo</label> <input type="file" class="form-control-file"
-						id="exampleFormControlFile1" />
+					<label for="exampleFormControlFile1">Anexe um arquivo</label> <input
+						type="file" class="form-control-file" id="exampleFormControlFile1" />
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label>Tipo de Documento</label> 
-					<h:selectOneMenu  id="tipodocumento"
-						value="#"
+					<label>Tipo de Documento</label>
+					<h:selectOneMenu id="tipodocumento" value="#"
 						styleClass="form-control">
 						<f:selectItem itemLabel="Contrato" itemValue="Contrato" />
-						<f:selectItem itemLabel="Ficha"
-							itemValue="Ficha" />
+						<f:selectItem itemLabel="Ficha" itemValue="Ficha" />
 					</h:selectOneMenu>
 				</div>
 			</div>
@@ -562,11 +541,11 @@
 			<br />
 			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					 value="Salvar"
+				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar"
 					action="#{cadContratoMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
-					value="Cancelar" action="#{cadContratoMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{cadContratoMB.cancelar()}" />
 			</div>
 			<br />
 			<br />

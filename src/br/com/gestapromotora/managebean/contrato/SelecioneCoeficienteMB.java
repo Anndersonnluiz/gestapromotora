@@ -17,7 +17,7 @@ import br.com.gestapromotora.model.Valorescoeficiente;
 
 @Named
 @ViewScoped
-public class SelecioneCoeficienteMB implements Serializable{
+public class SelecioneCoeficienteMB implements Serializable {
 
 	/**
 	 * 
@@ -26,9 +26,7 @@ public class SelecioneCoeficienteMB implements Serializable{
 	private Contrato contrato;
 	private List<Valorescoeficiente> listaValores;
 	private OrgaoBanco orgaobanco;
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -40,57 +38,50 @@ public class SelecioneCoeficienteMB implements Serializable{
 		gerarListaValores();
 	}
 
-
-
 	public Contrato getContrato() {
 		return contrato;
 	}
-
-
 
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
 
-
-
 	public List<Valorescoeficiente> getListaValores() {
 		return listaValores;
 	}
 
-
-
 	public void setListaValores(List<Valorescoeficiente> listaValores) {
 		this.listaValores = listaValores;
 	}
-	
-	
+
 	public void gerarListaValores() {
 		ValoresCoeficienteFacade valoresCoeficienteFacade = new ValoresCoeficienteFacade();
-		listaValores = valoresCoeficienteFacade.lista("Select v From Valorescoeficiente v WHERE v.coeficiente.orgaoBanco.idorgaobanco=" 
-				+ orgaobanco.getIdorgaobanco());
+		listaValores = valoresCoeficienteFacade
+				.lista("Select v From Valorescoeficiente v WHERE v.coeficiente.orgaoBanco.idorgaobanco="
+						+ orgaobanco.getIdorgaobanco());
 		if (listaValores == null) {
 			listaValores = new ArrayList<Valorescoeficiente>();
 		}
 	}
-	
-	
+
 	public String selecionarCoeficiente(Valorescoeficiente valorescoeficiente) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		contrato.setValorescoeficiente(valorescoeficiente);
-		if (contrato.getTipooperacao().isMargem()) {
-			contrato.setValoroperacao(contrato.getParcela()/valorescoeficiente.getCoeficientevalor());
-		}else {
-			contrato.setValoroperacao((contrato.getParcela()/valorescoeficiente.getCoeficientevalor())-contrato.getValorquitar());
+		if (contrato.getTipooperacao() != null) {
+			if (contrato.getTipooperacao().isMargem()) {
+				contrato.setValoroperacao(contrato.getMargemutilizada() / valorescoeficiente.getCoeficientevalor());
+			} else {
+				contrato.setValoroperacao(
+						(contrato.getParcela() / valorescoeficiente.getCoeficientevalor()) - contrato.getValorquitar());
+			}
 		}
 		contrato.setValorcliente(contrato.getValoroperacao());
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", orgaobanco);
 		return "cadContrato";
 	}
-	
-	
+
 	public String voltar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -98,12 +89,5 @@ public class SelecioneCoeficienteMB implements Serializable{
 		session.setAttribute("orgaobanco", orgaobanco);
 		return "cadContrato";
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

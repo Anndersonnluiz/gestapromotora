@@ -95,7 +95,8 @@ public class ContratoMB implements Serializable{
 	public void gerarListaContrato() {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c";
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
+				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " WHERE c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		listaContrato = contratoFacade.lista(sql);
@@ -202,7 +203,8 @@ public class ContratoMB implements Serializable{
 	
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.cliente.nome like '%"+ nomeCliente +"%' and c.cliente.cpf like '%"+ cpf +"%'";
-		if (usuario != null && usuario.getIdusuario() != null) {
+		if (usuario != null && usuario.getIdusuario() != null  && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
+				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		ContratoFacade contratoFacade = new ContratoFacade();

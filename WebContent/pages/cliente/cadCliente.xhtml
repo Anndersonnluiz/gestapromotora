@@ -181,16 +181,21 @@
 
 			<h6>Dados Bancarios</h6>
 			<hr/>
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Titular</label>
-					<h:inputText value="#{cadClienteMB.dadosbancario.titular}"
-						class="form-control" placeholder="Titular" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Cód. Banco</label>
-					<h:inputText value="#{cadClienteMB.dadosbancario.cdbanco}"
-						class="form-control" placeholder="Código do banco" />
+			<div class="form-row"> 
+				<div class="form-group col-md-5">
+					<label>Banco</label>
+					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+						immediate="true" value="#{cadClienteMB.bancoDadosBancario}"
+						converter="BancoConverter" styleClass="form-control"
+						onchange="orgaobanco">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadClienteMB.listaBanco}"
+							var="bancoSelecionado"
+							itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+							itemValue="#{bancoSelecionado}" />
+						<f:attribute name="listaBanco" value="#{cadClienteMB.listaBanco}" />
+					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-3">
 					<label>Agência</label>

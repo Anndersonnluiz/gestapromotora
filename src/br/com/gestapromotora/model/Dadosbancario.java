@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +39,9 @@ public class Dadosbancario implements Serializable{
 	private int digitoconta;
 	@Column(name = "titular")
 	private String titular;
+	@JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
+	@ManyToOne(optional = false)
+	private Banco banco;
 	
 	
 	
@@ -141,6 +146,18 @@ public class Dadosbancario implements Serializable{
 	}
 	
 	
+	public Banco getBanco() {
+		return banco;
+	}
+
+
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

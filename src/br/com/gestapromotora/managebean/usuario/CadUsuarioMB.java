@@ -40,6 +40,7 @@ public class CadUsuarioMB implements Serializable {
 		if (usuario == null) {
 			usuario = new Usuario();
 			dadosbancario = new Dadosbancario();
+			usuario.setDescricaoativo("check");
 		} else {
 			buscarDadosBancarios(usuario);
 			tipocolaborador = usuario.getTipocolaborador();

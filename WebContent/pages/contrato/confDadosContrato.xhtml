@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h:form id="frmCadastroUsuario">
+			<h4>Cadastro de Contrato</h4>
+			<hr />
+			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="corretor">Responsável</label>
+					<h:inputText value="#{usuarioLogadoMB.usuario.nome}"
+						disabled="true" class="form-control" id="corretor"
+						placeholder="Nome" />
+				</div>
+				<div class="form-group col-md-3">
+					<label for="datacadastro">Data Cadastro</label>
+					<h:inputText class="form-control" id="datacadastro" disabled="true"
+						value="#{confDadosContratoMB.contrato.datacadastro}" mask="99/99/9999">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="emailcorretor">Email</label>
+					<h:inputText value="#{usuarioLogadoMB.usuario.email}"
+						disabled="true" class="form-control" id="emailcorretor"
+						placeholder="Email" />
+				</div>
+
+				<div class="form-group col-md-3">
+					<label for="dataNasc">Assinado no banco ?</label>
+					<div>
+						<p:selectBooleanCheckbox
+							value="#{confDadosContratoMB.contrato.assinadobanco}" />
+					</div>
+
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="inputNome">Banco</label>
+					<h:panelGrid columns="2" style="width:100%;">
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{confDadosContratoMB.banco}"
+							converter="BancoConverter" styleClass="form-control"
+							onchange="orgaobanco">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{confDadosContratoMB.listaBanco}"
+								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+								itemValue="#{bancoSelecionado}" />
+							<f:attribute name="listaBanco"
+								value="#{confDadosContratoMB.listaBanco}" />
+						</h:selectOneMenu>
+						<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
+							action="#{confDadosContratoMB.gerarListaOrgao()}" ajax="false"
+							update="orgaobanco" styleClass="btn btn-dark" />
+					</h:panelGrid>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="orgaobanco">Orgão</label>
+					<h:selectOneMenu id="orgaobanco" style="width: 100%;"
+						value="#{confDadosContratoMB.orgaoBanco}"
+						converter="OrgaoBancoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{confDadosContratoMB.listaOrgaoBanco}"
+							var="orgaoBancoSelecionado"
+							itemLabel="#{orgaoBancoSelecionado.nome}"
+							itemValue="#{orgaoBancoSelecionado}" />
+						<f:attribute name="listaOrgao"
+							value="#{confDadosContratoMB.listaOrgaoBanco}" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputRG">Tipo de Operação</label>
+					<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+						value="#{confDadosContratoMB.contrato.tipooperacao}"
+						converter="TipoOperacaoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{confDadosContratoMB.listaTipoOperacao}"
+							var="tipoOperacaoSelecionado"
+							itemLabel="#{tipoOperacaoSelecionado.descricao}"
+							itemValue="#{tipoOperacaoSelecionado}" />
+						<f:attribute name="listaTipoOperacao"
+							value="#{confDadosContratoMB.listaTipoOperacao}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+
+			<br />
+			<hr />
+			<div align="center">
+				<p:commandLink ajax="false" styleClass="btn btn-dark"
+					 value="Próximo"
+					action="#{confDadosContratoMB.cadContrato()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
+					value="Cancelar" action="#{confDadosContratoMB.cancelar()}" />
+			</div>
+			<br />
+			<br />
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

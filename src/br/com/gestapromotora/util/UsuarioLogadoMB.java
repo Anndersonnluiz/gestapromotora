@@ -205,8 +205,7 @@ public class UsuarioLogadoMB implements Serializable {
 					senhaAtual = "";
 					novaSenha = "";
 					confirmaNovaSenha = "";
-					RequestContext.getCurrentInstance().closeDialog(usuario);
-					return "";
+					return "dashboard";
 				} else {
 					novaSenha = "";
 					confirmaNovaSenha = "";
