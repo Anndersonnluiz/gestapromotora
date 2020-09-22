@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,11 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import br.com.gestapromotora.connection.ConectionFactory;
+import br.com.gestapromotora.dao.ClienteDao;
+import br.com.gestapromotora.dao.NotificacaoDao;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Cliente;
+import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.Usuario;
  
 
@@ -45,6 +50,8 @@ public class UsuarioLogadoMB implements Serializable {
 	private List<String> imagens;
 	private boolean logar;
 	private String nomeUsuario;
+	private int nNotificacao;
+	private int nAniversario;
 
 	@PostConstruct
 	public void init() {
@@ -132,6 +139,22 @@ public class UsuarioLogadoMB implements Serializable {
 		this.nomeUsuario = nomeUsuario;
 	}
 
+	public int getnNotificacao() {
+		return nNotificacao;
+	}
+
+	public void setnNotificacao(int nNotificacao) {
+		this.nNotificacao = nNotificacao;
+	}
+
+	public int getnAniversario() {
+		return nAniversario;
+	}
+
+	public void setnAniversario(int nAniversario) {
+		this.nAniversario = nAniversario;
+	}
+
 	public String logar() {
 		if (logar) {  
 			return "dashboard";
@@ -159,6 +182,8 @@ public class UsuarioLogadoMB implements Serializable {
 			} else {
 					mensagemOlá();
 					nomeUsuario = usuario.getNome();
+					listarNotificacao();
+					gerarListaCliente();
 					return logar = true;
 			}
 		}
@@ -315,5 +340,25 @@ public class UsuarioLogadoMB implements Serializable {
 		} 
 	}
 	
+	
+	public void listarNotificacao() {
+		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		List<Notificacao> listaNotificacao = notificacaoDao.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario=" + 
+					 usuario.getIdusuario());
+		if (listaNotificacao == null) {
+			listaNotificacao = new ArrayList<Notificacao>();
+		}
+		nNotificacao = listaNotificacao.size();
+	}
+	
+	public void gerarListaCliente() {
+		ClienteDao clienteDao = new ClienteDao();
+		List<Cliente> listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.nascimento='" + Formatacao.ConvercaoDataNfe(new Date()) 
+				+ "'");
+		if (listaCliente == null) {
+			listaCliente = new ArrayList<Cliente>();
+		}
+		nAniversario = listaCliente.size();
+	}
 	
 }

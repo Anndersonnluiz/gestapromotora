@@ -2,6 +2,7 @@ package br.com.gestapromotora.managebean.usuario;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,9 +14,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.dao.UsuarioDao;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Criptografia;
+import br.com.gestapromotora.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -102,6 +105,20 @@ public class UsuarioMB implements Serializable{
 			usuario.setDescricaoativo("check");
 		}
 		usuarioFacade.salvar(usuario);
+	}
+	
+	
+
+	
+	public void resetSenha(Usuario usuario) {
+		usuario.setSenha("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
+		UsuarioDao usuarioDao = new UsuarioDao();
+		try {
+			usuarioDao.salvar(usuario);
+			Mensagem.lancarMensagemInfo("Reset de Senha", "com sucesso!!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

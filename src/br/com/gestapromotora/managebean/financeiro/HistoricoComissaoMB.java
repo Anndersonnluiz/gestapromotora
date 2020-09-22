@@ -12,7 +12,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
+import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Historicocomissao;
+import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Formatacao;
 
 @Named
@@ -26,12 +28,15 @@ public class HistoricoComissaoMB implements Serializable{
 	private List<Historicocomissao> listaComissao;
 	private String nome;
 	private int cdinterno;
-	private Date dataLancamento;
+	private String dataLancamento;
+	private List<Usuario> listaUsuario;
+	private Usuario usuario;
 	
 	
 	@PostConstruct
 	public void init() {
 		gerarListaInicial();
+		gerarListaUsuario();
 	}
 
 
@@ -63,19 +68,39 @@ public class HistoricoComissaoMB implements Serializable{
 	public void setCdinterno(int cdinterno) {
 		this.cdinterno = cdinterno;
 	}
-
-
-	public Date getDataLancamento() {
+	
+	
+	
+	public String getDataLancamento() {
 		return dataLancamento;
 	}
 
 
-	public void setDataLancamento(Date dataLancamento) {
+	public void setDataLancamento(String dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
-	
-	
-	
+
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		listaComissao = historicoComissaoFacade.lista("Select h From Historicocomissao h");
@@ -91,8 +116,8 @@ public class HistoricoComissaoMB implements Serializable{
 			sql = sql + " and h.usuario.cdinterno=" + cdinterno;
 		}
 		
-		if (dataLancamento != null) {
-			sql = sql + " and h.datalancamento='" + Formatacao.ConvercaoDataSql(dataLancamento) + "' ";
+		if (dataLancamento != null && dataLancamento.length() > 0 && !dataLancamento.equalsIgnoreCase("Selecione")) {
+			sql = sql + " and h.datalancamento='" + Formatacao.getAnoData(new Date()) + "-"+ dataLancamento +"-01' ";
 		}
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		listaComissao = historicoComissaoFacade.lista(sql);
@@ -113,6 +138,15 @@ public class HistoricoComissaoMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("historicocomissao", historicocomissao);
 		return "editarComissao";
+	}
+	
+	
+	public void gerarListaUsuario() {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u WHERE u.ativo=true");
+		if (listaUsuario == null) {
+			listaUsuario = new ArrayList<Usuario>();
+		}
 	}
 
 }

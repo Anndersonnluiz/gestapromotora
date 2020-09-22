@@ -58,7 +58,8 @@ public class SelecioneCoeficienteMB implements Serializable {
 		ValoresCoeficienteFacade valoresCoeficienteFacade = new ValoresCoeficienteFacade();
 		listaValores = valoresCoeficienteFacade
 				.lista("Select v From Valorescoeficiente v WHERE v.coeficiente.orgaoBanco.idorgaobanco="
-						+ orgaobanco.getIdorgaobanco());
+						+ orgaobanco.getIdorgaobanco() + " AND v.coeficiente.tipooperacao.idtipooperacao="
+						+ contrato.getTipooperacao().getIdtipooperacao());
 		if (listaValores == null) {
 			listaValores = new ArrayList<Valorescoeficiente>();
 		}

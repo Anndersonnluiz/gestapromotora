@@ -6,16 +6,23 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
-			<h4>Consulta de Coeficiente: <p:outputLabel value="#{coeficienteMB.orgaobanco.banco.nome}"/> >
-				<p:outputLabel value="#{coeficienteMB.orgaobanco.nome}"/></h4>
+			<br />
+			<h4>
+				Consulta de Coeficiente:
+				<p:outputLabel value="#{coeficienteMB.orgaobanco.banco.nome}" />
+				>
+				<p:outputLabel value="#{coeficienteMB.orgaobanco.nome}" />
+			</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
-				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{coeficienteMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" 
-				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}" action="#{coeficienteMB.novoCoeficiente()}" />
+				<p:commandLink ajax="false" style="margin-right:1%;"
+					styleClass="btn btn-link" value="Voltar"
+					action="#{coeficienteMB.voltar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Novo"
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
+					action="#{coeficienteMB.novoCoeficiente()}" />
 			</div>
 			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
 				value="#{coeficienteMB.listaCoeficiente}" style="border:none;"
@@ -24,36 +31,47 @@
 				rowKey="#{coeficiente.idcoeficiente}">
 
 
-				<p:column headerText="Nome Tabela" sortBy="#{coeficiente.nometabela}"
+				<p:column headerText="Nome Tabela"
+					sortBy="#{coeficiente.nometabela}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.nometabela}" />
 				</p:column>
-				<p:column headerText="Nome Produto" sortBy="#{coeficiente.nomeproduto}"
+				<p:column headerText="Nome Produto"
+					sortBy="#{coeficiente.nomeproduto}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.nomeproduto}" />
 				</p:column>
-				<p:column headerText="Tipo Tabela" sortBy="#{coeficiente.tipotabela}"
+				<p:column headerText="Tipo Tabela"
+					sortBy="#{coeficiente.tipotabela}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.tipotabela}" />
 				</p:column>
-				<p:column headerText="Codigo Tabela" sortBy="#{coeficiente.codigotabela}"
+				<p:column headerText="Codigo Tabela"
+					sortBy="#{coeficiente.codigotabela}"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.codigotabela}" />
 				</p:column>
 				
+				<p:column headerText="Tipo Operação"
+					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{coeficiente.tipooperacao.descricao}" />
+				</p:column>
+
 				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{coeficienteMB.editar(coeficiente)}" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
+					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					<p:commandLink ajax="false"
+						action="#{coeficienteMB.editar(coeficiente)}"
+						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{coeficienteMB.novosValores(coeficiente)}" title="Valores Coeficientes"
-						style="text-align: left;color:black;"> 
+					<p:commandLink ajax="false"
+						action="#{coeficienteMB.novosValores(coeficiente)}"
+						title="Valores Coeficientes" style="text-align: left;color:black;">
 						<span data-feather="list"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.dao.RegrasCoeficienteDao;
 import br.com.gestapromotora.facade.RegrasCoeficienteFacade;
 import br.com.gestapromotora.facade.ValoresCoeficienteFacade;
 import br.com.gestapromotora.model.Coeficiente;
@@ -140,15 +141,17 @@ public class CadValoresCoeficienteMB implements Serializable{
 	}
 	
 	
-	public void excluirRegra(Regrascoeficiente regrascoeficiente) {
-		for (int i = 0; i < listaRegrasCoeficiente.size(); i++) {
-			if (regrascoeficiente.getContador()==listaRegrasCoeficiente.get(i).getContador()) {
-				listaRegrasCoeficiente.remove(i);
-			}
-			i = listaRegrasCoeficiente.size();
+	
+	public void excluirRegra(String ilinha) {
+		int linha = Integer.parseInt(ilinha);
+		if (listaRegrasCoeficiente.get(linha).getIdregrascoeficiente() != null) {
+			RegrasCoeficienteDao regrasCoeficienteDao = new RegrasCoeficienteDao();
+			regrasCoeficienteDao.excluir(listaRegrasCoeficiente.get(linha).getIdregrascoeficiente());
+		}
+		if (linha >= 0) {
+			listaRegrasCoeficiente.remove(linha);
 		}
 	}
-	
 	
 	
 	

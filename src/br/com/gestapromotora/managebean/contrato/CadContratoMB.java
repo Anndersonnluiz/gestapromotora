@@ -1,6 +1,7 @@
 package br.com.gestapromotora.managebean.contrato;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.bean.ControladorCEPBean;
 import br.com.gestapromotora.bean.EnderecoBean;
+import br.com.gestapromotora.dao.NotificacaoDao;
+import br.com.gestapromotora.dao.UsuarioDao;
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
@@ -24,8 +27,10 @@ import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Dadosbancario;
+import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.OrgaoBanco;
 import br.com.gestapromotora.model.Tipooperacao;
+import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.model.Valorescoeficiente;
 import br.com.gestapromotora.util.Formatacao;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
@@ -66,6 +71,9 @@ public class CadContratoMB implements Serializable {
 		cliente = contrato.getCliente();
 		banco = orgaoBanco.getBanco();
 		gerarListaBanco();
+		if (contrato == null) {
+			contrato = new Contrato();
+		}
 		valorescoeficiente = contrato.getValorescoeficiente();
 		if (cliente != null) {
 			if (cliente.getDadosbancario() != null) {
@@ -274,8 +282,32 @@ public class CadContratoMB implements Serializable {
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
 		contrato.setCodigocontrato(gerarCodigo());
+		if (contrato.getIdcontrato() == null) {
+			gerarNotificacao();
+		}
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
+	}
+	
+	
+	public void gerarNotificacao() {
+		UsuarioDao usuarioDao = new UsuarioDao();
+		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		try {
+			List<Usuario> listaUsuario = usuarioDao.listar("Select u From Usuario u WHERE "
+					+ "u.tipocolaborador.acessocolaborador.notificacaooperacional=true");
+			for (int i = 0; i < listaUsuario.size(); i++) {
+				Notificacao notificacao = new Notificacao();
+				notificacao.setDatalancamento(new Date());
+				notificacao.setVisto(false);
+				notificacao.setUsuario(listaUsuario.get(i));
+				notificacao.setTitulo("Novo Contrato");
+				notificacao.setDescricao("Novo contrato emitido pelo corretor(a) " + usuarioLogadoMB.getUsuario().getNome());
+				notificacaoDao.salvar(notificacao);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Cliente salvarCliente() {

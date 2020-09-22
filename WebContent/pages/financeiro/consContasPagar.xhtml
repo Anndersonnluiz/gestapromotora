@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Contas a Pagar</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="usuario">Tipo Despesa</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{contasPagarMB.tipodespesa}"
+					converter="TipoDespesaConverter" styleClass="form-control"
+					>
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{contasPagarMB.listaTipoDespesa}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.descricao}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaTipoDespesa"
+						value="#{contasPagarMB.listaTipoDespesa}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="usuario">Periodo do Vencimento</label>
+				<h:panelGrid columns="2" style="width:87%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{contasPagarMB.dataini}"
+						id="dataini">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{contasPagarMB.datafin}"
+						id="datafin">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
+						update="idTabelaComissao" />
+					<p:commandLink ajax="false" style="margin-left:1%;"
+						styleClass="btn btn-link" value="Limpar"
+						action="#{contasPagarMB.limpar()}"
+						update="idTabelaComissao, usuario, dataini, datafin" />
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div align="right">
+				<p:commandLink
+					
+					ajax="false" styleClass="btn btn-primary" value="Novo"
+					action="#{contasPagarMB.novo()}" />
+			</div>
+		<p:dataTable id="idTabelaComissao" var="contas"
+			value="#{contasPagarMB.listaContasPagar}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contas.idcontaspagar}">
+
+
+			<p:column headerText="Tipo Despesa"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.tipodespesa.descricao}" />
+			</p:column>
+			<p:column headerText="Descrição"
+				style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.descricao}" />
+			</p:column>
+			<p:column headerText="Vencimento"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.datavencimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Pagamento"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.datapagamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText=""
+				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false"
+					action="#{contasPagarMB.editar(contas)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

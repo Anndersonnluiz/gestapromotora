@@ -23,7 +23,7 @@ public class AnexarArquivoMB implements Serializable{
 	
 	
 	public String voltar() {
-		return "conContrato";
+		return "consContrato";
 	}
 
 }

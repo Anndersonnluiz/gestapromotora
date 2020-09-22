@@ -7,551 +7,569 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h:form id="frmCadastroUsuario">
-			<h4>Cadastro de Contrato</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="corretor">Responsável</label>
-					<h:inputText value="#{usuarioLogadoMB.usuario.nome}"
-						disabled="true" class="form-control" id="corretor"
-						placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="datacadastro">Data Cadastro</label>
-					<h:inputText class="form-control" id="datacadastro" disabled="true"
-						value="#{cadContratoMB.contrato.datacadastro}" mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="emailcorretor">Email</label>
-					<h:inputText value="#{usuarioLogadoMB.usuario.email}"
-						disabled="true" class="form-control" id="emailcorretor"
-						placeholder="Email" />
+		<h4>Cadastro de Contrato</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="corretor">Responsável</label>
+				<h:inputText value="#{usuarioLogadoMB.usuario.nome}" disabled="true"
+					class="form-control" id="corretor" placeholder="Nome"
+					style="border-color:black;" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="datacadastro">Data Cadastro</label>
+				<p:inputText class="form-control" id="datacadastro" disabled="true"
+					style="border-color:black;"
+					value="#{cadContratoMB.contrato.datacadastro}" mask="99/99/9999">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</p:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="emailcorretor">Email</label>
+				<h:inputText value="#{usuarioLogadoMB.usuario.email}"
+					style="border-color:black;" disabled="true" class="form-control"
+					id="emailcorretor" placeholder="Email" />
+			</div>
+
+			<div class="form-group col-md-3">
+				<label for="dataNasc">Assinado no banco ?</label>
+				<div>
+					<p:selectBooleanCheckbox
+						value="#{cadContratoMB.contrato.assinadobanco}" />
 				</div>
 
-				<div class="form-group col-md-3">
-					<label for="dataNasc">Assinado no banco ?</label>
-					<div>
-						<p:selectBooleanCheckbox
-							value="#{cadContratoMB.contrato.assinadobanco}" />
-					</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputNome">Banco</label>
+				<h:inputText value="#{cadContratoMB.banco.nome}" disabled="true"
+					style="border-color:black;" class="form-control"
+					placeholder="Banco" />
+			</div>
+			<div class="form-group col-md-4">
+				<label>Orgão</label>
+				<h:inputText value="#{cadContratoMB.orgaoBanco.nome}"
+					style="border-color:black;" disabled="true" class="form-control"
+					placeholder="Orgão" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputRG">Tipo de Operação</label>
+				<h:inputText
+					value="#{cadContratoMB.contrato.tipooperacao.descricao}"
+					style="border-color:black;" disabled="true" class="form-control"
+					placeholder="Operação" />
+			</div>
+		</div>
+		<br />
+		<h6>Secretaria</h6>
+		<hr />
 
-				</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="secretaria">Secretaria</label>
+				<h:inputText value="#{cadContratoMB.contrato.secretaria}"
+					style="border-color:black;" class="form-control" id="secretaria"
+					placeholder="Nome" />
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="inputNome">Banco</label>
-					<h:inputText value="#{cadContratoMB.banco.nome}" disabled="true"
-						class="form-control" placeholder="Banco" />
-				</div>
-				<div class="form-group col-md-4">
-					<label for="orgaobanco">Orgão</label>
-					<h:inputText value="#{cadContratoMB.orgaoBanco.nome}"
-						disabled="true" class="form-control" placeholder="Orgão" />
-				</div>
-				<div class="form-group col-md-4">
-					<label for="inputRG">Tipo de Operação</label>
-					<h:inputText
-						value="#{cadContratoMB.contrato.tipooperacao.descricao}"
-						disabled="true" class="form-control" placeholder="Operação" />
-				</div>
+			<div class="form-group col-md-4">
+				<label for="matricula">Matrícula</label>
+				<h:inputText value="#{cadContratoMB.cliente.ufrg}"
+					style="border-color:black;" class="form-control" id="matricula"
+					placeholder="UF - RG" />
 			</div>
-			<br />
-			<h6>Secretaria</h6>
-			<hr />
-
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="secretaria">Secretaria</label>
-					<h:inputText value="#{cadContratoMB.contrato.secretaria}"
-						class="form-control" id="secretaria" placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-4">
-					<label for="matricula">Matrícula</label>
-					<h:inputText value="#{cadContratoMB.cliente.ufrg}"
-						class="form-control" id="matricula" placeholder="UF - RG" />
-				</div>
-				<div class="form-group col-md-4">
-					<label for="senha">Senha</label>
-					<h:inputText class="form-control" id="senha"
-						value="#{cadContratoMB.contrato.senha}">
-					</h:inputText>
-				</div>
+			<div class="form-group col-md-4">
+				<label for="senha">Senha</label>
+				<h:inputText class="form-control" id="senha"
+					style="border-color:black;" value="#{cadContratoMB.contrato.senha}">
+				</h:inputText>
 			</div>
-			<br />
-			<h6>Dados pessoais</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputCpf">CPF</label>
-					<h:panelGrid columns="2" style="width:100%;">
-						<h:inputText value="#{cadContratoMB.cpf}" class="form-control"
-							id="inputCpf" placeholder="CPF" />
-						<p:commandLink id="btnCliente" value="Buscar"
-							update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
+		</div>
+		<br />
+		<h6>Dados pessoais</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputCpf">CPF</label>
+				<h:panelGrid columns="2" style="width:100%;">
+					<h:inputText value="#{cadContratoMB.cpf}" class="form-control"
+						id="inputCpf" placeholder="CPF" style="border-color:black;" />
+					<p:commandLink id="btnCliente" value="Buscar"
+						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
 							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
 							inputnomemae, inputValorSalario, inputResidencial, inputcomercial, inputcelular, nconta, digconta, digagencia, agencia,
 							tipoconta, titular, codbanco"
-							action="#{cadContratoMB.buscarCliente()}" ajax="false"
-							styleClass="btn btn-dark" />
-					</h:panelGrid>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label for="inputNome">Nome</label>
-					<h:inputText value="#{cadContratoMB.cliente.nome}"
-						class="form-control" id="inputNome" placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputRG">RG</label>
-					<h:inputText value="#{cadContratoMB.cliente.rg}"
-						class="form-control" id="inputRG" placeholder="RG" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="dataNasc">Data Nascimento</label>
-					<h:inputText class="form-control" id="dataNasc"
-						value="#{cadContratoMB.cliente.nascimento}" mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:inputText>
-				</div>
+						action="#{cadContratoMB.buscarCliente()}" ajax="false"
+						styleClass="btn btn-primary" />
+				</h:panelGrid>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputOrgaoEmissor">Orgão Emissor</label>
-					<h:inputText value="#{cadContratoMB.cliente.orgaroemissor}"
-						class="form-control" id="inputOrgaoEmissor" placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputufrg">UF - RG</label>
-					<h:inputText value="#{cadContratoMB.cliente.ufrg}"
-						class="form-control" id="inputufrg" placeholder="UF - RG" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="dataEmissao">Data Emissão</label>
-					<h:inputText class="form-control" id="dataEmissao"
-						value="#{cadContratoMB.cliente.emissao}" mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputNaturalidade">Naturalidade</label>
-					<h:inputText value="#{cadContratoMB.cliente.naturalidade}"
-						class="form-control" id="inputNaturalidade"
-						placeholder="Naturalidade" />
-				</div>
+			<div class="form-group col-md-6">
+				<label for="inputNome">Nome</label>
+				<h:inputText value="#{cadContratoMB.cliente.nome}"
+					style="border-color:black;" class="form-control" id="inputNome"
+					placeholder="Nome" />
 			</div>
+			<div class="form-group col-md-3">
+				<label for="dataNasc">Data Nascimento</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+					value="#{cadContratoMB.cliente.nascimento}" id="dataNasc">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-2">
+				<label for="inputRG">RG</label>
+				<h:inputText value="#{cadContratoMB.cliente.rg}"
+					style="border-color:black;" class="form-control" id="inputRG"
+					placeholder="RG" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputOrgaoEmissor">Orgão Emissor</label>
+				<h:inputText value="#{cadContratoMB.cliente.orgaroemissor}"
+					style="border-color:black;" class="form-control"
+					id="inputOrgaoEmissor" placeholder="Nome" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputufrg">UF - RG</label>
+				<h:inputText value="#{cadContratoMB.cliente.ufrg}"
+					style="border-color:black;" class="form-control" id="inputufrg"
+					placeholder="UF - RG" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputNaturalidade">Naturalidade</label>
+				<h:inputText value="#{cadContratoMB.cliente.naturalidade}"
+					style="border-color:black;" class="form-control"
+					id="inputNaturalidade" placeholder="Naturalidade" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputUfNaturalidade">UF - Naturalidade</label>
+				<h:inputText value="#{cadContratoMB.cliente.ufnaturalidade}"
+					class="form-control" id="inputUfNaturalidade"
+					style="border-color:black;" placeholder="Estado da Naturalidade" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="dataEmissao">Data Emissão</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:100%;"
+					value="#{cadContratoMB.cliente.emissao}" id="dataEmissao">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+		</div>
 
 
-			<div class="form-row">
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label for="inputnomepai">Nome Pai</label>
+				<h:inputText value="#{cadContratoMB.cliente.nomepai}"
+					style="border-color:black;" class="form-control" id="inputnomepai"
+					placeholder="Nome Pai" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputnomemae">Noma Mãe</label>
+				<h:inputText value="#{cadContratoMB.cliente.nomemae}"
+					style="border-color:black;" class="form-control" id="inputnomemae"
+					placeholder="Nome Mãe" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputValorSalario">Valor Salário</label>
+				<h:inputText value="#{cadContratoMB.cliente.valorsalario}"
+					style="border-color:black;" class="form-control"
+					id="inputValorSalario" placeholder="Valor de Salário">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputEmail">Email</label>
+				<h:inputText value="#{cadContratoMB.cliente.email}"
+					style="border-color:black;" class="form-control" id="inputEmail" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputResidencial">Telefone Residencial</label>
+				<h:inputText value="#{cadContratoMB.cliente.telefoneresidencial}"
+					class="form-control" id="inputResidencial"
+					style="border-color:black;" placeholder="Telefone Residencial" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputcomercial">Telefone Comercial</label>
+				<h:inputText value="#{cadContratoMB.cliente.telefonecomercial}"
+					class="form-control" id="inputcomercial"
+					style="border-color:black;" placeholder="Telefone Comercial" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputcelular">Telefone Celular</label>
+				<h:inputText value="#{cadContratoMB.cliente.telefonecelular}"
+					style="border-color:black;" class="form-control" id="inputcelular"
+					placeholder="Nome Mãe" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="senhacontracheque">Senha Contra Cheque</label>
+				<h:inputText value="#{cadContratoMB.contrato.senhacontracheque}"
+					style="border-color:black;" class="form-control"
+					id="senhacontracheque" placeholder="Nome Mãe" />
+			</div>
+		</div>
+
+		<br />
+
+		<h6>Endereço</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputCEP">CEP</label>
+
+				<h:panelGrid columns="2" style="width:100%;">
+					<h:inputText value="#{cadContratoMB.cliente.cep}"
+						style="border-color:black;" class="form-control" id="inputCEP"
+						placeholder="CEP" />
+					<p:commandLink id="btnConfirmar" value="Buscar"
+						update=":formulario:inputTipoLogradouro" process="@this"
+						action="#{cadContratoMB.buscarendereco()}"
+						styleClass="btn btn-primary" ajax="false" />
+				</h:panelGrid>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputTipoLogradouro">Tipo Logradouro</label>
+				<h:inputText value="#{cadContratoMB.cliente.tipologradouro}"
+					class="form-control" id="inputTipoLogradouro"
+					style="border-color:black;" placeholder="Tipo Logradouro" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputlogradouro">Logradouro</label>
+				<h:inputText value="#{cadContratoMB.cliente.logradouro}"
+					style="border-color:black;" class="form-control"
+					id="inputlogradouro" placeholder="Logradouro" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputNumero">Número</label>
+				<h:inputText value="#{cadContratoMB.cliente.numero}"
+					style="border-color:black;" class="form-control" id="inputNumero"
+					placeholder="Número" />
+			</div>
+		</div>
+
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputComplemento">Complemento</label>
+				<h:inputText value="#{cadContratoMB.cliente.complemento}"
+					style="border-color:black;" class="form-control"
+					id="inputComplemento" placeholder="CEP" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputBairro">Bairro</label>
+				<h:inputText value="#{cadContratoMB.cliente.bairro}"
+					style="border-color:black;" class="form-control" id="inputBairro"
+					placeholder="Bairro" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputCidade">Cidade</label>
+				<h:inputText value="#{cadContratoMB.cliente.cidade}"
+					style="border-color:black;" class="form-control" id="inputCidade"
+					placeholder="Cidade" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputUfEstado">UF - Estado</label>
+				<h:inputText value="#{cadContratoMB.cliente.ufestado}"
+					style="border-color:black;" class="form-control" id="inputUfEstado"
+					placeholder="UF Estado" />
+			</div>
+		</div>
+
+
+		<br />
+
+		<h6>Dados Bancarios</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label>Banco</label>
+				<h:selectOneMenu id="exampleBanco"
+					style="width: 100%;border-color:black;" immediate="true"
+					value="#{cadContratoMB.bancoDadosBancario}"
+					converter="BancoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContratoMB.listaBanco}"
+						var="bancoSelecionado"
+						itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+						itemValue="#{bancoSelecionado}" />
+					<f:attribute name="listaBanco" value="#{cadContratoMB.listaBanco}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Agência</label>
+				<h:inputText value="#{cadContratoMB.dadosbancario.agencia}"
+					style="border-color:black;" id="agencia" class="form-control"
+					placeholder="Agência" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Agência</label>
+				<h:inputText value="#{cadContratoMB.dadosbancario.digitoagencia}"
+					id="digagencia" class="form-control" style="border-color:black;"
+					placeholder="Digito da agência" />
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Tipo conta</label>
+				<h:selectOneMenu style="width: 100%;border-color:black;"
+					id="tipoconta" value="#{cadContratoMB.dadosbancario.tipoconta}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
+					<f:selectItem itemLabel="Conta Corrente" itemValue="Conta Corrente" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>N° Conta</label>
+				<h:inputText value="#{cadContratoMB.dadosbancario.nconta}"
+					style="border-color:black;" id="nconta" class="form-control"
+					placeholder="Número da conta" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Conta</label>
+				<h:inputText value="#{cadContratoMB.dadosbancario.digitoconta}"
+					style="border-color:black;" id="digconta" class="form-control"
+					placeholder="Digito da conta" />
+			</div>
+		</div>
+		<br />
+		<h6>Dados da Operação</h6>
+		<hr />
+
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputNome">Banco</label>
+				<h:selectOneMenu id="exampleBancoOperacao"
+					style="width: 100%;border-color:black;"
+					value="#{cadContratoMB.contrato.banco}" converter="BancoConverter"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContratoMB.listaBancoOperacao}"
+						var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+						itemValue="#{bancoSelecionado}" />
+					<f:attribute name="listaBanco"
+						value="#{cadContratoMB.listaBancoOperacao}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Parcelas Pagas</label>
+				<p:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
+					style="border-color:black;" immediate="true" id="parcelaspagas"
+					class="form-control" placeholder="Parcelas Pagas">
+					<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
+						render="percentualpago" />
+					<f:ajax event="blur" render="parcelasrestantes, percentualpago" />
+					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
+						update="percentualpago, parcelasrestantes" event="change" />
+				</p:inputText>
+			</div> 
+			<div class="form-group col-md-3">
+				<label>Total Parcelas</label>
+				<p:inputText value="#{cadContratoMB.contrato.totalparcelas}"
+					style="border-color:black;" 
+					id="totalparcelas" class="form-control"
+					placeholder="Parcelas Pagas">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+
+					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
+						update="percentualpago, parcelasrestantes" event="change" />
+				</p:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>% Pago</label>
+				<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
+					style="border-color:black;" immediate="true" id="percentualpago"
+					disabled="true" class="form-control" placeholder="Percentual Pago">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-2">
+				<label>Parcelas Restantes</label>
+				<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
+					style="border-color:black;" id="parcelasrestantes" disabled="true"
+					class="form-control" placeholder="Parcelas Restantes">
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Cotrato Portado</label>
+				<h:inputText value="#{cadContratoMB.contrato.contratoportado}"
+					style="border-color:black;" id="contratoportado"
+					class="form-control" placeholder="Contrato Portado">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-2">
+				<label>Parcela</label>
+				<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
+					style="border-color:black;" class="form-control"
+					placeholder="Parcela">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-2">
+				<label>Valor Quitar</label>
+				<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
+					style="border-color:black;" id="valorquitar" class="form-control"
+					placeholder="Valor Quitar">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Saldo Inadimplência</label>
+				<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
+					disabled="true" class="form-control" style="border-color:black;"
+					placeholder="Saldo Inadimplência">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<h:panelGroup
+				rendered="#{cadContratoMB.contrato.tipooperacao.margem}">
 				<div class="form-group col-md-3">
-					<label for="inputUfNaturalidade">UF - Naturalidade</label>
-					<h:inputText value="#{cadContratoMB.cliente.ufnaturalidade}"
-						class="form-control" id="inputUfNaturalidade"
-						placeholder="Estado da Naturalidade" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputnomepai">Nome Pai</label>
-					<h:inputText value="#{cadContratoMB.cliente.nomepai}"
-						class="form-control" id="inputnomepai" placeholder="Nome Pai" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputnomemae">Noma Mãe</label>
-					<h:inputText value="#{cadContratoMB.cliente.nomemae}"
-						class="form-control" id="inputnomemae" placeholder="Nome Mãe" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputValorSalario">Valor Salário</label>
-					<h:inputText value="#{cadContratoMB.cliente.valorsalario}"
-						class="form-control" id="inputValorSalario"
-						placeholder="Valor de Salário">
+					<label>Margem Utilizada</label>
+					<h:inputText value="#{cadContratoMB.contrato.margemutilizada}"
+						id="saldoinadimplencia" class="form-control"
+						style="border-color:black;" placeholder="Saldo Inadimplência">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
+			</h:panelGroup>
+			<div class="form-group col-md-3">
+				<label>Tarifa</label>
+				<h:inputText value="#{cadContratoMB.contrato.tarifa}" id="tarifa"
+					style="border-color:black;" class="form-control"
+					placeholder="Tarifá">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
 
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputResidencial">Telefone Residencial</label>
-					<h:inputText value="#{cadContratoMB.cliente.telefoneresidencial}"
-						class="form-control" id="inputResidencial"
-						placeholder="Telefone Residencial" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputcomercial">Telefone Comercial</label>
-					<h:inputText value="#{cadContratoMB.cliente.telefonecomercial}"
-						class="form-control" id="inputcomercial"
-						placeholder="Telefone Comercial" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputcelular">Telefone Celular</label>
-					<h:inputText value="#{cadContratoMB.cliente.telefonecelular}"
-						class="form-control" id="inputcelular" placeholder="Nome Mãe" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="senhacontracheque">Senha Contra Cheque</label>
-					<h:inputText value="#{cadContratoMB.contrato.senhacontracheque}"
-						class="form-control" id="senhacontracheque" placeholder="Nome Mãe" />
+			<div class="form-group col-md-3">
+				<label>Coeficiente e Prazo</label>
+				<div>
+					<p:commandLink id="btnCoeficiente" value="Selecionar"
+						action="#{cadContratoMB.selecionarCoeficiente()}"
+						styleClass="btn btn-primary">
+					</p:commandLink>
 				</div>
 			</div>
 
-			<br />
-
-			<h6>Endereço</h6>
-			<hr />
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputCEP">CEP</label>
-
-					<h:panelGrid columns="2" style="width:100%;">
-						<h:inputText value="#{cadContratoMB.cliente.cep}"
-							class="form-control" id="inputCEP" placeholder="CEP" />
-						<p:commandLink id="btnConfirmar" value="Buscar"
-							update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado"
-							action="#{cadContratoMB.buscarendereco()}" ajax="false"
-							styleClass="btn btn-dark" />
-					</h:panelGrid>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputTipoLogradouro">Tipo Logradouro</label>
-					<h:inputText value="#{cadContratoMB.cliente.tipologradouro}"
-						class="form-control" id="inputTipoLogradouro"
-						placeholder="Tipo Logradouro" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputlogradouro">Logradouro</label>
-					<h:inputText value="#{cadContratoMB.cliente.logradouro}"
-						class="form-control" id="inputlogradouro" placeholder="Logradouro" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputNumero">Número</label>
-					<h:inputText value="#{cadContratoMB.cliente.numero}"
-						class="form-control" id="inputNumero" placeholder="Número" />
-				</div>
+			<div class="form-group col-md-3">
+				<label>Tabela Selecionada</label>
+				<h:inputText
+					value="#{cadContratoMB.contrato.valorescoeficiente.coeficiente.nometabela}"
+					id="tabelaselecionada" disabled="true" class="form-control"
+					style="border-color:black;" placeholder="Saldo Inadimplência">
+				</h:inputText>
+			</div>
+		</div>
+		<br />
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Parcela</label>
+				<h:inputText value="#{cadContratoMB.contrato.parcela}"
+					style="border-color:black;" id="parcelaresultado" disabled="true"
+					class="form-control" placeholder="Parcela">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Prazo</label>
+				<h:inputText value="#{cadContratoMB.valorescoeficiente.prazo}"
+					id="prazo" disabled="true" class="form-control"
+					style="border-color:black;" placeholder="Tarifá">
+				</h:inputText>
 			</div>
 
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputComplemento">Complemento</label>
-					<h:inputText value="#{cadContratoMB.cliente.complemento}"
-						class="form-control" id="inputComplemento" placeholder="CEP" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputBairro">Bairro</label>
-					<h:inputText value="#{cadContratoMB.cliente.bairro}"
-						class="form-control" id="inputBairro" placeholder="Bairro" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputCidade">Cidade</label>
-					<h:inputText value="#{cadContratoMB.cliente.cidade}"
-						class="form-control" id="inputCidade" placeholder="Cidade" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputUfEstado">UF - Estado</label>
-					<h:inputText value="#{cadContratoMB.cliente.ufestado}"
-						class="form-control" id="inputUfEstado" placeholder="UF Estado" />
-				</div>
-			</div>
-
-
-			<br />
-
-			<h6>Dados Bancarios</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-5">
-					<label>Banco</label>
-					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
-						immediate="true" value="#{cadContratoMB.bancoDadosBancario}"
-						converter="BancoConverter" styleClass="form-control"
-						onchange="orgaobanco">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadContratoMB.listaBanco}"
-							var="bancoSelecionado"
-							itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
-							itemValue="#{bancoSelecionado}" />
-						<f:attribute name="listaBanco" value="#{cadContratoMB.listaBanco}" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Agência</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.agencia}"
-						id="agencia" class="form-control" placeholder="Agência" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Dig. Agência</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.digitoagencia}"
-						id="digagencia" class="form-control"
-						placeholder="Digito da agência" />
-				</div>
-			</div>
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Tipo conta</label>
-					<h:selectOneMenu style="width: 100%;" id="tipoconta"
-						value="#{cadContratoMB.dadosbancario.tipoconta}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
-						<f:selectItem itemLabel="Conta Corrente"
-							itemValue="Conta Corrente" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label>N° Conta</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.nconta}"
-						id="nconta" class="form-control" placeholder="Número da conta" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>Dig. Conta</label>
-					<h:inputText value="#{cadContratoMB.dadosbancario.digitoconta}"
-						id="digconta" class="form-control" placeholder="Digito da conta" />
-				</div>
-			</div>
-			<br />
-			<h6>Dados da Operação</h6>
-			<hr />
-
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputNome">Banco</label>
-					<h:selectOneMenu id="exampleBancoOperacao" style="width: 100%;"
-						value="#{cadContratoMB.contrato.banco}" converter="BancoConverter"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadContratoMB.listaBancoOperacao}"
-							var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
-							itemValue="#{bancoSelecionado}" />
-						<f:attribute name="listaBanco"
-							value="#{cadContratoMB.listaBancoOperacao}" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Parcelas Pagas</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
-						immediate="true" id="parcelaspagas" class="form-control"
-						placeholder="Parcelas Pagas">
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
-							render="percentualpago" />
-						<f:ajax event="blur" render="parcelasrestantes" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Total Parcelas</label>
-					<h:inputText value="#{cadContratoMB.contrato.totalparcelas}"
-						onchange="atualizar();" id="totalparcelas" class="form-control"
-						placeholder="Parcelas Pagas">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
-							render="percentualpago" />
-						<f:ajax event="blur" render="parcelasrestantes" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>% Pago</label>
-					<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
-						immediate="true" id="percentualpago" disabled="true"
-						class="form-control" placeholder="Percentual Pago">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+			<div class="form-group col-md-3">
+				<label>Coeficiente</label>
+				<div>
+					<h:inputText style="border-color:black;"
+						value="#{cadContratoMB.valorescoeficiente.coeficientevalor}"
+						id="coeficienteresultado" disabled="true" class="form-control"
+						placeholder="Coeficiente">
 					</h:inputText>
 				</div>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col-md-2">
-					<label>Parcelas Restantes</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
-						id="parcelasrestantes" disabled="true" class="form-control"
-						placeholder="Parcelas Restantes">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Cotrato Portado</label>
-					<h:inputText value="#{cadContratoMB.contrato.contratoportado}"
-						id="contratoportado" class="form-control"
-						placeholder="Contrato Portado">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-2">
-					<label>Parcela</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
-						class="form-control" placeholder="Parcela">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-2">
-					<label>Valor Quitar</label>
-					<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
-						id="valorquitar" class="form-control" placeholder="Valor Quitar">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Saldo Inadimplência</label>
-					<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
-						disabled="true" class="form-control"
-						placeholder="Saldo Inadimplência">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
+			<div class="form-group col-md-3">
+				<label>TAC</label>
+				<h:inputText value="#" id="tacresultado" disabled="true"
+					style="border-color:black;" class="form-control"
+					placeholder="TAC Resultado">
+				</h:inputText>
 			</div>
+		</div>
 
-			<div class="form-row">
-				<h:panelGroup
-					rendered="#{cadContratoMB.contrato.tipooperacao.margem}">
-					<div class="form-group col-md-3">
-						<label>Margem Utilizada</label>
-						<h:inputText value="#{cadContratoMB.contrato.margemutilizada}"
-							id="saldoinadimplencia" class="form-control"
-							placeholder="Saldo Inadimplência">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</h:inputText>
-					</div>
-				</h:panelGroup>
-				<div class="form-group col-md-3">
-					<label>Tarifa</label>
-					<h:inputText value="#{cadContratoMB.contrato.tarifa}" id="tarifa"
-						class="form-control" placeholder="Tarifá">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Coeficiente e Prazo</label>
-					<div>
-						<p:commandLink id="btnCoeficiente" value="Selecionar" ajax="false"
-							action="#{cadContratoMB.selecionarCoeficiente()}"
-							styleClass="btn btn-dark">
-						</p:commandLink>
-					</div>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Tabela Selecionada</label>
-					<h:inputText
-						value="#{cadContratoMB.contrato.valorescoeficiente.coeficiente.nometabela}"
-						id="tabelaselecionada" disabled="true" class="form-control"
-						placeholder="Saldo Inadimplência">
-					</h:inputText>
-				</div>
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Valor Operação</label>
+				<h:inputText value="#{cadContratoMB.contrato.valoroperacao}"
+					style="border-color:black;" id="valoroperacao" disabled="true"
+					class="form-control" placeholder="Parcela">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
-			<br />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Parcela</label>
-					<h:inputText value="#{cadContratoMB.contrato.parcela}"
-						id="parcelaresultado" disabled="true" class="form-control"
-						placeholder="Parcela">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Prazo</label>
-					<h:inputText value="#{cadContratoMB.valorescoeficiente.prazo}"
-						id="prazo" disabled="true" class="form-control"
-						placeholder="Tarifá">
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Coeficiente</label>
-					<div>
-						<h:inputText
-							value="#{cadContratoMB.valorescoeficiente.coeficientevalor}"
-							id="coeficienteresultado" disabled="true" class="form-control"
-							placeholder="Coeficiente">
-						</h:inputText>
-					</div>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>TAC</label>
-					<h:inputText value="#" id="tacresultado" disabled="true"
-						class="form-control" placeholder="TAC Resultado">
-					</h:inputText>
-				</div>
+			<div class="form-group col-md-3">
+				<label>Valor Cliente</label>
+				<h:inputText value="#{cadContratoMB.contrato.valorcliente}"
+					style="border-color:black;" id="valorcliente" disabled="true"
+					class="form-control" placeholder="Parcela">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Valor Operação</label>
-					<h:inputText value="#{cadContratoMB.contrato.valoroperacao}"
-						id="valoroperacao" disabled="true" class="form-control"
-						placeholder="Parcela">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Valor Cliente</label>
-					<h:inputText value="#{cadContratoMB.contrato.valorcliente}"
-						id="valorcliente" disabled="true" class="form-control"
-						placeholder="Parcela">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
+		</div>
+		<br />
+		<h6>Outros Informações</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<label>Observações</label>
+				<h:inputTextarea value="#{cadContratoMB.contrato.observacao}"
+					style="border-color:black;" id="observacao" class="form-control"
+					placeholder="Observação">
+				</h:inputTextarea>
 			</div>
-			<br />
-			<h6>Anexos</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label for="exampleFormControlFile1">Anexe um arquivo</label> <input
-						type="file" class="form-control-file" id="exampleFormControlFile1" />
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Tipo de Documento</label>
-					<h:selectOneMenu id="tipodocumento" value="#"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Contrato" itemValue="Contrato" />
-						<f:selectItem itemLabel="Ficha" itemValue="Ficha" />
-					</h:selectOneMenu>
-				</div>
-			</div>
-			<br />
-			<h6>Outros Informações</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label>Observações</label>
-					<h:inputTextarea value="#{cadContratoMB.contrato.observacao}"
-						id="observacao" class="form-control" placeholder="Observação">
-					</h:inputTextarea>
-				</div>
-			</div>
+		</div>
 
 
 
 
-			<br />
-			<hr />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar"
-					action="#{cadContratoMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					style="margin-left:2%;" value="Cancelar"
-					action="#{cadContratoMB.cancelar()}" />
-			</div>
-			<br />
-			<br />
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadContratoMB.salvar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-danger"
+				style="margin-left:2%;" value="Cancelar"
+				action="#{cadContratoMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
 
-
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

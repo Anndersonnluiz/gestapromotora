@@ -47,4 +47,19 @@ public class RegrasCoeficienteDao {
 		manager.close();
 		return lista;
 	}
+	
+	
+	public void excluir(int idregra) {
+    	EntityManager manager;
+    	manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+        Query q = manager.createQuery("select r from Regrascoeficiente r where r.idregrascoeficiente=" + idregra);
+        if (q.getResultList().size()>0){
+        	Regrascoeficiente regrascoeficiente = (Regrascoeficiente) q.getResultList().get(0);
+            manager.remove(regrascoeficiente);
+        }
+        tx.commit();
+        
+    }
 }

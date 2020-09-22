@@ -6,8 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Cadastro de Contrato</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
@@ -21,7 +20,8 @@
 				<div class="form-group col-md-3">
 					<label for="datacadastro">Data Cadastro</label>
 					<h:inputText class="form-control" id="datacadastro" disabled="true"
-						value="#{confDadosContratoMB.contrato.datacadastro}" mask="99/99/9999">
+						value="#{confDadosContratoMB.contrato.datacadastro}"
+						mask="99/99/9999">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:inputText>
@@ -48,8 +48,7 @@
 					<h:panelGrid columns="2" style="width:100%;">
 						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
 							immediate="true" value="#{confDadosContratoMB.banco}"
-							converter="BancoConverter" styleClass="form-control"
-							onchange="orgaobanco">
+							converter="BancoConverter" styleClass="form-control">
 							<f:selectItem itemLabel="Selecione" itemValue="0"
 								noSelectionOption="true" />
 							<f:selectItems value="#{confDadosContratoMB.listaBanco}"
@@ -57,10 +56,11 @@
 								itemValue="#{bancoSelecionado}" />
 							<f:attribute name="listaBanco"
 								value="#{confDadosContratoMB.listaBanco}" />
+							<p:ajax event="blur" />
 						</h:selectOneMenu>
 						<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
 							action="#{confDadosContratoMB.gerarListaOrgao()}" ajax="false"
-							update="orgaobanco" styleClass="btn btn-dark" />
+							update="orgaobanco" styleClass="btn btn-primary" />
 					</h:panelGrid>
 				</div>
 				<div class="form-group col-md-4">
@@ -99,17 +99,14 @@
 			<br />
 			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					 value="Próximo"
-					action="#{confDadosContratoMB.cadContrato()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
-					value="Cancelar" action="#{confDadosContratoMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Próximo" action="#{confDadosContratoMB.cadContrato()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{confDadosContratoMB.cancelar()}" />
 			</div>
 			<br />
 			<br />
-
-
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

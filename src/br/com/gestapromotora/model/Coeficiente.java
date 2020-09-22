@@ -92,6 +92,9 @@ public class Coeficiente implements Serializable{
 	private boolean retencao;
 	@Column(name = "tipooperacoes")
 	private boolean tipooperacoes;
+	@JoinColumn(name = "tipooperacao_idtipooperacao", referencedColumnName = "idtipooperacao")
+	@ManyToOne(optional = false)
+	private Tipooperacao tipooperacao;
 	
 	
 	public Coeficiente() {
@@ -461,6 +464,16 @@ public class Coeficiente implements Serializable{
 
 	public void setTipooperacoes(boolean tipooperacoes) {
 		this.tipooperacoes = tipooperacoes;
+	}
+
+
+	public Tipooperacao getTipooperacao() {
+		return tipooperacao;
+	}
+
+
+	public void setTipooperacao(Tipooperacao tipooperacao) {
+		this.tipooperacao = tipooperacao;
 	}
 
 

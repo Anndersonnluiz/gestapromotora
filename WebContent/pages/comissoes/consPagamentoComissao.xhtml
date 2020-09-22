@@ -6,15 +6,77 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
+			<br />
 			<h4>Histórico de Pagamento de Comissão</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 
+			<div class="form-row">
+				<div class="form-group col-md-5">
+					<label for="usuario">Corretor</label>
+					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+						value="#{historicoComissaoMB.usuario}" converter="UsuarioConverter"
+						styleClass="form-control" onchange="usuario">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{historicoComissaoMB.listaUsuario}"
+							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+							itemValue="#{usuarioSelecionado}" />
+						<f:attribute name="listaUsuario"
+							value="#{historicoComissaoMB.listaUsuario}" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="nomecliente">Código Interno</label>
+					<h:inputText class="form-control" id="nomecliente"
+						value="#{historicoComissaoMB.cdinterno}">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="cpf">Mês</label>
+					<h:selectOneMenu style="width: 100%;" id="cpf"
+						value="#{historicoComissaoMB.dataLancamento}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Janeiro" itemValue="01" />
+						<f:selectItem itemLabel="Fevereiro"
+							itemValue="02" />
+						<f:selectItem itemLabel="Março"
+							itemValue="03" />
+						<f:selectItem itemLabel="Abril"
+							itemValue="04" />
+						<f:selectItem itemLabel="Maio"
+							itemValue="05" />
+						<f:selectItem itemLabel="Junho"
+							itemValue="06" />
+						<f:selectItem itemLabel="Julho"
+							itemValue="07" />
+						<f:selectItem itemLabel="Agosto"
+							itemValue="08" />
+						<f:selectItem itemLabel="Setembro"
+							itemValue="09" />
+						<f:selectItem itemLabel="Outubro"
+							itemValue="10" />
+						<f:selectItem itemLabel="Novembro"
+							itemValue="11" />
+						<f:selectItem itemLabel="Dezembro"
+							itemValue="12" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label>.</label>
+					<div>
+						<p:commandLink ajax="false" styleClass="btn btn-primary"
+							value="Pesquisar" action="#{historicoComissaoMB.pesquisar()}"
+							update="idTabelaComissao" />
+						<p:commandLink ajax="false" style="margin-left:1%;"
+							styleClass="btn btn-link" value="Limpar"
+							action="#{historicoComissaoMB.limpar()}"
+							update="idTabelaComissao, cpf, nomecliente, usuario" />
+					</div>
+				</div>
+			</div>
 
-			     
 			<p:dataTable id="idTabelaComissao" var="comissao"
 				value="#{historicoComissaoMB.listaComissao}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
@@ -24,7 +86,7 @@
 
 				<p:column headerText="Data"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.datalancamento}" >
+					<h:outputText value="#{comissao.datalancamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -33,13 +95,13 @@
 					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.usuario.cdinterno}" />
 				</p:column>
-				<p:column headerText="Loja"
-					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.usuario.sala}" />
-				</p:column>
 				<p:column headerText="Nome"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.usuario.nome}" />
+				</p:column>
+				<p:column headerText="Contrato"
+					style="width:5%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.codigocontrato}" />
 				</p:column>
 				<p:column headerText="PROD. LIQ"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
@@ -49,19 +111,19 @@
 				</p:column>
 				<p:column headerText="CMS BRUTA"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.cmdbruta}" >
+					<h:outputText value="#{comissao.cmdbruta}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="PROV./DESC"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.proddesc}" >
+					<h:outputText value="#{comissao.proddesc}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="CMS LIQ"
 					style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.cmsliq}" >
+					<h:outputText value="#{comissao.cmsliq}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
@@ -72,9 +134,10 @@
 
 				<p:column headerText=""
 					style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{historicoComissaoMB.editar(comissao)}"
+					<p:commandLink ajax="false"
+						action="#{historicoComissaoMB.editar(comissao)}"
 						style="text-align: left;color:black;" title="Editar">
-						<span data-feather="edit"></span> 
+						<span data-feather="edit"></span>
 					</p:commandLink>
 					<p:commandLink ajax="false" action="#"
 						style="text-align: left;color:black;">
@@ -82,7 +145,6 @@
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

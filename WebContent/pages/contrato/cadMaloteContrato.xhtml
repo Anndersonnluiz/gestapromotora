@@ -6,16 +6,17 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Cadastro de Malote</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			
+
 			<div>
-				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{cadMaloteContratoMB.voltar()}" />
+				<p:commandLink ajax="false" style="margin-right:1%;"
+					styleClass="btn btn-link" value="Voltar"
+					action="#{cadMaloteContratoMB.voltar()}" />
 			</div>
-			<br/>
+			<br />
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="inputNome">Descrição</label>
@@ -23,14 +24,14 @@
 						value="#{cadMaloteContratoMB.malotecontrato.malote}"
 						styleClass="form-control">
 						<f:selectItem itemLabel="Aberto" itemValue="Aberto" />
-						<f:selectItem itemLabel="Enviado"
-							itemValue="Enviado" />
+						<f:selectItem itemLabel="Enviado" itemValue="Enviado" />
 					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-3">
 					<label for="datacadastro">Data Envio</label>
 					<h:inputText class="form-control" id="datacadastro" disabled="true"
-						value="#{cadMaloteContratoMB.malotecontrato.dataenvio}" mask="99/99/9999">
+						value="#{cadMaloteContratoMB.malotecontrato.dataenvio}"
+						mask="99/99/9999">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:inputText>
@@ -38,18 +39,19 @@
 				<div class="form-group col-md-3">
 					<label for="datacadastro">.</label>
 					<div>
-						<p:commandLink ajax="false" styleClass="btn btn-dark"
+						<p:commandLink ajax="false" styleClass="btn btn-primary"
 							style="margin-left:2%;" value="Confirmar"
-							action="#{cadMaloteContratoMB.salvarMalote()}" update="idTabelaMalote, datacadastro, inputNome"/>
+							action="#{cadMaloteContratoMB.salvarMalote()}"
+							update="idTabelaMalote, datacadastro, inputNome" />
 					</div>
 				</div>
 			</div>
 			<br />
-			
+
 			<p:dataTable id="idTabelaMalote" var="malote"
-				value="#{cadMaloteContratoMB.listaMaloteContrato}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"  
+				value="#{cadMaloteContratoMB.listaMaloteContrato}"
+				style="border:none;" class="tabelacontas" scrollRows="10"
+				scrollable="true" scrollHeight="300" selectionMode="single"
 				rowKey="#{malote.idmalotecontrato}">
 
 				<p:column headerText="Malote" sortBy="#{malote.malote}"
@@ -58,8 +60,9 @@
 				</p:column>
 				<p:column headerText="Data Envio" sortBy="#{malote.dataenvio}"
 					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{malote.dataenvio}" >
-						<f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					<h:outputText value="#{malote.dataenvio}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Colaborador" sortBy="#{malote.usuario.nome}"
@@ -68,8 +71,6 @@
 				</p:column>
 			</p:dataTable>
 
-
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

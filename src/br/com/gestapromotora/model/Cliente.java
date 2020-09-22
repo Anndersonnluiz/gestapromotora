@@ -78,6 +78,8 @@ public class Cliente implements Serializable {
 	private String telefonecelular;
 	@Column(name = "recebebeneficio")
 	private boolean recebebeneficio;
+	@Column(name = "email")
+	private String email;
 	@JoinColumn(name = "dadosbancario_iddadosbancario", referencedColumnName = "iddadosbancario")
 	@ManyToOne(optional = false)
 	private Dadosbancario dadosbancario;
@@ -292,6 +294,14 @@ public class Cliente implements Serializable {
 
 	public void setDadosbancario(Dadosbancario dadosbancario) {
 		this.dadosbancario = dadosbancario;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

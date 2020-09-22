@@ -24,5 +24,11 @@ public class RegrasCoeficienteFacade {
 		regrasCoeficienteDao = new RegrasCoeficienteDao();
 		return regrasCoeficienteDao.lista(sql);
 	}
+	
+	
+	public void excluir(int idregra) {
+		regrasCoeficienteDao = new RegrasCoeficienteDao();
+		regrasCoeficienteDao.excluir(idregra);
+	}
 
 }

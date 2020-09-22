@@ -6,8 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Cadastro de Usuário</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
@@ -15,113 +14,149 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="inputNome">Nome</label> 
-					<h:inputText  value="#{cadUsuarioMB.usuario.nome}"
-						class="form-control" id="inputNome" placeholder="Nome"/>
+					<label for="inputNome">Nome</label>
+					<h:inputText value="#{cadUsuarioMB.usuario.nome}"
+						class="form-control" id="inputNome" placeholder="Nome" />
 				</div>
 				<div class="form-group col-md-6">
-					<label for="inputCodInterno">Cód. Interno</label> 
-						<h:inputText value="#{cadUsuarioMB.usuario.cdinterno}"
-							class="form-control" id="inputCodInterno" placeholder="Código Interno"/>
+					<label for="inputCodInterno">Cód. Interno</label>
+					<h:inputText value="#{cadUsuarioMB.usuario.cdinterno}"
+						class="form-control" id="inputCodInterno"
+						placeholder="Código Interno" />
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="inputEmail4">Email</label> 
-						<h:inputText value="#{cadUsuarioMB.usuario.email}"
-							class="form-control" id="inputEmail4" placeholder="Email"/>
+					<label for="inputEmail4">Email</label>
+					<h:inputText value="#{cadUsuarioMB.usuario.email}"
+						class="form-control" id="inputEmail4" placeholder="Email" />
 				</div>
 				<div class="form-group col-md-6">
-					<label for="inputSala">Sala</label> <h:inputText value="#{cadUsuarioMB.usuario.sala}"
-						class="form-control" id="inputSala" placeholder="Sala"/>
+					<label for="inputSala">Sala</label>
+					<h:inputText value="#{cadUsuarioMB.usuario.sala}"
+						class="form-control" id="inputSala" placeholder="Sala" />
 				</div>
 			</div>
-			
+
 			<div class="form-row">
 				<div class="form-group cpç-md-8">
 					<label for="exampleInputPerfil">Tipo Colaborador</label>
-					<h:selectOneMenu  id="exampleInputPerfil"  style="width: 300px;"  value="#{cadUsuarioMB.tipocolaborador}" converter="TipoColaboradorConverter"
-                              styleClass="form-control">
-		                    <f:selectItem  itemLabel="Selecione" itemValue="0" noSelectionOption="true"/> 
-		                    <f:selectItems  value="#{cadUsuarioMB.listaTipoColaborador}" var="colaboradorselecionado" itemLabel="#{colaboradorselecionado.descricao}" itemValue="#{colaboradorselecionado}"/>
-		                    <f:attribute name="listaTipoColaborador" value="#{cadUsuarioMB.listaTipoColaborador}"/>
-                	</h:selectOneMenu>
+					<h:selectOneMenu id="exampleInputPerfil" style="width: 300px;"
+						value="#{cadUsuarioMB.tipocolaborador}"
+						converter="TipoColaboradorConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadUsuarioMB.listaTipoColaborador}"
+							var="colaboradorselecionado"
+							itemLabel="#{colaboradorselecionado.descricao}"
+							itemValue="#{colaboradorselecionado}" />
+						<f:attribute name="listaTipoColaborador"
+							value="#{cadUsuarioMB.listaTipoColaborador}" />
+					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-4" style="margin-left: 2%;">
-					<label>Acesso Geral no Sistema</label>
-					<br/>
+					<label>Acesso Geral no Sistema</label> <br />
 					<h:panelGroup>
-							<p:selectBooleanCheckbox
-								value="#{cadUsuarioMB.usuario.acessogeral}" />
-						</h:panelGroup>    
+						<p:selectBooleanCheckbox
+							value="#{cadUsuarioMB.usuario.acessogeral}" />
+					</h:panelGroup>
 				</div>
 			</div>
-			<br/>
+			<br />
 			<h6>Dados Bancarios</h6>
 			<hr />
-			
-			
+
+
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label >Incluir dados bancarios ?</label> 
-						
-						<select 
-							class="form-control" >
-							<option selected="selected" value="teste">Sim</option>
-							<option value="#">Não</option>
-						</select>
-				</div>
-				<div class="form-group col-md-6">
-					<label >Titular</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.titular}"
-						class="form-control" placeholder="Titular"/>
+					<label>Banco</label>
+					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+						immediate="true" value="#{cadUsuarioMB.bancoDadosBancario}"
+						converter="BancoConverter" styleClass="form-control"
+						onchange="orgaobanco">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadUsuarioMB.listaBanco}"
+							var="bancoSelecionado"
+							itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+							itemValue="#{bancoSelecionado}" />
+						<f:attribute name="listaBanco" value="#{cadUsuarioMB.listaBanco}" />
+					</h:selectOneMenu>
 				</div>
 			</div>
-			
+
 			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label >Cód. Banco</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.cdbanco}"
-						class="form-control" placeholder="Código do banco"/>
+				<div class="form-group col-md-6">
+					<label>Incluir dados bancarios ?</label> <select
+						class="form-control">
+						<option selected="selected" value="teste">Sim</option>
+						<option value="#">Não</option>
+					</select>
 				</div>
-				<div class="form-group col-md-4">
-					<label >Agência</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.agencia}"
-						class="form-control" placeholder="Agência"/>
-				</div>
-				<div class="form-group col-md-4">
-					<label >Dig. Agência</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.digitoagencia}"
-						class="form-control"  placeholder="Digito da agência"/>
+				<div class="form-group col-md-6">
+					<label>Titular</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.titular}"
+						class="form-control" placeholder="Titular" />
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label >Tipo conta</label> 
-					<h:selectOneMenu   style="width: 100%;"  value="#{cadUsuarioMB.dadosbancario.tipoconta}"
-                              styleClass="form-control">
-		                    <f:selectItem  itemLabel="Conta Salario" itemValue="Conta Salario" />
-		                    <f:selectItem  itemLabel="Conta Corrente" itemValue="Conta Corrente" /> 
-		            </h:selectOneMenu>
+					<label>Cód. Banco</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.cdbanco}"
+						class="form-control" placeholder="Código do banco" />
 				</div>
 				<div class="form-group col-md-4">
-					<label >N° Conta</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.nconta}"
-						class="form-control"  placeholder="Número da conta"/>
+					<label>Agência</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.agencia}"
+						class="form-control" placeholder="Agência" />
 				</div>
 				<div class="form-group col-md-4">
-					<label >Dig. Conta</label> <h:inputText value="#{cadUsuarioMB.dadosbancario.digitoconta}"
-						class="form-control"  placeholder="Digito da conta"/>
+					<label>Dig. Agência</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.digitoagencia}"
+						class="form-control" placeholder="Digito da agência" />
 				</div>
 			</div>
-			
-			<br/>
-			<hr/>
+
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Tipo conta</label>
+					<h:selectOneMenu style="width: 100%;"
+						value="#{cadUsuarioMB.dadosbancario.tipoconta}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
+						<f:selectItem itemLabel="Conta Corrente"
+							itemValue="Conta Corrente" />
+						<f:selectItem itemLabel="Conta Poupança"
+							itemValue="Conta Poupança" />
+						<f:selectItem itemLabel="Conta Facil"
+							itemValue="Conta Facil" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-4">
+					<label>N° Conta</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.nconta}"
+						class="form-control" placeholder="Número da conta" />
+				</div>
+				<div class="form-group col-md-4">
+					<label>Dig. Conta</label>
+					<h:inputText value="#{cadUsuarioMB.dadosbancario.digitoconta}"
+						class="form-control" placeholder="Digito da conta" />
+				</div>
+			</div>
+
+			<br />
+			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar" action="#{cadUsuarioMB.salvar()}"/>
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;" value="Cancelar" action="#{cadUsuarioMB.cancelar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Salvar" action="#{cadUsuarioMB.salvar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{cadUsuarioMB.cancelar()}" />
 			</div>
-			<br/><br/>
-			
-			
-		</h:form>
+			<br />
+			<br />
 	</ui:define>
 </ui:composition>
 </html>

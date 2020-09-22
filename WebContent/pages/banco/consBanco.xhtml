@@ -6,20 +6,20 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
+			<br />
 			<h4>Consulta de Banco</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
-				<p:commandLink rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
-					 ajax="false" styleClass="btn btn-dark" value="Novo" action="#{bancoMB.novoBanco()}" />
+				<p:commandLink
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
+					ajax="false" styleClass="btn btn-primary" value="Novo"
+					action="#{bancoMB.novoBanco()}" />
 			</div>
 			<p:dataTable id="idTabelaBanco" var="banco"
 				value="#{bancoMB.listaBanco}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{banco.idbanco}">
+				scrollHeight="300" selectionMode="single" rowKey="#{banco.idbanco}">
 
 				<p:column headerText="Código" sortBy="#{banco.codigo}"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -32,17 +32,17 @@
 				</p:column>
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{bancoMB.editar(banco)}" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
+					<p:commandLink ajax="false" action="#{bancoMB.editar(banco)}"
+						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaos(banco)}" title="Orgãos Vinculados"
-						style="text-align: left;color:black;"> 
+					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaos(banco)}"
+						title="Orgãos Vinculados" style="text-align: left;color:black;">
 						<span data-feather="list"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

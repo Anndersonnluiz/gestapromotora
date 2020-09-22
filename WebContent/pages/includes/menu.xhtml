@@ -1,4 +1,4 @@
-<h:form xmlns="http://www.w3.org/1999/xhtml"
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -6,14 +6,32 @@
 
 
 	<nav
-		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><p:outputLabel
-				value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}" /></a>
-		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><p:commandLink ajax="false"
-					action="#{usuarioLogadoMB.deslogar()}" value="Sair"
-					styleClass="nav-link" /></li>
+		class="navbar navbar-primary fixed-top flex-md-nowrap p-0 shadow"  style="background-color: #000080 !important;">
+		<a class="navbar col-sm-3 col-md-3 mr-0" href="#"><p:outputLabel
+				value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"
+				style="color:white;font-weight:bold;font-size:16px;" /></a>
+		<ul class="navbar-nav ml-auto nav-flex-icons"
+			style="margin-right: 2%;">
+			<li class="nav-item avatar dropdown"><a
+				class="nav-link waves-effect waves-light"
+				href="pages/notificacao/consAniversariantes.jsf"
+				id="navbarDropdownMenuLink-5" aria-haspopup="true"
+				aria-expanded="true"> <span class="badge badge-danger ml-4"
+					style="font-size: 14px;"> <p:outputLabel
+							value="#{usuarioLogadoMB.nAniversario}" />
+				</span> <img alt="" src="../../resources/img/niver.png" style="width: 7%" />
+
+			</a></li>
 		</ul>
+		<a class="nav-link waves-effect waves-light"
+			href="pages/notificacao/consNotificacao.jsf"
+			id="navbarDropdownMenuLink-5" aria-haspopup="true"
+			aria-expanded="true"> <span class="badge badge-danger ml-2"
+			style="font-size: 14px;"> <p:outputLabel
+					value="#{usuarioLogadoMB.nNotificacao}" />
+		</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
+
+		</a>
 	</nav>
 
 	<div class="container-fluid">
@@ -23,8 +41,9 @@
 				<div class="sidebar-sticky">
 
 					<ul class="nav flex-column">
+					<br/>
 						<li class="nav-item"><a class="nav-link active"
-							href="/gestapromotora/dashboard.jsf"> <span
+							href="/deltafinanceira/dashboard.jsf"> <span
 								data-feather="home"></span> Dashboard <span class="sr-only">(atual)</span>
 						</a></li>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
@@ -34,18 +53,22 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li style="font-size: 12px;"><a class="nav-link"
-									href="/gestapromotora/pages/banco/consBanco.jsf"> <span
+									href="/deltafinanceira/pages/banco/consBanco.jsf"> <span
 										data-feather="dollar-sign"></span> Banco
 								</a> <a class="nav-link"
-									href="/gestapromotora/pages/cliente/consCliente.jsf"> <span
+									href="/deltafinanceira/pages/cliente/consCliente.jsf"> <span
 										data-feather="users"></span> Cliente
-								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+								</a>
+								<a class="nav-link" href="/deltafinanceira/pages/despesa/consDespesa.jsf">
+												<span data-feather="user"></span> Tipo Despesa
+											</a>
+								 <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 										<a class="nav-link"
-											href="/gestapromotora/pages/tipocolaborador/consTipoColaborador.jsf">
+											href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
 											<span data-feather="users"></span> Tipo Colaborador
 										</a>
 										<a class="nav-link"
-											href="/gestapromotora/pages/usuario/consUsuario.jsf"> <span
+											href="/deltafinanceira/pages/usuario/consUsuario.jsf"> <span
 											data-feather="user"></span> Gerênciamento colaborador
 										</a>
 									</h:panelGroup></li>
@@ -57,19 +80,19 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li style="font-size: 12px;"><a class="nav-link"
-									href="/gestapromotora/pages/contrato/consContrato.jsf"> <span
+									href="/deltafinanceira/pages/contrato/consContrato.jsf"> <span
 										data-feather="list"></span> Listagem
 								</a> <a class="nav-link"
-									href="/gestapromotora/pages/contrato/confDadosContrato.jsf"> <span
-										data-feather="file-plus"></span> Adicionar Contrato
+									href="/deltafinanceira/pages/contrato/confDadosContrato.jsf">
+										<span data-feather="file-plus"></span> Adicionar Contrato
 								</a> <a class="nav-link"
-									href="/gestapromotora/pages/contrato/consPortabilidade.jsf">
+									href="/deltafinanceira/pages/contrato/consPortabilidade.jsf">
 										<span data-feather="file-text"></span> Portabilidade
 								</a> <a class="nav-link"
-									href="/gestapromotora/pages/contrato/consDemaisOperacoes.jsf">
+									href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
 										<span data-feather="users"></span> Demais Operações
 								</a> <a class="nav-link"
-									href="/gestapromotora/pages/roteiros/consBancoRoteiro.jsf">
+									href="/deltafinanceira/pages/roteiros/consBancoRoteiro.jsf">
 										<span data-feather="users"></span> Roteiro
 								</a></li>
 							</ul></li>
@@ -83,13 +106,13 @@
 									<li style="font-size: 12px;"><h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
 											<a class="nav-link"
-												href="/gestapromotora/pages/fisico/cons3etapa.jsf"> <span
+												href="/deltafinanceira/pages/fisico/cons3etapa.jsf"> <span
 												data-feather="dollar-sign"></span> 3 - Pago ao Cliente
 											</a>
 										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
 											<a class="nav-link"
-												href="/gestapromotora/pages/fisico/cons4etapa.jsf"> <span
+												href="/deltafinanceira/pages/fisico/cons4etapa.jsf"> <span
 												data-feather="dollar-sign"></span> 4 - Envio de Malote
 											</a>
 										</h:panelGroup></li>
@@ -104,25 +127,27 @@
 								<li style="font-size: 12px;"><h:panelGroup
 										rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 										<a class="nav-link"
-											href="/gestapromotora/pages/comissoes/consPagamentoComissao.jsf">
+											href="/deltafinanceira/pages/comissoes/consPagamentoComissao.jsf">
 											<span data-feather="dollar-sign"></span> Pag. Comissão
 										</a>
+										<a class="nav-link"
+												href="/deltafinanceira/pages/financeiro/consContasPagar.jsf"> <span
+												data-feather="dollar-sign"></span> Contas a Pagar
+											</a>
 									</h:panelGroup></li>
 							</ul></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/gestapromotora/pages/usuario/alterarSenha.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false"> <span
-								data-feather="activity"></span> Ajuda
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/gestapromotora/pages/usuario/alterarSenha.jsf"
+							href="/deltafinanceira/pages/usuario/alterarSenha.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false"> <span
 								data-feather="refresh-cw"></span> Alterar Senha
 						</a></li>
+						<li class="nav-item"><p:commandLink
+								action="#{usuarioLogadoMB.deslogar()}" value="Sair"
+								styleClass="nav-link" /></li>
 					</ul>
 				</div>
 			</nav>
 
 		</div>
 	</div>
-</h:form>
+</h:panelGroup>

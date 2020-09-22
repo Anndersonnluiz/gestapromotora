@@ -173,6 +173,7 @@ public class ConfDadosContratoMB implements Serializable{
 	public String cadContrato() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		contrato.setTipooperacao(tipooiperacao);
 		session.setAttribute("banco", banco);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", orgaoBanco);

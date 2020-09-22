@@ -7,7 +7,6 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h:form id="frmCadastroBanco">
 			<h4>Cadastro de Banco</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
@@ -28,13 +27,11 @@
 			<br/>
 			<hr/>
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"  value="Salvar" action="#{cadBancoMB.salvar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-primary"  value="Salvar" action="#{cadBancoMB.salvar()}"/>
 				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;" value="Cancelar" action="#{cadBancoMB.cancelar()}"/>
 			</div>
 			<br/><br/>
 			
-			
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

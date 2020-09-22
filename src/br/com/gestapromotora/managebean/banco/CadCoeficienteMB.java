@@ -1,6 +1,8 @@
 package br.com.gestapromotora.managebean.banco;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -9,8 +11,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.CoeficienteFacade;
+import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Coeficiente;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.model.Tipooperacao;
 
 
 @Named
@@ -23,6 +27,8 @@ public class CadCoeficienteMB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private OrgaoBanco orgaoBanco;
 	private Coeficiente coeficiente;
+	private List<Tipooperacao> listaTipoOperacao;
+	private Tipooperacao tipooiperacao;
 	
 	
 	
@@ -34,6 +40,7 @@ public class CadCoeficienteMB implements Serializable{
 		coeficiente = (Coeficiente) session.getAttribute("coeficiente");
 		session.removeAttribute("coeficiente");
 		session.removeAttribute("orgaobanco");
+		gerarListaTipoOperacao();
 		if (coeficiente == null) {
 			coeficiente = new Coeficiente();
 		}
@@ -64,6 +71,30 @@ public class CadCoeficienteMB implements Serializable{
 	}
 	
 	
+	public List<Tipooperacao> getListaTipoOperacao() {
+		return listaTipoOperacao;
+	}
+
+
+
+	public void setListaTipoOperacao(List<Tipooperacao> listaTipoOperacao) {
+		this.listaTipoOperacao = listaTipoOperacao;
+	}
+
+
+
+	public Tipooperacao getTipooiperacao() {
+		return tipooiperacao;
+	}
+
+
+
+	public void setTipooiperacao(Tipooperacao tipooiperacao) {
+		this.tipooiperacao = tipooiperacao;
+	}
+
+
+
 	public String cancelar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -75,11 +106,21 @@ public class CadCoeficienteMB implements Serializable{
 	public String salvar() {
 		CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
 		coeficiente.setOrgaoBanco(orgaoBanco);
+		coeficiente.setTipooperacao(tipooiperacao);
 		coeficiente = coeficienteFacade.salvar(coeficiente);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("orgaobanco", orgaoBanco);
 		return "consCoeficiente";
+	}
+	
+	
+	public void gerarListaTipoOperacao() {
+		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
+		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		if (listaTipoOperacao == null) {
+			listaTipoOperacao = new ArrayList<Tipooperacao>();
+		}
 	}
 	
 	

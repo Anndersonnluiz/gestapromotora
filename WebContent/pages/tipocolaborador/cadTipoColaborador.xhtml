@@ -6,8 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Cadastro de Tipo de Colaborador</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
@@ -15,14 +14,15 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-12">
-					<label for="inputNome">Descrição</label> 
-					<h:inputText  value="#{cadTipoColaboradorMB.tipocolaborador.descricao}"
-						class="form-control" id="inputNome" placeholder="Descrição"/>
+					<label for="inputNome">Descrição</label>
+					<h:inputText
+						value="#{cadTipoColaboradorMB.tipocolaborador.descricao}"
+						class="form-control" id="inputNome" placeholder="Descrição" />
 				</div>
 			</div>
-			
-				<h6>Permissões de acesso ao sistema</h6>
-			<hr/>
+
+			<h6>Permissões de acesso ao sistema</h6>
+			<hr />
 			<div class="form-row">
 
 				<div class="form-group col-md-12">
@@ -35,8 +35,7 @@
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.cadastrarorgao}" />
-							<h:outputText value="Cadastrar um orgão"
-								style="margin-left:2%;" />
+							<h:outputText value="Cadastrar um orgão" style="margin-left:2%;" />
 						</h:panelGroup>
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
@@ -47,16 +46,14 @@
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.cadastrarvalores}" />
-							<h:outputText value="Cadastrar Valores"
-								style="margin-left:2%;" />
+							<h:outputText value="Cadastrar Valores" style="margin-left:2%;" />
 						</h:panelGroup>
 
 
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.cadastrarregras}" />
-							<h:outputText value="Cadastrar Regras"
-								style="margin-left:2%;" />
+							<h:outputText value="Cadastrar Regras" style="margin-left:2%;" />
 						</h:panelGroup>
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
@@ -66,29 +63,36 @@
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.etapa3}" />
-							<h:outputText value="Acesso a Etapa 3"
-								style="margin-left:2%;" />
+							<h:outputText value="Acesso a Etapa 3" style="margin-left:2%;" />
 						</h:panelGroup>
 						<h:panelGroup>
 							<p:selectBooleanCheckbox
 								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.etapa4}" />
 							<h:outputText value="Acesso a Etapa 4" style="margin-left:2%;" />
 						</h:panelGroup>
+						
+						
+						<h:panelGroup>
+							<p:selectBooleanCheckbox
+								value="#{cadTipoColaboradorMB.tipocolaborador.acessocolaborador.notificacaooperacional}" />
+							<h:outputText value="Notificação Nova Venda" style="margin-left:2%;" />
+						</h:panelGroup>
 					</h:panelGrid>
 				</div>
 
 			</div>
-			
-			<br/>
-			<hr/>
+
+			<br />
+			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar" action="#{cadTipoColaboradorMB.salvar()}"/>
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;" value="Cancelar" action="#{cadTipoColaboradorMB.cancelar()}"/>
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Salvar" action="#{cadTipoColaboradorMB.salvar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{cadTipoColaboradorMB.cancelar()}" />
 			</div>
-			<br/><br/>
-			
-			
-		</h:form>
+			<br />
+			<br />
 	</ui:define>
 </ui:composition>
 </html>

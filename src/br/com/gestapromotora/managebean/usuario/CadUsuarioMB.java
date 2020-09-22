@@ -10,10 +10,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-
+import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.TipoColaboradorFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Dadosbancario;
 import br.com.gestapromotora.model.Tipocolaborador;
 import br.com.gestapromotora.model.Usuario;
@@ -30,6 +31,8 @@ public class CadUsuarioMB implements Serializable {
 	private Dadosbancario dadosbancario;
 	private Tipocolaborador tipocolaborador;
 	private List<Tipocolaborador> listaTipoColaborador;
+	private Banco bancoDadosBancario;
+	private List<Banco> listaBanco;
 
 	@PostConstruct
 	public void init() {
@@ -37,6 +40,7 @@ public class CadUsuarioMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		usuario = (Usuario) session.getAttribute("usuario");
 		session.removeAttribute("usuario");
+		gerarListaBanco();
 		if (usuario == null) {
 			usuario = new Usuario();
 			dadosbancario = new Dadosbancario();
@@ -44,6 +48,7 @@ public class CadUsuarioMB implements Serializable {
 		} else {
 			buscarDadosBancarios(usuario);
 			tipocolaborador = usuario.getTipocolaborador();
+			bancoDadosBancario = dadosbancario.getBanco();
 		}
 		gerarListaTipoColaborador();
 	}
@@ -80,6 +85,22 @@ public class CadUsuarioMB implements Serializable {
 		this.listaTipoColaborador = listaTipoColaborador;
 	}
 
+	public Banco getBancoDadosBancario() {
+		return bancoDadosBancario;
+	}
+
+	public void setBancoDadosBancario(Banco bancoDadosBancario) {
+		this.bancoDadosBancario = bancoDadosBancario;
+	}
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
 	public void gerarListaTipoColaborador() {
 		TipoColaboradorFacade tipoColaboradorFacade = new TipoColaboradorFacade();
 		listaTipoColaborador = tipoColaboradorFacade.listar("Select t From Tipocolaborador t");
@@ -113,12 +134,23 @@ public class CadUsuarioMB implements Serializable {
 	
 	public void salvarDadosBancarios() {
 		DadosBancarioFacade dadosBancarioFacade = new DadosBancarioFacade();
+		dadosbancario.setBanco(bancoDadosBancario);
 		dadosbancario = dadosBancarioFacade.salvar(dadosbancario);
 	}
 	
 	public String cancelar() {
 		return "consUsuario";
 	}
+	
+	
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum'");
+		if (listaBanco == null) {
+			listaBanco = new ArrayList<Banco>();
+		}
+	}
+	
 	
 	
 

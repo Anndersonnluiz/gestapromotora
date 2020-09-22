@@ -1,0 +1,166 @@
+package br.com.gestapromotora.managebean.financeiro;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import br.com.gestapromotora.dao.ContasPagarDao;
+import br.com.gestapromotora.dao.TipoDespesaDao;
+import br.com.gestapromotora.model.Contaspagar;
+import br.com.gestapromotora.model.Tipodespesa;
+import br.com.gestapromotora.util.Formatacao;
+
+@Named
+@ViewScoped
+public class ContasPagarMB implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<Contaspagar> listaContasPagar;
+	private Date dataini;
+	private Date datafin;
+	private List<Tipodespesa> listaTipoDespesa;
+	private Tipodespesa tipodespesa;
+	
+	
+	
+	@PostConstruct
+	public void init() {
+		gerarListaInicial();
+		gerarListaDespesa();
+	}
+
+
+
+	public List<Contaspagar> getListaContasPagar() {
+		return listaContasPagar;
+	}
+
+
+
+	public void setListaContasPagar(List<Contaspagar> listaContasPagar) {
+		this.listaContasPagar = listaContasPagar;
+	}
+
+
+
+	public Date getDataini() {
+		return dataini;
+	}
+
+
+
+	public void setDataini(Date dataini) {
+		this.dataini = dataini;
+	}
+
+
+
+	public Date getDatafin() {
+		return datafin;
+	}
+
+
+
+	public void setDatafin(Date datafin) {
+		this.datafin = datafin;
+	}
+
+
+
+	public List<Tipodespesa> getListaTipoDespesa() {
+		return listaTipoDespesa;
+	}
+
+
+
+	public void setListaTipoDespesa(List<Tipodespesa> listaTipoDespesa) {
+		this.listaTipoDespesa = listaTipoDespesa;
+	}
+
+
+
+	public Tipodespesa getTipodespesa() {
+		return tipodespesa;
+	}
+
+
+
+	public void setTipodespesa(Tipodespesa tipodespesa) {
+		this.tipodespesa = tipodespesa;
+	}
+	
+	
+	
+	public String novo() {
+		return "cadContasPagar";
+	}
+	
+	
+	public String editar(Contaspagar contaspagar) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contaspagar", contaspagar);
+		return "cadContasPagar";
+	}
+	
+	
+	public void gerarListaInicial() {
+		ContasPagarDao contasPagarDao = new ContasPagarDao();
+		listaContasPagar = contasPagarDao.lista("Select c From Contaspagar c WHERE c.datapagamento is null");
+		if (listaContasPagar == null) {
+			listaContasPagar = new ArrayList<Contaspagar>();
+		}
+	}
+	
+	
+	
+	public void pesquisar() {
+		ContasPagarDao contasPagarDao = new ContasPagarDao();
+		String sql = "Select c From Contaspagar c WHERE c.descricao like '%%'";
+		if (tipodespesa != null) {
+			sql = sql + " AND c.tipodespesa.idtipodespesa=" + tipodespesa.getIdtipodespesa();
+		}
+		if (dataini != null && datafin != null) {
+			sql = sql + " AND c.datavencimento>='" + Formatacao.ConvercaoDataNfe(dataini) + "' AND "
+					+ "c.datavencimento<='" + Formatacao.ConvercaoDataNfe(datafin) + "'" ;
+		}
+		listaContasPagar = contasPagarDao.lista(sql);
+		if (listaContasPagar == null) {
+			listaContasPagar = new ArrayList<Contaspagar>();
+		}
+	}
+	
+	
+	public void limpar() {
+		gerarListaInicial();
+		tipodespesa = null;
+		datafin = null;
+		dataini = null;
+	}
+	
+	
+	public void gerarListaDespesa() {
+		TipoDespesaDao tipoDespesaDao = new TipoDespesaDao();
+		listaTipoDespesa = tipoDespesaDao.lista("Select t From Tipodespesa t");
+		if (listaTipoDespesa == null) {
+			listaTipoDespesa = new ArrayList<Tipodespesa>();
+		}
+	}
+	
+	
+	
+	
+	
+	
+
+}

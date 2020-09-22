@@ -6,81 +6,84 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Cadastro de Cliente</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 			<h6>Dados pessoais</h6>
-			<hr/>
+			<hr />
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-6">
 					<label for="inputNome">Nome</label>
 					<h:inputText value="#{cadClienteMB.cliente.nome}"
 						class="form-control" id="inputNome" placeholder="Nome" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputCpf">CPF</label>
 					<h:inputText value="#{cadClienteMB.cliente.cpf}"
 						class="form-control" id="inputCpf" placeholder="CPF" />
 				</div>
-				<div class="form-group col-md-3">
-					<label for="inputRG">RG</label>
-					<h:inputText value="#{cadClienteMB.cliente.rg}"
-						class="form-control" id="inputRG" placeholder="RG" />
-				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="dataNasc">Data Nascimento</label>
-					<h:inputText class="form-control" id="dataNasc"
-						value="#{cadClienteMB.cliente.nascimento}" mask="99/99/9999">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+						value="#{cadClienteMB.cliente.nascimento}" id="dataNasc">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
-					</h:inputText>
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
 				</div>
 			</div>
 
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
+					<label for="inputRG">RG</label>
+					<h:inputText value="#{cadClienteMB.cliente.rg}"
+						class="form-control" id="inputRG" placeholder="RG" />
+				</div>
+				<div class="form-group col-md-2">
 					<label for="inputOrgaoEmissor">Orgão Emissor</label>
 					<h:inputText value="#{cadClienteMB.cliente.orgaroemissor}"
 						class="form-control" id="inputOrgaoEmissor" placeholder="Nome" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputufrg">UF - RG</label>
 					<h:inputText value="#{cadClienteMB.cliente.ufrg}"
 						class="form-control" id="inputufrg" placeholder="UF - RG" />
 				</div>
-				<div class="form-group col-md-3">
-					<label for="dataEmissao">Data Emissão</label>
-					<h:inputText class="form-control" id="dataEmissao"
-						value="#{cadClienteMB.cliente.emissao}" mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputNaturalidade">Naturalidade</label>
 					<h:inputText value="#{cadClienteMB.cliente.naturalidade}"
 						class="form-control" id="inputNaturalidade"
 						placeholder="Naturalidade" />
 				</div>
-			</div>
-
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputUfNaturalidade">UF - Naturalidade</label>
 					<h:inputText value="#{cadClienteMB.cliente.ufnaturalidade}"
 						class="form-control" id="inputUfNaturalidade"
 						placeholder="Estado da Naturalidade" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
+					<label for="dataEmissao">Data Emissão</label>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+						value="#{cadClienteMB.cliente.emissao}" id="dataEmissao">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</div>
+			</div>
+
+
+			<div class="form-row">
+				<div class="form-group col-md-5">
 					<label for="inputnomepai">Nome Pai</label>
 					<h:inputText value="#{cadClienteMB.cliente.nomepai}"
 						class="form-control" id="inputnomepai" placeholder="Nome Pai" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<label for="inputnomemae">Noma Mãe</label>
 					<h:inputText value="#{cadClienteMB.cliente.nomemae}"
 						class="form-control" id="inputnomemae" placeholder="Nome Mãe" />
@@ -89,7 +92,7 @@
 					<label for="inputValorSalario">Valor Salário</label>
 					<h:inputText value="#{cadClienteMB.cliente.valorsalario}"
 						class="form-control" id="inputValorSalario"
-						placeholder="Valor de Salário" >
+						placeholder="Valor de Salário">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:inputText>
 				</div>
@@ -98,18 +101,23 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-3">
+					<label for="inputEmail">Email</label>
+					<h:inputText value="#{cadClienteMB.cliente.email}"
+						class="form-control" id="inputEmail" />
+				</div>
+				<div class="form-group col-md-2">
 					<label for="inputResidencial">Telefone Residencial</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefoneresidencial}"
 						class="form-control" id="inputResidencial"
 						placeholder="Telefone Residencial" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputcomercial">Telefone Comercial</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefonecomercial}"
 						class="form-control" id="inputcomercial"
 						placeholder="Telefone Comercial" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label for="inputcelular">Telefone Celular</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefonecelular}"
 						class="form-control" id="inputcelular" placeholder="Nome Mãe" />
@@ -119,8 +127,8 @@
 			<br />
 
 			<h6>Endereço</h6>
-			<hr/>
-			
+			<hr />
+
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="inputCEP">CEP</label>
@@ -131,7 +139,7 @@
 						<p:commandLink id="btnConfirmar" value="Buscar"
 							update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado"
 							action="#{cadClienteMB.buscarendereco()}" ajax="false"
-							styleClass="btn btn-dark" />
+							styleClass="btn btn-primary" />
 					</h:panelGrid>
 				</div>
 				<div class="form-group col-md-3">
@@ -180,8 +188,8 @@
 			<br />
 
 			<h6>Dados Bancarios</h6>
-			<hr/>
-			<div class="form-row"> 
+			<hr />
+			<div class="form-row">
 				<div class="form-group col-md-5">
 					<label>Banco</label>
 					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
@@ -218,6 +226,8 @@
 						<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
 						<f:selectItem itemLabel="Conta Corrente"
 							itemValue="Conta Corrente" />
+						<f:selectItem itemLabel="Conta Poupança"
+							itemValue="Conta Poupança" />
 					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-3">
@@ -237,17 +247,14 @@
 			<br />
 			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					 value="Salvar"
-					action="#{cadClienteMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
-					value="Cancelar" action="#{cadClienteMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Salvar" action="#{cadClienteMB.salvar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{cadClienteMB.cancelar()}" />
 			</div>
 			<br />
 			<br />
-
-
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

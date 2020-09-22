@@ -6,412 +6,571 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
+			<br />
 			<h4>Portabilidade</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 			<br />
-			<div class="row" style="color:white;" align="center" >
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoInmcompletos()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Incompletos em Digitação</b>
-	                        <br/>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;"> 
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nIncompletos}"/></b> contrato(s)	
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoDigitados()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Digitados Aguardando Pag. Divida</b>
-	                        <br/>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;">
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nDigitados}"/></b> contrato(s)
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoDivida()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Dívida Paga Aguardando Averbação</b>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;">
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nDivida}"/></b> contrato(s)
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoPortabilidade()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Portabilidade Fin. Aguardando Refinanciamento</b>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;">
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nPortabilidade}"/></b> contrato(s)
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoRefinanciamento()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Refinanciamento Criado Aguardando Pag Refin</b>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;">
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nRefinanciamento}"/></b> contrato(s)
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-                <div class="col-md-2">
-                	<p:commandLink action="#{portabilidadeMB.botaoCancelados()}" ajax="false" style="text-decoration:none;" update="@all">
-	                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-	                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Cancelados</b>
-	                        <hr style="background-color:white;"/>
-	                        <div align="center" style="font-size:11px;">
-	                        	<b><p:outputLabel value="#{portabilidadeMB.nCancelados}"/></b> contrato(s)
-	                        </div>
-	                    </div>
-	                </p:commandLink>
-                </div>
-            </div>   
-            <br/>
-            <h:panelGroup rendered="#{portabilidadeMB.incompletos}"  id="panelIncompletosDigitacao">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(4)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Aguardando Solicitação Digitação</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandoSolicitacao}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(1)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Aguardando Digitação</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandoDigitacao}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(5)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Com Inconsistência / Pendência para Dig.</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nPendenciaDigitacao}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(6)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Com Inconsistência / Aguardando Operacional</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandooperacional}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	            </div>  
-	        </h:panelGroup>
-	        <h:panelGroup rendered="#{portabilidadeMB.digitadosPagDivida}" id="panelDigAguargandoPagDivida">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(7)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Aguardando Saldo CIP</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandoCIP}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(8)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problemas Envio CIP</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nProblemasCIP}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(9)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problema Envio CIP Aguardando Operacional</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nProblemasCIPAguarOper}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(10)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Saldo informado Aguardando Pag. Dívida</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nSaldoAguarPagDivida}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(11)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Saldo Divergência Aguardando Resposta Corretor</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nSaldoAguarRespCorretor}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		               </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(12)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Saldo com Divergência Aguardando Operacional</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandooperacional}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		               </p:commandLink>
-	                </div>
-	            </div>  
-	        </h:panelGroup>
-	        <h:panelGroup rendered="#{portabilidadeMB.dividaPaga}" id="panelDividaPaga">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(27)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Intenção Portabilidade Aguardando Liberar Margem</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nIntencaoPortabilidade}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(26)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Sem Intenção Portabilidade Aguardando Liberar Margem</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nSemIntencao}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(25)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Margem Liberada Aguardando Confirmação Banco</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nMargemLiberada}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(24)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problemas na Averbação</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nProblemasAverbacao}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(23)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problemas na Averbação Aguardando Operacional</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAverbacaoAguardandoOperacional}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	            </div>  
-	        </h:panelGroup>
-	        <h:panelGroup rendered="#{portabilidadeMB.portabilidadeFin}" id="panelPortabilidadeFinAguardandoRefin">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(22)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Portabilidade Finalizada Aguardando Refinanciamento</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nPortabilidadeFinalizada}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(21)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Margem Insuficiente</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nMargemInsuficiente}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		               </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(20)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Portabilidade Finalizada Aguargando Dig. Refin</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nPortabilidadeAguardando}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	              
-	            </div>  
-	        </h:panelGroup>
-	        <h:panelGroup rendered="#{portabilidadeMB.refinanciamentoCriado}" id="panelRefinCriadoAguardandoPagRefin">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(19)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Aguardando Pagamento Refin</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nAguardandoPagamento}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(18)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problemas Refin</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nProblemasRefin}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		               </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(17)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Problemas Refin Aguardando Operacional</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nProblemasRefinAguardandoOpe}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(16)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Pago ao Cliente</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nPagoCliente}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                 </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(15)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Refinaciamento Aguardando Portabilidade</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nRefinaciamentoPortabilidade}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	            </div>  
-	        </h:panelGroup>
-	        <h:panelGroup rendered="#{portabilidadeMB.cancelados}" id="panelCancelados">
-	            <div class="row" style="color:white;" align="center" >
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(14)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Cancelado no Banco Aguardando Operacional</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nCanceladoBancoOperacional}"/></b> contrato(s)	
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(13)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Cancelado no Banco Aguardando Resposta Corretor</b>
-		                        <br/>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nCanceladoCorretor}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                </p:commandLink>
-	                </div>
-	                <div class="col-md-2">
-	                	<p:commandLink action="#{portabilidadeMB.gerarListaPortabilidade(2)}" ajax="false" style="text-decoration:none;" update="@all">
-		                    <div class="panel-stat3 bg-dark" style="background: #145B7A;opacity: 0.75;padding:15px 10px;border-radius:15px;height:150px;color:white;">  
-		                        <b style="font-family: Segoe UI Semibold;font-size:11px;">Cancelado</b>
-		                        <hr style="background-color:white;"/>
-		                        <div align="center" style="font-size:11px;">
-		                        	<b><p:outputLabel value="#{portabilidadeMB.nCancelado}"/></b> contrato(s)
-		                        </div>
-		                    </div>
-		                 </p:commandLink>
-	                </div>
-	            </div>  
-	        </h:panelGroup>
-	        <br/>
-			<h:panelGrid rendered="#{portabilidadeMB.mudarsituacao}" id="idtabela">
+			<div class="row" style="color: white;" align="center">
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoInmcompletos()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3"
+							style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Incompletos
+								em Digitação</b> <br />
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel value="#{portabilidadeMB.nIncompletos}" /></b>
+								contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoDigitados()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3 bg-primary"
+							style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Digitados
+								Aguardando Pag. Divida</b> <br />
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel value="#{portabilidadeMB.nDigitados}" /></b>
+								contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoDivida()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3 bg-primary"
+							style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Dívida
+								Paga Aguardando Averbação</b>
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel value="#{portabilidadeMB.nDivida}" /></b>
+								contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoPortabilidade()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3 bg-primary"
+							style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Portabilidade
+								Fin. Aguardando Refinanciamento</b>
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel value="#{portabilidadeMB.nPortabilidade}" /></b>
+								contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoRefinanciamento()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3 bg-primary"
+							style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Refinanciamento
+								Criado Aguardando Pag Refin</b>
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel
+										value="#{portabilidadeMB.nRefinanciamento}" /></b> contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+				<div class="col-md-2">
+					<p:commandLink action="#{portabilidadeMB.botaoCancelados()}"
+						ajax="false" style="text-decoration:none;" update="@all">
+						<div class="panel-stat3 bg-primary"
+							style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+							<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelados</b>
+							<hr style="background-color: white;" />
+							<div align="center" style="font-size: 11px;">
+								<b><p:outputLabel value="#{portabilidadeMB.nCancelados}" /></b>
+								contrato(s)
+							</div>
+						</div>
+					</p:commandLink>
+				</div>
+			</div>
+			<br />
+			<h:panelGroup rendered="#{portabilidadeMB.incompletos}"
+				id="panelIncompletosDigitacao">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(4)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
+									Solicitação Digitação</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAguardandoSolicitacao}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(1)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
+									Digitação</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAguardandoDigitacao}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(5)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Com
+									Inconsistência / Pendência para Dig.</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nPendenciaDigitacao}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(6)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Com
+									Inconsistência / Aguardando Operacional</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAguardandooperacional}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{portabilidadeMB.digitadosPagDivida}"
+				id="panelDigAguargandoPagDivida">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(7)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
+									Saldo CIP</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel value="#{portabilidadeMB.nAguardandoCIP}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(8)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problemas
+									Envio CIP</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel value="#{portabilidadeMB.nProblemasCIP}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(9)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problema
+									Envio CIP Aguardando Operacional</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nProblemasCIPAguarOper}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(10)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Saldo
+									informado Aguardando Pag. Dívida</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nSaldoAguarPagDivida}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(11)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Saldo
+									Divergência Aguardando Resposta Corretor</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nSaldoAguarRespCorretor}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(12)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Saldo
+									com Divergência Aguardando Operacional</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAguardandooperacional}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{portabilidadeMB.dividaPaga}"
+				id="panelDividaPaga">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(27)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Intenção
+									Portabilidade Aguardando Liberar Margem</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nIntencaoPortabilidade}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(26)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Sem
+									Intenção Portabilidade Aguardando Liberar Margem</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel value="#{portabilidadeMB.nSemIntencao}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(25)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Margem
+									Liberada Aguardando Confirmação Banco</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nMargemLiberada}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(24)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problemas
+									na Averbação</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nProblemasAverbacao}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(23)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problemas
+									na Averbação Aguardando Operacional</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAverbacaoAguardandoOperacional}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{portabilidadeMB.portabilidadeFin}"
+				id="panelPortabilidadeFinAguardandoRefin">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(22)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Portabilidade
+									Finalizada Aguardando Refinanciamento</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nPortabilidadeFinalizada}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(21)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Margem
+									Insuficiente</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nMargemInsuficiente}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(20)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Portabilidade
+									Finalizada Aguargando Dig. Refin</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nPortabilidadeAguardando}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{portabilidadeMB.refinanciamentoCriado}"
+				id="panelRefinCriadoAguardandoPagRefin">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(19)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
+									Pagamento Refin</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nAguardandoPagamento}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(18)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problemas
+									Refin</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nProblemasRefin}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(17)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Problemas
+									Refin Aguardando Operacional</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nProblemasRefinAguardandoOpe}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(16)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pago
+									ao Cliente</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel value="#{portabilidadeMB.nPagoCliente}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(15)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Refinaciamento
+									Aguardando Portabilidade</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nRefinaciamentoPortabilidade}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{portabilidadeMB.cancelados}"
+				id="panelCancelados">
+				<div class="row" style="color: white;" align="center">
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(14)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelado
+									no Banco Aguardando Operacional</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nCanceladoBancoOperacional}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(13)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelado
+									no Banco Aguardando Resposta Corretor</b> <br />
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel
+											value="#{portabilidadeMB.nCanceladoCorretor}" /></b> contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="col-md-2">
+						<p:commandLink
+							action="#{portabilidadeMB.gerarListaPortabilidade(2)}"
+							ajax="false" style="text-decoration:none;" update="@all">
+							<div class="panel-stat3 bg-primary"
+								style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white;background-color: #000080 !important;">
+								<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelado</b>
+								<hr style="background-color: white;" />
+								<div align="center" style="font-size: 11px;">
+									<b><p:outputLabel value="#{portabilidadeMB.nCancelado}" /></b>
+									contrato(s)
+								</div>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</h:panelGroup>
+			<br />
+			<h:panelGrid rendered="#{portabilidadeMB.mudarsituacao}"
+				id="idtabela">
 				<p:accordionPanel activeIndex="null">
 					<p:tab title="Filtros">
-						<div class="form-row">   
+						<div class="form-row">
 							<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 								<div class="form-group col-md-3">
 									<label for="usuario">Corretor</label>
@@ -422,7 +581,8 @@
 										<f:selectItem itemLabel="Selecione" itemValue="0"
 											noSelectionOption="true" />
 										<f:selectItems value="#{portabilidadeMB.listaUsuario}"
-											var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+											var="usuarioSelecionado"
+											itemLabel="#{usuarioSelecionado.nome}"
 											itemValue="#{usuarioSelecionado}" />
 										<f:attribute name="listaUsuario"
 											value="#{portabilidadeMB.listaUsuario}" />
@@ -444,11 +604,11 @@
 							<div class="form-group col-md-3">
 								<label>.</label>
 								<div>
-									<p:commandLink ajax="false" styleClass="btn btn-dark"
+									<p:commandLink ajax="false" styleClass="btn btn-primary"
 										value="Pesquisar" action="#{portabilidadeMB.pesquisar()}"
-										update="idTabelaPortabilidade" style="color:white"/>
-									<p:commandLink ajax="false" style="margin-left:1%;color:white;"
-										styleClass="btn btn-success" value="Limpar"
+										update="idTabelaPortabilidade" style="color:white" />
+									<p:commandLink ajax="false" style="margin-left:1%;"
+										styleClass="btn btn-link" value="Limpar"
 										action="#{portabilidadeMB.limpar()}"
 										update="idTabelaPortabilidade, cpf, nomecliente, usuario" />
 								</div>
@@ -456,7 +616,7 @@
 						</div>
 					</p:tab>
 				</p:accordionPanel>
-	
+
 				<br />
 				<p:dataTable id="idTabelaPortabilidade" var="contrato"
 					widgetVar="cellCars" editable="true" editMode="cell"
@@ -464,9 +624,9 @@
 					class="tabelacontas" scrollRows="10" scrollable="true"
 					scrollHeight="300" selectionMode="single"
 					rowKey="#{contrato.idcontrato}">
-	
-	
-	
+
+
+
 					<p:column headerText="Código"
 						style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 						<h:outputText value="#{contrato.codigocontrato}" />
@@ -504,7 +664,8 @@
 					<p:column headerText="Valor Base"
 						style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 						<h:outputText value="#{contrato.parcela}">
-							<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+							<f:convertNumber pattern="##,###,###,###.##"
+								minFractionDigits="2" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Situação"
@@ -536,9 +697,10 @@
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
-				<br/><br/><br/>
-		</h:panelGrid>
-		</h:form>
+				<br />
+				<br />
+				<br />
+			</h:panelGrid>
 	</ui:define>
 </ui:composition>
 </html>

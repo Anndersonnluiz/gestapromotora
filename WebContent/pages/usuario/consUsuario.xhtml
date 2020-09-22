@@ -6,13 +6,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaUsuario">
+			<br />
 			<h4>Consulta de Usuário</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo" action="#{usuarioMB.novoUsuario()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Novo" action="#{usuarioMB.novoUsuario()}" />
 			</div>
 			<p:dataTable id="idTabelaUsuario" var="usuario"
 				value="#{usuarioMB.listaUsuario}" style="border:none;"
@@ -43,18 +43,25 @@
 					<h:outputText value="#{usuario.tipocolaborador.descricao}" />
 				</p:column>
 				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					style="width:12%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false" action="#{usuarioMB.editar(usuario)}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{usuarioMB.ativarDesativarUsuario(usuario)}"  update=":frmConsultaUsuario:growl, idTabelaUsuario" 
+					<p:commandLink ajax="false"
+						action="#{usuarioMB.ativarDesativarUsuario(usuario)}"
+						update=":frmConsultaUsuario:growl, idTabelaUsuario"
 						style="text-align: left;color:black;">
 						<span data-feather="#{usuario.descricaoativo}"></span>
 					</p:commandLink>
+					<p:commandLink  ajax="false"
+						action="#{usuarioMB.resetSenha(usuario)}"
+						update=":formulario:growl, idTabelaUsuario"
+						style="text-align: left;color:black;">
+						<span data-feather="rotate-ccw"></span>
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

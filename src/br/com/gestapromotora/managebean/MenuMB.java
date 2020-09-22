@@ -24,6 +24,11 @@ public class MenuMB implements Serializable {
     public String consUsuario() {
         return "consUsuario";
     }
+    
+    
+    public String notificacoes() {
+		return "consNotificacao";
+	}
 
 
 }

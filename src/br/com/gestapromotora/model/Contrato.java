@@ -104,7 +104,7 @@ public class Contrato implements Serializable{
 	private boolean pendente;
 	@Column(name = "margemutilizada")
 	private float margemutilizada;
-	@JoinColumn(name = "valorcoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
+	@JoinColumn(name = "valorescoeficiente_idvalorescoeficiente", referencedColumnName = "idvalorescoeficiente")
 	@ManyToOne(optional = false)
 	private Valorescoeficiente valorescoeficiente;
 	@JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")

@@ -18,23 +18,41 @@
 
 
 
-	<title>GESTA PROMOTORA</title>
+	<title>DELTA FINANCEIRA</title>
 </h:head>
 <h:body>
 	<h:form>
 		<br />
 		<br />
 		<nav
-			class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><p:outputLabel
-					value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}" /></a>
-			<ul class="navbar-nav px-3">
-				<li class="nav-item text-nowrap"><p:commandLink ajax="false"
-						action="#{usuarioLogadoMB.deslogar()}" value="Sair"
-						styleClass="nav-link" /></li>
-			</ul>
-		</nav>
+			class="navbar navbar-primary fixed-top  flex-md-nowrap p-0 shadow" style="background-color: #000080 !important;">
+			<a class="navbar col-md-3 mr-0 col-sm-3" href="#"><p:outputLabel
+					value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"
+					style="color:white;font-weight:bold;font-size:16px;" /></a>
+			<ul class="navbar-nav ml-auto nav-flex-icons"
+				style="margin-right: 2%;">
+				<li class="nav-item avatar dropdown"><a
+					class="nav-link waves-effect waves-light"
+					href="pages/notificacao/consAniversariantes.jsf"
+					id="navbarDropdownMenuLink-5" aria-haspopup="true"
+					aria-expanded="true"> <span class="badge badge-danger ml-4"
+						style="font-size: 14px;"> <p:outputLabel
+								value="#{usuarioLogadoMB.nAniversario}" />
+					</span> <img alt="" src="resources/img/niver.png" style="width:7%"/>
 
+				</a></li>
+			</ul>
+			<a
+					class="nav-link waves-effect waves-light"
+					href="pages/notificacao/consNotificacao.jsf"
+					id="navbarDropdownMenuLink-5" aria-haspopup="true"
+					aria-expanded="true"> <span class="badge badge-danger ml-2"
+						style="font-size: 14px;"> <p:outputLabel
+								value="#{usuarioLogadoMB.nNotificacao}" />
+					</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
+
+				</a>
+		</nav>
 		<div class="container-fluid">
 
 			<div class="row">
@@ -42,6 +60,7 @@
 					<div class="sidebar-sticky">
 
 						<ul class="nav flex-column">
+							<br/>
 							<li class="nav-item"><a class="nav-link active" href="#">
 									<span data-feather="home"></span> Dashboard <span
 									class="sr-only">(atual)</span>
@@ -57,7 +76,11 @@
 											data-feather="dollar-sign"></span> Banco
 									</a> <a class="nav-link" href="pages/cliente/consCliente.jsf">
 											<span data-feather="users"></span> Cliente
-									</a> <h:panelGroup
+									</a> 
+									<a class="nav-link" href="pages/despesa/consDespesa.jsf">
+												<span data-feather="user"></span> Tipo Despesa
+											</a>
+									<h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
@@ -77,8 +100,9 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/contrato/consContrato.jsf"> <span
 											data-feather="list"></span> Listagem
-									</a> <a class="nav-link" href="pages/contrato/confDadosContrato.jsf">
-											<span data-feather="file-plus"></span> Adicionar Contrato
+									</a> <a class="nav-link"
+										href="pages/contrato/confDadosContrato.jsf"> <span
+											data-feather="file-plus"></span> Adicionar Contrato
 									</a> <a class="nav-link"
 										href="pages/contrato/consPortabilidade.jsf"> <span
 											data-feather="file-text"></span> Portabilidade
@@ -123,23 +147,28 @@
 												href="pages/comissoes/consPagamentoComissao.jsf"> <span
 												data-feather="dollar-sign"></span> Pag. Comissão
 											</a>
+											<a class="nav-link"
+												href="pages/financeiro/consContasPagar.jsf"> <span
+												data-feather="dollar-sign"></span> Contas a Pagar
+											</a>
 										</h:panelGroup></li>
 								</ul></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/ajuda/consAjuda.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="activity"></span> Ajuda
-							</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="pages/usuario/alterarSenha.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="refresh-cw"></span> Alterar Senha
 							</a></li>
+
+							<li class="nav-item"><p:commandLink ajax="false"
+									action="#{usuarioLogadoMB.deslogar()}" value="Sair"
+									styleClass="nav-link" /></li>
 						</ul>
 					</div>
 				</nav>
-
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+					<h2>Faturamento</h2>
+					<hr />
 					<div class="row" style="color: white;">
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-success"
@@ -147,10 +176,13 @@
 								<h5 style="font-family: Segoe UI Semibold;">FATURAMENTO</h5>
 								<h4 class="m-top-none" id="userCount"
 									style="color: black; font-family: Segoe UI Semibold;">R$:
-									#{grafico.valorTotalFaturamento}</h4>
+									<p:outputLabel value="#{dashBoardMB.setembro.valoratual}">
+										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									</p:outputLabel> 
+									</h4>
 								<span class="m-left-xs"
 									style="color: black; font-family: Segoe UI Semibold;">em
-									#{grafico.ano}</span>
+									setembro</span>
 								<div class="stat-icon" style="opacity: 0.9;">
 									<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 								</div>
@@ -178,6 +210,9 @@
 								<h5 style="font-family: Segoe UI Semibold;">CONTAS A PAGAR</h5>
 								<h4 class="m-top-none" id="visitorCount"
 									style="color: black; font-family: Segoe UI Semibold;">R$:
+									<p:outputLabel value="#{dashBoardMB.valorPagarHoje}">
+										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+									</p:outputLabel> 
 								</h4>
 								<span class="m-left-xs"
 									style="color: black; font-family: Segoe UI Semibold;">para
@@ -190,69 +225,132 @@
 					</div>
 					<div
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">Dashboard</h1>
+						<h1 class="h2">Vendas</h1>
 
 					</div>
 
 					<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-					<h2>Últimos Contratos</h2>
-					<div class="table-responsive">
-						<p:dataTable id="idTabelaContrato" var="contrato"
-							value="#{contratoMB.listaContrato}" style="border:none;"
-							class="tabelacontas" scrollRows="10" scrollable="true"
-							scrollHeight="300" selectionMode="single"
-							rowKey="#{contrato.idcontrato}">
 
+					<br />
 
-							<p:column headerText="Código"
-								style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.codigocontrato}" />
-							</p:column>
-							<p:column headerText="Corretor"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.usuario.nome}">
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Nome"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.cliente.nome}" />
-							</p:column>
-							<p:column headerText="CPF"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.cliente.cpf}" />
-							</p:column>
-							<p:column headerText="Banco/Órgão"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText
-									value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}/#{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
-							</p:column>
-							<p:column headerText="Operação"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.tipooperacao.descricao}" />
-							</p:column>
-							<p:column headerText="Situação"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.situacao.descricao}" />
-							</p:column>
-							<p:column headerText="Valor Parcela"
-								sortBy="#{contrato.valorparcela}"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-								<h:outputText value="#{contrato.parcela}">
-									<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-								</h:outputText>
-							</p:column>
-							<p:column headerText="Data Pag." sortBy="#"
-								style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-								<h:outputText value="#{contrato.datapagamento}">
-									<f:convertDateTime pattern="dd/MM/yyyy"
-										timeZone="America/Sao_Paulo" />
-								</h:outputText>
-							</p:column>
+					<h3>RANKING DE VENDAS</h3>
+					<hr />
 
-						</p:dataTable>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
+							<div style="border: 2px solid black; border-radius: 10px;">
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/primeirolugar.png"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value="#{dashBoardMB.primeiroMes.usuario.nome}"
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value="R$"
+											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
+											style="font-weight:bold;font-size:18px;margin-left:2%;" >
+											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+										</p:outputLabel>
+									</div>
+								</div>
+								<hr />
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/segundolugar.jpg"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value="#{dashBoardMB.segundoMes.usuario.nome}"
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value="R$"
+											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
+											style="font-weight:bold;font-size:18px;" >
+											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+										</p:outputLabel>
+									</div>
+								</div>
+								<hr />
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/terceirolugar.png"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value="#{dashBoardMB.terceiroMes.usuario.nome}"
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value="R$"
+											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
+											style="font-weight:bold;font-size:18px;" >
+											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+										</p:outputLabel>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<h5>RANKING DO ANO</h5>
+							<div style="border: 2px solid black; border-radius: 10px;">
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/primeirolugar.png"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:18px;" />
+									</div>
+								</div>
+								<hr />
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/segundolugar.jpg"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:18px;" />
+									</div>
+								</div>
+								<hr />
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<br /> <img src="resources/img/terceirolugar.png"
+											style="width: 80%;" />
+									</div>
+									<div class="form-group col-md-9">
+										<br />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:16px;" />
+										<hr />
+										<p:outputLabel value=""
+											style="font-weight:bold;font-size:18px;" />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+					<br />
+
 				</main>
 			</div>
 		</div>
@@ -269,42 +367,55 @@
 			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script>
 			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type : 'line',
-				data : {
-					labels : [ "Sunday", "Monday", "Tuesday", "Wednesday",
-							"Thursday", "Friday", "Saturday" ],
-					datasets : [ {
-						data : [ 15339, 21345, 18483, 24003, 23489, 24092,
-								12034 ],
-						lineTension : 0,
-						backgroundColor : 'transparent',
-						borderColor : '#007bff',
-						borderWidth : 4,
-						pointBackgroundColor : '#007bff'
-					} ]
-				},
-				options : {
-					scales : {
-						yAxes : [ {
-							ticks : {
-								beginAtZero : false
+			var myChart = new Chart(ctx,
+					{
+						type : 'bar',
+						data : {
+							labels : [ "Janeiro", "Fevereiro", "Março",
+									"Abril", "Maio", "Junho", "Julho",
+									"Agosto", "Setembro", "Outubro",
+									"Novembro", "Dezembro" ],
+							datasets : [ {
+								data : [ #{dashBoardMB.janeiro.valoratual}, #{dashBoardMB.fevereiro.valoratual}, 
+									#{dashBoardMB.marco.valoratual}, #{dashBoardMB.abril.valoratual}, 
+									#{dashBoardMB.maio.valoratual}, #{dashBoardMB.junho.valoratual}, 
+									#{dashBoardMB.julho.valoratual}, #{dashBoardMB.agosto.valoratual}, 
+									#{dashBoardMB.setembro.valoratual}, #{dashBoardMB.outubro.valoratual},
+									#{dashBoardMB.novembro.valoratual}, #{dashBoardMB.dezembro.valoratual} ],
+								lineTension : 0,
+								backgroundColor : [ '#{dashBoardMB.janeiro.cormeta}',
+										'#{dashBoardMB.fevereiro.cormeta}',
+										'#{dashBoardMB.marco.cormeta}',
+										'#{dashBoardMB.abril.cormeta}',
+										'#{dashBoardMB.maio.cormeta}',
+										'#{dashBoardMB.junho.cormeta}',
+										'#{dashBoardMB.julho.cormeta}',
+										'#{dashBoardMB.agosto.cormeta}',
+										'#{dashBoardMB.setembro.cormeta}',
+										'#{dashBoardMB.outubro.cormeta}',
+										'#{dashBoardMB.novembro.cormeta}',
+										'#{dashBoardMB.dezembro.cormeta}' ],
+								borderWidth : 4,
+								pointBackgroundColor : '#007bff'
+							} ]
+						},
+						options : {
+							scales : {
+								yAxes : [ {
+									ticks : {
+										beginAtZero : false
+									}
+								} ]
+							},
+							legend : {
+								display : false,
 							}
-						} ]
-					},
-					legend : {
-						display : false,
-					}
-				}
-			});
+						}
+					});
 		</script>
 
 
 		<!-- JavaScript (Opcional) -->
-		<!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

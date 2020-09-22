@@ -6,16 +6,14 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
+			<br />
 			<h4>Roteiros > Consulta de Banco</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<p:dataTable id="idTabelaBanco" var="banco"
 				value="#{bancoMB.listaBanco}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{banco.idbanco}">
+				scrollHeight="300" selectionMode="single" rowKey="#{banco.idbanco}">
 
 				<p:column headerText="Código" sortBy="#{banco.codigo}"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -28,13 +26,13 @@
 				</p:column>
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{bancoMB.listaOrgaosRoteiro(banco)}" title="Orgãos Vinculados"
-						style="text-align: left;color:black;"> 
+					<p:commandLink ajax="false"
+						action="#{bancoMB.listaOrgaosRoteiro(banco)}"
+						title="Orgãos Vinculados" style="text-align: left;color:black;">
 						<span data-feather="list"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

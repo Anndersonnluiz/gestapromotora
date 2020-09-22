@@ -7,337 +7,330 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h:form id="frmCadastroBanco">
-			<h4>Cadastro de Valores Coeficiente</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<h4>Cadastro de Valores Coeficiente</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-			<br />
-			<h6>
-				<p:outputLabel
-					value="Coeficiente: #{cadValoresCoeficienteMB.coeficiente.nometabela}" />
-			</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputPrazo">Prazo</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.valorescoeficiente.prazo}"
-						class="form-control" id="inputPrazo" placeholder="Prazo" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputCoeficiente">Coeficiente</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.valorescoeficiente.coeficientevalor}"
-						class="form-control" id="inputCoeficiente" placeholder="Prazo">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputRecebimentos">Outros Recebimentos</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.valorescoeficiente.outrosrecebimentos}"
-						class="form-control" id="inputRecebimentos" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Vigência De</label>
-					<h:panelGrid columns="3" style="width:100%;">
-						<h:inputText
-							value="#{cadValoresCoeficienteMB.valorescoeficiente.dataini}"
-							class="form-control" id="dataini" placeholder="Data Inicio">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:inputText>
-						<p:outputLabel value="À" />
-						<h:inputText
-							value="#{cadValoresCoeficienteMB.valorescoeficiente.datafin}"
-							class="form-control" id="datafin" placeholder="Data Final">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</h:inputText>
-					</h:panelGrid>
-				</div>
+		<br />
+		<h6>
+			<p:outputLabel
+				value="Coeficiente: #{cadValoresCoeficienteMB.coeficiente.nometabela}" />
+		</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-2">
+				<label for="inputPrazo">Prazo</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.valorescoeficiente.prazo}"
+					class="form-control" id="inputPrazo" placeholder="Prazo" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputCoeficiente">Coeficiente</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.valorescoeficiente.coeficientevalor}"
+					class="form-control" id="inputCoeficiente" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputRecebimentos">Outros Recebimentos</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.valorescoeficiente.outrosrecebimentos}"
+					class="form-control" id="inputRecebimentos" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-6">
+				<label>Vigência De</label>
+				<h:panelGrid columns="3" style="width:87%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+						value="#{cadValoresCoeficienteMB.valorescoeficiente.dataini}" id="dataini">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:outputLabel value="À" />
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+						value="#{cadValoresCoeficienteMB.valorescoeficiente.datafin}" id="datafin">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+		</div>
+
+
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<label for="inputOBS">OBS Outros Recebimentos</label>
+				<h:inputTextarea
+					value="#{cadValoresCoeficienteMB.valorescoeficiente.obsrecebimento}"
+					class="form-control" id="inputOBS" placeholder="Prazo" />
+			</div>
+		</div>
+
+		<br />
+		<h6>Tabela de regras</h6>
+		<hr />
+		<br />
+		<h6>Regras</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Nome</label>
+				<h:selectOneMenu style="width: 100%;" id="nomeregra"
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.nomeregra}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Idade" itemValue="Idade" />
+					<f:selectItem itemLabel="Valor Contrato" itemValue="Valor Contrato" />
+					<f:selectItem itemLabel="% parcelas pagas"
+						itemValue="% parcelas pagas" />
+					<f:selectItem itemLabel="Valor/Prazo Refin"
+						itemValue="Valor/Prazo Refin" />
+					<f:selectItem itemLabel="% Taxa" itemValue="% Taxa" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Valor Mínimo</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.valorminregra}"
+					class="form-control" id="valorminregra" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Valor Máximo</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.valormaxregra}"
+					class="form-control" id="valormaxregra" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+		<br />
+		<h6>Comissão Á Vista</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Flat Recebida</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.flatrecebidaregra}"
+					class="form-control" id="flatrecebida" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Bonus Recebido</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrecebidovista}"
+					class="form-control" id="bonusrecebido" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Adiantamento Recebido</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrecebidovista}"
+					class="form-control" id="adiantamentorecebido" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Total Recebido</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrecebidovista}"
+					class="form-control" id="totalrecebido" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Flat Repassada</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.flatrepassadavista}"
+					class="form-control" id="flatrepassada" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Bonus Repassado</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrepassadavista}"
+					class="form-control" id="bonusrepassada" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Adiantamento Repassado</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrepassadavista}"
+					class="form-control" id="adiantamentorepassado" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Total Repassado</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrepassadavista}"
+					class="form-control" id="totalrepassado" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
 
 
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label for="inputOBS">OBS Outros Recebimentos</label>
-					<h:inputTextarea
-						value="#{cadValoresCoeficienteMB.valorescoeficiente.obsrecebimento}"
-						class="form-control" id="inputOBS" placeholder="Prazo" />
-				</div>
+		</div>
+		<br />
+		<h6>Comissão Á Prazo</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Recebido</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.recebidoprazo}"
+					class="form-control" id="recebidoprazo" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
 
-			<br />
-			<h6>Tabela de regras</h6>
-			<hr />
-			<br />
-			<h6>Regras</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Nome</label>
-					<h:selectOneMenu style="width: 100%;" id="nomeregra"
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.nomeregra}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Idade" itemValue="Idade" />
-						<f:selectItem itemLabel="Valor Contrato"
-							itemValue="Valor Contrato" />
-						<f:selectItem itemLabel="% parcelas pagas"
-							itemValue="% parcelas pagas" />
-						<f:selectItem itemLabel="Valor/Prazo Refin"
-							itemValue="Valor/Prazo Refin" />
-						<f:selectItem itemLabel="% Taxa" itemValue="% Taxa" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label>Valor Mínimo</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.valorminregra}"
-						class="form-control" id="valorminregra" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Valor Máximo</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.valormaxregra}"
-						class="form-control" id="valormaxregra" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-			</div>
-			<br />
-			<h6>Comissão Á Vista</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Flat Recebida</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.flatrecebidaregra}"
-						class="form-control" id="flatrecebida" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Bonus Recebido</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrecebidovista}"
-						class="form-control" id="bonusrecebido" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Adiantamento Recebido</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrecebidovista}"
-						class="form-control" id="adiantamentorecebido" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Total Recebido</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrecebidovista}"
-						class="form-control" id="totalrecebido" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
+			<div class="form-group col-md-3">
+				<label>Repassada</label>
+				<h:inputText
+					value="#{cadValoresCoeficienteMB.regrascoeficiente.repassadaprazo}"
+					class="form-control" id="repassadaprazo" placeholder="Prazo">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Flat Repassada</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.flatrepassadavista}"
-						class="form-control" id="flatrepassada" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Bonus Repassado</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrepassadavista}"
-						class="form-control" id="bonusrepassada" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Adiantamento Repassado</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrepassadavista}"
-						class="form-control" id="adiantamentorepassado"
-						placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Total Repassado</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrepassadavista}"
-						class="form-control" id="totalrepassado" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
+			<div class="form-group col-md-3">
+				<label>.</label>
 
 			</div>
-			<br />
-			<h6>Comissão Á Prazo</h6>
-			<hr />
-
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label>Recebido</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.recebidoprazo}"
-						class="form-control" id="recebidoprazo" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>Repassada</label>
-					<h:inputText
-						value="#{cadValoresCoeficienteMB.regrascoeficiente.repassadaprazo}"
-						class="form-control" id="repassadaprazo" placeholder="Prazo">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:inputText>
-				</div>
-
-				<div class="form-group col-md-3">
-					<label>.</label>
-
-				</div>
-			</div>
-			<hr />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					style="margin-left:2%;" value="Adicionar"
-					action="#{cadValoresCoeficienteMB.adicionarRegra()}"
-					update="idTabelaRegra, nomeregra, repassadaprazo, recebidoprazo, totalrepassado, adiantamentorepassado, bonusrepassada, 
+		</div>
+		<hr />
+		<div align="center">
+			<p:commandLink styleClass="btn btn-primary" style="margin-left:2%;"
+				value="Adicionar" ajax="false"
+				action="#{cadValoresCoeficienteMB.adicionarRegra()}"
+				update="idTabelaRegra, nomeregra, repassadaprazo, recebidoprazo, totalrepassado, adiantamentorepassado, bonusrepassada, 
 					flatrepassada, totalrecebido, adiantamentorecebido, bonusrecebido, flatrecebida, valormaxregra, valorminregra" />
-			</div>
-			<br />
-			<p:dataTable id="idTabelaRegra" var="regras"
-				value="#{cadValoresCoeficienteMB.listaRegrasCoeficiente}"
-				style="border:none;" class="tabelacontas" scrollRows="10"
-				scrollable="true" scrollHeight="300" selectionMode="single"
-				rowKey="#{regras.contador}">
+		</div>
+		<br />
+		<p:dataTable id="idTabelaRegra" var="regras"
+			value="#{cadValoresCoeficienteMB.listaRegrasCoeficiente}"
+			style="border:none;" class="tabelacontas" scrollRows="10"
+			scrollable="true" scrollHeight="300" selectionMode="single"
+			rowKey="#{regras.contador}" rowIndexVar="rowIx">
 
 
-				<p:column headerText="Nome"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.nomeregra}" />
-				</p:column>
-				<p:column headerText="Valor Mín."
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.valorminregra}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Valor Máx."
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.valormaxregra}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Flat Recebida"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.flatrecebidaregra}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Bônus Recebido"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.bonusrecebidovista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Adian. Recebido"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.adianrecebidovista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Total Recebido"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.totalrecebidovista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Flat Repassada"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.flatrepassadavista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Bônus Repassado"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.bonusrepassadavista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Adian. Repassado"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.adianrepassadavista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Total Repassado"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.totalrepassadavista}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Recebido"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.recebidoprazo}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Repassada"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{regras.repassadaprazo}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
+			<p:column headerText="Nome"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.nomeregra}" />
+			</p:column>
+			<p:column headerText="Valor Mín."
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.valorminregra}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Valor Máx."
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.valormaxregra}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Flat Recebida"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.flatrecebidaregra}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Bônus Recebido"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.bonusrecebidovista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Adian. Recebido"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.adianrecebidovista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Total Recebido"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.totalrecebidovista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Flat Repassada"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.flatrepassadavista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Bônus Repassado"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.bonusrepassadavista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Adian. Repassado"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.adianrepassadavista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Total Repassado"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.totalrepassadavista}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Recebido"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.recebidoprazo}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Repassada"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{regras.repassadaprazo}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
 
-				<p:column headerText=""
-					style="width:12%; text-align:left; font-size:12px; background:white; color:black; border:#fff;" >
-					<p:commandLink ajax="false" action="#"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
-						style="text-align: left;color:black;">
-						<span data-feather="trash"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
-			<br />
-			<hr />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					 value="Salvar"
-					action="#{cadValoresCoeficienteMB.salvar()}" />
-				<p:commandLink ajax="false" style="margin-left:2%;" styleClass="btn btn-danger"
-					value="Cancelar" action="#{cadValoresCoeficienteMB.cancelar()}" />
-			</div>
-			<br />
-			<br />
-
-
-		</h:form>
+			<p:column headerText=""
+				style="width:12%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{cadValoresCoeficienteMB.excluirRegra(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaRegra">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadValoresCoeficienteMB.salvar()}" />
+			<p:commandLink ajax="false" style="margin-left:2%;"
+				styleClass="btn btn-danger" value="Cancelar"
+				action="#{cadValoresCoeficienteMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

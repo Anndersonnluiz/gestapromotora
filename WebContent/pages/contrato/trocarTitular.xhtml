@@ -6,8 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmCadastroUsuario">
+			<br />
 			<h4>Trocar de Titular</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
@@ -24,8 +23,7 @@
 				<div class="form-group col-md-3">
 					<label for="datacadastro">Data Cadastro</label>
 					<h:inputText class="form-control" id="datacadastro" disabled="true"
-						value="#{trocarTitularMB.contrato.datacadastro}"
-						mask="99/99/9999">
+						value="#{trocarTitularMB.contrato.datacadastro}" mask="99/99/9999">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:inputText>
@@ -45,39 +43,37 @@
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="usuario">Novo Titular</label>
-					<h:selectOneMenu id="usuario" style="width: 100%;"
-						immediate="true" value="#{trocarTitularMB.usuario}"
-						converter="UsuarioConverter" styleClass="form-control"
-						onchange="usuario">
+					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+						value="#{trocarTitularMB.usuario}" converter="UsuarioConverter"
+						styleClass="form-control" onchange="usuario">
 						<f:selectItem itemLabel="Selecione" itemValue="0"
 							noSelectionOption="true" />
 						<f:selectItems value="#{trocarTitularMB.listaUsuario}"
 							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
 							itemValue="#{usuarioSelecionado}" />
-						<f:attribute name="listaUsuario" value="#{trocarTitularMB.listaUsuario}" />
+						<f:attribute name="listaUsuario"
+							value="#{trocarTitularMB.listaUsuario}" />
 					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-6">
-					<label for="senha">Senha - Cadastrada pelo
-						administrador(a)</label>
-					<h:inputText class="form-control" id="senha" 
+					<label for="senha">Senha - Cadastrada pelo administrador(a)</label>
+					<h:inputText class="form-control" id="senha"
 						value="#{trocarTitularMB.senha}">
 					</h:inputText>
 				</div>
 			</div>
-			
-			<br/><br/>
+
+			<br />
+			<br />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark"
-					 value="Salvar" action="#{trocarTitularMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger" style="margin-left:2%;"
-					value="Cancelar" action="#{trocarTitularMB.cancelar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Salvar" action="#{trocarTitularMB.salvar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-danger"
+					style="margin-left:2%;" value="Cancelar"
+					action="#{trocarTitularMB.cancelar()}" />
 			</div>
-			<br/><br/>
-
-
-
-		</h:form>
+			<br />
+			<br />
 	</ui:define>
 </ui:composition>
 </html>

@@ -6,15 +6,21 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
-		<h:form id="frmConsultaBanco">
-			<h4>Consulta de Orgãos: <p:outputLabel value="#{orgaoBancoMB.banco.nome}"/></h4>
+			<br />
+			<h4>
+				Consulta de Orgãos:
+				<p:outputLabel value="#{orgaoBancoMB.banco.nome}" />
+			</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
-				<p:commandLink ajax="false" style="margin-right:1%;" styleClass="btn btn-success" value="Voltar" action="#{orgaoBancoMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Novo"
-					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}" action="#{orgaoBancoMB.novoOrgao()}" />
+				<p:commandLink ajax="false" style="margin-right:1%;"
+					styleClass="btn btn-link" value="Voltar"
+					action="#{orgaoBancoMB.voltar()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Novo"
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
+					action="#{orgaoBancoMB.novoOrgao()}" />
 			</div>
 			<p:dataTable id="idTabelaBanco" var="orgao"
 				value="#{orgaoBancoMB.listaOrgao}" style="border:none;"
@@ -28,17 +34,19 @@
 				</p:column>
 				<p:column headerText=""
 					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{orgaoBancoMB.editar(orgao)}" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
+					<p:commandLink ajax="false" action="#{orgaoBancoMB.editar(orgao)}"
+						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false" action="#{orgaoBancoMB.consultaCoeficiente(orgao)}" title="Coeficientes Vinculados"
+					<p:commandLink ajax="false"
+						action="#{orgaoBancoMB.consultaCoeficiente(orgao)}"
+						title="Coeficientes Vinculados"
 						style="text-align: left;color:black;">
 						<span data-feather="list"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

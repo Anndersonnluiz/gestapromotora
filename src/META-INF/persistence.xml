@@ -7,10 +7,8 @@
 		<class>br.com.gestapromotora.model.Banco</class>
 		<class>br.com.gestapromotora.model.OrgaoBanco</class>
 		<class>br.com.gestapromotora.model.Cliente</class>
-		<class>br.com.gestapromotora.model.Coeficiente</class>
 		<class>br.com.gestapromotora.model.Valorescoeficiente</class>
 		<class>br.com.gestapromotora.model.Regrascoeficiente</class>
-		<class>br.com.gestapromotora.model.Contrato</class>
 		<class>br.com.gestapromotora.model.Tipooperacao</class>
 		<class>br.com.gestapromotora.model.Malotecontrato</class>
 		<class>br.com.gestapromotora.model.Historicopendencia</class>
@@ -19,11 +17,19 @@
 		<class>br.com.gestapromotora.model.Situacao</class>
 		<class>br.com.gestapromotora.model.Historicocomissao</class>
 		<class>br.com.gestapromotora.model.Acessocolaborador</class>
+		<class>br.com.gestapromotora.model.Contrato</class>
+		<class>br.com.gestapromotora.model.Coeficiente</class>
+		<class>br.com.gestapromotora.model.Notificacao</class>
+		<class>br.com.gestapromotora.model.Metafaturamentoanual</class>
+		<class>br.com.gestapromotora.model.Metafaturamentomensal</class>
+		<class>br.com.gestapromotora.model.Rankingvendas</class>
+		<class>br.com.gestapromotora.model.Tipodespesa</class>
+		<class>br.com.gestapromotora.model.Contaspagar</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestapromotora?useTimezone=true&amp;serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemad_deltafinanceira?useTimezone=true&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.user" value="gesta"/>
-			<property name="javax.persistence.jdbc.password" value="780920**"/>
+			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
+			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>
 		</properties>  
 	</persistence-unit>
 </persistence>

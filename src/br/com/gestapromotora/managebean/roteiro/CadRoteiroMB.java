@@ -58,7 +58,7 @@ public class CadRoteiroMB implements Serializable{
 		session.setAttribute("orgaobanco", orgaoBanco);
 		OrgaoBancoFacade orgaoBancoFacade = new OrgaoBancoFacade();
 		orgaoBanco = orgaoBancoFacade.salvar(orgaoBanco);
-		return "consOrgaoRoteiro";
+		return "consOrgaoBancoRoteiro";
 	}
 	
 	
