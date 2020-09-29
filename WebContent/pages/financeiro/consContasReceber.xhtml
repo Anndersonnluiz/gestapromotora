@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Contas a Receber</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="usuario">Tipo Despesa</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{contasReceberMB.tipodespesa}"
+					converter="TipoDespesaConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{contasReceberMB.listaTipoDespesa}"
+						var="usuarioSelecionado"
+						itemLabel="#{usuarioSelecionado.descricao}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaTipoDespesa"
+						value="#{contasReceberMB.listaTipoDespesa}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="usuario">Periodo do Vencimento</label>
+				<h:panelGrid columns="2" style="width:80%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{contasReceberMB.dataini}" id="dataini" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{contasReceberMB.datafin}" id="datafin" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Pesquisar" action="#{contasReceberMB.pesquisar()}"
+						update="idTabelaComissao, infValorTotal" />
+					<p:commandLink ajax="false" style="margin-left:1%;"
+						styleClass="btn btn-link" value="Limpar"
+						action="#{contasReceberMB.limpar()}"
+						update="idTabelaComissao, usuario, dataini, datafin" />
+				</div>
+			</div>
+		</div>
+		<br />
+		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{contasReceberMB.novo()}" />
+		</div>
+		<p:dataTable id="idTabelaComissao" var="contas"
+			value="#{contasReceberMB.listaContasReceber}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contas.idcontaspagar}" rowIndexVar="rowIx">
+
+
+			<p:column headerText="Tipo Despesa"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.tipodespesa.descricao}" />
+			</p:column>
+			<p:column headerText="Descrição"
+				style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.descricao}" />
+			</p:column>
+			<p:column headerText="Valor"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.valor}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2"
+						locale="pt_BR" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Vencimento"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.datavencimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Pagamento"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.datapagamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+
+
+			<p:column headerText=""
+				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{contasReceberMB.editar(contas)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false" action="#{contasReceberMB.excluirConta(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaComissao">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<div align="right" style="background: #f0f0f0;">
+			<h:panelGroup id="infValorTotal" style="margin:2%;">
+				<h:outputText value="TOTAL"
+					style="font-size:24px;margin:2%;font-weight: bold;" />
+				<br />
+				<h:outputText value="R$ "
+					style="font-size:28px;color:red;font-weight: bold;" />
+				<h:outputText value="#{contasReceberMB.nvalorTotal}"
+					style="font-size:28px;color:red;font-weight: bold;">
+					<f:convertNumber  minFractionDigits="2"
+						locale="pt_BR" />
+				</h:outputText>
+			</h:panelGroup>
+			<br />
+		</div>
+		<br/>
+	</ui:define>
+</ui:composition>
+</html>

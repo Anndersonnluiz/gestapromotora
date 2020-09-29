@@ -49,6 +49,8 @@ public class DashBoardMB implements Serializable{
 	private Metafaturamentomensal novembro;
 	private Metafaturamentomensal dezembro;
 	private float valorPagarHoje;
+	private float fatutamento;
+	private int mesatual;
 	
 	
 	
@@ -59,7 +61,7 @@ public class DashBoardMB implements Serializable{
 		listarMetaMensal();
 		listarMetaAnual();
 		gerarRankingMensal();
-		int mes = Formatacao.getMesData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
 		mesAtual = Formatacao.nomeMes(mes);
 	}
 
@@ -236,6 +238,22 @@ public class DashBoardMB implements Serializable{
 	
 	
 
+	public float getFatutamento() {
+		return fatutamento;
+	}
+
+	public void setFatutamento(float fatutamento) {
+		this.fatutamento = fatutamento;
+	}
+
+	public int getMesatual() {
+		return mesatual;
+	}
+
+	public void setMesatual(int mesatual) {
+		this.mesatual = mesatual;
+	}
+
 	public float getValorPagarHoje() {
 		return valorPagarHoje;
 	}
@@ -278,6 +296,7 @@ public class DashBoardMB implements Serializable{
 				dezembro = listaMetaMensal.get(i);
 			}
 		}
+		faturamentoMensal();
 	}
 	
 	
@@ -295,7 +314,7 @@ public class DashBoardMB implements Serializable{
 	public void gerarRankingMensal() {
 		RankingVendasDao rankingVendasDao = new RankingVendasDao();
 		List<Rankingvendas> listaRanking = rankingVendasDao.lista("Select r From Rankingvendas r WHERE r.mes="
-				+ Formatacao.getMesData(new Date()) + " AND r.ano=" + Formatacao.getAnoData(new Date())
+				+ (Formatacao.getMesData(new Date()) + 1) + " AND r.ano=" + Formatacao.getAnoData(new Date())
 				+ " ORDER BY r.valorvenda DESC");
 		if (listaRanking == null) {
 			listaRanking = new ArrayList<Rankingvendas>();
@@ -333,6 +352,36 @@ public class DashBoardMB implements Serializable{
 		valorPagarHoje = 0.0f;
 		for (int i = 0; i < listaContas.size(); i++) {
 			valorPagarHoje = valorPagarHoje + listaContas.get(i).getValor();
+		}
+	}
+	
+	
+	public void faturamentoMensal() {
+		mesatual = Formatacao.getMesData(new Date()) + 1;
+		if (mesatual == 1) {
+			fatutamento = janeiro.getValoratual();
+		}else if (mesatual == 2) {
+			fatutamento = fevereiro.getValoratual();
+		}else if (mesatual == 3) {
+			fatutamento = marco.getValoratual();
+		}else if (mesatual == 4) {
+			fatutamento = abril.getValoratual();
+		}else if (mesatual == 5) {
+			fatutamento = maio.getValoratual();
+		}else if (mesatual == 6) {
+			fatutamento = junho.getValoratual();
+		}else if (mesatual == 7) {
+			fatutamento = julho.getValoratual();
+		}else if (mesatual == 8) {
+			fatutamento = agosto.getValoratual();
+		}else if (mesatual == 9) {
+			fatutamento = setembro.getValoratual();
+		}else if (mesatual == 10) {
+			fatutamento = outubro.getValoratual();
+		}else if (mesatual == 11) {
+			fatutamento = novembro.getValoratual();
+		}else {
+			fatutamento = dezembro.getValoratual();
 		}
 	}
 

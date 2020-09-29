@@ -634,7 +634,8 @@ public class DemaisOperacoesMB implements Serializable{
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'";
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
+				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		listaContratoPesquisa = contratoFacade.lista(sql);

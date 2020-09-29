@@ -6,66 +6,87 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<h4>Anexar Arquivos</h4>
-			<hr />
+		<h4>Anexar Arquivos</h4>
+		<hr />
 
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
 			<p:commandLink ajax="false" style="margin-right:1%;"
 				styleClass="btn btn-link" value="Voltar"
 				action="#{anexarArquivoMB.voltar()}" />
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label>Tipo Documento</label>
-					<h:selectOneMenu id="tipodocumento" value="#"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Contrato" itemValue="Contrato" />
-						<f:selectItem itemLabel="Ficha" itemValue="Ficha" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-4">
-					<label for="exampleFormControlFile1">Anexe um arquivo</label> <input
-						type="file" class="form-control-file" id="exampleFormControlFile1" />
-				</div>
-				<div class="form-group col-md-3">
-					<label>.</label>
-					<div>
-						<p:commandLink ajax="false" styleClass="btn btn-dark"
-							value="Adicionar" action="#" update="idTabelaContrato" />
-					</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label>Tipo Documento</label>
+				<h:selectOneMenu id="tipodocumento" style="width: 100%;" immediate="true"
+					value="#{anexarArquivoMB.tipoarquivo}"
+					converter="TipoArquivoConverter" styleClass="form-control"
+					>
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{anexarArquivoMB.listaTipoArquivo}"
+						var="tipoArquivoSelecionado" itemLabel="#{tipoArquivoSelecionado.descricao}"
+						itemValue="#{tipoArquivoSelecionado}" />
+					<f:attribute name="listaTipoArquivo"
+						value="#{anexarArquivoMB.listaTipoArquivo}" />
+					<p:ajax event="blur"/>
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<p:fileUpload
+					fileUploadListener="#{anexarArquivoMB.fileUploadListener}"
+					label="Anexar Banner" mode="advanced" value="#{anexarArquivoMB.file}"
+					update="growl" auto="true" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Adicionar" action="#{anexarArquivoMB.salvar()}" update="idTabelaContrato, growl" />
 				</div>
 			</div>
-			<br />
-			<p:dataTable id="idTabelaContrato" var="contrato" value="#"
-				style="border:none;" class="tabelacontas" scrollRows="10"
-				scrollable="true" scrollHeight="300" selectionMode="single"
-				rowKey="1">
+		</div>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="contrato" value="#{anexarArquivoMB.listaContratoArquivo}"
+			style="border:none;" class="tabelacontas" scrollRows="10"
+			scrollable="true" scrollHeight="300" selectionMode="single"
+			rowKey="1" rowIndexVar="rowIx">
 
 
-				<p:column headerText="Data"
-					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#" />
-				</p:column>
-				<p:column headerText="Tipo Documento"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#">
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Nome Arquivo"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="" />
-				</p:column>
+			<p:column headerText="Data Upload"
+				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.dataupload}" >
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Tipo Documento"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.tipoarquivo.descricao}">
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Nome Arquivo"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.nomearquivo}" />
+			</p:column>
 
-				<p:column headerText=""
-					style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+			<p:column headerText=""
+				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 
-					<p:commandLink ajax="false" action="#"
-						style="text-align: left;color:black;">
-						<span data-feather="trash"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
-			<br />
-			<br />
+				<p:commandLink ajax="false" action="#{anexarArquivoMB.excluirArquivo(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaContrato">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+				
+				<p:commandLink   action="#{anexarArquivoMB.baixarArquivoFTP(contrato)}" 
+					style="text-align: left;color:black;" >
+					<span data-feather="trash"></span>
+					<p:fileDownload value="#{anexarArquivoMB.fileDownload}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

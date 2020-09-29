@@ -1,6 +1,5 @@
 package br.com.gestapromotora.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;

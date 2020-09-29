@@ -7,11 +7,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.gestapromotora.dao.ClienteDao;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.util.Formatacao;
+import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
@@ -21,6 +23,8 @@ public class AniversariantesMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private List<Cliente> listaCliente;
 	
 	
@@ -46,8 +50,9 @@ public class AniversariantesMB implements Serializable{
 	
 	public void gerarListaCliente() {
 		ClienteDao clienteDao = new ClienteDao();
-		listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.nascimento='" + Formatacao.ConvercaoDataNfe(new Date()) 
-				+ "'");
+		String diames = "" + Formatacao.getDiaData(new Date()) +  (Formatacao.getMesData(new Date()) + 1);
+		listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.diames=" + diames 
+				+ " AND c.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
 		if (listaCliente == null) {
 			listaCliente = new ArrayList<Cliente>();
 		}

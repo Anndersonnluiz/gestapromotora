@@ -10,9 +10,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.dao.RegrasCoeficienteDao;
 import br.com.gestapromotora.facade.ValoresCoeficienteFacade;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Valorescoeficiente;
 
 @Named
@@ -25,6 +27,7 @@ public class SelecioneCoeficienteMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Contrato contrato;
 	private List<Valorescoeficiente> listaValores;
+	private List<Regrascoeficiente> listaRegrasValores;
 	private OrgaoBanco orgaobanco;
 
 	@PostConstruct
@@ -54,27 +57,35 @@ public class SelecioneCoeficienteMB implements Serializable {
 		this.listaValores = listaValores;
 	}
 
+	public List<Regrascoeficiente> getListaRegrasValores() {
+		return listaRegrasValores;
+	}
+
+	public void setListaRegrasValores(List<Regrascoeficiente> listaRegrasValores) {
+		this.listaRegrasValores = listaRegrasValores;
+	}
+
 	public void gerarListaValores() {
-		ValoresCoeficienteFacade valoresCoeficienteFacade = new ValoresCoeficienteFacade();
-		listaValores = valoresCoeficienteFacade
-				.lista("Select v From Valorescoeficiente v WHERE v.coeficiente.orgaoBanco.idorgaobanco="
-						+ orgaobanco.getIdorgaobanco() + " AND v.coeficiente.tipooperacao.idtipooperacao="
+		RegrasCoeficienteDao regrasCoeficienteDao = new RegrasCoeficienteDao();
+		listaRegrasValores = regrasCoeficienteDao
+				.lista("Select v From Regrascoeficiente v WHERE v.valorescoeficiente.coeficiente.orgaoBanco.idorgaobanco="
+						+ orgaobanco.getIdorgaobanco() + " AND v.valorescoeficiente.coeficiente.tipooperacao.idtipooperacao="
 						+ contrato.getTipooperacao().getIdtipooperacao());
-		if (listaValores == null) {
-			listaValores = new ArrayList<Valorescoeficiente>();
+		if (listaRegrasValores == null) {
+			listaRegrasValores = new ArrayList<Regrascoeficiente>();
 		}
 	}
 
-	public String selecionarCoeficiente(Valorescoeficiente valorescoeficiente) {
+	public String selecionarCoeficiente(Regrascoeficiente regrascoeficiente) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		contrato.setValorescoeficiente(valorescoeficiente);
+		contrato.setValorescoeficiente(regrascoeficiente.getValorescoeficiente());
 		if (contrato.getTipooperacao() != null) {
 			if (contrato.getTipooperacao().isMargem()) {
-				contrato.setValoroperacao(contrato.getMargemutilizada() / valorescoeficiente.getCoeficientevalor());
+				contrato.setValoroperacao(contrato.getMargemutilizada() / regrascoeficiente.getValorescoeficiente().getCoeficientevalor());
 			} else {
 				contrato.setValoroperacao(
-						(contrato.getParcela() / valorescoeficiente.getCoeficientevalor()) - contrato.getValorquitar());
+						(contrato.getParcela() / regrascoeficiente.getValorescoeficiente().getCoeficientevalor()) - contrato.getValorquitar());
 			}
 		}
 		contrato.setValorcliente(contrato.getValoroperacao());

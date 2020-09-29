@@ -388,7 +388,7 @@
 					style="border-color:black;" 
 					id="totalparcelas" class="form-control"
 					placeholder="Parcelas Pagas">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 
 					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
 						update="percentualpago, parcelasrestantes" event="change" />
@@ -399,7 +399,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
 					style="border-color:black;" immediate="true" id="percentualpago"
 					disabled="true" class="form-control" placeholder="Percentual Pago">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 		</div>
@@ -417,7 +417,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.contratoportado}"
 					style="border-color:black;" id="contratoportado"
 					class="form-control" placeholder="Contrato Portado">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-2">
@@ -425,7 +425,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
 					style="border-color:black;" class="form-control"
 					placeholder="Parcela">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-2">
@@ -433,7 +433,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
 					style="border-color:black;" id="valorquitar" class="form-control"
 					placeholder="Valor Quitar">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
@@ -441,7 +441,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
 					disabled="true" class="form-control" style="border-color:black;"
 					placeholder="Saldo Inadimplência">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 		</div>
@@ -454,7 +454,7 @@
 					<h:inputText value="#{cadContratoMB.contrato.margemutilizada}"
 						id="saldoinadimplencia" class="form-control"
 						style="border-color:black;" placeholder="Saldo Inadimplência">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:inputText>
 				</div>
 			</h:panelGroup>
@@ -463,7 +463,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.tarifa}" id="tarifa"
 					style="border-color:black;" class="form-control"
 					placeholder="Tarifá">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 
@@ -493,7 +493,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.parcela}"
 					style="border-color:black;" id="parcelaresultado" disabled="true"
 					class="form-control" placeholder="Parcela">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
@@ -511,6 +511,7 @@
 						value="#{cadContratoMB.valorescoeficiente.coeficientevalor}"
 						id="coeficienteresultado" disabled="true" class="form-control"
 						placeholder="Coeficiente">
+						<f:convertNumber locale="pt_BR" minFractionDigits="5" />
 					</h:inputText>
 				</div>
 			</div>
@@ -530,7 +531,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.valoroperacao}"
 					style="border-color:black;" id="valoroperacao" disabled="true"
 					class="form-control" placeholder="Parcela">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
@@ -538,7 +539,7 @@
 				<h:inputText value="#{cadContratoMB.contrato.valorcliente}"
 					style="border-color:black;" id="valorcliente" disabled="true"
 					class="form-control" placeholder="Parcela">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 		</div>

@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import br.com.gestapromotora.connection.ConectionFactory;
 import br.com.gestapromotora.model.Contaspagar;
-
 public class ContasPagarDao {
 
 	public Contaspagar salvar(Contaspagar contaspagar) {
@@ -27,7 +26,7 @@ public class ContasPagarDao {
 		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-		Query q = manager.createQuery("select t from Tipodespesa t where t.idtipodespesa=" + idcontaspagar);
+		Query q = manager.createQuery("select c from Contaspagar c where c.idcontaspagar=" + idcontaspagar);
 		Contaspagar contaspagar = null;
 		if (q.getResultList().size() > 0) {
 			contaspagar = (Contaspagar) q.getResultList().get(0);
@@ -46,4 +45,19 @@ public class ContasPagarDao {
 		manager.close();
 		return lista;
 	}
+	
+	
+	public void excluir(int idconta) {
+    	EntityManager manager;
+    	manager = ConectionFactory.getConnection();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+        Query q = manager.createQuery("select c from Contaspagar c where c.idcontaspagar=" + idconta);
+        if (q.getResultList().size()>0){
+        	Contaspagar contaspagar = (Contaspagar) q.getResultList().get(0);
+            manager.remove(contaspagar);
+        }
+        tx.commit();
+        
+    }
 }

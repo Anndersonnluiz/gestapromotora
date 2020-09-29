@@ -2,6 +2,7 @@ package br.com.gestapromotora.managebean.financeiro;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import br.com.gestapromotora.dao.TipoDespesaDao;
 import br.com.gestapromotora.facade.ContasPagarFacade;
 import br.com.gestapromotora.model.Contaspagar;
 import br.com.gestapromotora.model.Tipodespesa;
+import br.com.gestapromotora.util.Formatacao;
 
 @Named
 @ViewScoped
@@ -79,9 +81,32 @@ public class CadContasPagarMB implements Serializable{
 	
 	
 	public String salvar() {
-		contaspagar.setTipodespesa(tipodespesa);
 		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
-		contasPagarFacade.salvar(contaspagar);
+		if (contaspagar.getDatavencimento() == null) {
+			contaspagar.setDatavencimento(new Date());
+		}
+		Date novadatavencimento = contaspagar.getDatavencimento();
+		if (contaspagar.getTotalparcela() > 1 && contaspagar.getIdcontaspagar() == null) {
+			contaspagar.setTipodespesa(tipodespesa);
+			contaspagar.setNparcela(1);
+			contasPagarFacade.salvar(contaspagar);
+			for (int i = 2; i <= contaspagar.getTotalparcela(); i++) {
+				novadatavencimento = Formatacao.SomarDiasData(novadatavencimento, 30);
+				Contaspagar gerandoParcelas = new Contaspagar();
+				gerandoParcelas.setDatapagamento(contaspagar.getDatapagamento());
+				gerandoParcelas.setDatavencimento(contaspagar.getDatavencimento());
+				gerandoParcelas.setDescricao(contaspagar.getDescricao());
+				gerandoParcelas.setNparcela(i);
+				gerandoParcelas.setTipodespesa(tipodespesa);
+				gerandoParcelas.setTotalparcela(contaspagar.getTotalparcela());
+				gerandoParcelas.setValor(contaspagar.getValor());
+				contasPagarFacade.salvar(gerandoParcelas);
+				
+			}
+		}else {
+			contaspagar.setTipodespesa(tipodespesa);
+			contasPagarFacade.salvar(contaspagar);
+		}
 		return "consContasPagar";
 	}
 	

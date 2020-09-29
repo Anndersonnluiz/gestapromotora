@@ -26,46 +26,54 @@
 					action="#{selecioneCoeficienteMB.voltar()}" />
 			</div>
 			<p:dataTable id="idTabelaBanco" var="valores"
-				value="#{selecioneCoeficienteMB.listaValores}" style="border:none;"
+				value="#{selecioneCoeficienteMB.listaRegrasValores}" style="border:none;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single"
-				rowKey="#{valores.idvalorescoeficiente}">
+				rowKey="#{valores.idregrascoeficiente}">
 
 
 				<p:column headerText="Nome Tabela"
-					sortBy="#{valores.coeficiente.nometabela}"
+					sortBy="#{valores.valorescoeficiente.coeficiente.nometabela}"
 					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.coeficiente.nometabela}" />
+					<h:outputText value="#{valores.valorescoeficiente.coeficiente.nometabela}" />
 				</p:column>
 
-				<p:column headerText="Prazo" sortBy="#{valores.prazo}"
-					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.prazo}" />
+				<p:column headerText="Prazo" sortBy="#{valores.valorescoeficiente.prazo}"
+					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.valorescoeficiente.prazo}" />
 				</p:column>
 
 				<p:column headerText="Coeficiente"
-					sortBy="#{valores.coeficientevalor}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.coeficientevalor}">
+					sortBy="#{valores .valorescoeficiente.coeficientevalor}"
+					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.valorescoeficiente.coeficientevalor}">
+						<f:convertNumber pattern="###,#####" minFractionDigits="5" locale="pt_BR"/>
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Outros Recebimentos"
-					sortBy="#{valores.outrosrecebimentos}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.outrosrecebimentos}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				<p:column headerText="Outros Receb.."
+					sortBy="#{valores.valorescoeficiente.outrosrecebimentos}"
+					style="width:19%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.valorescoeficiente.outrosrecebimentos}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Inicio" sortBy="#{valores.dataini}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.dataini}">
+				<p:column headerText="Flat Repassada"
+					sortBy="#{valores.flatrepassadavista}"
+					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.flatrepassadavista}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Inicio" 
+					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.valorescoeficiente.dataini}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Data Fim" sortBy="#{valores.datafin}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{valores.datafin}">
+				<p:column headerText="Data Fim" 
+					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{valores.valorescoeficiente.datafin}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>

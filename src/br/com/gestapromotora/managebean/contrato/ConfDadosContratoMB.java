@@ -16,12 +16,9 @@ import br.com.gestapromotora.facade.OrgaoBancoFacade;
 import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
-import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Contrato;
-import br.com.gestapromotora.model.Dadosbancario;
 import br.com.gestapromotora.model.OrgaoBanco;
 import br.com.gestapromotora.model.Tipooperacao;
-import br.com.gestapromotora.model.Valorescoeficiente;
 
 @Named
 @ViewScoped
@@ -173,7 +170,6 @@ public class ConfDadosContratoMB implements Serializable{
 	public String cadContrato() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		contrato.setTipooperacao(tipooiperacao);
 		session.setAttribute("banco", banco);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", orgaoBanco);

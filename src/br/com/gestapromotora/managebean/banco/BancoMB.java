@@ -1,6 +1,11 @@
 package br.com.gestapromotora.managebean.banco;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +15,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
+import br.com.gestapromotora.bean.VendasBean;
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.model.Banco;
 
@@ -53,7 +61,7 @@ public class BancoMB implements Serializable{
 	
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b");
+		listaBanco = bancoFacade.lista("Select b From Banco b ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
 		}
@@ -86,9 +94,42 @@ public class BancoMB implements Serializable{
 		session.setAttribute("banco", banco);
 		return "consOrgaoBancoRoteiro";
 	}
+	 
 	
-	
-	
+	public void salvarVenda() {
+		VendasBean vendasBean = new VendasBean();
+		vendasBean.setTeste("testando");
+        try {
+            URL url;
+            String endereco;
+                endereco = "http://localhost/API_VENDAS/webresources/" + "saveUser";
+            url = new URL(endereco);
+
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            //add reuqest header
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/json; utf-8");
+            con.setRequestProperty("Accept-Language", "pt-BR,pt;q=0.5");
+            con.setDoOutput(true);
+            
+
+            Gson gson = new Gson();
+            String urlParameters = gson.toJson(vendasBean);
+
+            // Send post request
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
+              System.out.println(con.getResponseCode());
+        } catch (MalformedURLException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 	
 
 }

@@ -18,6 +18,8 @@
 
 	<!-- Font Awesome -->
 	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+	
+	<link rel="sortcut icon" href="resources/img/FaviconLogo.png" type="image/png" />
 </h:head>
 <h:body style="width:100%;">
 	<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -35,11 +37,11 @@
 			<div
 				style="display: block; padding: 4em; background-image: linear-gradient(to right, blue,  black);">
 				<div
-					style="display: block; padding: 5em; background-image: linear-gradient(to right, blue, black);">
+					style="display: block; padding: 4em; background-image: linear-gradient(to right, blue, black);">
 					<div style="display: block; padding: 4.3em; background: white;width: 55%;margin-left: 20%;border-radius:10px;"
 						align="center">
-						<img src="resources/img/deltaLogo.svg" width="40%;"
-							 /><br /><br />
+						<img src="resources/img/novalogo.png" width="55%;"
+							 /><br />
 						<div class="form-row" align="center">
 							<div class="form-group col-md-12" >
 
@@ -62,7 +64,7 @@
 							
 						<div style="width: 100%;">
 							<p:commandLink title="Entra" value="Entrar" styleClass="btn btn-primary"
-								style="font-weight:bold;width: 58%;"
+								style="font-weight:bold;width: 56%;"
 								actionListener="#{usuarioLogadoMB.validarUsuario()}"
 								action="#{usuarioLogadoMB.logar()}" update="growl"/>
 						</div>

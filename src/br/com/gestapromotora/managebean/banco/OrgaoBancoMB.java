@@ -66,7 +66,8 @@ public class OrgaoBancoMB implements Serializable{
 	public void gerarListaOrgao() {
 		OrgaoBancoFacade orgaoBancoFacade = new OrgaoBancoFacade();
 		if (banco != null) {
-			listaOrgao = orgaoBancoFacade.lista("Select o From OrgaoBanco o Where o.banco.idbanco=" + banco.getIdbanco());
+			listaOrgao = orgaoBancoFacade.lista("Select o From OrgaoBanco o Where o.banco.idbanco=" + banco.getIdbanco()
+					+ " ORDER BY o.nome");
 			if (listaOrgao == null) {
 				listaOrgao = new ArrayList<OrgaoBanco>();
 			}

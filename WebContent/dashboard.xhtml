@@ -16,7 +16,8 @@
 		crossorigin="anonymous" />
 	<link href="resources/csslocal/dashboard.css" rel="stylesheet" />
 
-
+	<link rel="sortcut icon" href="resources/img/FaviconLogo.png"
+		type="image/png" />
 
 	<title>DELTA FINANCEIRA</title>
 </h:head>
@@ -25,7 +26,8 @@
 		<br />
 		<br />
 		<nav
-			class="navbar navbar-primary fixed-top  flex-md-nowrap p-0 shadow" style="background-color: #000080 !important;">
+			class="navbar navbar-primary fixed-top  flex-md-nowrap p-0 shadow"
+			style="background-color: #000080 !important;">
 			<a class="navbar col-md-3 mr-0 col-sm-3" href="#"><p:outputLabel
 					value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"
 					style="color:white;font-weight:bold;font-size:16px;" /></a>
@@ -38,20 +40,19 @@
 					aria-expanded="true"> <span class="badge badge-danger ml-4"
 						style="font-size: 14px;"> <p:outputLabel
 								value="#{usuarioLogadoMB.nAniversario}" />
-					</span> <img alt="" src="resources/img/niver.png" style="width:7%"/>
+					</span> <img alt="" src="resources/img/niver.png" style="width: 7%" />
 
 				</a></li>
 			</ul>
-			<a
-					class="nav-link waves-effect waves-light"
-					href="pages/notificacao/consNotificacao.jsf"
-					id="navbarDropdownMenuLink-5" aria-haspopup="true"
-					aria-expanded="true"> <span class="badge badge-danger ml-2"
-						style="font-size: 14px;"> <p:outputLabel
-								value="#{usuarioLogadoMB.nNotificacao}" />
-					</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
+			<a class="nav-link waves-effect waves-light"
+				href="pages/notificacao/consNotificacao.jsf"
+				id="navbarDropdownMenuLink-5" aria-haspopup="true"
+				aria-expanded="true"> <span class="badge badge-danger ml-2"
+				style="font-size: 14px;"> <p:outputLabel
+						value="#{usuarioLogadoMB.nNotificacao}" />
+			</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
 
-				</a>
+			</a>
 		</nav>
 		<div class="container-fluid">
 
@@ -60,7 +61,7 @@
 					<div class="sidebar-sticky">
 
 						<ul class="nav flex-column">
-							<br/>
+							<br />
 							<li class="nav-item"><a class="nav-link active" href="#">
 									<span data-feather="home"></span> Dashboard <span
 									class="sr-only">(atual)</span>
@@ -76,11 +77,9 @@
 											data-feather="dollar-sign"></span> Banco
 									</a> <a class="nav-link" href="pages/cliente/consCliente.jsf">
 											<span data-feather="users"></span> Cliente
-									</a> 
-									<a class="nav-link" href="pages/despesa/consDespesa.jsf">
-												<span data-feather="user"></span> Tipo Despesa
-											</a>
-									<h:panelGroup
+									</a> <a class="nav-link" href="pages/despesa/consDespesa.jsf">
+											<span data-feather="user"></span> Tipo Despesa
+									</a> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
@@ -135,24 +134,28 @@
 											</h:panelGroup></li>
 									</ul>
 								</h:panelGroup></li>
-							<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="dollar-sign"></span>
-									Financeiro
-							</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-											<a class="nav-link"
-												href="pages/comissoes/consPagamentoComissao.jsf"> <span
+							<li class="nav-item, dropdown"><h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+									<a class="nav-link" href="#" data-toggle="dropdown"
+										role="button" aria-haspopup="true" aria-expanded="false">
+										<span data-feather="dollar-sign"></span> Financeiro
+									</a>
+									<ul class="dropdown-menu">
+										<li style="font-size: 12px;"><a class="nav-link"
+											href="pages/comissoes/consPagamentoComissao.jsf"> <span
 												data-feather="dollar-sign"></span> Pag. Comissão
-											</a>
-											<a class="nav-link"
-												href="pages/financeiro/consContasPagar.jsf"> <span
+										</a> <a class="nav-link"
+											href="pages/financeiro/consContasPagar.jsf"> <span
 												data-feather="dollar-sign"></span> Contas a Pagar
-											</a>
-										</h:panelGroup></li>
-								</ul></li>
+										</a> <a class="nav-link"
+											href="pages/financeiro/consContasReceber.jsf"> <span
+												data-feather="dollar-sign"></span> Contas a Receber
+										</a> <a class="nav-link"
+											href="pages/financeiro/consMetaMensal.jsf"> <span
+												data-feather="dollar-sign"></span> Meta Faturamento
+										</a></li>
+									</ul>
+								</h:panelGroup></li>
 							<li class="nav-item"><a class="nav-link"
 								href="pages/usuario/alterarSenha.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
@@ -173,16 +176,19 @@
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-success"
 								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">FATURAMENTO</h5>
+								<h5 style="font-family: Segoe UI Semibold;">CARTEIRA</h5>
 								<h4 class="m-top-none" id="userCount"
-									style="color: black; font-family: Segoe UI Semibold;">R$:
-									<p:outputLabel value="#{dashBoardMB.setembro.valoratual}">
-										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-									</p:outputLabel> 
-									</h4>
+									style="color: black; font-family: Segoe UI Semibold;">
+									R$:
+									<p:outputLabel value="#{dashBoardMB.fatutamento}">
+										<f:convertNumber locale="pt_BR"
+											minFractionDigits="2" />
+									</p:outputLabel>
+								</h4>
 								<span class="m-left-xs"
-									style="color: black; font-family: Segoe UI Semibold;">em
-									setembro</span>
+									style="color: black; font-family: Segoe UI Semibold;"> em <p:outputLabel
+										value="#{dashBoardMB.mesAtual}">
+									</p:outputLabel></span>
 								<div class="stat-icon" style="opacity: 0.9;">
 									<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 								</div>
@@ -191,7 +197,7 @@
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-info"
 								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">CONTAS A
+								<h5 style="font-family: Segoe UI Semibold;">COMISSÕES A
 									RECEBER</h5>
 								<h4 class="m-top-none"
 									style="color: black; font-family: Segoe UI Semibold;">R$:
@@ -204,24 +210,29 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="panel-stat3"
-								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">CONTAS A PAGAR</h5>
-								<h4 class="m-top-none" id="visitorCount"
-									style="color: black; font-family: Segoe UI Semibold;">R$:
-									<p:outputLabel value="#{dashBoardMB.valorPagarHoje}">
-										<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-									</p:outputLabel> 
-								</h4>
-								<span class="m-left-xs"
-									style="color: black; font-family: Segoe UI Semibold;">para
-									o dia de hoje</span>
-								<div class="stat-icon" style="opacity: 0.9;">
-									<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<div class="col-md-4">
+								<div class="panel-stat3"
+									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									<h5 style="font-family: Segoe UI Semibold;">COMISSÕES A
+										PAGAR</h5>
+									<h4 class="m-top-none" id="visitorCount"
+										style="color: black; font-family: Segoe UI Semibold;">
+										R$:
+										<p:outputLabel value="#{dashBoardMB.valorPagarHoje}">
+											<f:convertNumber locale="pt_BR"
+												minFractionDigits="2" />
+										</p:outputLabel>
+									</h4>
+									<span class="m-left-xs"
+										style="color: black; font-family: Segoe UI Semibold;">para
+										o dia de hoje</span>
+									<div class="stat-icon" style="opacity: 0.9;">
+										<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+									</div>
 								</div>
 							</div>
-						</div>
+						</h:panelGroup>
 					</div>
 					<div
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -254,8 +265,9 @@
 										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;margin-left:2%;" >
-											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+											style="font-weight:bold;font-size:18px;margin-left:2%;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -273,8 +285,9 @@
 										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;" >
-											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+											style="font-weight:bold;font-size:18px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -292,8 +305,9 @@
 										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;" >
-											<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+											style="font-weight:bold;font-size:18px;">
+											<f:convertNumber pattern="##,###,###,###.##"
+												minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>

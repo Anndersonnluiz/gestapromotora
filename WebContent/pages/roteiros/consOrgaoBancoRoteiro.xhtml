@@ -14,7 +14,8 @@
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
-				<p:commandLink ajax="false" style="margin-right:1%;"
+				<p:commandLink ajax="false" style="margin-right:1%;" 
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarroteiro}"
 					styleClass="btn btn-success" value="Voltar"
 					action="#{orgaoBancoMB.voltarRoteiro()}" />
 			</div>
@@ -24,13 +25,13 @@
 				scrollHeight="300" selectionMode="single"
 				rowKey="#{orgao.idorgaobanco}">
 
-				<p:column headerText="Nome" sortBy="#{orgao.nome}"
+				<p:column headerText="Nome"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{orgao.nome}" />
 				</p:column>
 				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false"
+					style="width:15%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					<p:commandLink ajax="false" rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarroteiro}"
 						action="#{orgaoBancoMB.inserirLink(orgao)}"
 						style="text-align: left;color:black;" title="Inserir Roteiro">
 						<span data-feather="edit"></span>

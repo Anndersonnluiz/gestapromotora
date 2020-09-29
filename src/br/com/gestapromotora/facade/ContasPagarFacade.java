@@ -23,5 +23,11 @@ public class ContasPagarFacade {
 		contasPagarDao = new ContasPagarDao();
 		return contasPagarDao.lista(sql);
 	}
+	
+	
+	public void excluir(int idcontaspagar) {
+		contasPagarDao = new ContasPagarDao();
+		contasPagarDao.excluir(idcontaspagar);
+	}
 
 }

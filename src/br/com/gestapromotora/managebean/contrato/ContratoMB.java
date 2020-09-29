@@ -222,7 +222,10 @@ public class ContratoMB implements Serializable{
 	}
 	
 	
-	public String anexarArquivo() {
+	public String anexarArquivo(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
 		return "anexarArquivo";
 	}
 	

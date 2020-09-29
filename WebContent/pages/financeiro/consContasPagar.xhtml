@@ -17,12 +17,12 @@
 				<label for="usuario">Tipo Despesa</label>
 				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
 					value="#{contasPagarMB.tipodespesa}"
-					converter="TipoDespesaConverter" styleClass="form-control"
-					>
+					converter="TipoDespesaConverter" styleClass="form-control">
 					<f:selectItem itemLabel="Selecione" itemValue="0"
 						noSelectionOption="true" />
 					<f:selectItems value="#{contasPagarMB.listaTipoDespesa}"
-						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.descricao}"
+						var="usuarioSelecionado"
+						itemLabel="#{usuarioSelecionado.descricao}"
 						itemValue="#{usuarioSelecionado}" />
 					<f:attribute name="listaTipoDespesa"
 						value="#{contasPagarMB.listaTipoDespesa}" />
@@ -30,18 +30,16 @@
 			</div>
 			<div class="form-group col-md-4">
 				<label for="usuario">Periodo do Vencimento</label>
-				<h:panelGrid columns="2" style="width:87%;">
+				<h:panelGrid columns="2" style="width:80%;">
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{contasPagarMB.dataini}"
-						id="dataini">
+						value="#{contasPagarMB.dataini}" id="dataini" size="11">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
 						<p:ajax event="blur" />
 					</p:calendar>
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{contasPagarMB.datafin}"
-						id="datafin">
+						value="#{contasPagarMB.datafin}" id="datafin" size="11">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
@@ -54,7 +52,7 @@
 				<div>
 					<p:commandLink ajax="false" styleClass="btn btn-primary"
 						value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
-						update="idTabelaComissao" />
+						update="idTabelaComissao, infValorTotal" />
 					<p:commandLink ajax="false" style="margin-left:1%;"
 						styleClass="btn btn-link" value="Limpar"
 						action="#{contasPagarMB.limpar()}"
@@ -62,18 +60,16 @@
 				</div>
 			</div>
 		</div>
-		<br/>
+		<br />
 		<div align="right">
-				<p:commandLink
-					
-					ajax="false" styleClass="btn btn-primary" value="Novo"
-					action="#{contasPagarMB.novo()}" />
-			</div>
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{contasPagarMB.novo()}" />
+		</div>
 		<p:dataTable id="idTabelaComissao" var="contas"
 			value="#{contasPagarMB.listaContasPagar}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
 			scrollHeight="300" selectionMode="single"
-			rowKey="#{contas.idcontaspagar}">
+			rowKey="#{contas.idcontaspagar}" rowIndexVar="rowIx">
 
 
 			<p:column headerText="Tipo Despesa"
@@ -83,6 +79,17 @@
 			<p:column headerText="Descrição"
 				style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contas.descricao}" />
+			</p:column>
+			<p:column headerText="Parcela"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.nparcela}/#{contas.totalparcela}" />
+			</p:column>
+			<p:column headerText="Valor"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.valor}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2"
+						locale="pt_BR" />
+				</h:outputText>
 			</p:column>
 			<p:column headerText="Vencimento"
 				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
@@ -102,13 +109,32 @@
 
 			<p:column headerText=""
 				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-				<p:commandLink ajax="false"
-					action="#{contasPagarMB.editar(contas)}"
+				<p:commandLink ajax="false" action="#{contasPagarMB.editar(contas)}"
 					style="text-align: left;color:black;" title="Editar">
 					<span data-feather="edit"></span>
 				</p:commandLink>
+				<p:commandLink ajax="false" action="#{contasPagarMB.excluirConta(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaComissao">
+					<span data-feather="trash"></span>
+				</p:commandLink>
 			</p:column>
 		</p:dataTable>
+		<div align="right" style="background: #f0f0f0;">
+			<h:panelGroup id="infValorTotal" style="margin:2%;">
+				<h:outputText value="TOTAL"
+					style="font-size:24px;margin:2%;font-weight: bold;" />
+				<br />
+				<h:outputText value="R$ "
+					style="font-size:28px;color:red;font-weight: bold;" />
+				<h:outputText value="#{contasPagarMB.nvalorTotal}"
+					style="font-size:28px;color:red;font-weight: bold;">
+					<f:convertNumber  minFractionDigits="2"
+						locale="pt_BR" />
+				</h:outputText>
+			</h:panelGroup>
+			<br />
+		</div>
+		<br/>
 	</ui:define>
 </ui:composition>
 </html>

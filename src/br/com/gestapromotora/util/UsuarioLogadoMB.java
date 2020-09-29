@@ -353,8 +353,10 @@ public class UsuarioLogadoMB implements Serializable {
 	
 	public void gerarListaCliente() {
 		ClienteDao clienteDao = new ClienteDao();
-		List<Cliente> listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.nascimento='" + Formatacao.ConvercaoDataNfe(new Date()) 
-				+ "'");
+		int dia = Formatacao.getDiaData(new Date());
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		List<Cliente> listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.diames=" + dia + mes
+				+ " AND c.idusuario=" + usuario.getIdusuario());
 		if (listaCliente == null) {
 			listaCliente = new ArrayList<Cliente>();
 		}

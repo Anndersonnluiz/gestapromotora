@@ -21,14 +21,18 @@ import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
+import br.com.gestapromotora.facade.MetaFaturamentoMensalFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
+import br.com.gestapromotora.facade.RankingVendasFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Dadosbancario;
+import br.com.gestapromotora.model.Metafaturamentomensal;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.model.Rankingvendas;
 import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.model.Valorescoeficiente;
@@ -58,6 +62,8 @@ public class CadContratoMB implements Serializable {
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Banco bancoDadosBancario;
+	private int mes;
+	private int ano;
 
 	@PostConstruct
 	public void init() {
@@ -73,6 +79,8 @@ public class CadContratoMB implements Serializable {
 		gerarListaBanco();
 		if (contrato == null) {
 			contrato = new Contrato();
+			mes = Formatacao.getMesData(new Date()) + 1;
+			ano = Formatacao.getAnoData(new Date());
 		}
 		valorescoeficiente = contrato.getValorescoeficiente();
 		if (cliente != null) {
@@ -199,6 +207,25 @@ public class CadContratoMB implements Serializable {
 		this.bancoDadosBancario = bancoDadosBancario;
 	}
 
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
+	
+	
+
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
 		listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum'");
@@ -282,8 +309,13 @@ public class CadContratoMB implements Serializable {
 		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
 		contrato.setCodigocontrato(gerarCodigo());
+		if (contrato.getTipooperacao().getIdtipooperacao() == 2) {
+			contrato.setParcela(contrato.getParcela() + contrato.getMargemutilizada());
+		}
 		if (contrato.getIdcontrato() == null) {
 			gerarNotificacao();
+			gerarMetaFaturamento();
+			gerarRankingMensal();
 		}
 		contrato = contratoFacade.salvar(contrato);
 		return "consContrato";
@@ -309,6 +341,59 @@ public class CadContratoMB implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void gerarMetaFaturamento() {
+		MetaFaturamentoMensalFacade mensalFacade = new MetaFaturamentoMensalFacade();
+		mes = Formatacao.getMesData(new Date()) + 1;
+		ano = Formatacao.getAnoData(new Date());
+		List<Metafaturamentomensal> lista = mensalFacade.lista("Select m From Metafaturamentomensal m WHERE m.mes=" + mes +
+				" AND m.ano=" + ano);
+		Metafaturamentomensal metafaturamentomensal;
+		if (lista == null) {
+			metafaturamentomensal = new Metafaturamentomensal();
+			metafaturamentomensal.setAno(ano);
+			metafaturamentomensal.setMes(mes);
+			metafaturamentomensal.setPercentualmeta(0.0f);
+			metafaturamentomensal.setCormeta("#f3291f");
+		}else {
+			metafaturamentomensal = lista.get(0);
+		}
+		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValorquitar());
+		}else if(contrato.getTipooperacao().getIdtipooperacao() == 6) {
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() 
+					+ (contrato.getValorquitar() + contrato.getValoroperacao()));
+		}else {
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValoroperacao());
+		}
+		mensalFacade.salvar(metafaturamentomensal);
+	}
+	
+	public void gerarRankingMensal() {
+		RankingVendasFacade rankingVendasFacade = new RankingVendasFacade();
+		Rankingvendas rankingvendas;mes = Formatacao.getMesData(new Date()) + 1;
+		ano = Formatacao.getAnoData(new Date());
+		List<Rankingvendas> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendas r WHERE r.mes=" + 
+				mes + " AND r.ano=" + ano + " AND r.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
+		if (listaRanking != null && listaRanking.size() > 0) {
+			rankingvendas = listaRanking.get(0);
+		}else {
+			rankingvendas = new Rankingvendas();
+			rankingvendas.setAno(ano);
+			rankingvendas.setMes(mes);
+			rankingvendas.setUsuario(usuarioLogadoMB.getUsuario());
+		}
+		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda() + contrato.getValorquitar());
+		}else if(contrato.getTipooperacao().getIdtipooperacao() == 6) {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda() 
+					+ (contrato.getValorquitar() + contrato.getValoroperacao()));
+		}else {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda() + contrato.getValoroperacao());
+		}
+		rankingVendasFacade.salvar(rankingvendas);
+	}
+	
 
 	public Cliente salvarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();

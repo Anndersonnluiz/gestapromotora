@@ -431,6 +431,46 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consMetaMensal</from-outcome>
+			<to-view-id>pages/financeiro/consMetaMensal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadMetaMensal</from-outcome>
+			<to-view-id>pages/financeiro/cadMetaMensal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consContasReceber</from-outcome>
+			<to-view-id>pages/financeiro/consContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadContasReceber</from-outcome>
+			<to-view-id>pages/financeiro/cadContasReceber.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
     
 	<application>
         <action-listener>

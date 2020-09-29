@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.ContasPagarDao;
 import br.com.gestapromotora.dao.TipoDespesaDao;
+import br.com.gestapromotora.facade.ContasPagarFacade;
 import br.com.gestapromotora.model.Contaspagar;
 import br.com.gestapromotora.model.Tipodespesa;
 import br.com.gestapromotora.util.Formatacao;
@@ -30,6 +31,7 @@ public class ContasPagarMB implements Serializable{
 	private Date datafin;
 	private List<Tipodespesa> listaTipoDespesa;
 	private Tipodespesa tipodespesa;
+	private float nvalorTotal;
 	
 	
 	
@@ -101,6 +103,18 @@ public class ContasPagarMB implements Serializable{
 	
 	
 	
+	public float getNvalorTotal() {
+		return nvalorTotal;
+	}
+
+
+
+	public void setNvalorTotal(float nvalorTotal) {
+		this.nvalorTotal = nvalorTotal;
+	}
+
+
+
 	public String novo() {
 		return "cadContasPagar";
 	}
@@ -116,9 +130,13 @@ public class ContasPagarMB implements Serializable{
 	
 	public void gerarListaInicial() {
 		ContasPagarDao contasPagarDao = new ContasPagarDao();
-		listaContasPagar = contasPagarDao.lista("Select c From Contaspagar c WHERE c.datapagamento is null");
+		listaContasPagar = contasPagarDao.lista("Select c From Contaspagar c");
 		if (listaContasPagar == null) {
 			listaContasPagar = new ArrayList<Contaspagar>();
+		}
+		nvalorTotal = 0.0f;
+		for (int i = 0; i < listaContasPagar.size(); i++) {
+			nvalorTotal = nvalorTotal + listaContasPagar.get(i).getValor();
 		}
 	}
 	
@@ -127,7 +145,7 @@ public class ContasPagarMB implements Serializable{
 	public void pesquisar() {
 		ContasPagarDao contasPagarDao = new ContasPagarDao();
 		String sql = "Select c From Contaspagar c WHERE c.descricao like '%%'";
-		if (tipodespesa != null) {
+		if (tipodespesa != null && tipodespesa.getIdtipodespesa() != null) {
 			sql = sql + " AND c.tipodespesa.idtipodespesa=" + tipodespesa.getIdtipodespesa();
 		}
 		if (dataini != null && datafin != null) {
@@ -137,6 +155,10 @@ public class ContasPagarMB implements Serializable{
 		listaContasPagar = contasPagarDao.lista(sql);
 		if (listaContasPagar == null) {
 			listaContasPagar = new ArrayList<Contaspagar>();
+		}
+		nvalorTotal = 0.0f;
+		for (int i = 0; i < listaContasPagar.size(); i++) {
+			nvalorTotal = nvalorTotal + listaContasPagar.get(i).getValor();
 		}
 	}
 	
@@ -154,6 +176,17 @@ public class ContasPagarMB implements Serializable{
 		listaTipoDespesa = tipoDespesaDao.lista("Select t From Tipodespesa t");
 		if (listaTipoDespesa == null) {
 			listaTipoDespesa = new ArrayList<Tipodespesa>();
+		}
+	}
+	
+	
+	
+	public void excluirConta(String ilinha) {
+		int linha = Integer.parseInt(ilinha);
+		ContasPagarFacade contasPagarFacade = new ContasPagarFacade();
+		contasPagarFacade.excluir(listaContasPagar.get(linha).getIdcontaspagar());
+		if (linha >= 0) {
+			listaContasPagar.remove(linha);
 		}
 	}
 	

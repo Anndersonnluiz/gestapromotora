@@ -41,6 +41,10 @@ public class Contaspagar implements Serializable{
 	private Tipodespesa tipodespesa;
 	@Column(name = "valor")
 	private float valor;
+	@Column(name = "totalparcela")
+	private int totalparcela;
+	@Column(name = "nparcela")
+	private int nparcela;
 	
 	
 	public Contaspagar() {
@@ -106,6 +110,26 @@ public class Contaspagar implements Serializable{
 
 	public void setValor(float valor) {
 		this.valor = valor;
+	}
+
+
+	public int getTotalparcela() {
+		return totalparcela;
+	}
+
+
+	public int getNparcela() {
+		return nparcela;
+	}
+
+
+	public void setNparcela(int nparcela) {
+		this.nparcela = nparcela;
+	}
+
+
+	public void setTotalparcela(int totalparcela) {
+		this.totalparcela = totalparcela;
 	}
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Cadastro de Contas a Receber</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputCodigo">Tipo de Despesa</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{cadContasReceberMB.tipodespesa}"
+					converter="TipoDespesaConverter" styleClass="form-control"
+					>
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContasReceberMB.listaTipoDespesa}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.descricao}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaTipoDespesa"
+						value="#{cadContasReceberMB.listaTipoDespesa}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputNome">Descrição</label>
+				<h:inputText value="#{cadContasReceberMB.contasreceber.descricao}" class="form-control"
+					id="inputNome" placeholder="Nome do banco" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="valor">Valor</label>
+				<h:inputText value="#{cadContasReceberMB.contasreceber.valor}" class="form-control"
+					id="valor" placeholder="Nome do banco" >
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Data Vencimento</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+					value="#{cadContasReceberMB.contasreceber.datavencimento}"
+					id="datavenc">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Data Pagamento</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+					value="#{cadContasReceberMB.contasreceber.datapagamento}"
+					id="datapag">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+		</div>
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadContasReceberMB.salvar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-danger"
+				style="margin-left:2%;" value="Cancelar"
+				action="#{cadContasReceberMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>
+</html>

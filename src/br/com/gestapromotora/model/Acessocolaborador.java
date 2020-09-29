@@ -45,6 +45,8 @@ public class Acessocolaborador implements Serializable{
 	private boolean cadastrar;
 	@Column(name = "notificacaooperacional")
 	private boolean notificacaooperacional;
+	@Column(name = "cadastrarroteiro")
+	private boolean cadastrarroteiro;
 
 	 
 	public Acessocolaborador() {
@@ -58,6 +60,8 @@ public class Acessocolaborador implements Serializable{
 		cadastrarorgao = true;
 		cadastrarregras = true;
 		cadastrarvalores = true;
+		notificacaooperacional = true;
+		cadastrarroteiro = true;
 	}
 	
 	
@@ -124,6 +128,16 @@ public class Acessocolaborador implements Serializable{
 	
 	
 	
+	public boolean isCadastrarroteiro() {
+		return cadastrarroteiro;
+	}
+
+
+	public void setCadastrarroteiro(boolean cadastrarroteiro) {
+		this.cadastrarroteiro = cadastrarroteiro;
+	}
+
+
 	public boolean isNotificacaooperacional() {
 		return notificacaooperacional;
 	}

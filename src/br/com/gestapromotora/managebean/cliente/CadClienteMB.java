@@ -2,6 +2,7 @@ package br.com.gestapromotora.managebean.cliente;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Dadosbancario;
+import br.com.gestapromotora.util.Formatacao;
 
 @Named
 @ViewScoped
@@ -108,6 +110,11 @@ public class CadClienteMB implements Serializable{
 		}
 		salvarDadosBancarios();
 		cliente.setDadosbancario(dadosbancario);
+		if (cliente.getNascimento() == null) {
+			cliente.setNascimento(new Date());
+		}
+		String diames = "" + Formatacao.getDiaData(cliente.getNascimento()) + (Formatacao.getMesData(cliente.getNascimento()) + 1);
+		cliente.setDiames(Integer.parseInt(diames));
 		clienteFacade.salvar(cliente);
 		return "consCliente";
 	}
