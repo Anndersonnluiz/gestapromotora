@@ -90,6 +90,7 @@ public class SelecioneCoeficienteMB implements Serializable {
 		}
 		contrato.setValorcliente(contrato.getValoroperacao());
 		session.setAttribute("contrato", contrato);
+		session.setAttribute("regrascoeficiente", regrascoeficiente);
 		session.setAttribute("orgaobanco", orgaobanco);
 		return "cadContrato";
 	}

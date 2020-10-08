@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.NotificacaoDao;
+import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
 
@@ -75,6 +79,20 @@ public class NotificacaoMB implements Serializable{
 		notificacaoDao.salvar(notificacao);
 		listaNotificacao.remove(notificacao);
 		usuarioLogadoMB.listarNotificacao();
+	}
+	
+	
+	public String visualizarContrato(Notificacao notificacao) {
+		if (notificacao.getIdcontrato() > 0) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+			ContratoFacade contratoFacade = new ContratoFacade();
+			Contrato contrato = contratoFacade.consultar(notificacao.getIdcontrato());
+			session.setAttribute("contrato", contrato);
+			session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
+			return "visualizarContrato";
+		}
+		return "";
 	}
 	
 	

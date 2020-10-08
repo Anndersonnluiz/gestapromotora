@@ -32,6 +32,8 @@ public class ContasPagarMB implements Serializable{
 	private List<Tipodespesa> listaTipoDespesa;
 	private Tipodespesa tipodespesa;
 	private float nvalorTotal;
+	private String nomeMes;
+	private int mesreferente;
 	
 	
 	
@@ -115,6 +117,30 @@ public class ContasPagarMB implements Serializable{
 
 
 
+	public String getNomeMes() {
+		return nomeMes;
+	}
+
+
+
+	public void setNomeMes(String nomeMes) {
+		this.nomeMes = nomeMes;
+	}
+
+
+
+	public int getMesreferente() {
+		return mesreferente;
+	}
+
+
+
+	public void setMesreferente(int mesreferente) {
+		this.mesreferente = mesreferente;
+	}
+
+
+
 	public String novo() {
 		return "cadContasPagar";
 	}
@@ -130,7 +156,9 @@ public class ContasPagarMB implements Serializable{
 	
 	public void gerarListaInicial() {
 		ContasPagarDao contasPagarDao = new ContasPagarDao();
-		listaContasPagar = contasPagarDao.lista("Select c From Contaspagar c");
+		mesreferente = Formatacao.getMesData(new Date()) + 1;
+		nomeMes = Formatacao.nomeMes(mesreferente);
+		listaContasPagar = contasPagarDao.lista("Select c From Contaspagar c Where c.mesreferente=" + mesreferente);
 		if (listaContasPagar == null) {
 			listaContasPagar = new ArrayList<Contaspagar>();
 		}
@@ -149,8 +177,14 @@ public class ContasPagarMB implements Serializable{
 			sql = sql + " AND c.tipodespesa.idtipodespesa=" + tipodespesa.getIdtipodespesa();
 		}
 		if (dataini != null && datafin != null) {
-			sql = sql + " AND c.datavencimento>='" + Formatacao.ConvercaoDataNfe(dataini) + "' AND "
-					+ "c.datavencimento<='" + Formatacao.ConvercaoDataNfe(datafin) + "'" ;
+			sql = sql + " AND c.datapagamento>='" + Formatacao.ConvercaoDataNfe(dataini) + "' AND "
+					+ "c.datapagamento<='" + Formatacao.ConvercaoDataNfe(datafin) + "'" ;
+		}
+		if (mesreferente > 0) {
+			sql = sql + " AND c.mesreferente=" + mesreferente;
+			nomeMes = Formatacao.nomeMes(mesreferente);
+		}else {
+			nomeMes = "Todos";
 		}
 		listaContasPagar = contasPagarDao.lista(sql);
 		if (listaContasPagar == null) {
@@ -168,6 +202,7 @@ public class ContasPagarMB implements Serializable{
 		tipodespesa = null;
 		datafin = null;
 		dataini = null;
+		mesreferente = 0;
 	}
 	
 	

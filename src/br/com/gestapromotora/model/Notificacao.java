@@ -40,6 +40,8 @@ public class Notificacao implements Serializable{
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
+	@Column(name = "idcontrato")
+	private int idcontrato;
 	
 	
 	public Notificacao() {
@@ -109,6 +111,16 @@ public class Notificacao implements Serializable{
 	
 	
 	
+	public int getIdcontrato() {
+		return idcontrato;
+	}
+
+
+	public void setIdcontrato(int idcontrato) {
+		this.idcontrato = idcontrato;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

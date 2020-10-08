@@ -37,6 +37,8 @@ public class Metafaturamentomensal implements Serializable{
 	private int nvenda;
 	@Column(name = "cormeta")
 	private String cormeta;
+	@Column(name = "tipo")
+	private String tipo;
 	
 	
 	
@@ -138,6 +140,18 @@ public class Metafaturamentomensal implements Serializable{
 
 	public void setCormeta(String cormeta) {
 		this.cormeta = cormeta;
+	}
+
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 

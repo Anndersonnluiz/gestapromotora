@@ -50,7 +50,7 @@
 					<label for="parcela">.</label>
 					<h:inputText class="form-control" id="parcela" disabled="true"
 						value="#{alterarSituacaoMB.contrato.parcela}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:inputText>
 				</div>
 			</div>

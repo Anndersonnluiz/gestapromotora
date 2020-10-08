@@ -22,6 +22,8 @@ public class ClienteMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Cliente> listaCliente;
+	private String nomeCliente;
+	private String cpf;
 	
 	
 	
@@ -44,9 +46,33 @@ public class ClienteMB implements Serializable{
 	
 	
 	
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+
 	public void gerarListaCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
-		listaCliente = clienteFacade.lista("Select c From Cliente c");
+		listaCliente = clienteFacade.lista("Select c From Cliente c ORDER BY c.nome");
 		if (listaCliente == null) {
 			listaCliente = new ArrayList<Cliente>();
 		}
@@ -65,6 +91,23 @@ public class ClienteMB implements Serializable{
 		return "cadCliente";
 	}
 	
+	
+	
+	public void pesquisar() {
+		String sql = "Select c From Cliente c WHERE c.nome like '%"+ nomeCliente +"%' and c.cpf like '%"+ cpf +"%'";
+		sql = sql + " ORDER BY c.nome";
+		ClienteFacade clienteFacade = new ClienteFacade();
+		listaCliente = clienteFacade.lista(sql);
+		if (listaCliente == null) {
+			listaCliente = new ArrayList<Cliente>();
+		}
+	}
+	
+	public void limpar() {
+		gerarListaCliente();
+		nomeCliente = "";
+		cpf = "";
+	}
 	
 	
 	

@@ -7,17 +7,21 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.gestapromotora.dao.ContasPagarDao;
 import br.com.gestapromotora.dao.MetaFaturamentoAnualDao;
 import br.com.gestapromotora.dao.MetaFaturamentoMensalDao;
+import br.com.gestapromotora.dao.RankingVendasAnualDao;
 import br.com.gestapromotora.dao.RankingVendasDao;
-import br.com.gestapromotora.model.Contaspagar;
+import br.com.gestapromotora.facade.HistoricoComissaoFacade;
+import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Metafaturamentoanual;
 import br.com.gestapromotora.model.Metafaturamentomensal;
 import br.com.gestapromotora.model.Rankingvendas;
+import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.util.Formatacao;
+import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
@@ -27,12 +31,14 @@ public class DashBoardMB implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Rankingvendas primeiroMes;
 	private Rankingvendas segundoMes;
 	private Rankingvendas terceiroMes;
-	private Rankingvendas primeiroAno;
-	private Rankingvendas segundoAno;
-	private Rankingvendas terceiroAno;
+	private Rankingvendasanual primeiroAno;
+	private Rankingvendasanual segundoAno;
+	private Rankingvendasanual terceiroAno;
 	private List<Metafaturamentomensal>	listaMetaMensal;
 	private List<Metafaturamentoanual> listaMetaAnual;
 	private String mesAtual;
@@ -48,7 +54,8 @@ public class DashBoardMB implements Serializable{
 	private Metafaturamentomensal outubro;
 	private Metafaturamentomensal novembro;
 	private Metafaturamentomensal dezembro;
-	private float valorPagarHoje;
+	private float valorPagar;
+	private float valorReceber;
 	private float fatutamento;
 	private int mesatual;
 	
@@ -61,6 +68,7 @@ public class DashBoardMB implements Serializable{
 		listarMetaMensal();
 		listarMetaAnual();
 		gerarRankingMensal();
+		gerarRankingAnual();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		mesAtual = Formatacao.nomeMes(mes);
 	}
@@ -89,27 +97,27 @@ public class DashBoardMB implements Serializable{
 		this.terceiroMes = terceiroMes;
 	}
 
-	public Rankingvendas getPrimeiroAno() {
+	public Rankingvendasanual getPrimeiroAno() {
 		return primeiroAno;
 	}
 
-	public void setPrimeiroAno(Rankingvendas primeiroAno) {
+	public void setPrimeiroAno(Rankingvendasanual primeiroAno) {
 		this.primeiroAno = primeiroAno;
 	}
 
-	public Rankingvendas getSegundoAno() {
+	public Rankingvendasanual getSegundoAno() {
 		return segundoAno;
 	}
 
-	public void setSegundoAno(Rankingvendas segundoAno) {
+	public void setSegundoAno(Rankingvendasanual segundoAno) {
 		this.segundoAno = segundoAno;
 	}
 
-	public Rankingvendas getTerceiroAno() {
+	public Rankingvendasanual getTerceiroAno() {
 		return terceiroAno;
 	}
 
-	public void setTerceiroAno(Rankingvendas terceiroAno) {
+	public void setTerceiroAno(Rankingvendasanual terceiroAno) {
 		this.terceiroAno = terceiroAno;
 	}
 
@@ -254,12 +262,20 @@ public class DashBoardMB implements Serializable{
 		this.mesatual = mesatual;
 	}
 
-	public float getValorPagarHoje() {
-		return valorPagarHoje;
+	public float getValorPagar() {
+		return valorPagar;
 	}
 
-	public void setValorPagarHoje(float valorPagarHoje) {
-		this.valorPagarHoje = valorPagarHoje;
+	public void setValorPagar(float valorPagar) {
+		this.valorPagar = valorPagar;
+	}
+
+	public float getValorReceber() {
+		return valorReceber;
+	}
+
+	public void setValorReceber(float valorReceber) {
+		this.valorReceber = valorReceber;
 	}
 
 	public void listarMetaMensal() {
@@ -341,48 +357,63 @@ public class DashBoardMB implements Serializable{
 	}
 	
 	
-	public void contasPagarHoje() {
-		ContasPagarDao contasPagarDao = new ContasPagarDao();
-		List<Contaspagar> listaContas = contasPagarDao.lista("Select c From Contaspagar c WHERE c.datavencimento='"+ 
-				Formatacao.ConvercaoDataNfe(new Date())+"' AND"
-				+ " c.datapagamento is null");
-		if (listaContas == null) {
-			listaContas = new ArrayList<Contaspagar>();
+	public void gerarRankingAnual() {
+		RankingVendasAnualDao rankingVendasDao = new RankingVendasAnualDao();
+		List<Rankingvendasanual> listaRanking = rankingVendasDao.lista("Select r From Rankingvendasanual r WHERE "
+				+ " r.ano=" + Formatacao.getAnoData(new Date())
+				+ " ORDER BY r.valorvenda DESC");
+		if (listaRanking == null) {
+			listaRanking = new ArrayList<Rankingvendasanual>();
 		}
-		valorPagarHoje = 0.0f;
-		for (int i = 0; i < listaContas.size(); i++) {
-			valorPagarHoje = valorPagarHoje + listaContas.get(i).getValor();
+		
+		for (int i = 0; i < listaRanking.size(); i++) {
+			if (i== 0) {
+				primeiroAno = listaRanking.get(i);
+				if (primeiroAno == null) {
+					primeiroAno = new Rankingvendasanual();
+				}
+			}else if(i == 1) {
+				segundoAno = listaRanking.get(i);
+				if (segundoAno == null) {
+					segundoAno = new Rankingvendasanual();
+				}
+			}else if(i == 2) {
+				terceiroAno = listaRanking.get(i);
+				if (terceiroAno == null) {
+					terceiroAno = new Rankingvendasanual();
+				}
+			}
 		}
 	}
 	
 	
 	public void faturamentoMensal() {
 		mesatual = Formatacao.getMesData(new Date()) + 1;
-		if (mesatual == 1) {
-			fatutamento = janeiro.getValoratual();
-		}else if (mesatual == 2) {
-			fatutamento = fevereiro.getValoratual();
-		}else if (mesatual == 3) {
-			fatutamento = marco.getValoratual();
-		}else if (mesatual == 4) {
-			fatutamento = abril.getValoratual();
-		}else if (mesatual == 5) {
-			fatutamento = maio.getValoratual();
-		}else if (mesatual == 6) {
-			fatutamento = junho.getValoratual();
-		}else if (mesatual == 7) {
-			fatutamento = julho.getValoratual();
-		}else if (mesatual == 8) {
-			fatutamento = agosto.getValoratual();
-		}else if (mesatual == 9) {
-			fatutamento = setembro.getValoratual();
-		}else if (mesatual == 10) {
-			fatutamento = outubro.getValoratual();
-		}else if (mesatual == 11) {
-			fatutamento = novembro.getValoratual();
-		}else {
-			fatutamento = dezembro.getValoratual();
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		String sql = "Select h From Historicocomissao h Where h.tipo<>'Pago' and h.contrato.situacao.identificador<>6"  ;
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
+		List<Historicocomissao> lista = historicoComissaoFacade.lista(sql);
+		if (lista == null) {
+			lista = new ArrayList<Historicocomissao>();
+		}
+		for (int i = 0; i < lista.size(); i++) {
+			if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+				fatutamento = fatutamento + lista.get(i).getCmdbruta();
+			}else {
+				fatutamento = fatutamento + lista.get(i).getCmsliq();
+			}
+			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16) {
+				valorPagar = valorPagar + lista.get(i).getCmsliq();
+				valorReceber = valorReceber + lista.get(i).getCmdbruta();
+			}
+		}
+	}
+	
+	
+	public String listagemFaturamento() {
+		return "consPagamentoComissao";
 	}
 
 	

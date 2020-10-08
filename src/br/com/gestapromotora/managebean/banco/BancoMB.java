@@ -96,40 +96,6 @@ public class BancoMB implements Serializable{
 	}
 	 
 	
-	public void salvarVenda() {
-		VendasBean vendasBean = new VendasBean();
-		vendasBean.setTeste("testando");
-        try {
-            URL url;
-            String endereco;
-                endereco = "http://localhost/API_VENDAS/webresources/" + "saveUser";
-            url = new URL(endereco);
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            //add reuqest header
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Accept", "application/json");
-            con.setRequestProperty("Content-Type", "application/json; utf-8");
-            con.setRequestProperty("Accept-Language", "pt-BR,pt;q=0.5");
-            con.setDoOutput(true);
-            
-
-            Gson gson = new Gson();
-            String urlParameters = gson.toJson(vendasBean);
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
-              System.out.println(con.getResponseCode());
-        } catch (MalformedURLException e) {
-            System.out.println(e);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-	
 
 }

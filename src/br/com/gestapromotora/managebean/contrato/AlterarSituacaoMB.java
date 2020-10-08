@@ -12,11 +12,16 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.ContratoFacade;
-import br.com.gestapromotora.facade.HistoricoComissaoFacade;
+import br.com.gestapromotora.facade.RankingVendasAnualFacade;
+import br.com.gestapromotora.facade.RankingVendasFacade;
+import br.com.gestapromotora.facade.RegrasCoeficienteFacade;
 import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.model.Contrato;
-import br.com.gestapromotora.model.Historicocomissao;
+import br.com.gestapromotora.model.Rankingvendas;
+import br.com.gestapromotora.model.Rankingvendasanual;
+import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Situacao;
+import br.com.gestapromotora.util.Formatacao;
 
 @Named
 @ViewScoped
@@ -30,6 +35,7 @@ public class AlterarSituacaoMB implements Serializable{
 	private Situacao situacao;
 	private List<Situacao> listaSituacao;
 	private String voltar;
+	private Regrascoeficiente regrascoeficiente;
 	
 	
 	
@@ -43,6 +49,7 @@ public class AlterarSituacaoMB implements Serializable{
 		session.removeAttribute("voltar");
 		situacao = contrato.getSituacao();
 		gerarListaSituacao();
+		buscarRegraCoeficiente();
 	}
 
 
@@ -81,9 +88,21 @@ public class AlterarSituacaoMB implements Serializable{
 
 
 
+	public Regrascoeficiente getRegrascoeficiente() {
+		return regrascoeficiente;
+	}
+
+
+
+	public void setRegrascoeficiente(Regrascoeficiente regrascoeficiente) {
+		this.regrascoeficiente = regrascoeficiente;
+	}
+
+
+
 	public void gerarListaSituacao() {
 		SituacaoFacade situacaoFacade = new SituacaoFacade();
-		listaSituacao = situacaoFacade.lista("Select s From Situacao s");
+		listaSituacao = situacaoFacade.lista("Select s From Situacao s ORDER BY s.descricao");
 		if (listaSituacao == null) {
 			listaSituacao = new ArrayList<Situacao>();
 		}
@@ -103,26 +122,62 @@ public class AlterarSituacaoMB implements Serializable{
 		contrato.setUltimamudancasituacao(new Date());
 		if (situacao.getIdsituacao() == 16) {
 			contrato.setDatapagamento(new Date());
-			salvarComissao();
+		}else if(situacao.getIdentificador() == 6) {
+			descontarRankingAnual();
+			descontarRankingMensal();
 		}
 		contrato = contratoFacade.salvar(contrato);
 		return voltar;
 	}
 	
 	
-	public void salvarComissao() {
-		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		Historicocomissao historicocomissao = new Historicocomissao();
-		historicocomissao.setCmdbruta(0f);
-		historicocomissao.setCmsliq(0f);
-		historicocomissao.setContrato(contrato);
-		historicocomissao.setDatalancamento(new Date());
-		historicocomissao.setProddesc(0f);
-		historicocomissao.setProdliq(0f);
-		historicocomissao.setTipo("Pendente");
-		historicocomissao.setUsuario(contrato.getUsuario());
-		historicocomissao = historicoComissaoFacade.salvar(historicocomissao);
+	public void descontarRankingMensal() {
+		RankingVendasFacade rankingVendasFacade = new RankingVendasFacade();
+		Rankingvendas rankingvendas;
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		List<Rankingvendas> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendas r WHERE r.mes=" + mes
+				+ " AND r.ano=" + ano + " AND r.usuario.idusuario=" + contrato.getUsuario().getIdusuario());
+		if (listaRanking != null && listaRanking.size() > 0) {
+			rankingvendas = listaRanking.get(0);
+			if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+				rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+						- (contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+			} else {
+				rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+						- (contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+			}
+			rankingVendasFacade.salvar(rankingvendas);
+		}
 	}
+	
+	
+	public void descontarRankingAnual() {
+		RankingVendasAnualFacade rankingVendasFacade = new RankingVendasAnualFacade();
+		Rankingvendasanual rankingvendas;
+		int ano = Formatacao.getAnoData(new Date());
+		List<Rankingvendasanual> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendasanual r WHERE "
+				+ " r.ano=" + ano + " AND r.usuario.idusuario=" + contrato.getUsuario().getIdusuario());
+		if (listaRanking != null && listaRanking.size() > 0) {
+			rankingvendas = listaRanking.get(0);
+			if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+				rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+						- (contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+			} else {
+				rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+						- (contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+			}
+			rankingVendasFacade.salvar(rankingvendas);
+		} 
+	}
+	
+	
+	
+	public void buscarRegraCoeficiente() {
+		RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
+		regrascoeficiente = regrasCoeficienteFacade.consultar(contrato.getIdregracoeficiente());
+	}
+	
 	
 	
 	

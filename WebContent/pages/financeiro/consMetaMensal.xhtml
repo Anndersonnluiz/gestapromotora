@@ -24,7 +24,10 @@
 			scrollHeight="300" selectionMode="single"
 			rowKey="#{contas.idmetafaturamentomensal}">
 
-
+			<p:column headerText="Tipo Operações"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contas.tipo}" />
+			</p:column>
 			<p:column headerText="Mês"
 				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contas.mes}" />

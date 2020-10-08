@@ -134,6 +134,14 @@ public class CadUsuarioMB implements Serializable {
 	
 	public void salvarDadosBancarios() {
 		DadosBancarioFacade dadosBancarioFacade = new DadosBancarioFacade();
+		if (bancoDadosBancario == null || bancoDadosBancario.getIdbanco() == null) {
+			BancoFacade bancoFacade = new BancoFacade();
+			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b");
+			if (listaBanco == null) {
+				listaBanco = new ArrayList<Banco>();
+			}
+			bancoDadosBancario = listaBanco.get(0);
+		}
 		dadosbancario.setBanco(bancoDadosBancario);
 		dadosbancario = dadosBancarioFacade.salvar(dadosbancario);
 	}

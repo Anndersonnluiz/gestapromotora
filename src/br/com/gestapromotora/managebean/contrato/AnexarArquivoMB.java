@@ -2,6 +2,7 @@ package br.com.gestapromotora.managebean.contrato;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -13,13 +14,13 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -34,7 +35,7 @@ import br.com.gestapromotora.util.Mensagem;
 @Named
 @ViewScoped
 public class AnexarArquivoMB implements Serializable{
-
+ 
 	/**
 	 * 
 	 */
@@ -253,7 +254,7 @@ public class AnexarArquivoMB implements Serializable{
 			Mensagem.lancarMensagemInfo("Erro", "conectar FTP");
 		}    
 		try {
-			String nomeArquivoFTP = tipoarquivo.getDescricao() + "_" + contrato.getIdcontrato();
+			String nomeArquivoFTP = "" +  contrato.getIdcontrato();
 			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "");
 			if (arquivoEnviado) {
 				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
@@ -292,22 +293,26 @@ public class AnexarArquivoMB implements Serializable{
 	public void salvar() {
 		if (arquivoEnviado) {
 			try {
-				contratoarquivo = new Contratoarquivo();
-				contratoarquivo.setDataupload(new Date());
-				contratoarquivo.setNomearquivo(tipoarquivo.getDescricao() + "_"
-						+ new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
-				contratoarquivo.setContrato(contrato);
-				contratoarquivo.setTipoarquivo(tipoarquivo);
-				ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
-				contratoarquivo = contratoArquivoFacade.salvar(contratoarquivo);
-				if (listaContratoArquivo == null) {
-					listaContratoArquivo = new ArrayList<Contratoarquivo>();
+				if (tipoarquivo != null && tipoarquivo.getIdtipoarquivo() != null) {
+					contratoarquivo = new Contratoarquivo();
+					contratoarquivo.setDataupload(new Date());
+					contratoarquivo.setNomearquivo(contrato.getIdcontrato() + "_"
+							+ new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
+					contratoarquivo.setContrato(contrato);
+					contratoarquivo.setTipoarquivo(tipoarquivo);
+					ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
+					contratoarquivo = contratoArquivoFacade.salvar(contratoarquivo);
+					if (listaContratoArquivo == null) {
+						listaContratoArquivo = new ArrayList<Contratoarquivo>();
+					}
+					listaContratoArquivo.add(contratoarquivo);
+					contratoarquivo = new Contratoarquivo();
+					listaNomeArquivo = new ArrayList<String>();
+					file = null;
+					Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
+				}else {
+					Mensagem.lancarMensagemFatal("Erro", "Favor escolher o tipo de arquivo");
 				}
-				listaContratoArquivo.add(contratoarquivo);
-				contratoarquivo = new Contratoarquivo();
-				listaNomeArquivo = new ArrayList<String>();
-				file = null;
-				Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -317,8 +322,10 @@ public class AnexarArquivoMB implements Serializable{
 	
 	public void gerarListaContratoAquivo() {
 		ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
-		listaContratoArquivo = contratoArquivoFacade.lista("Select c From Contratoarquivo c WHERE c.contrato.idcontrato=" 
-				+ contrato.getIdcontrato());
+		if (contrato != null) {
+			listaContratoArquivo = contratoArquivoFacade.lista("Select c From Contratoarquivo c WHERE c.contrato.idcontrato=" 
+					+ contrato.getIdcontrato());
+		}
 		if (listaContratoArquivo == null) {
 			listaContratoArquivo = new ArrayList<Contratoarquivo>();
 		}
@@ -336,7 +343,8 @@ public class AnexarArquivoMB implements Serializable{
 	
 	
 	
-	public StreamedContent baixarArquivoFTP(Contratoarquivo contratoarquivo) {
+	public void baixarArquivoFTP(Contratoarquivo contratoarquivo) {
+ 
 		Ftp ftp = new Ftp("sistemadeltafinanceira.acessotemporario.net", 
 				"deltafinanceiraftp@sistemadeltafinanceira.acessotemporario.net", "780920**Delta");
 		try {
@@ -350,10 +358,26 @@ public class AnexarArquivoMB implements Serializable{
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			InputStream is = ftp.receberArquivo(contratoarquivo.getNomearquivo(), contratoarquivo.getNomearquivo(), "");
-			fileDownload = new DefaultStreamedContent(is, "image/jpg", ""+contratoarquivo.getNomearquivo());
-			System.out.println(""+context.getExternalContext().getRequestParameterMap().get(contratoarquivo.getNomearquivo()));
-			ftp.desconectar();
-			return fileDownload; 
+//			fileDownload = new DefaultStreamedContent(is, "image/jpg", ""+contratoarquivo.getNomearquivo());
+//			System.out.println(""+ contratoarquivo.getNomearquivo());
+//			fileDownload = new DefaultStreamedContent(is, "image/png", "testenovo.png");
+//			ftp.desconectar();
+//			System.out.println("" + fileDownload.getContentType());
+            ExternalContext externalContext = context.getExternalContext();
+
+            externalContext.responseReset();
+           // externalContext.setResponseContentType("image/jpg");
+            externalContext.setResponseHeader("Content-Disposition", "attachment;filename=" + contratoarquivo.getNomearquivo());
+			 OutputStream outputStream = externalContext.getResponseOutputStream();
+
+	            byte[] buffer = new byte[1024];
+	            int length;
+	            while ((length = is.read(buffer)) > 0) {
+	                outputStream.write(buffer, 0, length);
+	            }
+
+	            is.close();
+	            context.responseComplete();
 		} catch (IOException ex) {
 			Logger.getLogger(AnexarArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			Mensagem.lancarMensagemInfo("Erro Salvar Arquivo", "" + ex);
@@ -364,7 +388,6 @@ public class AnexarArquivoMB implements Serializable{
 			Logger.getLogger(AnexarArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			Mensagem.lancarMensagemInfo("Erro", "desconectar FTP");
 		}
-		return null;
 	}
 	
 	

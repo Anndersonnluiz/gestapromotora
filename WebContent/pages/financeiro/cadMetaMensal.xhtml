@@ -13,6 +13,16 @@
 
 
 		<div class="form-row">
+			
+			<div class="form-group col-md-3">
+				<label for="tipo">Tipo Operação</label>
+				<h:selectOneMenu style="width: 100%;" id="tipo"
+					value="#{cadMetaMensalMB.metafaturamentomensal.tipo}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="PORTABILIDADE" itemValue="PORTABILIDADE" />
+					<f:selectItem itemLabel="DEMAIS OPERAÇÕES" itemValue="DEMAIS OPERAÇÕES" />
+				</h:selectOneMenu>
+			</div>
 			<div class="form-group col-md-3">
 				<label for="cpf">Mês</label>
 				<h:selectOneMenu style="width: 100%;" id="cpf"

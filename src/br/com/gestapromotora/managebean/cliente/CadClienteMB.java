@@ -102,7 +102,7 @@ public class CadClienteMB implements Serializable{
 		ClienteFacade clienteFacade = new ClienteFacade();
 		if (bancoDadosBancario == null || bancoDadosBancario.getIdbanco() == null) {
 			BancoFacade bancoFacade = new BancoFacade();
-			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome='Nenhum'");
+			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b");
 			if (listaBanco == null) {
 				listaBanco = new ArrayList<Banco>();
 			}

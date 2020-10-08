@@ -6,49 +6,76 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Consulta de Cliente</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Novo" action="#{clienteMB.novoCliente()}" />
+		<br />
+		<h4>Consulta de Cliente</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label for="nomecliente">Nome Cliente</label>
+				<h:inputText class="form-control" id="nomecliente"
+					value="#{clienteMB.nomeCliente}">
+				</h:inputText>
 			</div>
-			<p:dataTable id="idTabelaCliente" var="cliente"
-				value="#{clienteMB.listaCliente}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{cliente.idcliente}">
+			<div class="form-group col-md-3">
+				<label for="cpf">CPF</label> 
+				<p:inputMask mask="999.999.999-99" id="cpf" styleClass="form-control" value="#{clienteMB.cpf}"/>
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Pesquisar" action="#{clienteMB.pesquisar()}"
+						update="idTabelaCliente" />
+					<p:commandLink ajax="false" style="margin-left:1%;"
+						styleClass="btn btn-link" value="Limpar"
+						action="#{clienteMB.limpar()}"
+						update="idTabelaCliente, cpf, nomecliente" />
+				</div>
+			</div>
+		</div>
 
 
-				<p:column headerText="Nome" sortBy="#{cliente.nome}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.nome}" />
-				</p:column>
-				<p:column headerText="Nascimento" sortBy="#{cliente.nascimento}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.nascimento}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="CPF" sortBy="#{cliente.cpf}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.cpf}" />
-				</p:column>
-				<p:column headerText="RG" sortBy="#{cliente.rg}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{cliente.rg}" />
-				</p:column>
+		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{clienteMB.novoCliente()}" />
+		</div>
+		<p:dataTable id="idTabelaCliente" var="cliente"
+			value="#{clienteMB.listaCliente}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{cliente.idcliente}">
 
-				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+
+			<p:column headerText="Nome" sortBy="#{cliente.nome}"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.nome}" />
+			</p:column>
+			<p:column headerText="Nascimento" sortBy="#{cliente.nascimento}"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="CPF" sortBy="#{cliente.cpf}"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.cpf}" />
+			</p:column>
+			<p:column headerText="RG" sortBy="#{cliente.rg}"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.rg}" />
+			</p:column>
+
+			<p:column headerText=""
+				style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

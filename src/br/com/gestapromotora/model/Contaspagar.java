@@ -45,6 +45,8 @@ public class Contaspagar implements Serializable{
 	private int totalparcela;
 	@Column(name = "nparcela")
 	private int nparcela;
+	@Column(name = "mesreferente")
+	private int mesreferente;
 	
 	
 	public Contaspagar() {
@@ -130,6 +132,16 @@ public class Contaspagar implements Serializable{
 
 	public void setTotalparcela(int totalparcela) {
 		this.totalparcela = totalparcela;
+	}
+
+
+	public int getMesreferente() {
+		return mesreferente;
+	}
+
+
+	public void setMesreferente(int mesreferente) {
+		this.mesreferente = mesreferente;
 	}
 
 

@@ -12,8 +12,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Mensagem;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
@@ -33,12 +35,16 @@ public class ContratoMB implements Serializable{
 	private String nomeCliente;
 	private String cpf;
 	private Usuario usuario;
+	private List<Tipooperacao> listaTipoOperacao;
+	private Tipooperacao tipooiperacao;
 	
 	
 	@PostConstruct
 	public void init() {
 		gerarListaContrato();
 		gerarListaUsuario();
+		gerarListaTipoOperacao();
+		
 	}
 
 
@@ -92,13 +98,44 @@ public class ContratoMB implements Serializable{
 	}
 
 
+	public UsuarioLogadoMB getUsuarioLogadoMB() {
+		return usuarioLogadoMB;
+	}
+
+
+	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
+		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+
+	public List<Tipooperacao> getListaTipoOperacao() {
+		return listaTipoOperacao;
+	}
+
+
+	public void setListaTipoOperacao(List<Tipooperacao> listaTipoOperacao) {
+		this.listaTipoOperacao = listaTipoOperacao;
+	}
+
+
+	public Tipooperacao getTipooiperacao() {
+		return tipooiperacao;
+	}
+
+
+	public void setTipooiperacao(Tipooperacao tipooiperacao) {
+		this.tipooiperacao = tipooiperacao;
+	}
+
+
 	public void gerarListaContrato() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		String sql = "Select c From Contrato c";
+		String sql = "Select c From Contrato c WHERE c.situacao.identificador<>6 ";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
 				.equalsIgnoreCase("Operacional")) {
-			sql = sql + " WHERE c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+			sql = sql + " AND c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
+		sql = sql + " ORDER BY c.idcontrato DESC";
 		listaContrato = contratoFacade.lista(sql);
 		if (listaContrato == null) {
 			listaContrato = new ArrayList<Contrato>();
@@ -202,11 +239,18 @@ public class ContratoMB implements Serializable{
 	
 	
 	public void pesquisar() {
-		String sql = "Select c From Contrato c WHERE c.cliente.nome like '%"+ nomeCliente +"%' and c.cliente.cpf like '%"+ cpf +"%'";
+		String sql = "Select c From Contrato c WHERE " 
+				+ " c.cliente.nome like '%"+ nomeCliente +"%' and c.cliente.cpf like '%"+ cpf +"%'";
 		if (usuario != null && usuario.getIdusuario() != null  && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
 				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
+		
+		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
+			sql = sql + " and c.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
+		}
+
+		sql = sql + " ORDER BY c.idcontrato DESC";
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista(sql);
 		if (listaContrato == null) {
@@ -219,6 +263,7 @@ public class ContratoMB implements Serializable{
 		usuario = null;
 		nomeCliente = "";
 		cpf = "";
+		tipooiperacao = null;
 	}
 	
 	
@@ -229,6 +274,15 @@ public class ContratoMB implements Serializable{
 		return "anexarArquivo";
 	}
 	
+	
+
+	public void gerarListaTipoOperacao() {
+		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
+		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		if (listaTipoOperacao == null) {
+			listaTipoOperacao = new ArrayList<Tipooperacao>();
+		}
+	}
 	
 	
 	

@@ -21,18 +21,23 @@ import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
+import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.facade.MetaFaturamentoMensalFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
+import br.com.gestapromotora.facade.RankingVendasAnualFacade;
 import br.com.gestapromotora.facade.RankingVendasFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Dadosbancario;
+import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Metafaturamentomensal;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.OrgaoBanco;
 import br.com.gestapromotora.model.Rankingvendas;
+import br.com.gestapromotora.model.Rankingvendasanual;
+import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.model.Valorescoeficiente;
@@ -64,6 +69,8 @@ public class CadContratoMB implements Serializable {
 	private Banco bancoDadosBancario;
 	private int mes;
 	private int ano;
+	private Regrascoeficiente regrascoeficiente;
+	private boolean novo = true;
 
 	@PostConstruct
 	public void init() {
@@ -72,8 +79,10 @@ public class CadContratoMB implements Serializable {
 		contrato = (Contrato) session.getAttribute("contrato");
 		orgaoBanco = (OrgaoBanco) session.getAttribute("orgaobanco");
 		banco = (Banco) session.getAttribute("banco");
+		regrascoeficiente = (Regrascoeficiente) session.getAttribute("regrascoeficiente");
 		session.removeAttribute("orgaobanco");
 		session.removeAttribute("contrato");
+		session.removeAttribute("regrascoeficiente");
 		cliente = contrato.getCliente();
 		banco = orgaoBanco.getBanco();
 		gerarListaBanco();
@@ -81,6 +90,8 @@ public class CadContratoMB implements Serializable {
 			contrato = new Contrato();
 			mes = Formatacao.getMesData(new Date()) + 1;
 			ano = Formatacao.getAnoData(new Date());
+		} else if (contrato.getIdcontrato() != null) {
+			novo = false;
 		}
 		valorescoeficiente = contrato.getValorescoeficiente();
 		if (cliente != null) {
@@ -222,9 +233,6 @@ public class CadContratoMB implements Serializable {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-	
-	
-	
 
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
@@ -306,22 +314,27 @@ public class CadContratoMB implements Serializable {
 
 	public String salvar() {
 		contrato.setCliente(salvarCliente());
-		contrato.setUsuario(usuarioLogadoMB.getUsuario());
 		ContratoFacade contratoFacade = new ContratoFacade();
-		contrato.setCodigocontrato(gerarCodigo());
 		if (contrato.getTipooperacao().getIdtipooperacao() == 2) {
 			contrato.setParcela(contrato.getParcela() + contrato.getMargemutilizada());
 		}
 		if (contrato.getIdcontrato() == null) {
-			gerarNotificacao();
+			contrato.setUsuario(usuarioLogadoMB.getUsuario());
+			contrato.setCodigocontrato(gerarCodigo());
 			gerarMetaFaturamento();
-			gerarRankingMensal();
+			contrato.setIdregracoeficiente(regrascoeficiente.getIdregrascoeficiente());
+			contrato.setBanco(banco);
 		}
 		contrato = contratoFacade.salvar(contrato);
+		if (novo) {
+			gerarNotificacao();
+			gerarComissao();
+			gerarRankingMensal();
+			gerarRankingAnual();
+		}
 		return "consContrato";
 	}
-	
-	
+
 	public void gerarNotificacao() {
 		UsuarioDao usuarioDao = new UsuarioDao();
 		NotificacaoDao notificacaoDao = new NotificacaoDao();
@@ -333,73 +346,136 @@ public class CadContratoMB implements Serializable {
 				notificacao.setDatalancamento(new Date());
 				notificacao.setVisto(false);
 				notificacao.setUsuario(listaUsuario.get(i));
-				notificacao.setTitulo("Novo Contrato");
-				notificacao.setDescricao("Novo contrato emitido pelo corretor(a) " + usuarioLogadoMB.getUsuario().getNome());
+				notificacao.setIdcontrato(contrato.getIdcontrato());
+				notificacao.setTitulo("Novo Contrato: " + contrato.getCodigocontrato());
+				notificacao.setDescricao(
+						contrato.getTipooperacao().getDescricao() + " emitido pelo corretor(a) " + usuarioLogadoMB.getUsuario().getNome());
 				notificacaoDao.salvar(notificacao);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void gerarMetaFaturamento() {
 		MetaFaturamentoMensalFacade mensalFacade = new MetaFaturamentoMensalFacade();
 		mes = Formatacao.getMesData(new Date()) + 1;
 		ano = Formatacao.getAnoData(new Date());
-		List<Metafaturamentomensal> lista = mensalFacade.lista("Select m From Metafaturamentomensal m WHERE m.mes=" + mes +
-				" AND m.ano=" + ano);
+		String tipo;
+		String sql = "Select m From Metafaturamentomensal m WHERE m.mes=" + mes + " AND m.ano=" + ano;
+		if (contrato.getTipooperacao().getDescricao().equalsIgnoreCase("PORTABILIDADE")) {
+			tipo = "PORTABILIDADE";
+			sql = sql + " and m.tipo='PORTABILIDADE'";
+		} else {
+			tipo = "DEMAIS OPERAÇÕES";
+			sql = sql + " and m.tipo='DEMAIS OPERAÇÕES'";
+		}
+		List<Metafaturamentomensal> lista = mensalFacade.lista(sql);
 		Metafaturamentomensal metafaturamentomensal;
-		if (lista == null) {
+		if (lista == null || lista.isEmpty()) {
 			metafaturamentomensal = new Metafaturamentomensal();
 			metafaturamentomensal.setAno(ano);
 			metafaturamentomensal.setMes(mes);
 			metafaturamentomensal.setPercentualmeta(0.0f);
 			metafaturamentomensal.setCormeta("#f3291f");
-		}else {
+			metafaturamentomensal.setTipo(tipo);
+		} else {
 			metafaturamentomensal = lista.get(0);
 		}
-		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
-			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValorquitar());
-		}else if(contrato.getTipooperacao().getIdtipooperacao() == 6) {
-			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() 
-					+ (contrato.getValorquitar() + contrato.getValoroperacao()));
-		}else {
-			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValoroperacao());
+		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual()
+					+ contrato.getValorquitar());
+		} else {
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual()
+					+ contrato.getValoroperacao());
 		}
 		mensalFacade.salvar(metafaturamentomensal);
 	}
-	
+
 	public void gerarRankingMensal() {
 		RankingVendasFacade rankingVendasFacade = new RankingVendasFacade();
-		Rankingvendas rankingvendas;mes = Formatacao.getMesData(new Date()) + 1;
+		Rankingvendas rankingvendas;
+		mes = Formatacao.getMesData(new Date()) + 1;
 		ano = Formatacao.getAnoData(new Date());
-		List<Rankingvendas> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendas r WHERE r.mes=" + 
-				mes + " AND r.ano=" + ano + " AND r.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
+		List<Rankingvendas> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendas r WHERE r.mes=" + mes
+				+ " AND r.ano=" + ano + " AND r.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
 		if (listaRanking != null && listaRanking.size() > 0) {
 			rankingvendas = listaRanking.get(0);
-		}else {
+		} else {
 			rankingvendas = new Rankingvendas();
 			rankingvendas.setAno(ano);
 			rankingvendas.setMes(mes);
 			rankingvendas.setUsuario(usuarioLogadoMB.getUsuario());
 		}
-		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda() + contrato.getValorquitar());
-		}else if(contrato.getTipooperacao().getIdtipooperacao() == 6) {
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda() 
-					+ (contrato.getValorquitar() + contrato.getValoroperacao()));
-		}else {
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda() + contrato.getValoroperacao());
+		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+					+ (contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+		} else {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+					+ (contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
 		}
 		rankingVendasFacade.salvar(rankingvendas);
 	}
 	
+	
+	public void gerarRankingAnual() {
+		RankingVendasAnualFacade rankingVendasFacade = new RankingVendasAnualFacade();
+		Rankingvendasanual rankingvendas;
+		ano = Formatacao.getAnoData(new Date());
+		List<Rankingvendasanual> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendasanual r WHERE "
+				+ " r.ano=" + ano + " AND r.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
+		if (listaRanking != null && listaRanking.size() > 0) {
+			rankingvendas = listaRanking.get(0);
+		} else {
+			rankingvendas = new Rankingvendasanual();
+			rankingvendas.setAno(ano);
+			rankingvendas.setUsuario(usuarioLogadoMB.getUsuario());
+		}
+		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+					+ (contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+		} else {
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+					+ (contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100)));
+		}
+		rankingVendasFacade.salvar(rankingvendas);
+	}
+
+	public void gerarComissao() {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		Historicocomissao historicocomissao = new Historicocomissao();
+		historicocomissao.setDatalancamento(new Date());
+		historicocomissao.setContrato(contrato);
+		historicocomissao.setUsuario(usuarioLogadoMB.getUsuario());
+		historicocomissao.setTipo("PENDENTE");
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		historicocomissao.setAno(ano);
+		historicocomissao.setMes(mes);
+		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			historicocomissao.setCmdbruta(contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100));
+			historicocomissao.setCmsliq(contrato.getValorquitar() * (regrascoeficiente.getFlatrepassadavista() / 100));
+			historicocomissao.setProdliq(contrato.getValorquitar());
+
+		} else if (contrato.getTipooperacao().getIdtipooperacao() != 1) {
+			historicocomissao
+					.setCmdbruta(contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100));
+			historicocomissao
+					.setCmsliq(contrato.getValoroperacao() * (regrascoeficiente.getFlatrepassadavista() / 100));
+			historicocomissao.setProdliq(contrato.getValoroperacao());
+		} else {
+			historicocomissao.setCmdbruta(0.0f);
+			historicocomissao.setCmsliq(0.0f);
+			historicocomissao.setProdliq(0.0f);
+		}
+		historicoComissaoFacade.salvar(historicocomissao);
+	}
 
 	public Cliente salvarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
 		if (bancoDadosBancario == null || bancoDadosBancario.getIdbanco() == null) {
 			BancoFacade bancoFacade = new BancoFacade();
-			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome='Nenhum'");
+			List<Banco> listaBanco = bancoFacade.lista("Select b From Banco b");
 			if (listaBanco == null) {
 				listaBanco = new ArrayList<Banco>();
 			}

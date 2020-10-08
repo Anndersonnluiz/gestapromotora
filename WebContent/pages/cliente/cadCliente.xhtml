@@ -21,8 +21,7 @@
 				</div>
 				<div class="form-group col-md-2">
 					<label for="inputCpf">CPF</label>
-					<h:inputText value="#{cadClienteMB.cliente.cpf}"
-						class="form-control" id="inputCpf" placeholder="CPF" />
+					<p:inputMask mask="999.999.999-99" id="inputCpf" styleClass="form-control" value="#{cadClienteMB.cliente.cpf}"/>
 				</div>
 				<div class="form-group col-md-2">
 					<label for="dataNasc">Data Nascimento</label>
@@ -66,7 +65,7 @@
 				</div>
 				<div class="form-group col-md-2">
 					<label for="dataEmissao">Data Emissão</label>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="15" style="widht:98%;" 
 						value="#{cadClienteMB.cliente.emissao}" id="dataEmissao">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
@@ -228,6 +227,8 @@
 							itemValue="Conta Corrente" />
 						<f:selectItem itemLabel="Conta Poupança"
 							itemValue="Conta Poupança" />
+						<f:selectItem itemLabel="Ordem de Pagamento"
+							itemValue="Ordem de Pagamento" />
 					</h:selectOneMenu>
 				</div>
 				<div class="form-group col-md-3">

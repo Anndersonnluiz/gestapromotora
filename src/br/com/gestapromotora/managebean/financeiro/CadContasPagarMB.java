@@ -89,21 +89,24 @@ public class CadContasPagarMB implements Serializable{
 		if (contaspagar.getTotalparcela() > 1 && contaspagar.getIdcontaspagar() == null) {
 			contaspagar.setTipodespesa(tipodespesa);
 			contaspagar.setNparcela(1);
+			contaspagar.setMesreferente(Formatacao.getMesData(contaspagar.getDatavencimento()) + 1);
 			contasPagarFacade.salvar(contaspagar);
 			for (int i = 2; i <= contaspagar.getTotalparcela(); i++) {
 				novadatavencimento = Formatacao.SomarDiasData(novadatavencimento, 30);
 				Contaspagar gerandoParcelas = new Contaspagar();
 				gerandoParcelas.setDatapagamento(contaspagar.getDatapagamento());
-				gerandoParcelas.setDatavencimento(contaspagar.getDatavencimento());
+				gerandoParcelas.setDatavencimento(novadatavencimento);
 				gerandoParcelas.setDescricao(contaspagar.getDescricao());
 				gerandoParcelas.setNparcela(i);
 				gerandoParcelas.setTipodespesa(tipodespesa);
 				gerandoParcelas.setTotalparcela(contaspagar.getTotalparcela());
 				gerandoParcelas.setValor(contaspagar.getValor());
+				gerandoParcelas.setMesreferente(Formatacao.getMesData(novadatavencimento) + 1);
 				contasPagarFacade.salvar(gerandoParcelas);
 				
 			}
 		}else {
+			contaspagar.setMesreferente(Formatacao.getMesData(contaspagar.getDatavencimento()) + 1);
 			contaspagar.setTipodespesa(tipodespesa);
 			contasPagarFacade.salvar(contaspagar);
 		}

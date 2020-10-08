@@ -47,6 +47,10 @@ public class Historicocomissao implements Serializable{
 	@JoinColumn(name = "contrato_idcontrato", referencedColumnName = "idcontrato")
 	@ManyToOne(optional = false)
 	private Contrato contrato;
+	@Column(name = "mes")
+	private int mes;
+	@Column(name = "ano")
+	private int ano;
 	
 	
 	
@@ -164,6 +168,30 @@ public class Historicocomissao implements Serializable{
 	
 	
 	
+	public int getMes() {
+		return mes;
+	}
+
+
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
+
+
+
+	public int getAno() {
+		return ano;
+	}
+
+
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

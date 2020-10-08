@@ -13,7 +13,7 @@
 
 
 		<div class="form-row">
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<label for="usuario">Tipo Despesa</label>
 				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
 					value="#{contasPagarMB.tipodespesa}"
@@ -28,8 +28,28 @@
 						value="#{contasPagarMB.listaTipoDespesa}" />
 				</h:selectOneMenu>
 			</div>
+			<div class="form-group col-md-2">
+				<label for="cpf">Mês</label>
+				<h:selectOneMenu style="width: 100%;" id="cpf"
+					value="#{contasPagarMB.mesreferente}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Todos" itemValue="0" />
+					<f:selectItem itemLabel="Janeiro" itemValue="1" />
+					<f:selectItem itemLabel="Fevereiro" itemValue="2" />
+					<f:selectItem itemLabel="Março" itemValue="3" />
+					<f:selectItem itemLabel="Abril" itemValue="4" />
+					<f:selectItem itemLabel="Maio" itemValue="5" />
+					<f:selectItem itemLabel="Junho" itemValue="6" />
+					<f:selectItem itemLabel="Julho" itemValue="7" />
+					<f:selectItem itemLabel="Agosto" itemValue="8" />
+					<f:selectItem itemLabel="Setembro" itemValue="9" />
+					<f:selectItem itemLabel="Outubro" itemValue="10" />
+					<f:selectItem itemLabel="Novembro" itemValue="11" />
+					<f:selectItem itemLabel="Dezembro" itemValue="12" />
+				</h:selectOneMenu>
+			</div>
 			<div class="form-group col-md-4">
-				<label for="usuario">Periodo do Vencimento</label>
+				<label for="usuario">Periodo do Pagamento</label>
 				<h:panelGrid columns="2" style="width:80%;">
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
 						value="#{contasPagarMB.dataini}" id="dataini" size="11">
@@ -52,11 +72,11 @@
 				<div>
 					<p:commandLink ajax="false" styleClass="btn btn-primary"
 						value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
-						update="idTabelaComissao, infValorTotal" />
+						update="idTabelaComissao, infValorTotal, referente" />
 					<p:commandLink ajax="false" style="margin-left:1%;"
 						styleClass="btn btn-link" value="Limpar"
 						action="#{contasPagarMB.limpar()}"
-						update="idTabelaComissao, usuario, dataini, datafin" />
+						update="idTabelaComissao, usuario, dataini, datafin, referente" />
 				</div>
 			</div>
 		</div>
@@ -64,6 +84,9 @@
 		<div align="right">
 			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
 				action="#{contasPagarMB.novo()}" />
+		</div>
+		<div id="referente" >
+			<p:outputLabel style="font-size:18px;font-weight:bold;" value="Fatura de: #{contasPagarMB.nomeMes}"/>
 		</div>
 		<p:dataTable id="idTabelaComissao" var="contas"
 			value="#{contasPagarMB.listaContasPagar}" style="border:none;"

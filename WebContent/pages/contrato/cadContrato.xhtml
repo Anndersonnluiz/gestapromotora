@@ -76,7 +76,7 @@
 			</div>
 			<div class="form-group col-md-4">
 				<label for="matricula">Matrícula</label>
-				<h:inputText value="#{cadContratoMB.cliente.ufrg}"
+				<h:inputText value="#{cadContratoMB.contrato.matricula}"
 					style="border-color:black;" class="form-control" id="matricula"
 					placeholder="UF - RG" />
 			</div>
@@ -94,8 +94,7 @@
 			<div class="form-group col-md-3">
 				<label for="inputCpf">CPF</label>
 				<h:panelGrid columns="2" style="width:100%;">
-					<h:inputText value="#{cadContratoMB.cpf}" class="form-control"
-						id="inputCpf" placeholder="CPF" style="border-color:black;" />
+					<p:inputMask mask="999.999.999-99" id="inputCpf" styleClass="form-control" value="#{cadContratoMB.cpf}"/>
 					<p:commandLink id="btnCliente" value="Buscar"
 						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
 							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
@@ -186,7 +185,7 @@
 				<h:inputText value="#{cadContratoMB.cliente.valorsalario}"
 					style="border-color:black;" class="form-control"
 					id="inputValorSalario" placeholder="Valor de Salário">
-					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 		</div>
@@ -387,8 +386,7 @@
 				<p:inputText value="#{cadContratoMB.contrato.totalparcelas}"
 					style="border-color:black;" 
 					id="totalparcelas" class="form-control"
-					placeholder="Parcelas Pagas">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					>
 
 					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
 						update="percentualpago, parcelasrestantes" event="change" />

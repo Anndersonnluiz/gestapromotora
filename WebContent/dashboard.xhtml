@@ -90,6 +90,11 @@
 											</a>
 										</h:panelGroup></li>
 								</ul></li>
+							<li class="nav-item"><a class="nav-link" target="_blank"
+								href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
+								role="button" aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="percent"></span> Calculadora
+							</a></li>
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false"> <span data-feather="archive"></span>
@@ -176,22 +181,25 @@
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-success"
 								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">CARTEIRA</h5>
-								<h4 class="m-top-none" id="userCount"
-									style="color: black; font-family: Segoe UI Semibold;">
-									R$:
-									<p:outputLabel value="#{dashBoardMB.fatutamento}">
-										<f:convertNumber locale="pt_BR"
-											minFractionDigits="2" />
-									</p:outputLabel>
-								</h4>
-								<span class="m-left-xs"
-									style="color: black; font-family: Segoe UI Semibold;"> em <p:outputLabel
-										value="#{dashBoardMB.mesAtual}">
-									</p:outputLabel></span>
-								<div class="stat-icon" style="opacity: 0.9;">
-									<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-								</div>
+
+								<p:commandLink action="#{dashBoardMB.listagemFaturamento()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<h5 style="font-family: Segoe UI Semibold; color: white;">CARTEIRA</h5>
+									<h4 class="m-top-none" id="userCount"
+										style="color: black; font-family: Segoe UI Semibold;">
+										R$:
+										<p:outputLabel value="#{dashBoardMB.fatutamento}">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+										</p:outputLabel>
+									</h4>
+									<span class="m-left-xs"
+										style="color: black; font-family: Segoe UI Semibold;">
+										pendentes </span>
+									<div class="stat-icon" style="opacity: 0.9;">
+										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+									</div>
+
+								</p:commandLink>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -200,11 +208,15 @@
 								<h5 style="font-family: Segoe UI Semibold;">COMISSÕES A
 									RECEBER</h5>
 								<h4 class="m-top-none"
-									style="color: black; font-family: Segoe UI Semibold;">R$:
+									style="color: black; font-family: Segoe UI Semibold;">
+									R$:
+									<p:outputLabel value="#{dashBoardMB.valorReceber}">
+										<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+									</p:outputLabel>
 								</h4>
 								<span class="m-left-xs"
-									style="color: black; font-family: Segoe UI Semibold;">para
-									o dia de hoje</span>
+									style="color: black; font-family: Segoe UI Semibold;">contratos
+									pagos ao cliente</span>
 								<div class="stat-icon" style="opacity: 0.9;">
 									<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
 								</div>
@@ -219,14 +231,13 @@
 									<h4 class="m-top-none" id="visitorCount"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
-										<p:outputLabel value="#{dashBoardMB.valorPagarHoje}">
-											<f:convertNumber locale="pt_BR"
-												minFractionDigits="2" />
+										<p:outputLabel value="#{dashBoardMB.valorPagar}">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 										</p:outputLabel>
 									</h4>
 									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">para
-										o dia de hoje</span>
+										style="color: black; font-family: Segoe UI Semibold;">contratos
+										pagos ao cliente</span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
 									</div>
@@ -266,8 +277,7 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;margin-left:2%;">
-											<f:convertNumber pattern="##,###,###,###.##"
-												minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -286,8 +296,7 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber pattern="##,###,###,###.##"
-												minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -306,15 +315,14 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber pattern="##,###,###,###.##"
-												minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<h5>RANKING DO ANO</h5>
+							<h5>RANKING DO ANO - 2020</h5>
 							<div style="border: 2px solid black; border-radius: 10px;">
 								<div class="form-row">
 									<div class="form-group col-md-3">
@@ -323,11 +331,15 @@
 									</div>
 									<div class="form-group col-md-9">
 										<br />
-										<p:outputLabel value=""
+										<p:outputLabel value="#{dashBoardMB.primeiroAno.usuario.nome}"
 											style="font-weight:bold;font-size:16px;" />
 										<hr />
-										<p:outputLabel value=""
+										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
+											style="font-weight:bold;font-size:18px;margin-left:2%;">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+										</p:outputLabel>
 									</div>
 								</div>
 								<hr />
@@ -338,11 +350,15 @@
 									</div>
 									<div class="form-group col-md-9">
 										<br />
-										<p:outputLabel value=""
+										<p:outputLabel value="#{dashBoardMB.segundoAno.usuario.nome}"
 											style="font-weight:bold;font-size:16px;" />
 										<hr />
-										<p:outputLabel value=""
+										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
+											style="font-weight:bold;font-size:18px;">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+										</p:outputLabel>
 									</div>
 								</div>
 								<hr />
@@ -353,11 +369,15 @@
 									</div>
 									<div class="form-group col-md-9">
 										<br />
-										<p:outputLabel value=""
+										<p:outputLabel value="#{dashBoardMB.terceiroAno.usuario.nome}"
 											style="font-weight:bold;font-size:16px;" />
 										<hr />
-										<p:outputLabel value=""
+										<p:outputLabel value="R$"
 											style="font-weight:bold;font-size:18px;" />
+										<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
+											style="font-weight:bold;font-size:18px;">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+										</p:outputLabel>
 									</div>
 								</div>
 							</div>

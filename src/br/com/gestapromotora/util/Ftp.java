@@ -1,6 +1,7 @@
 package br.com.gestapromotora.util;
 
-import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -181,7 +182,9 @@ public class Ftp {
         ftpClient.changeWorkingDirectory(pasta);
         ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
         ftpClient.enterLocalPassiveMode();
-        InputStream is = new BufferedInputStream(ftpClient.retrieveFileStream(arquivoFTP));
+		 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		ftpClient.retrieveFile(arquivoFTP, outputStream);
+		InputStream is = new ByteArrayInputStream(outputStream.toByteArray());
         return is;
     }
     

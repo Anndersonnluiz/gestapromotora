@@ -14,7 +14,7 @@
 				<p:commandLink
 					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
 					ajax="false" styleClass="btn btn-primary" value="Novo"
-					action="#{bancoMB.salvarVenda()}" />
+					action="#{bancoMB.novoBanco()}" />
 			</div>
 			<p:dataTable id="idTabelaBanco" var="banco"
 				value="#{bancoMB.listaBanco}" style="border:none;"

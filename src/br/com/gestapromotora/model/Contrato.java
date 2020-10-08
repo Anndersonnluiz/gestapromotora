@@ -119,6 +119,8 @@ public class Contrato implements Serializable{
 	@JoinColumn(name = "tipooperacao_idtipooperacao", referencedColumnName = "idtipooperacao")
 	@ManyToOne(optional = false)
 	private Tipooperacao tipooperacao;
+	@Column(name = "idregracoeficiente")
+	private int idregracoeficiente;
 	
 	
 	public Contrato() {
@@ -550,6 +552,16 @@ public class Contrato implements Serializable{
 
 	public void setMargemutilizada(float margemutilizada) {
 		this.margemutilizada = margemutilizada;
+	}
+
+
+	public int getIdregracoeficiente() {
+		return idregracoeficiente;
+	}
+
+
+	public void setIdregracoeficiente(int idregracoeficiente) {
+		this.idregracoeficiente = idregracoeficiente;
 	}
 
 
