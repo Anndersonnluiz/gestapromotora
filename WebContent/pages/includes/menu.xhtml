@@ -24,7 +24,7 @@
 			</a></li>
 		</ul>
 		<a class="nav-link waves-effect waves-light"
-			href="pages/notificacao/consNotificacao.jsf"
+			href="/deltafinanceira/pages/notificacao/consNotificacao.jsf"
 			id="navbarDropdownMenuLink-5" aria-haspopup="true"
 			aria-expanded="true"> <span class="badge badge-danger ml-2"
 			style="font-size: 14px;"> <p:outputLabel
@@ -55,13 +55,7 @@
 								<li style="font-size: 12px;"><a class="nav-link"
 									href="/deltafinanceira/pages/banco/consBanco.jsf"> <span
 										data-feather="dollar-sign"></span> Banco
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/cliente/consCliente.jsf"> <span
-										data-feather="users"></span> Cliente
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/despesa/consDespesa.jsf"> <span
-										data-feather="user"></span> Tipo Despesa
-								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+								</a>  <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 										<a class="nav-link"
 											href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
 											<span data-feather="users"></span> Tipo Colaborador
@@ -76,6 +70,11 @@
 							href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
 							role="button" aria-haspopup="true" aria-expanded="false"> <span
 								data-feather="percent"></span> Calculadora
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/deltafinanceira/pages/cliente/consCliente.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="users"></span> Clientes
 						</a></li>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -130,21 +129,37 @@
 									data-feather="dollar-sign"></span> Financeiro
 								</a>
 								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/comissoes/consPagamentoComissao.jsf">
-											<span data-feather="dollar-sign"></span> Pag. Comissão
-									</a> <a class="nav-link"
+									<li style="font-size: 12px;"> <a class="nav-link"
+									href="/deltafinanceira/pages/despesa/consDespesa.jsf"> <span
+										data-feather="user"></span> Tipo Despesa
+								</a> <a class="nav-link"
 										href="/deltafinanceira/pages/financeiro/consContasPagar.jsf">
 											<span data-feather="dollar-sign"></span> Contas a Pagar
-									</a> <a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consContasReceber.jsf">
-											<span data-feather="dollar-sign"></span> Contas a Receber
-									</a> <a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
-											<span data-feather="dollar-sign"></span> Meta Faturamento
 									</a></li>
 								</ul>
 							</h:panelGroup></li>
+
+						<li class="nav-item, dropdown"><h:panelGroup
+								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+								<a class="nav-link" href="#" data-toggle="dropdown"
+									role="button" aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="target"></span> Metas
+								</a>
+								<ul class="dropdown-menu">
+									<li style="font-size: 12px;"><a class="nav-link"
+										href="/deltafinanceira/pages/financeiro/consContasReceber.jsf">
+											<span data-feather="dollar-sign"></span> Cadastro
+									</a> <a class="nav-link"
+										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
+											<span data-feather="dollar-sign"></span> Dashboard
+									</a></li>
+								</ul>
+							</h:panelGroup></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/deltafinanceira/pages/roteiros/consBancoRoteiro.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="printer"></span> Roteiros
+						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="/deltafinanceira/pages/usuario/alterarSenha.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false"> <span

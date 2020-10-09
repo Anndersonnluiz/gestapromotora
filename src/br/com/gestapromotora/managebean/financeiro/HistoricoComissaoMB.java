@@ -48,7 +48,8 @@ public class HistoricoComissaoMB implements Serializable{
 	private float valorRepassada;
 	private float valorRecebida;
 	private float valorProducao;
-	private int diaPesquisa;
+	private Date dataini;
+	private Date datafin;
 	
 	
 	@PostConstruct
@@ -244,9 +245,31 @@ public class HistoricoComissaoMB implements Serializable{
 	}
 
 
+	public Date getDataini() {
+		return dataini;
+	}
+
+
+	public void setDataini(Date dataini) {
+		this.dataini = dataini;
+	}
+
+
+	public Date getDatafin() {
+		return datafin;
+	}
+
+
+	public void setDatafin(Date datafin) {
+		this.datafin = datafin;
+	}
+
+
+	
+	
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.identificador<>6";
+		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -281,8 +304,7 @@ public class HistoricoComissaoMB implements Serializable{
 	
 	
 	public void pesquisar() {
-		int ano = Formatacao.getAnoData(new Date());
-		String sql = "Select h From Historicocomissao h Where h.ano=" + ano + " and h.contrato.situacao.identificador<>6";
+		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2";
 		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
 			sql = sql + " and h.contrato.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
 		}
@@ -295,19 +317,19 @@ public class HistoricoComissaoMB implements Serializable{
 			sql = sql + " and h.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		
-//		if (diaPesquisa > 0) {
-//			Date diaAtual = Formatacao.data
-//		}
+		if (dataini != null && datafin != null) {
+			sql = sql + " and h.datalancamento>='" + Formatacao.ConvercaoDataNfe(dataini)
+				+ "' and h.datalancamento<='" + Formatacao.ConvercaoDataNfe(datafin)
+				+ "'";
+		}
 		
 		if (situacao > 0) {
 			if (situacao == 1) {
-				sql = sql + " and h.contrato.situacao.idsituacao<>" + 2;
-				sql = sql + " and h.contrato.situacao.idsituacao<>" + 13;
-				sql = sql + " and h.contrato.situacao.idsituacao<>" + 14;
+				sql = sql + " and h.contrato.situacao.idsituacao=28";
 			}else if(situacao == 2) {
-				sql = sql + " and (h.contrato.situacao.idsituacao=2";
-				sql = sql + " or h.contrato.situacao.idsituacao=13";
-				sql = sql + " or h.contrato.situacao.idsituacao=14)";
+				sql = sql + " and h.contrato.situacao.idsituacao=19";
+			}else if(situacao == 3) {
+				sql = sql + " and h.contrato.situacao.idsituacao=2";
 			}else {
 				sql = sql + " and h.contrato.situacao.idsituacao=16";
 			}
@@ -352,6 +374,8 @@ public class HistoricoComissaoMB implements Serializable{
 		}
 		tipooiperacao = null;
 		situacao =  0;
+		datafin = null;
+		dataini = null;
 		gerarListaInicial();
 	}
 	
@@ -367,7 +391,7 @@ public class HistoricoComissaoMB implements Serializable{
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		listaUsuario = usuarioFacade.listar("Select u From Usuario u WHERE u.ativo=true");
 		if (listaUsuario == null) {
-			listaUsuario = new ArrayList<Usuario>();
+			listaUsuario = new ArrayList<Usuario>(); 
 		}
 	}
 	

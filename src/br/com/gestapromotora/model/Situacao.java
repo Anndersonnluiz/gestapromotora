@@ -27,6 +27,8 @@ public class Situacao implements Serializable{
 	private String descricao;
 	@Column(name = "identificador")
 	private int identificador;
+	@Column(name = "visualizar")
+	private boolean visualizar;
 	
 	
 	public Situacao() {
@@ -65,6 +67,16 @@ public class Situacao implements Serializable{
 	
 	
 	
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

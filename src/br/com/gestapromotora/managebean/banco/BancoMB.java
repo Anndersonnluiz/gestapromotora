@@ -1,11 +1,6 @@
 package br.com.gestapromotora.managebean.banco;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +10,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-
-import br.com.gestapromotora.bean.VendasBean;
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.model.Banco;
 

@@ -75,11 +75,7 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/banco/consBanco.jsf"> <span
 											data-feather="dollar-sign"></span> Banco
-									</a> <a class="nav-link" href="pages/cliente/consCliente.jsf">
-											<span data-feather="users"></span> Cliente
-									</a> <a class="nav-link" href="pages/despesa/consDespesa.jsf">
-											<span data-feather="user"></span> Tipo Despesa
-									</a> <h:panelGroup
+									</a>   <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
@@ -94,6 +90,11 @@
 								href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
 								role="button" aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="percent"></span> Calculadora
+							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/cliente/consCliente.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="users"></span> Clientes
 							</a></li>
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -113,9 +114,7 @@
 									</a> <a class="nav-link"
 										href="pages/contrato/consDemaisOperacoes.jsf"> <span
 											data-feather="users"></span> Demais Operações
-									</a> <a class="nav-link" href="pages/roteiros/consBancoRoteiro.jsf">
-											<span data-feather="users"></span> Roteiro
-									</a></li>
+									</a> </li>
 								</ul></li>
 							<li class="nav-item, dropdown"><h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
@@ -146,21 +145,35 @@
 										<span data-feather="dollar-sign"></span> Financeiro
 									</a>
 									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"><a class="nav-link"
-											href="pages/comissoes/consPagamentoComissao.jsf"> <span
-												data-feather="dollar-sign"></span> Pag. Comissão
-										</a> <a class="nav-link"
+										<li style="font-size: 12px;"><a class="nav-link" href="pages/despesa/consDespesa.jsf">
+											<span data-feather="user"></span> Tipo Despesa
+									</a> <a class="nav-link"
 											href="pages/financeiro/consContasPagar.jsf"> <span
 												data-feather="dollar-sign"></span> Contas a Pagar
-										</a> <a class="nav-link"
+										</a> </li>
+									</ul>
+								</h:panelGroup></li>
+							<li class="nav-item, dropdown"><h:panelGroup
+									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+									<a class="nav-link" href="#" data-toggle="dropdown"
+										role="button" aria-haspopup="true" aria-expanded="false">
+										<span data-feather="target"></span> Metas
+									</a>
+									<ul class="dropdown-menu">
+										<li style="font-size: 12px;"> <a class="nav-link"
 											href="pages/financeiro/consContasReceber.jsf"> <span
-												data-feather="dollar-sign"></span> Contas a Receber
+												data-feather="dollar-sign"></span> Cadastro
 										</a> <a class="nav-link"
 											href="pages/financeiro/consMetaMensal.jsf"> <span
-												data-feather="dollar-sign"></span> Meta Faturamento
+												data-feather="dollar-sign"></span> Dashboard
 										</a></li>
 									</ul>
 								</h:panelGroup></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/roteiros/consBancoRoteiro.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="printer"></span> Roteiros
+							</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="pages/usuario/alterarSenha.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
@@ -184,7 +197,7 @@
 
 								<p:commandLink action="#{dashBoardMB.listagemFaturamento()}"
 									style="width:100%;text-decoration:none;" ajax="false">
-									<h5 style="font-family: Segoe UI Semibold; color: white;">CARTEIRA</h5>
+									<h5 style="font-family: Segoe UI Semibold; color: white;">PRODUÇÃO</h5>
 									<h4 class="m-top-none" id="userCount"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
@@ -205,8 +218,7 @@
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-info"
 								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">COMISSÕES A
-									RECEBER</h5>
+								<h5 style="font-family: Segoe UI Semibold;">RECEITA PENDENTE</h5>
 								<h4 class="m-top-none"
 									style="color: black; font-family: Segoe UI Semibold;">
 									R$:
@@ -216,7 +228,7 @@
 								</h4>
 								<span class="m-left-xs"
 									style="color: black; font-family: Segoe UI Semibold;">contratos
-									pagos ao cliente</span>
+									não pagos ao cliente</span>
 								<div class="stat-icon" style="opacity: 0.9;">
 									<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
 								</div>
@@ -226,8 +238,7 @@
 							<div class="col-md-4">
 								<div class="panel-stat3"
 									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-									<h5 style="font-family: Segoe UI Semibold;">COMISSÕES A
-										PAGAR</h5>
+									<h5 style="font-family: Segoe UI Semibold;">RECEITA PAGAS</h5>
 									<h4 class="m-top-none" id="visitorCount"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
