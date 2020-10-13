@@ -11,10 +11,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Situacao;
 import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Mensagem;
@@ -37,6 +41,10 @@ public class ContratoMB implements Serializable{
 	private Usuario usuario;
 	private List<Tipooperacao> listaTipoOperacao;
 	private Tipooperacao tipooiperacao;
+	private List<Banco> listaBanco;
+	private Banco banco;
+	private List<Situacao> listaSituacao;
+	private Situacao situacao;
 	
 	
 	@PostConstruct
@@ -44,6 +52,8 @@ public class ContratoMB implements Serializable{
 		gerarListaContrato();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
+		gerarListaBanco();
+		gerarListaSituacao();
 		
 	}
 
@@ -125,6 +135,46 @@ public class ContratoMB implements Serializable{
 
 	public void setTipooiperacao(Tipooperacao tipooiperacao) {
 		this.tipooiperacao = tipooiperacao;
+	}
+
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
+	public List<Situacao> getListaSituacao() {
+		return listaSituacao;
+	}
+
+
+	public void setListaSituacao(List<Situacao> listaSituacao) {
+		this.listaSituacao = listaSituacao;
+	}
+
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 
 
@@ -249,6 +299,14 @@ public class ContratoMB implements Serializable{
 		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
 			sql = sql + " and c.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
 		}
+		
+		if (banco != null && banco.getIdbanco() != null) {
+			sql = sql + " and c.banco.idbanco=" + banco.getIdbanco();
+		}
+		
+		if (situacao != null && situacao.getIdsituacao() != null) {
+			sql = sql + " and c.situacao.idsituacao=" + situacao.getIdsituacao();
+		}
 
 		sql = sql + " ORDER BY c.idcontrato DESC";
 		ContratoFacade contratoFacade = new ContratoFacade();
@@ -264,6 +322,8 @@ public class ContratoMB implements Serializable{
 		nomeCliente = "";
 		cpf = "";
 		tipooiperacao = null;
+		banco = null;
+		situacao = null;
 	}
 	
 	
@@ -281,6 +341,26 @@ public class ContratoMB implements Serializable{
 		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
 		if (listaTipoOperacao == null) {
 			listaTipoOperacao = new ArrayList<Tipooperacao>();
+		}
+	}
+	
+	
+	public void gerarListaSituacao() {
+		SituacaoFacade situacaoFacade = new SituacaoFacade();
+		String sql = "Select s From Situacao s WHERE s.visualizar=true ";
+		sql = sql + " ORDER BY s.descricao";
+		listaSituacao = situacaoFacade.lista(sql);
+		if (listaSituacao == null) {
+			listaSituacao = new ArrayList<Situacao>();
+		}
+	}
+	
+	
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		if (listaBanco == null) {
+			listaBanco = new ArrayList<Banco>();
 		}
 	}
 	

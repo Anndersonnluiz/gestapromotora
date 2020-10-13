@@ -29,6 +29,8 @@ public class Situacao implements Serializable{
 	private int identificador;
 	@Column(name = "visualizar")
 	private boolean visualizar;
+	@Column(name = "portabilidade")
+	private boolean portabilidade;
 	
 	
 	public Situacao() {
@@ -74,6 +76,16 @@ public class Situacao implements Serializable{
 
 	public void setVisualizar(boolean visualizar) {
 		this.visualizar = visualizar;
+	}
+
+
+	public boolean isPortabilidade() {
+		return portabilidade;
+	}
+
+
+	public void setPortabilidade(boolean portabilidade) {
+		this.portabilidade = portabilidade;
 	}
 
 

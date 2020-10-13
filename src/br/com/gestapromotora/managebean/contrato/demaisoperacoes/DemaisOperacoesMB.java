@@ -40,11 +40,11 @@ public class DemaisOperacoesMB implements Serializable{
 	private boolean cancelados = false;
 	private int nIncompletos;
 	private int nDigitados;
-	private int nPagoClientePendencia;
+	private int nPagoCliente;
 	private int nCancelados;
 	private int nAguardandoSolicitacao;
 	private int nAguardandoDigitacao;
-	private int nPendenciaDigitacao;
+	private int nPendenciaDocumentacao;
 	private int nAguardandooperacional;
 	private int nAguardandoPagamento;
 	private int nInconsistenciaBanco;
@@ -226,14 +226,14 @@ public class DemaisOperacoesMB implements Serializable{
 
 
 
-	public int getnPagoClientePendencia() {
-		return nPagoClientePendencia;
+	public int getnPagoCliente() {
+		return nPagoCliente;
 	}
 
 
 
-	public void setnPagoClientePendencia(int nPagoClientePendencia) {
-		this.nPagoClientePendencia = nPagoClientePendencia;
+	public void setnPagoCliente(int nPagoCliente) {
+		this.nPagoCliente = nPagoCliente;
 	}
 
 
@@ -274,14 +274,14 @@ public class DemaisOperacoesMB implements Serializable{
 
 
 
-	public int getnPendenciaDigitacao() {
-		return nPendenciaDigitacao;
+	public int getnPendenciaDocumentacao() {
+		return nPendenciaDocumentacao;
 	}
 
 
 
-	public void setnPendenciaDigitacao(int nPendenciaDigitacao) {
-		this.nPendenciaDigitacao = nPendenciaDigitacao;
+	public void setnPendenciaDocumentacao(int nPendenciaDocumentacao) {
+		this.nPendenciaDocumentacao = nPendenciaDocumentacao;
 	}
 
 
@@ -453,10 +453,11 @@ public class DemaisOperacoesMB implements Serializable{
 	}
 	
 	
-	public void gerarListaPortabilidade(int situacao) {
+	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
-				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao;
+				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao
+				+ " and c.operacaoinss=false ";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -474,7 +475,7 @@ public class DemaisOperacoesMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		return "cadContrato";
+		return "visualizarContrato";
 	}
 	
 	
@@ -499,7 +500,8 @@ public class DemaisOperacoesMB implements Serializable{
 	
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
-				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao;
+				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao
+				+ " and c.operacaoinss=false ";
 		if (usuarioLogadoMB.getUsuario().isAcessogeral() && usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}else {
@@ -513,127 +515,22 @@ public class DemaisOperacoesMB implements Serializable{
 	}
 	
 	public void limpar() {
-		gerarListaPortabilidade(nSituacao);
+		gerarListaDemaisOperacoes(nSituacao);
 		usuario = null;
 		nomeCliente = "";
 		cpf = "";
 	}
 	
 	
-	public void botaoInmcompletos() {
-		if (incompletos) {
-			incompletos = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = true;
-			cancelados = false;
-			digitadoAndamento = false;
-			pagoClientePendencia = false;
-			mudarsituacao = false;
-			nAguardandoDigitacao = 0;
-			nAguardandooperacional = 0;
-			nAguardandoSolicitacao = 0;
-			nPendenciaDigitacao = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 4) {
-					nAguardandoSolicitacao = nAguardandoSolicitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
-					nAguardandoDigitacao = nAguardandoDigitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 5) {
-					nPendenciaDigitacao = nPendenciaDigitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 6) {
-					nAguardandooperacional = nAguardandooperacional + 1;
-				}
-			}
-		}
-	}
-	
-	public void botaoDigitados() {
-		if (digitadoAndamento) {
-			digitadoAndamento = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadoAndamento = true;
-			pagoClientePendencia = false;
-			mudarsituacao = false;
-			nAguardandoPagamento = 0;
-			nInconsistenciaBanco = 0;
-			nInconsistenciaAguardando = 0;
-			nPendenciaDigitacao = 0;
-			nLiberal = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 28) {
-					nAguardandoPagamento = nAguardandoPagamento + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 29) {
-					nInconsistenciaBanco = nInconsistenciaBanco + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 30) {
-					nInconsistenciaAguardando = nInconsistenciaAguardando + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 31) {
-					nPendenciaDigitacao = nPendenciaDigitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 32) {
-					nLiberal = nLiberal + 1;
-				}
-			}
-		}
-	}
-	
-	public void botaoPago() {
-		if (pagoClientePendencia) {
-			pagoClientePendencia = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadoAndamento = false;
-			pagoClientePendencia = true;
-			mudarsituacao = false;
-			nMaloteNaoEnviado = 0;
-			nMaloteEnviado = 0;
-			nFormalizacaoDigital = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 33) {
-					nMaloteNaoEnviado = nMaloteNaoEnviado + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 34) {
-					nMaloteEnviado = nMaloteEnviado + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 35) {
-					nFormalizacaoDigital = nFormalizacaoDigital + 1;
-				}
-			}
-		}
-	}
 
 	
-	public void botaoCancelados() {
-		if (cancelados) {
-			cancelados = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = true;
-			digitadoAndamento = false;
-			pagoClientePendencia = false;
-			mudarsituacao = false;
-			nCanceladoBancoOperacional = 0;
-			nCanceladoCorretor = 0;
-			nCancelado = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 14) {
-					nCanceladoBancoOperacional = nCanceladoBancoOperacional + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 13) {
-					nCanceladoCorretor = nCanceladoCorretor + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 2) {
-					nCancelado = nCancelado + 1;
-				}
-			}
-		}
-	}
+	
 	
 	
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'";
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'"
+				+ " and c.operacaoinss=false ";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
 				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
@@ -643,13 +540,15 @@ public class DemaisOperacoesMB implements Serializable{
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
 		for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-			if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 1) {
-				nIncompletos = nIncompletos + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 7) {
+			if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
 				nDigitados = nDigitados + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 8) {
-				nPagoClientePendencia = nPagoClientePendencia + 1;
-			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 6){
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 5) {
+				nPendenciaDocumentacao = nPendenciaDocumentacao + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 19) {
+				nAguardandoPagamento = nAguardandoPagamento + 1;
+			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16){
+				nPagoCliente = nPagoCliente + 1;
+			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 6){
 				nCancelados = nCancelados + 1;
 			}
 		}

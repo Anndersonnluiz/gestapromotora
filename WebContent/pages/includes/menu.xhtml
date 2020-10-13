@@ -55,7 +55,7 @@
 								<li style="font-size: 12px;"><a class="nav-link"
 									href="/deltafinanceira/pages/banco/consBanco.jsf"> <span
 										data-feather="dollar-sign"></span> Banco
-								</a>  <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 										<a class="nav-link"
 											href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
 											<span data-feather="users"></span> Tipo Colaborador
@@ -72,34 +72,39 @@
 								data-feather="percent"></span> Calculadora
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/deltafinanceira/pages/cliente/consCliente.jsf" role="button"
-							aria-haspopup="true" aria-expanded="false"> <span
+							href="/deltafinanceira/pages/cliente/consCliente.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
 								data-feather="users"></span> Clientes
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="file-plus"></span> Emissão
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/deltafinanceira/pages/contrato/consContrato.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="list"></span> Contratos
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false"> <span
+								data-feather="align-center"></span> Portabilidade
 						</a></li>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"> <span data-feather="archive"></span>
-								Contratos
+							aria-expanded="false"> <span data-feather="align-center"></span>
+								Demais Operações
 						</a>
 							<ul class="dropdown-menu">
 								<li style="font-size: 12px;"><a class="nav-link"
-									href="/deltafinanceira/pages/contrato/consContrato.jsf"> <span
-										data-feather="list"></span> Listagem
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/contrato/confDadosContrato.jsf">
-										<span data-feather="file-plus"></span> Adicionar Contrato
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/contrato/consPortabilidade.jsf">
-										<span data-feather="file-text"></span> Portabilidade
+									href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf">
+										<span data-feather="align-center"></span> INSS
 								</a> <a class="nav-link"
 									href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
-										<span data-feather="users"></span> Demais Operações
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/roteiros/consBancoRoteiro.jsf">
-										<span data-feather="users"></span> Roteiro
+										<span data-feather="align-center"></span> SIAPE/GOV/PREF
 								</a></li>
 							</ul></li>
-
 						<li class="nav-item, dropdown"><h:panelGroup
 								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
 								<a class="nav-link" href="#" data-toggle="dropdown"
@@ -129,10 +134,10 @@
 									data-feather="dollar-sign"></span> Financeiro
 								</a>
 								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"> <a class="nav-link"
-									href="/deltafinanceira/pages/despesa/consDespesa.jsf"> <span
-										data-feather="user"></span> Tipo Despesa
-								</a> <a class="nav-link"
+									<li style="font-size: 12px;"><a class="nav-link"
+										href="/deltafinanceira/pages/despesa/consDespesa.jsf"> <span
+											data-feather="user"></span> Tipo Despesa
+									</a> <a class="nav-link"
 										href="/deltafinanceira/pages/financeiro/consContasPagar.jsf">
 											<span data-feather="dollar-sign"></span> Contas a Pagar
 									</a></li>
@@ -147,11 +152,11 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consContasReceber.jsf">
-											<span data-feather="dollar-sign"></span> Cadastro
+										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
+											<span data-feather="target"></span> Cadastro
 									</a> <a class="nav-link"
 										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
-											<span data-feather="dollar-sign"></span> Dashboard
+											<span data-feather="target"></span> Dashboard
 									</a></li>
 								</ul>
 							</h:panelGroup></li>

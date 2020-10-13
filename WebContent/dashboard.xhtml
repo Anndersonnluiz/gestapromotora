@@ -75,7 +75,7 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/banco/consBanco.jsf"> <span
 											data-feather="dollar-sign"></span> Banco
-									</a>   <h:panelGroup
+									</a> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
@@ -96,25 +96,34 @@
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="users"></span> Clientes
 							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/contrato/confDadosContrato.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="file-plus"></span> Emissão
+							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/contrato/consContrato.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="list"></span> Contratos
+							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/contrato/consPortabilidade.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="align-center"></span> Portabilidade
+							</a></li>
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="archive"></span>
-									Contratos
+								aria-expanded="false"> <span data-feather="align-center"></span>
+									Demais Operações
 							</a>
 								<ul class="dropdown-menu">
 									<li style="font-size: 12px;"><a class="nav-link"
-										href="pages/contrato/consContrato.jsf"> <span
-											data-feather="list"></span> Listagem
-									</a> <a class="nav-link"
-										href="pages/contrato/confDadosContrato.jsf"> <span
-											data-feather="file-plus"></span> Adicionar Contrato
-									</a> <a class="nav-link"
-										href="pages/contrato/consPortabilidade.jsf"> <span
-											data-feather="file-text"></span> Portabilidade
+										href="pages/contrato/consDemaisOperacoesINSS.jsf"> <span
+											data-feather="align-center"></span> INSS
 									</a> <a class="nav-link"
 										href="pages/contrato/consDemaisOperacoes.jsf"> <span
-											data-feather="users"></span> Demais Operações
-									</a> </li>
+											data-feather="align-center"></span> SIAPE/GOV/PREF
+									</a></li>
 								</ul></li>
 							<li class="nav-item, dropdown"><h:panelGroup
 									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
@@ -145,12 +154,13 @@
 										<span data-feather="dollar-sign"></span> Financeiro
 									</a>
 									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"><a class="nav-link" href="pages/despesa/consDespesa.jsf">
-											<span data-feather="user"></span> Tipo Despesa
-									</a> <a class="nav-link"
+										<li style="font-size: 12px;"><a class="nav-link"
+											href="pages/despesa/consDespesa.jsf"> <span
+												data-feather="user"></span> Tipo Despesa
+										</a> <a class="nav-link"
 											href="pages/financeiro/consContasPagar.jsf"> <span
 												data-feather="dollar-sign"></span> Contas a Pagar
-										</a> </li>
+										</a></li>
 									</ul>
 								</h:panelGroup></li>
 							<li class="nav-item, dropdown"><h:panelGroup
@@ -160,12 +170,12 @@
 										<span data-feather="target"></span> Metas
 									</a>
 									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"> <a class="nav-link"
-											href="pages/financeiro/consContasReceber.jsf"> <span
-												data-feather="dollar-sign"></span> Cadastro
+										<li style="font-size: 12px;"><a class="nav-link"
+											href="pages/financeiro/consMetaMensal.jsf"> <span
+												data-feather="target"></span> Cadastro
 										</a> <a class="nav-link"
 											href="pages/financeiro/consMetaMensal.jsf"> <span
-												data-feather="dollar-sign"></span> Dashboard
+												data-feather="target"></span> Dashboard
 										</a></li>
 									</ul>
 								</h:panelGroup></li>
@@ -202,7 +212,8 @@
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
 										<p:outputLabel value="#{dashBoardMB.fatutamento}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</h4>
 									<span class="m-left-xs"
@@ -218,40 +229,49 @@
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-info"
 								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<h5 style="font-family: Segoe UI Semibold;">RECEITA PENDENTE</h5>
-								<h4 class="m-top-none"
-									style="color: black; font-family: Segoe UI Semibold;">
-									R$:
-									<p:outputLabel value="#{dashBoardMB.valorReceber}">
-										<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-									</p:outputLabel>
-								</h4>
-								<span class="m-left-xs"
-									style="color: black; font-family: Segoe UI Semibold;">contratos
-									não pagos ao cliente</span>
-								<div class="stat-icon" style="opacity: 0.9;">
-									<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
-								</div>
-							</div>
-						</div>
-						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-							<div class="col-md-4">
-								<div class="panel-stat3"
-									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-									<h5 style="font-family: Segoe UI Semibold;">RECEITA PAGAS</h5>
-									<h4 class="m-top-none" id="visitorCount"
+								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<h5 style="font-family: Segoe UI Semibold; color: white;">RECEITA
+										PENDENTE</h5>
+									<h4 class="m-top-none"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
-										<p:outputLabel value="#{dashBoardMB.valorPagar}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+										<p:outputLabel value="#{dashBoardMB.valorReceber}">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</h4>
 									<span class="m-left-xs"
 										style="color: black; font-family: Segoe UI Semibold;">contratos
-										pagos ao cliente</span>
+										não pagos ao cliente</span>
 									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
 									</div>
+								</p:commandLink>
+							</div>
+						</div>
+						<h:panelGroup>
+							<div class="col-md-4">
+								<div class="panel-stat3"
+									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<h5 style="font-family: Segoe UI Semibold; color: white;">RECEITA PAGAS</h5>
+										<h4 class="m-top-none" id="visitorCount"
+											style="color: black; font-family: Segoe UI Semibold;">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorPagar}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h4>
+										<span class="m-left-xs"
+											style="color: black; font-family: Segoe UI Semibold;">contratos
+											pagos ao cliente</span>
+										<div class="stat-icon" style="opacity: 0.9;">
+											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+										</div>
+									</p:commandLink>
 								</div>
 							</div>
 						</h:panelGroup>
@@ -288,7 +308,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;margin-left:2%;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -307,7 +328,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -326,7 +348,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -349,7 +372,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
 											style="font-weight:bold;font-size:18px;margin-left:2%;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -368,7 +392,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>
@@ -387,7 +412,8 @@
 											style="font-weight:bold;font-size:18px;" />
 										<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
 											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
 										</p:outputLabel>
 									</div>
 								</div>

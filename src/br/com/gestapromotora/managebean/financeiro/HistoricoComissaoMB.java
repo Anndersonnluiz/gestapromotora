@@ -50,10 +50,18 @@ public class HistoricoComissaoMB implements Serializable{
 	private float valorProducao;
 	private Date dataini;
 	private Date datafin;
+	private String tipoFiltro;
 	
 	
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		tipoFiltro = (String) session.getAttribute("tipoFiltro");
+		session.removeAttribute("tipoFiltro");
+		if (tipoFiltro == null || tipoFiltro.isEmpty()) {
+			tipoFiltro = "Todos";
+		}
 		gerarListaInicial();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
@@ -272,6 +280,11 @@ public class HistoricoComissaoMB implements Serializable{
 		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		if (tipoFiltro.equalsIgnoreCase("NaoPago")) {
+			sql = sql + " and h.contrato.situacao.idsituacao<>16";
+		}else if (tipoFiltro.equalsIgnoreCase("Pago")) {
+			sql = sql + " and h.contrato.situacao.idsituacao=16";
 		}
 		listaComissao = historicoComissaoFacade.lista(sql);
 		if (listaComissao == null) {

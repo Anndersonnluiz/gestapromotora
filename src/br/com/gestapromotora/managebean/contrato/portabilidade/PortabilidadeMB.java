@@ -49,7 +49,7 @@ public class PortabilidadeMB implements Serializable{
 	private int nCancelados;
 	private int nAguardandoSolicitacao;
 	private int nAguardandoDigitacao;
-	private int nPendenciaDigitacao;
+	private int nPendenciaDocumentacao;
 	private int nAguardandooperacional;
 	private int nAguardandoCIP;
 	private int nProblemasCIP;
@@ -340,14 +340,14 @@ public class PortabilidadeMB implements Serializable{
 
 
 
-	public int getnPendenciaDigitacao() {
-		return nPendenciaDigitacao;
+	public int getnPendenciaDocumentacao() {
+		return nPendenciaDocumentacao;
 	}
 
 
 
-	public void setnPendenciaDigitacao(int nPendenciaDigitacao) {
-		this.nPendenciaDigitacao = nPendenciaDigitacao;
+	public void setnPendenciaDocumentacao(int nPendenciaDocumentacao) {
+		this.nPendenciaDocumentacao = nPendenciaDocumentacao;
 	}
 
 
@@ -685,7 +685,7 @@ public class PortabilidadeMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		return "cadContrato";
+		return "visualizarContrato";
 	}
 	
 	
@@ -731,194 +731,6 @@ public class PortabilidadeMB implements Serializable{
 	}
 	
 	
-	public void botaoInmcompletos() {
-		if (incompletos) {
-			incompletos = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = true;
-			cancelados = false;
-			digitadosPagDivida = false;
-			portabilidadeFin = false;
-			refinanciamentoCriado = false;
-			dividaPaga = false;
-			mudarsituacao = false;
-			nAguardandoDigitacao = 0;
-			nAguardandooperacional = 0;
-			nAguardandoSolicitacao = 0;
-			nPendenciaDigitacao = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 4) {
-					nAguardandoSolicitacao = nAguardandoSolicitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
-					nAguardandoDigitacao = nAguardandoDigitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 5) {
-					nPendenciaDigitacao = nPendenciaDigitacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 6) {
-					nAguardandooperacional = nAguardandooperacional + 1;
-				}
-			}
-		}
-	}
-	
-	public void botaoDigitados() {
-		if (digitadosPagDivida) {
-			digitadosPagDivida = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadosPagDivida = true;
-			portabilidadeFin = false;
-			refinanciamentoCriado = false;
-			dividaPaga = false;
-			mudarsituacao = false;
-			nAguardandoCIP = 0;
-			nProblemasCIP = 0;
-			nProblemasCIPAguarOper = 0;
-			nSaldoAguarPagDivida = 0;
-			nSaldoAguarRespCorretor = 0;
-			nSaldoAguardandoOperacional = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 7) {
-					nAguardandoCIP = nAguardandoCIP + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 8) {
-					nProblemasCIP = nProblemasCIP + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 9) {
-					nProblemasCIPAguarOper = nProblemasCIPAguarOper + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 10) {
-					nSaldoAguarPagDivida = nSaldoAguarPagDivida + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 11) {
-					nSaldoAguarRespCorretor = nSaldoAguarRespCorretor + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 12) {
-					nSaldoAguardandoOperacional = nSaldoAguardandoOperacional + 1;
-				}
-			}
-		}
-	}
-	
-	public void botaoDivida() {
-		if (dividaPaga) {
-			dividaPaga = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadosPagDivida = false;
-			portabilidadeFin = false;
-			refinanciamentoCriado = false;
-			dividaPaga = true;
-			mudarsituacao = false;
-			nIntencaoPortabilidade = 0;
-			nSemIntencao = 0;
-			nMargemLiberada = 0;
-			nProblemasAverbacao = 0;
-			nAverbacaoAguardandoOperacional = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 27) {
-					nIntencaoPortabilidade = nIntencaoPortabilidade + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 26) {
-					nSemIntencao = nSemIntencao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 25) {
-					nMargemLiberada = nMargemLiberada + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 24) {
-					nProblemasAverbacao = nProblemasAverbacao + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 23) {
-					nAverbacaoAguardandoOperacional = nAverbacaoAguardandoOperacional + 1;
-				}
-			}
-		}
-	}
-	
-	public void botaoPortabilidade() {
-		if (portabilidadeFin) {
-			portabilidadeFin = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadosPagDivida = false;
-			portabilidadeFin = true;
-			refinanciamentoCriado = false;
-			dividaPaga = false;
-			mudarsituacao = false;
-			nPortabilidadeFinalizada = 0;
-			nMargemInsuficiente = 0;
-			nPortabilidadeAguardando = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 22) {
-					nPortabilidadeFinalizada = nPortabilidadeFinalizada + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 21) {
-					nMargemInsuficiente = nMargemInsuficiente + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 20) {
-					nPortabilidadeAguardando = nPortabilidadeAguardando + 1;
-				}
-			}
-		}
-	}
-
-	
-	public void botaoRefinanciamento() {
-		if (refinanciamentoCriado) {
-			refinanciamentoCriado = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = false;
-			digitadosPagDivida = false;
-			portabilidadeFin = false;
-			refinanciamentoCriado = true;
-			dividaPaga = false;
-			mudarsituacao = false;
-			nAguardandoPagamento = 0;
-			nProblemasRefin = 0;
-			nProblemasRefinAguardandoOpe = 0;
-			nPagoCliente = 0;
-			nRefinaciamentoPortabilidade = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 19) {
-					nAguardandoPagamento = nAguardandoPagamento + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 18) {
-					nProblemasRefin = nProblemasRefin + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 17) {
-					nProblemasRefinAguardandoOpe = nProblemasRefinAguardandoOpe + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16) {
-					nPagoCliente = nPagoCliente + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 15) {
-					nRefinaciamentoPortabilidade = nRefinaciamentoPortabilidade + 1;
-				}
-			}
-		}
-	}
-
-	
-	public void botaoCancelados() {
-		if (cancelados) {
-			cancelados = false;
-			mudarsituacao = false;
-		}else {
-			incompletos = false;
-			cancelados = true;
-			digitadosPagDivida = false;
-			portabilidadeFin = false;
-			refinanciamentoCriado = false;
-			dividaPaga = false;
-			mudarsituacao = false;
-			nCanceladoBancoOperacional = 0;
-			nCanceladoCorretor = 0;
-			nCancelado = 0;
-			for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-				if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 14) {
-					nCanceladoBancoOperacional = nCanceladoBancoOperacional + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 13) {
-					nCanceladoCorretor = nCanceladoCorretor + 1;
-				}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 2) {
-					nCancelado = nCancelado + 1;
-				}
-			}
-		}
-	}
-	
 	
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
@@ -932,18 +744,18 @@ public class PortabilidadeMB implements Serializable{
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
 		for (int i = 0; i < listaContratoPesquisa.size(); i++) {
-			if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 1) {
-				nIncompletos = nIncompletos + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 2) {
+			if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
 				nDigitados = nDigitados + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 3) {
-				nDivida = nDivida + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 4) {
-				nPortabilidade = nPortabilidade + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 5) {
-				nRefinanciamento = nRefinanciamento + 1;
-			}else if (listaContratoPesquisa.get(i).getSituacao().getIdentificador() == 6){
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 2) {
 				nCancelados = nCancelados + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 5) {
+				nPendenciaDocumentacao = nPendenciaDocumentacao + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 7) {
+				nAguardandoCIP = nAguardandoCIP + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 15) {
+				nRefinanciamento = nRefinanciamento + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16){
+				nPagoCliente = nPagoCliente + 1;
 			}
 		}
 	}

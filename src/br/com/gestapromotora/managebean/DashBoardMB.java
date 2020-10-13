@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.MetaFaturamentoAnualDao;
 import br.com.gestapromotora.dao.MetaFaturamentoMensalDao;
@@ -390,7 +392,7 @@ public class DashBoardMB implements Serializable{
 	public void faturamentoMensal() {
 		mesatual = Formatacao.getMesData(new Date()) + 1;
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h Where h.tipo<>'Pago' and h.contrato.situacao.identificador<>6"  ;
+		String sql = "Select h From Historicocomissao h Where h.tipo<>'Pago' and h.contrato.situacao.idsituacao<>2"  ;
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -405,14 +407,40 @@ public class DashBoardMB implements Serializable{
 				fatutamento = fatutamento + lista.get(i).getCmsliq();
 			}
 			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16) {
-				valorPagar = valorPagar + lista.get(i).getCmsliq();
-				valorReceber = valorReceber + lista.get(i).getCmdbruta();
+				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+					valorPagar = valorPagar + lista.get(i).getCmdbruta();
+				}else {
+					valorPagar = valorPagar + lista.get(i).getCmsliq();
+				}
+			}else {
+				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+					valorReceber = valorReceber + lista.get(i).getCmdbruta();
+				}else {
+					valorReceber = valorReceber + lista.get(i).getCmsliq();
+				}
 			}
 		}
 	}
 	
 	
 	public String listagemFaturamento() {
+		return "consPagamentoComissao";
+	}
+	
+	
+	
+	public String receitaNaoPaga() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "NaoPago");
+		return "consPagamentoComissao";
+	}
+	
+	
+	public String receitaPaga() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "Pago");
 		return "consPagamentoComissao";
 	}
 

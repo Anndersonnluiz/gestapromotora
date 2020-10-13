@@ -1,7 +1,6 @@
 package br.com.gestapromotora.managebean.contrato;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.NotificacaoDao;
-import br.com.gestapromotora.dao.UsuarioDao;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.RankingVendasAnualFacade;
 import br.com.gestapromotora.facade.RankingVendasFacade;
@@ -25,7 +23,6 @@ import br.com.gestapromotora.model.Rankingvendas;
 import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Situacao;
-import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Formatacao;
 
 @Named

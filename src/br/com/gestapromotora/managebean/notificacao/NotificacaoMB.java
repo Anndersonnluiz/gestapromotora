@@ -97,5 +97,19 @@ public class NotificacaoMB implements Serializable{
 	
 	
 	
+	public void vistoTodos() {
+		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		if (listaNotificacao == null) {
+			listaNotificacao = new ArrayList<Notificacao>();
+		}
+		for (int i = 0; i < listaNotificacao.size(); i++) {
+			listaNotificacao.get(i).setVisto(true);
+			notificacaoDao.salvar(listaNotificacao.get(i));
+			listaNotificacao = new ArrayList<Notificacao>();
+			usuarioLogadoMB.listarNotificacao();
+		}
+	}
+	
+	
 
 }

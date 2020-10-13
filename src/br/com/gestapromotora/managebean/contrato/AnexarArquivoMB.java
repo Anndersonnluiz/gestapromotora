@@ -254,7 +254,7 @@ public class AnexarArquivoMB implements Serializable{
 			Mensagem.lancarMensagemInfo("Erro", "conectar FTP");
 		}    
 		try {
-			String nomeArquivoFTP = "" +  contrato.getIdcontrato();
+			String nomeArquivoFTP = "";
 			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "");
 			if (arquivoEnviado) {
 				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
@@ -296,8 +296,8 @@ public class AnexarArquivoMB implements Serializable{
 				if (tipoarquivo != null && tipoarquivo.getIdtipoarquivo() != null) {
 					contratoarquivo = new Contratoarquivo();
 					contratoarquivo.setDataupload(new Date());
-					contratoarquivo.setNomearquivo(contrato.getIdcontrato() + "_"
-							+ new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
+					contratoarquivo.setNomearquivo(
+							 new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
 					contratoarquivo.setContrato(contrato);
 					contratoarquivo.setTipoarquivo(tipoarquivo);
 					ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();

@@ -31,8 +31,10 @@ public class OrgaoBanco implements Serializable{
     private Banco banco;
 	@Column(name = "link")
 	private String link;
+	@Column(name = "demaisopeinss")
+	private boolean demaisopeinss;
 	
-	
+	 
 	
 	public OrgaoBanco() {
 	
@@ -83,6 +85,18 @@ public class OrgaoBanco implements Serializable{
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+
+
+	public boolean isDemaisopeinss() {
+		return demaisopeinss;
+	}
+
+
+
+	public void setDemaisopeinss(boolean demaisopeinss) {
+		this.demaisopeinss = demaisopeinss;
 	}
 
 

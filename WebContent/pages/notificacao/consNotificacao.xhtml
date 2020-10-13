@@ -11,6 +11,13 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
+		<div align="right">
+			<p:commandLink ajax="false" update="idTabelaNotificacao"
+				action="#{notificacaoMB.vistoTodos()}"
+				styleClass="btn btn-link" value="Limpar (TODOS)"
+				style="text-align: left;">
+			</p:commandLink>
+		</div>
 		<p:dataTable id="idTabelaNotificacao" var="notificacao"
 			value="#{notificacaoMB.listaNotificacao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
@@ -36,7 +43,7 @@
 
 			<p:column headerText=""
 				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-				<p:commandLink ajax="false" 
+				<p:commandLink ajax="false"
 					action="#{notificacaoMB.visualizarContrato(notificacao)}"
 					style="text-align: left;color:black;">
 					<span data-feather="eye"></span>

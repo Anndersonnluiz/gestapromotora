@@ -39,6 +39,8 @@ public class Dadosbancario implements Serializable{
 	private int digitoconta;
 	@Column(name = "titular")
 	private String titular;
+	@Column(name = "cartaomagnetico")
+	private String cartaomagnetico;
 	@JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
 	@ManyToOne(optional = false)
 	private Banco banco;
@@ -154,6 +156,18 @@ public class Dadosbancario implements Serializable{
 
 	public void setBanco(Banco banco) {
 		this.banco = banco;
+	}
+
+
+
+	public String getCartaomagnetico() {
+		return cartaomagnetico;
+	}
+
+
+
+	public void setCartaomagnetico(String cartaomagnetico) {
+		this.cartaomagnetico = cartaomagnetico;
 	}
 
 

@@ -6,173 +6,208 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<h4>Consulta de Contrato</h4>
-			<hr />
+		<h4>Consulta de Contrato</h4>
+		<hr />
 
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000"  />
-			<br />
-
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="usuario">Corretor</label>
-					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
-						value="#{contratoMB.usuario}" converter="UsuarioConverter"
-						styleClass="form-control" onchange="usuario">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{contratoMB.listaUsuario}"
-							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
-							itemValue="#{usuarioSelecionado}" />
-						<f:attribute name="listaUsuario"
-							value="#{contratoMB.listaUsuario}" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-5">
-					<label for="nomecliente">Nome Cliente</label>
-					<h:inputText class="form-control" id="nomecliente"
-						value="#{contratoMB.nomeCliente}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-2">
-					<label for="cpf">CPF</label>
-					<p:inputMask mask="999.999.999-99" id="cpf" styleClass="form-control" value="#{contratoMB.cpf}"/>
-				</div>
-				<div class="form-group col-md-4">
-				<label for="inputRG">Tipo de Operação</label>
-				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-					value="#{contratoMB.tipooiperacao}"
-					converter="TipoOperacaoConverter" styleClass="form-control">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{contratoMB.listaTipoOperacao}"
-						var="tipoOperacaoSelecionado"
-						itemLabel="#{tipoOperacaoSelecionado.descricao}"
-						itemValue="#{tipoOperacaoSelecionado}" />
-					<f:attribute name="listaTipoOperacao"
-						value="#{contratoMB.listaTipoOperacao}" />
-				</h:selectOneMenu>
-			</div>
-				<div class="form-group col-md-3">
-					<label>.</label>
-					<div>
-						<p:commandLink ajax="false" styleClass="btn btn-primary"
-							value="Pesquisar" action="#{contratoMB.pesquisar()}"
-							update="idTabelaContrato" />
-						<p:commandLink ajax="false" style="margin-left:1%;"
-							styleClass="btn btn-link" value="Limpar"
-							action="#{contratoMB.limpar()}"
-							update="idTabelaContrato, cpf, nomecliente, usuario" />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<br />
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="usuario">Corretor</label>
+						<h:selectOneMenu id="usuario" style="width: 100%;"
+							immediate="true" value="#{contratoMB.usuario}"
+							converter="UsuarioConverter" styleClass="form-control"
+							onchange="usuario">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaUsuario}"
+								var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+								itemValue="#{usuarioSelecionado}" />
+							<f:attribute name="listaUsuario"
+								value="#{contratoMB.listaUsuario}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-5">
+						<label for="nomecliente">Nome Cliente</label>
+						<h:inputText class="form-control" id="nomecliente"
+							value="#{contratoMB.nomeCliente}">
+						</h:inputText>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="cpf">CPF</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{contratoMB.cpf}" />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputRG">Tipo de Operação</label>
+						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+							value="#{contratoMB.tipooiperacao}"
+							converter="TipoOperacaoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaTipoOperacao}"
+								var="tipoOperacaoSelecionado"
+								itemLabel="#{tipoOperacaoSelecionado.descricao}"
+								itemValue="#{tipoOperacaoSelecionado}" />
+							<f:attribute name="listaTipoOperacao"
+								value="#{contratoMB.listaTipoOperacao}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputNome">Banco</label>
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{contratoMB.banco}"
+							converter="BancoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaBanco}"
+								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+								itemValue="#{bancoSelecionado}" />
+							<f:attribute name="listaBanco" value="#{contratoMB.listaBanco}" />
+							<p:ajax event="blur" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="novasituacao">Situação</label>
+						<h:selectOneMenu id="novasituacao" style="width: 100%;"
+							value="#{contratoMB.situacao}" converter="SituacaoConverter"
+							styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaSituacao}"
+								var="situacaoSelecionado"
+								itemLabel="#{situacaoSelecionado.descricao}"
+								itemValue="#{situacaoSelecionado}" />
+							<f:attribute name="listaSituacao"
+								value="#{contratoMB.listaSituacao}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-3">
+						<label>.</label>
+						<div>
+							<p:commandLink ajax="false" styleClass="btn btn-primary"
+								value="Pesquisar" action="#{contratoMB.pesquisar()}"
+								update="idTabelaContrato" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{contratoMB.limpar()}"
+								update="idTabelaContrato, cpf, nomecliente, usuario" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<br />
-			<p:dataTable id="idTabelaContrato" var="contrato"
-				value="#{contratoMB.listaContrato}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{contrato.idcontrato}">
+			</p:tab>
+		</p:accordionPanel>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="contrato"
+			value="#{contratoMB.listaContrato}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contrato.idcontrato}">
 
 
-				<p:column headerText="Código"
-					style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.codigocontrato}" />
-				</p:column>
-				<p:column headerText="Corretor"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.usuario.nome}">
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Nome"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.cliente.nome}" />
-				</p:column>
-				<p:column headerText="CPF"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.cliente.cpf}" />
-				</p:column>
-				<p:column headerText="Banco/Órgão"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText
-						value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} / #{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
-				</p:column>
-				<p:column headerText="Operação"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.tipooperacao.descricao}" />
-				</p:column>
-				<p:column headerText="Situação"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.situacao.descricao}" />
-				</p:column>
-				<p:column headerText="Valor Parcela"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{contrato.parcela}">
-						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Data Pag." sortBy="#"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.datapagamento}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:outputText>
-				</p:column>
+			<p:column headerText="Código"
+				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.codigocontrato}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.usuario.nome}">
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Nome"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.cliente.cpf}" />
+			</p:column>
+			<p:column headerText="Banco/Órgão"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText
+					value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} / #{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.tipooperacao.descricao}" />
+			</p:column>
+			<p:column headerText="Situação"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.situacao.descricao}" />
+			</p:column>
+			<p:column headerText="Valor Parcela"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				<h:outputText value="#{contrato.parcela}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Data Pag." sortBy="#"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.datapagamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
 
-				<p:column headerText=""
-					style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{contratoMB.editar(contrato)}"
-						style="text-align: left;color:black;" title="Editar">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false" action="#{contratoMB.anexarArquivo(contrato)}"
-						title="Arquivos" style="text-align: left;color:black;">
-						<span data-feather="folder-plus"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.bloquearEdicao(contrato)}"
-						update=":frmConsultaBanco:growl, idTabelaContrato"
-						style="text-align: left;color:black;" title="Bloqueio de contrato">
-						<span data-feather="#{contrato.descricaobloqueio}"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.digitarEdicao(contrato)}"
-						update=":frmConsultaBanco:growl, idTabelaContrato"
-						style="text-align: left;color:black;" title="Digitalização">
-						<span data-feather="#{contrato.descricaodigitado}"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.entregueFisico(contrato)}"
-						update=":frmConsultaBanco:growl, idTabelaContrato"
-						style="text-align: left;color:black;">
-						<span data-feather="#{contrato.descricaofisico}"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.historicopendencia(contrato)}"
-						style="text-align: left;color:black;">
-						<span data-feather="alert-triangle"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.financeiro(contrato)}"
-						style="text-align: left;color:black;">
-						<span data-feather="dollar-sign"></span>
-					</p:commandLink>
+			<p:column headerText=""
+				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{contratoMB.editar(contrato)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.anexarArquivo(contrato)}" title="Arquivos"
+					style="text-align: left;color:black;">
+					<span data-feather="folder-plus"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.bloquearEdicao(contrato)}"
+					update=":frmConsultaBanco:growl, idTabelaContrato"
+					style="text-align: left;color:black;" title="Bloqueio de contrato">
+					<span data-feather="#{contrato.descricaobloqueio}"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.digitarEdicao(contrato)}"
+					update=":frmConsultaBanco:growl, idTabelaContrato"
+					style="text-align: left;color:black;" title="Digitalização">
+					<span data-feather="#{contrato.descricaodigitado}"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.entregueFisico(contrato)}"
+					update=":frmConsultaBanco:growl, idTabelaContrato"
+					style="text-align: left;color:black;">
+					<span data-feather="#{contrato.descricaofisico}"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.historicopendencia(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="alert-triangle"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.financeiro(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="dollar-sign"></span>
+				</p:commandLink>
 
-					<p:commandLink ajax="false" action="#{contratoMB.malote(contrato)}"
-						style="text-align: left;color:black;">
-						<span data-feather="briefcase"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false" action="#"
-						style="text-align: left;color:black;">
-						<span data-feather="printer"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{contratoMB.trocatTitular(contrato)}"
-						style="text-align: left;color:black;">
-						<span data-feather="refresh-cw"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
-			<br />
-			<br />
+				<p:commandLink ajax="false" action="#{contratoMB.malote(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="briefcase"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false" action="#"
+					style="text-align: left;color:black;">
+					<span data-feather="printer"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{contratoMB.trocatTitular(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="refresh-cw"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

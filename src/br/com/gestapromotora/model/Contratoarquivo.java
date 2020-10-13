@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "contratoarquivo")
@@ -39,11 +40,13 @@ public class Contratoarquivo implements Serializable{
     @JoinColumn(name = "tipoarquivo_idtipoarquivo", referencedColumnName = "idtipoarquivo")
     @ManyToOne(optional = false)
     private Tipoarquivo tipoarquivo;
+    @Transient
+    private boolean novoupload;
     
     
     
     public Contratoarquivo() {
-	
+    	novoupload = false;
 	}
 
 

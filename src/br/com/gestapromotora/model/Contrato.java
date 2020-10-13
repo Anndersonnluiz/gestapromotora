@@ -121,6 +121,10 @@ public class Contrato implements Serializable{
 	private Tipooperacao tipooperacao;
 	@Column(name = "idregracoeficiente")
 	private int idregracoeficiente;
+	@Column(name = "reducaoparcela")
+	private boolean reducaoparcela;
+	@Column(name = "operacaoinss")
+	private boolean operacaoinss;
 	
 	
 	public Contrato() {
@@ -562,6 +566,26 @@ public class Contrato implements Serializable{
 
 	public void setIdregracoeficiente(int idregracoeficiente) {
 		this.idregracoeficiente = idregracoeficiente;
+	}
+
+
+	public boolean isReducaoparcela() {
+		return reducaoparcela;
+	}
+
+
+	public void setReducaoparcela(boolean reducaoparcela) {
+		this.reducaoparcela = reducaoparcela;
+	}
+
+
+	public boolean isOperacaoinss() {
+		return operacaoinss;
+	}
+
+
+	public void setOperacaoinss(boolean operacaoinss) {
+		this.operacaoinss = operacaoinss;
 	}
 
 

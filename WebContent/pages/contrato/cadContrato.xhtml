@@ -11,11 +11,20 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<div class="form-row">
-			<div class="form-group col-md-3">
-				<label for="corretor">Responsável</label>
-				<h:inputText value="#{usuarioLogadoMB.usuario.nome}" disabled="true"
-					class="form-control" id="corretor" placeholder="Nome"
-					style="border-color:black;" />
+			<div class="form-group col-md-4">
+				<label for="usuario">Corretor</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{cadContratoMB.usuario}" converter="UsuarioConverter"
+					styleClass="form-control" onchange="usuario"
+					disabled="#{cadContratoMB.habilitarUsuario}">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContratoMB.listaUsuario}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaUsuario"
+						value="#{cadContratoMB.listaUsuario}" />
+				</h:selectOneMenu>
 			</div>
 			<div class="form-group col-md-3">
 				<label for="datacadastro">Data Cadastro</label>
@@ -33,7 +42,7 @@
 					id="emailcorretor" placeholder="Email" />
 			</div>
 
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-2">
 				<label for="dataNasc">Assinado no banco ?</label>
 				<div>
 					<p:selectBooleanCheckbox
@@ -45,15 +54,38 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label for="inputNome">Banco</label>
-				<h:inputText value="#{cadContratoMB.banco.nome}" disabled="true"
-					style="border-color:black;" class="form-control"
-					placeholder="Banco" />
+				<h:panelGrid columns="2" style="width:100%;">
+					<h:selectOneMenu id="exampleBancoSelecionar" style="width: 100%;"
+						immediate="true" value="#{cadContratoMB.banco}"
+						converter="BancoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadContratoMB.listaBancoInicio}"
+							var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+							itemValue="#{bancoSelecionado}" />
+						<f:attribute name="listaBanco"
+							value="#{cadContratoMB.listaBancoInicio}" />
+						<p:ajax event="blur" />
+					</h:selectOneMenu>
+					<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
+						action="#{cadContratoMB.gerarListaOrgao()}" ajax="false"
+						update="orgaobanco" styleClass="btn btn-primary" />
+				</h:panelGrid>
 			</div>
 			<div class="form-group col-md-4">
-				<label>Orgão</label>
-				<h:inputText value="#{cadContratoMB.orgaoBanco.nome}"
-					style="border-color:black;" disabled="true" class="form-control"
-					placeholder="Orgão" />
+				<label for="orgaobanco">Orgão</label>
+				<h:selectOneMenu id="orgaobanco" style="width: 100%;"
+					value="#{cadContratoMB.orgaoBanco}" converter="OrgaoBancoConverter"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContratoMB.listaOrgaoBanco}"
+						var="orgaoBancoSelecionado"
+						itemLabel="#{orgaoBancoSelecionado.nome}"
+						itemValue="#{orgaoBancoSelecionado}" />
+					<f:attribute name="listaOrgao"
+						value="#{cadContratoMB.listaOrgaoBanco}" />
+				</h:selectOneMenu>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="inputRG">Tipo de Operação</label>
@@ -68,12 +100,149 @@
 		<hr />
 
 		<div class="form-row">
-			<div class="form-group col-md-4">
-				<label for="secretaria">Secretaria</label>
-				<h:inputText value="#{cadContratoMB.contrato.secretaria}"
-					style="border-color:black;" class="form-control" id="secretaria"
-					placeholder="Nome" />
-			</div>
+			<h:panelGroup rendered="#{!cadContratoMB.contrato.operacaoinss}">
+				<div class="form-group col-md-4">
+					<label for="secretaria">Secretaria</label>
+					<h:inputText value="#{cadContratoMB.contrato.secretaria}"
+						style="border-color:black;" class="form-control" id="secretaria"
+						placeholder="Nome" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{cadContratoMB.contrato.operacaoinss}">
+				<div class="form-group col-md-8">
+					<label>Espécie Beneficio</label>
+					<h:selectOneMenu style="width: 100%;border-color:black;"
+						id="especieBeneficio" value="#{cadContratoMB.contrato.secretaria}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="1- Por Morte de Trabalho Rurale"
+							itemValue="1" />
+						<f:selectItem
+							itemLabel="2- Pensão Por Morte Acidente Do Trabalho do Trabalhador Rural"
+							itemValue="2" />
+						<f:selectItem itemLabel="3- Pensão Por Morte do Empregador Rural"
+							itemValue="3" />
+						<f:selectItem itemLabel="4- Por Invalidez do Trabalhador Rural"
+							itemValue="4" />
+						<f:selectItem
+							itemLabel="5- Aposentadoria por Invalidez, Por Acidente do Trabalhador Rural"
+							itemValue="5" />
+						<f:selectItem itemLabel="6- Por Invalidez do Trabalhador Rural"
+							itemValue="6" />
+						<f:selectItem itemLabel="7- Por Idade do Trabalhador Rural"
+							itemValue="7" />
+						<f:selectItem itemLabel="8- Por Idade do Empregador Rural"
+							itemValue="8" />
+						<f:selectItem itemLabel="19- Pensão De Estudante (Lei 7004/82)"
+							itemValue="19" />
+						<f:selectItem itemLabel="20- Pensão Por Morte de ex-diplomata"
+							itemValue="20" />
+						<f:selectItem itemLabel="21- Por Morte Previdenciária (LOPS)"
+							itemValue="21" />
+						<f:selectItem itemLabel="22- Por Morte Estatutária (EPU)"
+							itemValue="22" />
+						<f:selectItem itemLabel="23- Por Morte de ex Combatente"
+							itemValue="23" />
+						<f:selectItem itemLabel="23- Por Morte de ex Combatente"
+							itemValue="23" />
+						<f:selectItem itemLabel="24- Pensão Especial (Ato Institucional)"
+							itemValue="24" />
+						<f:selectItem itemLabel="26- Pensão Especia (Lei 593/48) (EPU))"
+							itemValue="26" />
+						<f:selectItem
+							itemLabel="27- Por Morte do Servidor Público Federal Com Dupla Aposentadoria"
+							itemValue="27" />
+						<f:selectItem
+							itemLabel="28- Por Morte, do Regime Geral (Decreto 20465/31)"
+							itemValue="28" />
+						<f:selectItem
+							itemLabel="29- Por Morte de ex Combatente Maritímo (Lei 1756/52)"
+							itemValue="29" />
+						<f:selectItem itemLabel="32- Por Invalidez Previdenciária (LOPS)"
+							itemValue="32" />
+						<f:selectItem itemLabel="33- Por Invalidez de Aeronauta"
+							itemValue="33" />
+						<f:selectItem
+							itemLabel="34- Por Invalidez de ex Combatente Marítimo (Lei 1.756/52)"
+							itemValue="34" />
+						<f:selectItem
+							itemLabel="37- Aponsentadoria de Extranumerário da União (EPU)"
+							itemValue="37" />
+						<f:selectItem itemLabel="38- Aposentadoria da extinta CAPIN (EPU)"
+							itemValue="38" />
+						<f:selectItem itemLabel="41- Por Idade (LOPS))" itemValue="41" />
+						<f:selectItem
+							itemLabel="42- Por Tempo de Contribuição Previdenciária"
+							itemValue="42" />
+						<f:selectItem
+							itemLabel="43- Por Tempo de Contribuição de ex Combatente"
+							itemValue="43" />
+						<f:selectItem
+							itemLabel="44- Por Tempo de Contribuição de Aeronauta"
+							itemValue="44" />
+						<f:selectItem
+							itemLabel="45- Por Tempo de Contribuição de Jornalista Profissional"
+							itemValue="45" />
+						<f:selectItem itemLabel="46- Por Tempo de Contribuição Especial"
+							itemValue="46" />
+						<f:selectItem itemLabel="49- Por Tempo de Contribuição Ordinária"
+							itemValue="49" />
+						<f:selectItem
+							itemLabel="51- Por Aposentadoria Por Invalidez (Extinto Plano Básico)"
+							itemValue="51" />
+						<f:selectItem itemLabel="52- Por Idade (Extinto Plano Básico)"
+							itemValue="52" />
+						<f:selectItem
+							itemLabel="54- Pensão Especial Vitalícia (Lei 9793/99) (EPU))"
+							itemValue="54" />
+						<f:selectItem itemLabel="55- Por Morte (Extinto Plano Básico)"
+							itemValue="55" />
+						<f:selectItem
+							itemLabel="56- Pensão Mensal Vitalícia por Síndrome de Talidomida (Lei 7070/82)"
+							itemValue="56" />
+						<f:selectItem
+							itemLabel="57- Por Tempo de Contribuição de Professores (EC/CF 18/81)"
+							itemValue="57" />
+						<f:selectItem
+							itemLabel="58- Aposentadoria Excepcional do Anistiado (Lei 6683/79) (EPU)"
+							itemValue="58" />
+						<f:selectItem
+							itemLabel="59- Por Morte Excepcional do Anistiado (Lei 6683/79) (EPU)"
+							itemValue="59" />
+						<f:selectItem
+							itemLabel="60- Pensão Especial Mensal Vitalícia (Lei 10.923/04)"
+							itemValue="60" />
+						<f:selectItem
+							itemLabel="72- Por Tempo de Contribuição de ex Combatente Marítimo (Lei 1756/52)"
+							itemValue="72" />
+						<f:selectItem
+							itemLabel="78- Por Idade de ex Combatente Marítimo (Lei 1.756/52)"
+							itemValue="78" />
+						<f:selectItem itemLabel="81- Por Idade Compulsória (Ex-Sasse)"
+							itemValue="81" />
+						<f:selectItem itemLabel="82- Por Tempo de Contribuição (Ex-Sasse)"
+							itemValue="82" />
+						<f:selectItem
+							itemLabel="83- Aposentadoria por Invalidez (Ex-Sasse)"
+							itemValue="83" />
+						<f:selectItem itemLabel="84- Por Morte (Ex-Sasse)" itemValue="84" />
+						<f:selectItem
+							itemLabel="89- Pensão Especial Aos Dependentes De Vítimas Fatais Por Contaminação na Hemodiálise"
+							itemValue="89" />
+						<f:selectItem
+							itemLabel="92- Aposentadoria por Invalidez por Acidente do Trabalho"
+							itemValue="92" />
+						<f:selectItem
+							itemLabel="93- Pensão por Morte por Acidente do Trabalho"
+							itemValue="93" />
+						<f:selectItem
+							itemLabel="94- Auxílio-Acidente por Acidente do Trabalho"
+							itemValue="94" />
+						<f:selectItem
+							itemLabel="96- Pensão Especial para Pessoas Atingidas por Hanseníase"
+							itemValue="96" />
+					</h:selectOneMenu>
+				</div>
+			</h:panelGroup>
 			<div class="form-group col-md-4">
 				<label for="matricula">Matrícula</label>
 				<h:inputText value="#{cadContratoMB.contrato.matricula}"
@@ -94,7 +263,8 @@
 			<div class="form-group col-md-3">
 				<label for="inputCpf">CPF</label>
 				<h:panelGrid columns="2" style="width:100%;">
-					<p:inputMask mask="999.999.999-99" id="inputCpf" styleClass="form-control" value="#{cadContratoMB.cpf}"/>
+					<p:inputMask mask="999.999.999-99" id="inputCpf"
+						styleClass="form-control" value="#{cadContratoMB.cpf}" />
 					<p:commandLink id="btnCliente" value="Buscar"
 						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
 							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
@@ -156,7 +326,7 @@
 			</div>
 			<div class="form-group col-md-2">
 				<label for="dataEmissao">Data Emissão</label>
-				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:100%;"
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="13"
 					value="#{cadContratoMB.cliente.emissao}" id="dataEmissao">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
@@ -284,6 +454,15 @@
 		<h6>Dados Bancarios</h6>
 		<hr />
 		<div class="form-row">
+			<div class="formgroup col-md-12">
+				<label style="font-size: 14px;">Recebe por CARTÃO MAGNÉTICO</label>
+				<p:selectOneRadio
+					value="#{cadContratoMB.dadosbancario.cartaomagnetico}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+			</div>
+			<br />
 			<div class="form-group col-md-5">
 				<label>Banco</label>
 				<h:selectOneMenu id="exampleBanco"
@@ -321,6 +500,9 @@
 					styleClass="form-control">
 					<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
 					<f:selectItem itemLabel="Conta Corrente" itemValue="Conta Corrente" />
+					<f:selectItem itemLabel="Conta Poupança" itemValue="Conta Poupança" />
+					<f:selectItem itemLabel="Ordem Pagamento"
+						itemValue="Ordem Pagamento" />
 				</h:selectOneMenu>
 			</div>
 			<div class="form-group col-md-3">
@@ -341,97 +523,108 @@
 		<hr />
 
 
-		<div class="form-row">
-			<div class="form-group col-md-3">
-				<label for="inputNome">Banco</label>
-				<h:selectOneMenu id="exampleBancoOperacao"
-					style="width: 100%;border-color:black;"
-					value="#{cadContratoMB.contrato.banco}" converter="BancoConverter"
-					styleClass="form-control">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{cadContratoMB.listaBancoOperacao}"
-						var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
-						itemValue="#{bancoSelecionado}" />
-					<f:attribute name="listaBanco"
-						value="#{cadContratoMB.listaBancoOperacao}" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-3">
-				<label>Parcelas Pagas</label>
-				<p:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
-					style="border-color:black;" immediate="true" id="parcelaspagas"
-					class="form-control" placeholder="Parcelas Pagas">
-					<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
-						render="percentualpago" />
-					<f:ajax event="blur" render="parcelasrestantes, percentualpago" />
-					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
-						update="percentualpago, parcelasrestantes" event="change" />
-				</p:inputText>
-			</div> 
-			<div class="form-group col-md-3">
-				<label>Total Parcelas</label>
-				<p:inputText value="#{cadContratoMB.contrato.totalparcelas}"
-					style="border-color:black;" 
-					id="totalparcelas" class="form-control"
-					>
+		<h:panelGroup
+			rendered="#{!cadContratoMB.contrato.tipooperacao.margem}">
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="dataNasc">.</label>
+					<div>
+						<p:outputLabel value="Redução de Parcela ?"
+							style="font-size:16px;margen-left:2%;" />
+						<p:selectBooleanCheckbox
+							value="#{cadContratoMB.contrato.reducaoparcela}" />
+					</div>
 
-					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
-						update="percentualpago, parcelasrestantes" event="change" />
-				</p:inputText>
-			</div>
-			<div class="form-group col-md-3">
-				<label>% Pago</label>
-				<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
-					style="border-color:black;" immediate="true" id="percentualpago"
-					disabled="true" class="form-control" placeholder="Percentual Pago">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-		</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="inputNome">Banco</label>
+					<h:selectOneMenu id="exampleBancoOperacao"
+						style="width: 100%;border-color:black;"
+						value="#{cadContratoMB.contrato.banco}" converter="BancoConverter"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadContratoMB.listaBancoOperacao}"
+							var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+							itemValue="#{bancoSelecionado}" />
+						<f:attribute name="listaBanco"
+							value="#{cadContratoMB.listaBancoOperacao}" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label>Parcelas Pagas</label>
+					<p:inputText value="#{cadContratoMB.contrato.parcelaspagas}"
+						style="border-color:black;" immediate="true" id="parcelaspagas"
+						class="form-control" placeholder="Parcelas Pagas">
+						<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
+							render="percentualpago" />
+						<f:ajax event="blur" render="parcelasrestantes, percentualpago" />
+						<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
+							update="percentualpago, parcelasrestantes" event="change" />
+					</p:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>Total Parcelas</label>
+					<p:inputText value="#{cadContratoMB.contrato.totalparcelas}"
+						style="border-color:black;" id="totalparcelas"
+						class="form-control">
 
-		<div class="form-row">
-			<div class="form-group col-md-2">
-				<label>Parcelas Restantes</label>
-				<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
-					style="border-color:black;" id="parcelasrestantes" disabled="true"
-					class="form-control" placeholder="Parcelas Restantes">
-				</h:inputText>
+						<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
+							update="percentualpago, parcelasrestantes" event="change" />
+					</p:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>% Pago</label>
+					<h:inputText value="#{cadContratoMB.contrato.percentualpago}"
+						style="border-color:black;" immediate="true" id="percentualpago"
+						disabled="true" class="form-control" placeholder="Percentual Pago">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
 			</div>
-			<div class="form-group col-md-3">
-				<label>Cotrato Portado</label>
-				<h:inputText value="#{cadContratoMB.contrato.contratoportado}"
-					style="border-color:black;" id="contratoportado"
-					class="form-control" placeholder="Contrato Portado">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-2">
-				<label>Parcela</label>
-				<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
-					style="border-color:black;" class="form-control"
-					placeholder="Parcela">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-2">
-				<label>Valor Quitar</label>
-				<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
-					style="border-color:black;" id="valorquitar" class="form-control"
-					placeholder="Valor Quitar">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-3">
-				<label>Saldo Inadimplência</label>
-				<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
-					disabled="true" class="form-control" style="border-color:black;"
-					placeholder="Saldo Inadimplência">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-		</div>
 
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label>Parcelas Restantes</label>
+					<h:inputText value="#{cadContratoMB.contrato.parcelasrestantes}"
+						style="border-color:black;" id="parcelasrestantes" disabled="true"
+						class="form-control" placeholder="Parcelas Restantes">
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>Cotrato Portado</label>
+					<h:inputText value="#{cadContratoMB.contrato.contratoportado}"
+						style="border-color:black;" id="contratoportado"
+						class="form-control" placeholder="Contrato Portado">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Parcela</label>
+					<h:inputText value="#{cadContratoMB.contrato.parcela}" id="parcela"
+						style="border-color:black;" class="form-control"
+						placeholder="Parcela">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Valor Quitar</label>
+					<h:inputText value="#{cadContratoMB.contrato.valorquitar}"
+						style="border-color:black;" id="valorquitar" class="form-control"
+						placeholder="Valor Quitar">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>Saldo Inadimplência</label>
+					<h:inputText value="#{cadContratoMB.contrato.saldoinadimplencia}"
+						disabled="true" class="form-control" style="border-color:black;"
+						placeholder="Saldo Inadimplência">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+			</div>
+		</h:panelGroup>
 		<div class="form-row">
 			<h:panelGroup
 				rendered="#{cadContratoMB.contrato.tipooperacao.margem}">
@@ -542,8 +735,85 @@
 			</div>
 		</div>
 
+		<br />
+		<h6>Uplaod dos documentos</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label>Tipo Documento</label>
+				<h:selectOneMenu id="tipodocumento" style="width: 100%;"
+					immediate="true" value="#{cadContratoMB.tipoarquivo}"
+					converter="TipoArquivoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadContratoMB.listaTipoArquivo}"
+						var="tipoArquivoSelecionado"
+						itemLabel="#{tipoArquivoSelecionado.descricao}"
+						itemValue="#{tipoArquivoSelecionado}" />
+					<f:attribute name="listaTipoArquivo"
+						value="#{cadContratoMB.listaTipoArquivo}" />
+					<p:ajax event="blur" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<p:fileUpload
+					fileUploadListener="#{cadContratoMB.fileUploadListener}"
+					label="Anexar Banner" mode="advanced" value="#{cadContratoMB.file}"
+					update="growl, idTabelaContrato" auto="true" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						rendered="false" value="Adicionar"
+						action="#{cadContratoMB.salvar()}"
+						update="idTabelaContrato, growl" />
+				</div>
+			</div>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="contrato"
+			value="#{cadContratoMB.listaContratoArquivo}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single" rowKey="1"
+			rowIndexVar="rowIx">
 
 
+			<p:column headerText="Data Upload"
+				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.dataupload}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Tipo Documento"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.tipoarquivo.descricao}">
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Nome Arquivo"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.nomearquivo}" />
+			</p:column>
+
+			<p:column headerText=""
+				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+
+				<p:commandLink ajax="false"
+					action="#{cadContratoMB.excluirArquivo(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaContrato">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+
+				<p:commandLink ajax="false"
+					action="#{cadContratoMB.baixarArquivoFTP(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="download"></span>
+
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
 
 		<br />
 		<hr />
