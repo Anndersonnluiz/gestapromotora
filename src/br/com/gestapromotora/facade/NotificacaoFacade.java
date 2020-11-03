@@ -10,9 +10,9 @@ public class NotificacaoFacade {
 	NotificacaoDao notificacaoDao;
 	
 	
-	public Notificacao salvar(Notificacao notificacao) {
+	public void salvar(Notificacao notificacao) {
 		notificacaoDao = new NotificacaoDao();
-		return notificacaoDao.salvar(notificacao);
+		notificacaoDao.salvar(notificacao);
 	}
 
 	public Notificacao consultar(int idnotificacao) {

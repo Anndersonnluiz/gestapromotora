@@ -30,10 +30,10 @@
 		<class>br.com.gestapromotora.model.Contasreceber</class>
 		<class>br.com.gestapromotora.model.Rankingvendasanual</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestapromotora?useTimezone=true&amp;serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemadeltafinanceira.acessotemporario.net:3306/sistemad_deltafinanceira?useTimezone=true&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.password" value="780920**"/>
-			<property name="javax.persistence.jdbc.user" value="local"/>
+			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
+			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>
 		</properties>  
 	</persistence-unit>
 </persistence>

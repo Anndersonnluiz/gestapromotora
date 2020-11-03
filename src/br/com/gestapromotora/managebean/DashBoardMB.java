@@ -14,12 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.MetaFaturamentoAnualDao;
 import br.com.gestapromotora.dao.MetaFaturamentoMensalDao;
+import br.com.gestapromotora.dao.NotificacaoDao;
 import br.com.gestapromotora.dao.RankingVendasAnualDao;
 import br.com.gestapromotora.dao.RankingVendasDao;
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Metafaturamentoanual;
 import br.com.gestapromotora.model.Metafaturamentomensal;
+import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.Rankingvendas;
 import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.util.Formatacao;
@@ -60,6 +62,14 @@ public class DashBoardMB implements Serializable{
 	private float valorReceber;
 	private float fatutamento;
 	private int mesatual;
+	private int nNotificacao;
+	private int nProducao;
+	private int nAguardandoPagamento;
+	private int nAguardandoAssinatura;
+	private int nPendenciaAverbacao;
+	private float valorAverbacao;
+	private float valorComissaoRecebida;
+	private int nComissaoRecebida;
 	
 	
 	
@@ -67,10 +77,10 @@ public class DashBoardMB implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		listarMetaMensal();
-		listarMetaAnual();
-		gerarRankingMensal();
-		gerarRankingAnual();
+		faturamentoMensal();
+		//gerarRankingMensal();
+	//	gerarRankingAnual();
+		listarNotificacao();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		mesAtual = Formatacao.nomeMes(mes);
 	}
@@ -280,6 +290,78 @@ public class DashBoardMB implements Serializable{
 		this.valorReceber = valorReceber;
 	}
 
+	public int getnNotificacao() {
+		return nNotificacao;
+	}
+
+	public void setnNotificacao(int nNotificacao) {
+		this.nNotificacao = nNotificacao;
+	}
+
+	public int getnProducao() {
+		return nProducao;
+	}
+
+	public void setnProducao(int nProducao) {
+		this.nProducao = nProducao;
+	}
+
+	public int getnAguardandoPagamento() {
+		return nAguardandoPagamento;
+	}
+
+	public void setnAguardandoPagamento(int nAguardandoPagamento) {
+		this.nAguardandoPagamento = nAguardandoPagamento;
+	}
+
+	public int getnAguardandoAssinatura() {
+		return nAguardandoAssinatura;
+	}
+
+	public void setnAguardandoAssinatura(int nAguardandoAssinatura) {
+		this.nAguardandoAssinatura = nAguardandoAssinatura;
+	}
+
+	public UsuarioLogadoMB getUsuarioLogadoMB() {
+		return usuarioLogadoMB;
+	}
+
+	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
+		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+	public int getnPendenciaAverbacao() {
+		return nPendenciaAverbacao;
+	}
+
+	public void setnPendenciaAverbacao(int nPendenciaAverbacao) {
+		this.nPendenciaAverbacao = nPendenciaAverbacao;
+	}
+
+	public float getValorAverbacao() {
+		return valorAverbacao;
+	}
+
+	public void setValorAverbacao(float valorAverbacao) {
+		this.valorAverbacao = valorAverbacao;
+	}
+
+	public float getValorComissaoRecebida() {
+		return valorComissaoRecebida;
+	}
+
+	public void setValorComissaoRecebida(float valorComissaoRecebida) {
+		this.valorComissaoRecebida = valorComissaoRecebida;
+	}
+
+	public int getnComissaoRecebida() {
+		return nComissaoRecebida;
+	}
+
+	public void setnComissaoRecebida(int nComissaoRecebida) {
+		this.nComissaoRecebida = nComissaoRecebida;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		listaMetaMensal = metaFaturamentoMensalDao.lista("Select m From Metafaturamentomensal m WHERE "
@@ -392,7 +474,7 @@ public class DashBoardMB implements Serializable{
 	public void faturamentoMensal() {
 		mesatual = Formatacao.getMesData(new Date()) + 1;
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h Where h.tipo<>'Pago' and h.contrato.situacao.idsituacao<>2"  ;
+		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2"  ;
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -400,30 +482,67 @@ public class DashBoardMB implements Serializable{
 		if (lista == null) {
 			lista = new ArrayList<Historicocomissao>();
 		}
+		nAguardandoAssinatura = 0;
+		nAguardandoPagamento = 0;
+		nProducao = 0;
+		fatutamento = 0.00f;
+		valorPagar = 0.00f;
+		valorReceber = 0.00f;
 		for (int i = 0; i < lista.size(); i++) {
-			if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
-				fatutamento = fatutamento + lista.get(i).getCmdbruta();
-			}else {
-				fatutamento = fatutamento + lista.get(i).getCmsliq();
-			}
-			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16) {
+//			if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//				fatutamento = fatutamento + lista.get(i).getCmdbruta();
+//			}else {
+//				fatutamento = fatutamento + lista.get(i).getCmsliq();
+//			}
+			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16 
+					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
 				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					valorPagar = valorPagar + lista.get(i).getCmdbruta();
+					fatutamento = fatutamento + lista.get(i).getCmdbruta();
 				}else {
-					valorPagar = valorPagar + lista.get(i).getCmsliq();
+					fatutamento = fatutamento + lista.get(i).getCmsliq();
 				}
-			}else {
+				nProducao = nProducao + 1;
+			}else if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 19
+					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
 				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
 					valorReceber = valorReceber + lista.get(i).getCmdbruta();
 				}else {
-					valorReceber = valorReceber + lista.get(i).getCmsliq();
+					valorReceber  = valorReceber + lista.get(i).getCmsliq();
 				}
+				nAguardandoPagamento = nAguardandoPagamento + 1;
+			}else if(lista.get(i).getContrato().getSituacao().getIdsituacao() == 28
+					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
+				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+					valorPagar = valorPagar + lista.get(i).getCmdbruta();
+				}else {
+					valorPagar  = valorPagar + lista.get(i).getCmsliq();
+				}
+				nAguardandoAssinatura = nAguardandoAssinatura + 1;
+			}else if(lista.get(i).getContrato().getSituacao().getIdsituacao() == 36
+					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
+				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+					valorAverbacao = valorAverbacao + lista.get(i).getCmdbruta();
+				}else {
+					valorAverbacao  = valorAverbacao + lista.get(i).getCmsliq();
+				}
+				nPendenciaAverbacao = nPendenciaAverbacao + 1;
+			}else if (lista.get(i).getTipo().equalsIgnoreCase("Pago")) { 
+				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+					valorComissaoRecebida = valorComissaoRecebida + lista.get(i).getCmdbruta();
+				}else {
+					valorComissaoRecebida  = valorComissaoRecebida + lista.get(i).getCmsliq();
+				}
+				nComissaoRecebida = nComissaoRecebida + 1;
 			}
+			
 		}
 	}
 	
 	
-	public String listagemFaturamento() {
+	public String pagoCliente() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "16");
 		return "consPagamentoComissao";
 	}
 	
@@ -432,7 +551,7 @@ public class DashBoardMB implements Serializable{
 	public String receitaNaoPaga() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("tipoFiltro", "NaoPago");
+		session.setAttribute("tipoFiltro", "19");
 		return "consPagamentoComissao";
 	}
 	
@@ -440,11 +559,35 @@ public class DashBoardMB implements Serializable{
 	public String receitaPaga() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.setAttribute("tipoFiltro", "Pago");
+		session.setAttribute("tipoFiltro", "28");
+		return "consPagamentoComissao";
+	}
+	
+	
+	public String receitaPendencia() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "36");
+		return "consPagamentoComissao";
+	}
+	
+	public String comissaoRecebida() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "comissao");
 		return "consPagamentoComissao";
 	}
 
 	
+	public void listarNotificacao() {
+		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		List<Notificacao> listaNotificacao = notificacaoDao.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario=" + 
+					 usuarioLogadoMB.getUsuario().getIdusuario());
+		if (listaNotificacao == null) {
+			listaNotificacao = new ArrayList<Notificacao>();
+		}
+		nNotificacao = listaNotificacao.size();
+	}
 	
 	
 	

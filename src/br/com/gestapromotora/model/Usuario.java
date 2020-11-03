@@ -43,6 +43,8 @@ public class Usuario implements Serializable{
     private String descricaoativo;
 	@Column(name = "acessogeral")
 	private boolean acessogeral;
+	@Column(name = "comissao")
+	private boolean comissao;
     @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
     @ManyToOne(optional = false)
     private Tipocolaborador tipocolaborador;
@@ -143,6 +145,16 @@ public class Usuario implements Serializable{
 
 	public void setAcessogeral(boolean acessogeral) {
 		this.acessogeral = acessogeral;
+	}
+
+
+	public boolean isComissao() {
+		return comissao;
+	}
+
+
+	public void setComissao(boolean comissao) {
+		this.comissao = comissao;
 	}
 
 

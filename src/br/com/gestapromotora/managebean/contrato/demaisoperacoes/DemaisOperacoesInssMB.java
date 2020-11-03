@@ -11,8 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
@@ -60,6 +62,10 @@ public class DemaisOperacoesInssMB implements Serializable {
 	private int nCancelado;
 	private List<Contrato> listaContratoPesquisa;
 	private int nSituacao;
+	private int nPendenciaAverbacao;
+	private int nTodos;
+	private List<Banco> listaBanco;
+	private Banco banco;
 	
 	
 	
@@ -67,6 +73,7 @@ public class DemaisOperacoesInssMB implements Serializable {
 	public void init() {
 		gerarListaUsuario();
 		gerarListaInicial();
+		gerarListaBanco();
 	}
 
 
@@ -454,11 +461,62 @@ public class DemaisOperacoesInssMB implements Serializable {
 	}
 	
 	
+	public int getnPendenciaAverbacao() {
+		return nPendenciaAverbacao;
+	}
+
+
+
+	public void setnPendenciaAverbacao(int nPendenciaAverbacao) {
+		this.nPendenciaAverbacao = nPendenciaAverbacao;
+	}
+
+
+
+	public int getnTodos() {
+		return nTodos;
+	}
+
+
+
+	public void setnTodos(int nTodos) {
+		this.nTodos = nTodos;
+	}
+
+
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
+
 	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
-				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao
+				+ "'%Portabilidade%'"
 				+ " and c.operacaoinss=true ";
+		if (situacao > 0) {
+			sql = sql + " and c.situacao.idsituacao ="+ situacao;
+		}
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -476,7 +534,12 @@ public class DemaisOperacoesInssMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		return "visualizarContrato";
+		session.setAttribute("voltarTela", "consDemaisOperacoesInss");
+		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			return "cadContrato";
+		}else {
+			return "visualizarContrato";
+		}
 	}
 	
 	
@@ -503,10 +566,12 @@ public class DemaisOperacoesInssMB implements Serializable {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
 				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao
 				+ " and c.operacaoinss=true ";
-		if (usuarioLogadoMB.getUsuario().isAcessogeral() && usuario != null && usuario.getIdusuario() != null) {
+		if (usuario != null && usuario.getIdusuario() != null  && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
+				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
-		}else {
-			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		if (banco != null && banco.getIdbanco() != null) {
+			sql = sql + " and c.valorescoeficiente.coeficiente.orgaoBanco.banco.idbanco=" + banco.getIdbanco();
 		}
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista(sql);
@@ -520,6 +585,7 @@ public class DemaisOperacoesInssMB implements Serializable {
 		usuario = null;
 		nomeCliente = "";
 		cpf = "";
+		banco = null;
 	}
 	
 	
@@ -540,6 +606,14 @@ public class DemaisOperacoesInssMB implements Serializable {
 		if (listaContratoPesquisa == null) {
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
+		nDigitados = 0;
+		nPendenciaDocumentacao = 0;
+		nAguardandoAssinatura = 0;
+		nAguardandoPagamento = 0;
+		nPagoCliente = 0;
+		nCancelado = 0;
+		nPendenciaAverbacao = 0;
+		nTodos = listaContratoPesquisa.size();
 		for (int i = 0; i < listaContratoPesquisa.size(); i++) {
 			if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
 				nDigitados = nDigitados + 1;
@@ -551,9 +625,47 @@ public class DemaisOperacoesInssMB implements Serializable {
 				nAguardandoPagamento = nAguardandoPagamento + 1;
 			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16){
 				nPagoCliente = nPagoCliente + 1;
-			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 6){
+			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 2){
 				nCancelados = nCancelados + 1;
+			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 36) {
+				nPendenciaAverbacao = nPendenciaAverbacao + 1;
 			}
 		}
+	}
+	
+	
+	public String trocatTitular(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltarTela", "consDemaisOperacoesInss");
+		return "trocarTitular";
+	}
+	
+	
+	public String anexarArquivo(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltarTela", "consDemaisOperacoesInss");
+		return "anexarArquivo";
+	}
+	
+	
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		if (listaBanco == null) {
+			listaBanco = new ArrayList<Banco>();
+		}
+	}
+	
+	
+	public String imprimirFicha(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltar", "consDemaisOperacoesINSS");
+		return "fichaContrato";
 	}
 }

@@ -485,10 +485,7 @@ public class CadContratoMB implements Serializable {
 		contrato.setCliente(salvarCliente());
 		contrato.setUsuario(usuario);
 		ContratoFacade contratoFacade = new ContratoFacade();
-		if (contrato.getTipooperacao().getIdtipooperacao() == 2) {
-			contrato.setParcela(contrato.getParcela() + contrato.getMargemutilizada());
-		}
-		if (contrato.getIdcontrato() == null) {
+		if (contrato == null || contrato.getIdcontrato() == null) {
 			contrato.setCodigocontrato(gerarCodigo());
 			gerarMetaFaturamento();
 			contrato.setIdregracoeficiente(regrascoeficiente.getIdregrascoeficiente());
@@ -662,6 +659,10 @@ public class CadContratoMB implements Serializable {
 				listaBanco = new ArrayList<Banco>();
 			}
 			bancoDadosBancario = listaBanco.get(0);
+		}
+		if (cliente.getNascimento() != null) {
+			String diames = "" + Formatacao.getDiaData(cliente.getNascimento()) + (Formatacao.getMesData(cliente.getNascimento()) + 1);
+			cliente.setDiames(Integer.parseInt(diames));
 		}
 		salvarDadosBancarios();
 		cliente.setDadosbancario(dadosbancario);

@@ -51,6 +51,9 @@ public class HistoricoComissaoMB implements Serializable{
 	private Date dataini;
 	private Date datafin;
 	private String tipoFiltro;
+	private String cpf;
+	private String statusTipo;
+	private boolean selecionarTodos;
 	
 	
 	@PostConstruct
@@ -275,17 +278,69 @@ public class HistoricoComissaoMB implements Serializable{
 
 	
 	
+	public String getCpf() {
+		return cpf;
+	}
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+	public String getStatusTipo() {
+		return statusTipo;
+	}
+
+
+	public void setStatusTipo(String statusTipo) {
+		this.statusTipo = statusTipo;
+	}
+
+
+	public String getTipoFiltro() {
+		return tipoFiltro;
+	}
+
+
+	public void setTipoFiltro(String tipoFiltro) {
+		this.tipoFiltro = tipoFiltro;
+	}
+
+
+	public boolean isSelecionarTodos() {
+		return selecionarTodos;
+	}
+
+
+	public void setSelecionarTodos(boolean selecionarTodos) {
+		this.selecionarTodos = selecionarTodos;
+	}
+
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2";
+		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
-		if (tipoFiltro.equalsIgnoreCase("NaoPago")) {
-			sql = sql + " and h.contrato.situacao.idsituacao<>16";
-		}else if (tipoFiltro.equalsIgnoreCase("Pago")) {
-			sql = sql + " and h.contrato.situacao.idsituacao=16";
+		if (tipoFiltro.equalsIgnoreCase("19")) {
+			sql = sql + " and h.contrato.situacao.idsituacao=19 and h.tipo='PENDENTE'";
+			situacao = 2;
+		}else if (tipoFiltro.equalsIgnoreCase("28")) {
+			sql = sql + " and h.contrato.situacao.idsituacao=28 and h.tipo='PENDENTE'";
+			situacao = 1;
+		}else if (tipoFiltro.equalsIgnoreCase("36")) {
+			sql = sql + " and h.contrato.situacao.idsituacao=36 and h.tipo='PENDENTE'";
+			situacao = 5;
+		}else if(tipoFiltro.equalsIgnoreCase("comissao")) {
+			sql = sql + " and h.tipo='Pago'";
+			situacao = 6;
+		}else if(tipoFiltro.equalsIgnoreCase("16")) {
+			sql = sql + " and h.tipo<>'Pago' and h.contrato.situacao.idsituacao=16";
+			situacao = 4;
 		}
+		sql = sql + " order by h.contrato.datapagamento";
 		listaComissao = historicoComissaoFacade.lista(sql);
 		if (listaComissao == null) {
 			listaComissao = new ArrayList<Historicocomissao>();
@@ -317,7 +372,8 @@ public class HistoricoComissaoMB implements Serializable{
 	
 	
 	public void pesquisar() {
-		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2";
+		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 "
+				+ "and h.contrato.cliente.cpf like '%"+ cpf +"%'";
 		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
 			sql = sql + " and h.contrato.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
 		}
@@ -343,13 +399,21 @@ public class HistoricoComissaoMB implements Serializable{
 				sql = sql + " and h.contrato.situacao.idsituacao=19";
 			}else if(situacao == 3) {
 				sql = sql + " and h.contrato.situacao.idsituacao=2";
+			}else if(situacao == 4) {
+				sql = sql + " and h.contrato.situacao.idsituacao=16 and h.tipo<>'Pago'";
+			}else if(situacao == 6) {
+				sql = sql + " and h.tipo='Pago'";
 			}else {
-				sql = sql + " and h.contrato.situacao.idsituacao=16";
+				sql = sql + " and h.contrato.situacao.idsituacao=36";
 			}
 		}
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
+		if (statusTipo != null && statusTipo.length() > 0) {
+			sql = sql + " and h.tipo='" + statusTipo + "'";
+		}
+		sql = sql + " order by h.contrato.datapagamento";
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		listaComissao = historicoComissaoFacade.lista(sql);
 		if (listaComissao == null) {
@@ -389,6 +453,7 @@ public class HistoricoComissaoMB implements Serializable{
 		situacao =  0;
 		datafin = null;
 		dataini = null;
+		cpf = "";
 		gerarListaInicial();
 	}
 	
@@ -416,5 +481,56 @@ public class HistoricoComissaoMB implements Serializable{
 			listaTipoOperacao = new ArrayList<Tipooperacao>();
 		}
 	}
+	
+	
+	public String fichaComissoes(boolean selecionarTodos) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		List<Historicocomissao> listaSelecionado = new ArrayList<Historicocomissao>();
+		if (selecionarTodos) {
+			listaSelecionado = listaComissao;
+		}else {
+			for (int i = 0; i < listaComissao.size(); i++) {
+				if (listaComissao.get(i).isSelecionado()) {
+					listaSelecionado.add(listaComissao.get(i));
+				}
+			}
+		}
+		session.setAttribute("listaComissao", listaSelecionado);
+		String periodo = "";
+		if (dataini != null && datafin != null) {
+			periodo = Formatacao.ConvercaoDataPadrao(dataini) + " a " + Formatacao.ConvercaoDataPadrao(datafin);
+		}else {
+			periodo = "Sem Periodo";
+		}
+		session.setAttribute("periodo", periodo);
+		String corretor = "";
+		if (usuario != null) {
+			corretor = usuario.getNome();
+		}else {
+			corretor = "Todos";
+		}
+		session.setAttribute("corretor", corretor);
+		session.setAttribute("tipoFiltro", tipoFiltro);
+		return "fichaComissoes";
+	}
+	
+	
+	public void selecionarTodosContratos() {
+		boolean tipo = true;
+		if (selecionarTodos) {
+			tipo = false;
+		}else {
+			tipo = true;
+		}
+		for (int i = 0; i < listaComissao.size(); i++) {
+			listaComissao.get(i).setSelecionado(tipo);
+		}
+	}
+	
+	
+	
+	
+	
 
 }

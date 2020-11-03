@@ -123,6 +123,7 @@ public class CadUsuarioMB implements Serializable {
 		salvarDadosBancarios();
 		usuario.setDadosbancario(dadosbancario);
 		if (usuario.getIdusuario() == null) {
+			usuario.setAtivo(true);
 			usuario.setSenha("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
 			usuario = usuarioFacade.salvar(usuario);
 		} else {

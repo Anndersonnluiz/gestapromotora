@@ -502,6 +502,26 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaContrato</from-outcome>
+			<to-view-id>pages/contrato/fichacontrato.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>fichaComissoes</from-outcome>
+			<to-view-id>pages/comissoes/fichaComissoes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
     
 	<application>
         <action-listener>

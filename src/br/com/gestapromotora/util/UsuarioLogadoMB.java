@@ -25,6 +25,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.gestapromotora.connection.ConectionFactory;
 import br.com.gestapromotora.dao.ClienteDao;
 import br.com.gestapromotora.dao.NotificacaoDao;
+import br.com.gestapromotora.facade.NotificacaoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Cliente;
 import br.com.gestapromotora.model.Notificacao;
@@ -182,7 +183,7 @@ public class UsuarioLogadoMB implements Serializable {
 			} else {
 					mensagemOlá();
 					nomeUsuario = usuario.getNome();
-					listarNotificacao();
+					//listarNotificacao();
 					gerarListaCliente();
 					return logar = true;
 			}
@@ -342,8 +343,8 @@ public class UsuarioLogadoMB implements Serializable {
 	
 	
 	public void listarNotificacao() {
-		NotificacaoDao notificacaoDao = new NotificacaoDao();
-		List<Notificacao> listaNotificacao = notificacaoDao.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario=" + 
+		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+		List<Notificacao> listaNotificacao = notificacaoFacade.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario=" + 
 					 usuario.getIdusuario());
 		if (listaNotificacao == null) {
 			listaNotificacao = new ArrayList<Notificacao>();

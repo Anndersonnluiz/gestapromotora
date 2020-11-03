@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="form-row">
-				<div class="form-group cpç-md-8">
+				<div class="form-group cpç-md-6">
 					<label for="exampleInputPerfil">Tipo Colaborador</label>
 					<h:selectOneMenu id="exampleInputPerfil" style="width: 300px;"
 						value="#{cadUsuarioMB.tipocolaborador}"
@@ -55,11 +55,18 @@
 							value="#{cadUsuarioMB.listaTipoColaborador}" />
 					</h:selectOneMenu>
 				</div>
-				<div class="form-group col-md-4" style="margin-left: 2%;">
+				<div class="form-group col-md-3" style="margin-left: 2%;">
 					<label>Acesso Geral no Sistema</label> <br />
 					<h:panelGroup>
 						<p:selectBooleanCheckbox
 							value="#{cadUsuarioMB.usuario.acessogeral}" />
+					</h:panelGroup>
+				</div>
+				<div class="form-group col-md-3" style="margin-left: 2%;">
+					<label>Comissão</label> <br />
+					<h:panelGroup>
+						<p:selectBooleanCheckbox
+							value="#{cadUsuarioMB.usuario.comissao}" />
 					</h:panelGroup>
 				</div>
 			</div>

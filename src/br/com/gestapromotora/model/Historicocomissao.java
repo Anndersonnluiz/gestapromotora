@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "historicocomissao")
@@ -51,6 +52,8 @@ public class Historicocomissao implements Serializable{
 	private int mes;
 	@Column(name = "ano")
 	private int ano;
+	@Transient
+	private boolean selecionado;
 	
 	
 	
@@ -188,6 +191,18 @@ public class Historicocomissao implements Serializable{
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+
+
+	public boolean isSelecionado() {
+		return selecionado;
+	}
+
+
+
+	public void setSelecionado(boolean selecionado) {
+		this.selecionado = selecionado;
 	}
 
 

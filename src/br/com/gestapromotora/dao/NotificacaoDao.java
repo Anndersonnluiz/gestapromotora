@@ -11,7 +11,7 @@ import br.com.gestapromotora.model.Notificacao;
 
 public class NotificacaoDao {
 
-	public Notificacao salvar(Notificacao notificacao) {
+	public void salvar(Notificacao notificacao) {
 		EntityManager manager;
 		manager = ConectionFactory.getConnection();
 		EntityTransaction tx = manager.getTransaction();
@@ -19,7 +19,6 @@ public class NotificacaoDao {
 		notificacao = manager.merge(notificacao);
 		tx.commit();
 		manager.close();
-		return notificacao;
 	}
 
 	public Notificacao consultar(int idnotificacao) {

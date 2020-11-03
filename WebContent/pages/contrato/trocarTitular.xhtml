@@ -6,43 +6,102 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Trocar de Titular</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<br />
+		<h4>Trocar de Titular</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-			<h6>Dados atuais</h6>
-			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputNome">Código Contrato</label>
-					<h:inputText class="form-control" id="inputNome" disabled="true"
-						value="#{trocarTitularMB.contrato.idcontrato}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="datacadastro">Data Cadastro</label>
-					<h:inputText class="form-control" id="datacadastro" disabled="true"
-						value="#{trocarTitularMB.contrato.datacadastro}" mask="99/99/9999">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="titularatual">Titular Atual</label>
-					<h:inputText class="form-control" id="titularatual" disabled="true"
-						value="#{trocarTitularMB.contrato.usuario.nome}">
-					</h:inputText>
-				</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Titular Atual</label>
+				<h:panelGrid columns="2" style="width:98%;">
+					<h:selectOneMenu id="usuarioAtual" style="width: 100%;"
+						immediate="true" value="#{trocarTitularMB.usuarioAtual}"
+						converter="UsuarioConverter" styleClass="form-control"
+						onchange="usuario">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{trocarTitularMB.listaUsuario}"
+							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+							itemValue="#{usuarioSelecionado}" />
+						<f:attribute name="listaUsuario"
+							value="#{trocarTitularMB.listaUsuario}" />
+					</h:selectOneMenu>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						update="idTabelaTroca" value="Buscar Contratos"
+						action="#{trocarTitularMB.buscarContratos()}" />
+				</h:panelGrid>
 			</div>
-			<br />
-			<br />
-			<h6>Dados Troca Titularidade</h6>
-			<hr />
+		</div>
+		<br />
+		<div align="right">
+			<p:commandLink update="idTabelaTroca"
+				action="#{trocarTitularMB.selecionarTodosContratos()}"
+				style="text-align: left;color:black;" value="Selecionar Todos">
+				<span data-feather="printer"></span>
+			</p:commandLink>
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="usuario">Novo Titular</label>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaTroca" var="contrato" widgetVar="cellCars"
+			editable="true" editMode="cell"
+			value="#{trocarTitularMB.listaHistoricoComissao}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contrato.idhistoricocomissao}">
+
+
+
+			<p:column headerText="Código"
+				style="width:11%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.codigocontrato}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.usuario.nome}" />
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:13%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.cliente.cpf}" />
+			</p:column>
+			<p:column headerText="Nome do Cliente"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="Banco/Órgão"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText
+					value="#{contrato.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} /
+							 #{contrato.contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.tipooperacao.descricao}" />
+			</p:column>
+			<p:column headerText="Parcela"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.parcela}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Situação"
+				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.contrato.situacao.descricao}" />
+			</p:column>
+			<p:column headerText=""
+				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:selectBooleanCheckbox value="#{contrato.selecionado}" />
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<h6>Troca da Titularidade</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Novo Titular</label>
+				<h:panelGrid columns="2" style="width:98%;">
 					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
 						value="#{trocarTitularMB.usuario}" converter="UsuarioConverter"
 						styleClass="form-control" onchange="usuario">
@@ -54,26 +113,17 @@
 						<f:attribute name="listaUsuario"
 							value="#{trocarTitularMB.listaUsuario}" />
 					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-6">
-					<label for="senha">Senha - Cadastrada pelo administrador(a)</label>
-					<h:inputText class="form-control" id="senha"
-						value="#{trocarTitularMB.senha}">
-					</h:inputText>
-				</div>
-			</div>
 
-			<br />
-			<br />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Salvar" action="#{trocarTitularMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					style="margin-left:2%;" value="Cancelar"
-					action="#{trocarTitularMB.cancelar()}" />
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Salvar" action="#{trocarTitularMB.salvar()}" />
+				</h:panelGrid>
 			</div>
-			<br />
-			<br />
+		</div>
+
+		<br />
+		<br />
+		<br />
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

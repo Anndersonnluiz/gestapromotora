@@ -28,7 +28,7 @@
 			id="navbarDropdownMenuLink-5" aria-haspopup="true"
 			aria-expanded="true"> <span class="badge badge-danger ml-2"
 			style="font-size: 14px;"> <p:outputLabel
-					value="#{usuarioLogadoMB.nNotificacao}" />
+					value="#{dashBoardMB.nNotificacao}" />
 		</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
 
 		</a>
@@ -82,11 +82,6 @@
 								data-feather="file-plus"></span> Emissão
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="/deltafinanceira/pages/contrato/consContrato.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false"> <span
-								data-feather="list"></span> Contratos
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
 							href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false"> <span
 								data-feather="align-center"></span> Portabilidade
@@ -105,8 +100,13 @@
 										<span data-feather="align-center"></span> SIAPE/GOV/PREF
 								</a></li>
 							</ul></li>
+						<li class="nav-item"><a class="nav-link"
+								href="/deltafinanceira/pages/contrato/trocarTitular.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="refresh-cw"></span> Troca de Titular
+							</a></li>
 						<li class="nav-item, dropdown"><h:panelGroup
-								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
+								rendered="false">
 								<a class="nav-link" href="#" data-toggle="dropdown"
 									role="button" aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="file"></span> Fisico

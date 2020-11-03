@@ -6,10 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
@@ -24,6 +22,7 @@ import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Formatacao;
+import br.com.gestapromotora.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -38,15 +37,14 @@ public class TrocarTitularMB implements Serializable{
 	private Contrato contrato;
 	private String senha;
 	private Regrascoeficiente regracoeficiente;
+	private Usuario usuarioAtual;
+	private List<Historicocomissao> listaHistoricoComissao;
+	private boolean selecionarTodos;
 	
 	
 	
 	@PostConstruct
 	public void init() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		contrato = (Contrato) session.getAttribute("contrato");
-		session.removeAttribute("contrato");
 		gerarListaUsuario();
 	}
 
@@ -111,6 +109,42 @@ public class TrocarTitularMB implements Serializable{
 
 
 
+	public Usuario getUsuarioAtual() {
+		return usuarioAtual;
+	}
+
+
+
+	public void setUsuarioAtual(Usuario usuarioAtual) {
+		this.usuarioAtual = usuarioAtual;
+	}
+
+
+
+	public List<Historicocomissao> getListaHistoricoComissao() {
+		return listaHistoricoComissao;
+	}
+
+
+
+	public void setListaHistoricoComissao(List<Historicocomissao> listaHistoricoComissao) {
+		this.listaHistoricoComissao = listaHistoricoComissao;
+	}
+
+
+
+	public boolean isSelecionarTodos() {
+		return selecionarTodos;
+	}
+
+
+
+	public void setSelecionarTodos(boolean selecionarTodos) {
+		this.selecionarTodos = selecionarTodos;
+	}
+
+
+
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
@@ -121,24 +155,27 @@ public class TrocarTitularMB implements Serializable{
 	
 	
 	public String salvar() {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		ContratoFacade contratoFacade = new ContratoFacade();
-		if (usuario != null && senha.equalsIgnoreCase(contrato.getSenha())) {
-			buscarRegraCoeficiente();
-			descontarRankingMensal();
-			gerarRankingMensal();
-			descontarRankingAnual();
-			gerarRankingAnual();
-			alterarComissao();
-			contrato.setUsuario(usuario);
-			contrato = contratoFacade.salvar(contrato);
-			return "consContrato";
+		if (usuario != null) {
+			for (int i = 0; i < listaHistoricoComissao.size(); i++) {
+				if (listaHistoricoComissao.get(i).isSelecionado()) {
+					listaHistoricoComissao.get(i).setUsuario(usuario);
+					listaHistoricoComissao.get(i).getContrato().setUsuario(usuario);
+					contratoFacade.salvar(listaHistoricoComissao.get(i).getContrato());
+					historicoComissaoFacade.salvar(listaHistoricoComissao.get(i));
+				}
+			}
+		}else {
+			Mensagem.lancarMensagemInfo("Informe o novo titular dos contratos", "");
+			return "";
 		}
-		return "";
+		return "dashboard";
 	}
 	
 	
 	public String cancelar() {
-		return "consContrato";
+		return "dashboard";
 	}
 	
 	public void descontarRankingMensal() {
@@ -247,7 +284,28 @@ public class TrocarTitularMB implements Serializable{
 	}
 
 	
+	public void buscarContratos() {
+		if (usuarioAtual != null) {
+			HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+			listaHistoricoComissao = historicoComissaoFacade.lista("SELECT h From Historicocomissao h WHERE"
+			 		+ " h.contrato.usuario.idusuario=" + usuarioAtual.getIdusuario());
+			if (listaHistoricoComissao == null) {
+				listaHistoricoComissao = new ArrayList<Historicocomissao>();
+			}
+		}
+	}
 	
+	
+	public void selecionarTodosContratos() {
+		if (selecionarTodos) {
+			selecionarTodos = false;
+		}else {
+			selecionarTodos = true;
+		}
+		for (int i = 0; i < listaHistoricoComissao.size(); i++) {
+			listaHistoricoComissao.get(i).setSelecionado(selecionarTodos);
+		}
+	}
 	
 	
 	

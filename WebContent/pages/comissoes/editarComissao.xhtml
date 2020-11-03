@@ -84,13 +84,28 @@
 				</div>
 			</div>
 			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="novasituacao">Situação Contrato</label>
+					<h:selectOneMenu id="novasituacao" style="width: 100%;"
+						value="#{editarComissaoMB.historicocomissao.contrato.situacao}"
+						converter="SituacaoConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{editarComissaoMB.listaSituacao}"
+							var="situacaoSelecionado"
+							itemLabel="#{situacaoSelecionado.descricao}"
+							itemValue="#{situacaoSelecionado}" />
+						<f:attribute name="listaSituacao"
+							value="#{editarComissaoMB.listaSituacao}" />
+					</h:selectOneMenu>
+				</div>
 				<div class="form-group col-md-3">
-					<label>Tipo conta</label>
+					<label>Status Comissão</label>
 					<h:selectOneMenu style="width: 100%;" id="tipoconta"
 						value="#{editarComissaoMB.historicocomissao.tipo}"
 						styleClass="form-control">
 						<f:selectItem itemLabel="Pago" itemValue="Pago" />
-						<f:selectItem itemLabel="Pendente" itemValue="Pendente" />
+						<f:selectItem itemLabel="Pendente" itemValue="PENDENTE" />
 					</h:selectOneMenu>
 				</div>
 			</div>

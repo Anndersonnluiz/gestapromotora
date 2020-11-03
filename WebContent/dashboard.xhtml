@@ -49,7 +49,7 @@
 				id="navbarDropdownMenuLink-5" aria-haspopup="true"
 				aria-expanded="true"> <span class="badge badge-danger ml-2"
 				style="font-size: 14px;"> <p:outputLabel
-						value="#{usuarioLogadoMB.nNotificacao}" />
+						value="#{dashBoardMB.nNotificacao}" />
 			</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
 
 			</a>
@@ -102,11 +102,6 @@
 									data-feather="file-plus"></span> Emissão
 							</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="pages/contrato/consContrato.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="list"></span> Contratos
-							</a></li>
-							<li class="nav-item"><a class="nav-link"
 								href="pages/contrato/consPortabilidade.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="align-center"></span> Portabilidade
@@ -125,8 +120,14 @@
 											data-feather="align-center"></span> SIAPE/GOV/PREF
 									</a></li>
 								</ul></li>
+							
+							<li class="nav-item"><a class="nav-link"
+								href="pages/contrato/trocarTitular.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="refresh-cw"></span> Troca de Titular
+							</a></li>
 							<li class="nav-item, dropdown"><h:panelGroup
-									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.fisico}">
+									rendered="false">
 									<a class="nav-link" href="#" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">
 										<span data-feather="file"></span> Fisico
@@ -201,13 +202,65 @@
 					<h2>Faturamento</h2>
 					<hr />
 					<div class="row" style="color: white;">
+						
+						<h:panelGroup>
+							<div class="col-md-4">
+								<div class="panel-stat3"
+									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<h5 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
+											ASSINATURA</h5>
+										<h4 class="m-top-none" id="visitorCount"
+											style="color: black; font-family: Segoe UI Semibold;">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorPagar}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h4>
+										<span class="m-left-xs"
+											style="color: black; font-family: Segoe UI Semibold;">
+											#{dashBoardMB.nAguardandoAssinatura} contratos aguardando
+											assinatura</span>
+										<div class="stat-icon" style="opacity: 0.9;">
+											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+										</div>
+									</p:commandLink>
+								</div>
+							</div>
+						</h:panelGroup>
+						<div class="col-md-4">
+							<div class="panel-stat3 bg-info"
+								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<h5 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
+										PAGAMENTO</h5>
+									<h4 class="m-top-none"
+										style="color: black; font-family: Segoe UI Semibold;">
+										R$:
+										<p:outputLabel value="#{dashBoardMB.valorReceber}">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
+										</p:outputLabel>
+									</h4>
+									<span class="m-left-xs"
+										style="color: black; font-family: Segoe UI Semibold;">#{dashBoardMB.nAguardandoPagamento}
+										contratos aguardando pagamento</span>
+									<div class="stat-icon" style="opacity: 0.9;">
+										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-success"
 								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
 
-								<p:commandLink action="#{dashBoardMB.listagemFaturamento()}"
+								<p:commandLink action="#{dashBoardMB.pagoCliente()}"
 									style="width:100%;text-decoration:none;" ajax="false">
-									<h5 style="font-family: Segoe UI Semibold; color: white;">PRODUÇÃO</h5>
+									<h5 style="font-family: Segoe UI Semibold; color: white;">PAGO AO CLIENTE</h5>
 									<h4 class="m-top-none" id="userCount"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
@@ -218,7 +271,36 @@
 									</h4>
 									<span class="m-left-xs"
 										style="color: black; font-family: Segoe UI Semibold;">
-										pendentes </span>
+										#{dashBoardMB.nProducao} contratos pagos ao cliente </span>
+									<div class="stat-icon" style="opacity: 0.9;">
+										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+									</div>
+
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="row" style="color: white;">
+						<div class="col-md-4">
+							<div class="panel-stat3 bg-danger"
+								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+
+								<p:commandLink action="#{dashBoardMB.receitaPendencia()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<h5 style="font-family: Segoe UI Semibold; color: white;">PENDÊNCIA
+										AVERBAÇÃO</h5>
+									<h4 class="m-top-none" id="userCount"
+										style="color: black; font-family: Segoe UI Semibold;">
+										R$:
+										<p:outputLabel value="#{dashBoardMB.valorAverbacao}">
+											<f:convertNumber locale="pt_BR" minFractionDigits="2"
+												maxFractionDigits="2" />
+										</p:outputLabel>
+									</h4>
+									<span class="m-left-xs"
+										style="color: black; font-family: Segoe UI Semibold;">
+										#{dashBoardMB.nPendenciaAverbacao} contratos com pendências </span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 									</div>
@@ -227,201 +309,184 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="panel-stat3 bg-info"
-								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
+							<div class="panel-stat3 bg-success"
+								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+
+								<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
 									style="width:100%;text-decoration:none;" ajax="false">
-									<h5 style="font-family: Segoe UI Semibold; color: white;">RECEITA
-										PENDENTE</h5>
-									<h4 class="m-top-none"
+									<h5 style="font-family: Segoe UI Semibold; color: white;">COMISSÃO RECEBIDA</h5>
+									<h4 class="m-top-none" id="userCount"
 										style="color: black; font-family: Segoe UI Semibold;">
 										R$:
-										<p:outputLabel value="#{dashBoardMB.valorReceber}">
+										<p:outputLabel value="#{dashBoardMB.valorComissaoRecebida}">
 											<f:convertNumber locale="pt_BR" minFractionDigits="2"
 												maxFractionDigits="2" />
 										</p:outputLabel>
 									</h4>
 									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">contratos
-										não pagos ao cliente</span>
+										style="color: black; font-family: Segoe UI Semibold;">
+										#{dashBoardMB.nComissaoRecebida} contratos </span>
 									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
+										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 									</div>
+
 								</p:commandLink>
 							</div>
 						</div>
-						<h:panelGroup>
-							<div class="col-md-4">
-								<div class="panel-stat3"
-									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h5 style="font-family: Segoe UI Semibold; color: white;">RECEITA PAGAS</h5>
-										<h4 class="m-top-none" id="visitorCount"
-											style="color: black; font-family: Segoe UI Semibold;">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorPagar}">
+					</div>
+					<canvas id="myChart" width="600" height="400"></canvas>
+					<h:panelGroup rendered="false">
+						<div
+							class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+							<h1 class="h2">Vendas</h1>
+
+						</div>
+
+						<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+
+						<br />
+
+						<h3>RANKING DE VENDAS</h3>
+						<hr />
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
+								<div style="border: 2px solid black; border-radius: 10px;">
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/primeirolugar.png"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel
+												value="#{dashBoardMB.primeiroMes.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
+												style="font-weight:bold;font-size:18px;margin-left:2%;">
 												<f:convertNumber locale="pt_BR" minFractionDigits="2"
 													maxFractionDigits="2" />
 											</p:outputLabel>
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">contratos
-											pagos ao cliente</span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
 										</div>
-									</p:commandLink>
-								</div>
-							</div>
-						</h:panelGroup>
-					</div>
-					<div
-						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">Vendas</h1>
-
-					</div>
-
-					<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-
-					<br />
-
-					<h3>RANKING DE VENDAS</h3>
-					<hr />
-
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
-							<div style="border: 2px solid black; border-radius: 10px;">
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/primeirolugar.png"
-											style="width: 80%;" />
 									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.primeiroMes.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;margin-left:2%;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+									<hr />
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/segundolugar.jpg"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel value="#{dashBoardMB.segundoMes.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
+												style="font-weight:bold;font-size:18px;">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</div>
 									</div>
-								</div>
-								<hr />
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/segundolugar.jpg"
-											style="width: 80%;" />
-									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.segundoMes.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
-									</div>
-								</div>
-								<hr />
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/terceirolugar.png"
-											style="width: 80%;" />
-									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.terceiroMes.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
-											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+									<hr />
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/terceirolugar.png"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel
+												value="#{dashBoardMB.terceiroMes.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
+												style="font-weight:bold;font-size:18px;">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-group col-md-6">
-							<h5>RANKING DO ANO - 2020</h5>
-							<div style="border: 2px solid black; border-radius: 10px;">
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/primeirolugar.png"
-											style="width: 80%;" />
+							<div class="form-group col-md-6">
+								<h5>RANKING DO ANO - 2020</h5>
+								<div style="border: 2px solid black; border-radius: 10px;">
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/primeirolugar.png"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel
+												value="#{dashBoardMB.primeiroAno.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
+												style="font-weight:bold;font-size:18px;margin-left:2%;">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</div>
 									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.primeiroAno.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
-											style="font-weight:bold;font-size:18px;margin-left:2%;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+									<hr />
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/segundolugar.jpg"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel value="#{dashBoardMB.segundoAno.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
+												style="font-weight:bold;font-size:18px;">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</div>
 									</div>
-								</div>
-								<hr />
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/segundolugar.jpg"
-											style="width: 80%;" />
-									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.segundoAno.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
-											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
-									</div>
-								</div>
-								<hr />
-								<div class="form-row">
-									<div class="form-group col-md-3">
-										<br /> <img src="resources/img/terceirolugar.png"
-											style="width: 80%;" />
-									</div>
-									<div class="form-group col-md-9">
-										<br />
-										<p:outputLabel value="#{dashBoardMB.terceiroAno.usuario.nome}"
-											style="font-weight:bold;font-size:16px;" />
-										<hr />
-										<p:outputLabel value="R$"
-											style="font-weight:bold;font-size:18px;" />
-										<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
-											style="font-weight:bold;font-size:18px;">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+									<hr />
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<br /> <img src="resources/img/terceirolugar.png"
+												style="width: 80%;" />
+										</div>
+										<div class="form-group col-md-9">
+											<br />
+											<p:outputLabel
+												value="#{dashBoardMB.terceiroAno.usuario.nome}"
+												style="font-weight:bold;font-size:16px;" />
+											<hr />
+											<p:outputLabel value="R$"
+												style="font-weight:bold;font-size:18px;" />
+											<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
+												style="font-weight:bold;font-size:18px;">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<br />
+						<br />
 
+					</h:panelGroup>
 				</main>
 			</div>
 		</div>
@@ -437,52 +502,29 @@
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx,
-					{
-						type : 'bar',
-						data : {
-							labels : [ "Janeiro", "Fevereiro", "Março",
-									"Abril", "Maio", "Junho", "Julho",
-									"Agosto", "Setembro", "Outubro",
-									"Novembro", "Dezembro" ],
-							datasets : [ {
-								data : [ #{dashBoardMB.janeiro.valoratual}, #{dashBoardMB.fevereiro.valoratual}, 
-									#{dashBoardMB.marco.valoratual}, #{dashBoardMB.abril.valoratual}, 
-									#{dashBoardMB.maio.valoratual}, #{dashBoardMB.junho.valoratual}, 
-									#{dashBoardMB.julho.valoratual}, #{dashBoardMB.agosto.valoratual}, 
-									#{dashBoardMB.setembro.valoratual}, #{dashBoardMB.outubro.valoratual},
-									#{dashBoardMB.novembro.valoratual}, #{dashBoardMB.dezembro.valoratual} ],
-								lineTension : 0,
-								backgroundColor : [ '#{dashBoardMB.janeiro.cormeta}',
-										'#{dashBoardMB.fevereiro.cormeta}',
-										'#{dashBoardMB.marco.cormeta}',
-										'#{dashBoardMB.abril.cormeta}',
-										'#{dashBoardMB.maio.cormeta}',
-										'#{dashBoardMB.junho.cormeta}',
-										'#{dashBoardMB.julho.cormeta}',
-										'#{dashBoardMB.agosto.cormeta}',
-										'#{dashBoardMB.setembro.cormeta}',
-										'#{dashBoardMB.outubro.cormeta}',
-										'#{dashBoardMB.novembro.cormeta}',
-										'#{dashBoardMB.dezembro.cormeta}' ],
-								borderWidth : 4,
-								pointBackgroundColor : '#007bff'
-							} ]
-						},
-						options : {
-							scales : {
-								yAxes : [ {
-									ticks : {
-										beginAtZero : false
-									}
-								} ]
-							},
-							legend : {
-								display : false,
-							}
-						}
-					});
+		var data = [
+		    {
+		        value: 300,
+		        color:"#F7464A",
+		        highlight: "#FF5A5E",
+		        label: "Red"
+		    },
+		    {
+		        value: 50,
+		        color: "#46BFBD",
+		        highlight: "#5AD3D1",
+		        label: "Green"
+		    },
+		    {
+		        value: 100,
+		        color: "#FDB45C",
+		        highlight: "#FFC870",
+		        label: "Yellow"
+		    }
+		];
+
+		var ctx = document.getElementById("myChart").getContext("2d");
+		new Chart(ctx).Pie(data);
 		</script>
 
 

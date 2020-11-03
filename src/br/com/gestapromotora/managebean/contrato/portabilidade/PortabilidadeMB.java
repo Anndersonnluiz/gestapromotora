@@ -12,9 +12,15 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.bean.FiltrosBean;
+import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.SituacaoFacade;
+import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Situacao;
+import br.com.gestapromotora.model.Tipooperacao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
 
@@ -76,6 +82,12 @@ public class PortabilidadeMB implements Serializable{
 	private List<FiltrosBean> listaFiltrosBean;
 	private List<Contrato> listaContratoPesquisa;
 	private int nSituacao;
+	private int nTodos;
+	private List<Tipooperacao> listaTipoOperacao;
+	private Tipooperacao tipooiperacao;
+	private List<Banco> listaBanco;
+	private Banco banco;
+	private List<Situacao> listaSituacao;
 	
 	
 	
@@ -85,6 +97,7 @@ public class PortabilidadeMB implements Serializable{
 	public void init() {
 		gerarListaUsuario();
 		gerarListaInicial();
+		gerarListaBanco();
 	}
 
 
@@ -664,10 +677,97 @@ public class PortabilidadeMB implements Serializable{
 
 
 
+	public int getnTodos() {
+		return nTodos;
+	}
+
+
+
+	public void setnTodos(int nTodos) {
+		this.nTodos = nTodos;
+	}
+
+
+
+	public UsuarioLogadoMB getUsuarioLogadoMB() {
+		return usuarioLogadoMB;
+	}
+
+
+
+	public void setUsuarioLogadoMB(UsuarioLogadoMB usuarioLogadoMB) {
+		this.usuarioLogadoMB = usuarioLogadoMB;
+	}
+
+
+
+	public List<Tipooperacao> getListaTipoOperacao() {
+		return listaTipoOperacao;
+	}
+
+
+
+	public void setListaTipoOperacao(List<Tipooperacao> listaTipoOperacao) {
+		this.listaTipoOperacao = listaTipoOperacao;
+	}
+
+
+
+	public Tipooperacao getTipooiperacao() {
+		return tipooiperacao;
+	}
+
+
+
+	public void setTipooiperacao(Tipooperacao tipooiperacao) {
+		this.tipooiperacao = tipooiperacao;
+	}
+
+
+
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+
+
+	public List<Situacao> getListaSituacao() {
+		return listaSituacao;
+	}
+
+
+
+	public void setListaSituacao(List<Situacao> listaSituacao) {
+		this.listaSituacao = listaSituacao;
+	}
+
+
+
 	public void gerarListaPortabilidade(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like "
-				+ "'%Portabilidade%' and c.situacao.idsituacao ="+ situacao;
+				+ "'%Portabilidade%'";
+		if (situacao > 0) {
+			sql = sql + " and c.situacao.idsituacao ="+ situacao;
+		}
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
@@ -685,7 +785,12 @@ public class PortabilidadeMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		return "visualizarContrato";
+		session.setAttribute("voltarTela", "consPortabilidade");
+		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			return "cadContrato";
+		}else {
+			return "visualizarContrato";
+		}
 	}
 	
 	
@@ -711,10 +816,12 @@ public class PortabilidadeMB implements Serializable{
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
 				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao;
-		if (usuarioLogadoMB.getUsuario().isAcessogeral() && (usuario != null && usuario.getIdusuario() != null)) {
+		if (usuario != null && usuario.getIdusuario() != null  && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
+				.equalsIgnoreCase("Operacional")) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
-		}else {
-			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		if (banco != null && banco.getIdbanco() != null) {
+			sql = sql + " and c.valorescoeficiente.coeficiente.orgaoBanco.banco.idbanco=" + banco.getIdbanco();
 		}
 		ContratoFacade contratoFacade = new ContratoFacade();
 		listaContrato = contratoFacade.lista(sql);
@@ -728,6 +835,8 @@ public class PortabilidadeMB implements Serializable{
 		usuario = null;
 		nomeCliente = "";
 		cpf = "";
+		tipooiperacao = null;
+		banco = null;
 	}
 	
 	
@@ -743,6 +852,7 @@ public class PortabilidadeMB implements Serializable{
 		if (listaContratoPesquisa == null) {
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
+		nTodos = listaContratoPesquisa.size();
 		for (int i = 0; i < listaContratoPesquisa.size(); i++) {
 			if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 1) {
 				nDigitados = nDigitados + 1;
@@ -761,6 +871,60 @@ public class PortabilidadeMB implements Serializable{
 	}
 	
 	
+	public String trocatTitular(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("voltarTela", "consPortabilidade");
+		return "trocarTitular";
+	}
+	
+	
+	public String anexarArquivo(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltarTela", "consPortabilidade");
+		return "anexarArquivo";
+	}
+	
+	
+	public void gerarListaTipoOperacao() {
+		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
+		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		if (listaTipoOperacao == null) {
+			listaTipoOperacao = new ArrayList<Tipooperacao>();
+		}
+	}
+	
+	
+	public void gerarListaSituacao() {
+		SituacaoFacade situacaoFacade = new SituacaoFacade();
+		String sql = "Select s From Situacao s WHERE s.visualizar=true ";
+		sql = sql + " ORDER BY s.descricao";
+		listaSituacao = situacaoFacade.lista(sql);
+		if (listaSituacao == null) {
+			listaSituacao = new ArrayList<Situacao>();
+		}
+	}
+	
+	
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		if (listaBanco == null) {
+			listaBanco = new ArrayList<Banco>();
+		}
+	}
+	
+	
+	
+	public String imprimirFicha(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("voltar", "consPortabilidade");
+		return "fichaContrato";
+	}
 	
 	
 	

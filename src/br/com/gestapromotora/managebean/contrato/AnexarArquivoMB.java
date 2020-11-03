@@ -50,6 +50,7 @@ public class AnexarArquivoMB implements Serializable{
 	private List<Contratoarquivo> listaContratoArquivo;
 	private Tipoarquivo tipoarquivo;
 	private StreamedContent fileDownload;
+	private String voltarTela;
 	
 	
 	@PostConstruct
@@ -57,7 +58,9 @@ public class AnexarArquivoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		contrato = (Contrato) session.getAttribute("contrato");
+		voltarTela = (String) session.getAttribute("voltarTela");
 		session.removeAttribute("contrato");
+		session.removeAttribute("voltarTela");
 		gerarListaTipoArquivo();
 		gerarListaContratoAquivo();
 	}
@@ -209,7 +212,7 @@ public class AnexarArquivoMB implements Serializable{
 
 
 	public String voltar() {
-		return "consContrato";
+		return voltarTela;
 	}
 	
 	

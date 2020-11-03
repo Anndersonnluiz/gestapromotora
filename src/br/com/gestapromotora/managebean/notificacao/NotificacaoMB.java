@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.dao.NotificacaoDao;
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.NotificacaoFacade;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
@@ -98,16 +99,16 @@ public class NotificacaoMB implements Serializable{
 	
 	
 	public void vistoTodos() {
-		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
 		if (listaNotificacao == null) {
 			listaNotificacao = new ArrayList<Notificacao>();
 		}
 		for (int i = 0; i < listaNotificacao.size(); i++) {
 			listaNotificacao.get(i).setVisto(true);
-			notificacaoDao.salvar(listaNotificacao.get(i));
-			listaNotificacao = new ArrayList<Notificacao>();
-			usuarioLogadoMB.listarNotificacao();
+			notificacaoFacade.salvar(listaNotificacao.get(i));
 		}
+		listaNotificacao = new ArrayList<Notificacao>();
+		usuarioLogadoMB.listarNotificacao();
 	}
 	
 	
