@@ -95,6 +95,26 @@
 					placeholder="Operação" />
 			</div>
 		</div>
+		<div class="form-row">
+			<h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}">
+				<div class="form-group col-md-4"> 
+					<label for="promotora">Promotora</label>
+					<h:selectOneMenu id="promotorahhhj" style="width: 100%;"
+						immediate="true" value="#{cadContratoMB.promotora}"
+						converter="PromotoraConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadContratoMB.listaPromotora}"
+							var="promotoraSelecionado"
+							itemLabel="#{promotoraSelecionado.descricao}"
+							itemValue="#{promotoraSelecionado}" />
+						<f:attribute name="listaPromotora"
+							value="#{cadContratoMB.listaPromotora}" />
+						<p:ajax event="blur" />
+					</h:selectOneMenu>
+				</div>
+			</h:panelGroup>
+		</div>
 		<br />
 		<h6>Secretaria</h6>
 		<hr />

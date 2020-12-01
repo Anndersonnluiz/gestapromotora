@@ -147,7 +147,7 @@ public class TrocarTitularMB implements Serializable{
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>();
 		}

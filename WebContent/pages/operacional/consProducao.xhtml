@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>PRODUÇÃO LIQUIDA</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="usuario">Corretor</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{producaoMB.usuario}" converter="UsuarioConverter"
+					styleClass="form-control" onchange="usuario">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{producaoMB.listaUsuario}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaUsuario" value="#{producaoMB.listaUsuario}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputRG">Tipo de Operação</label>
+				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+					value="#{producaoMB.tipooiperacao}"
+					converter="TipoOperacaoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{producaoMB.listaTipoOperacao}"
+						var="tipoOperacaoSelecionado"
+						itemLabel="#{tipoOperacaoSelecionado.descricao}"
+						itemValue="#{tipoOperacaoSelecionado}" />
+					<f:attribute name="listaTipoOperacao"
+						value="#{producaoMB.listaTipoOperacao}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label>Situação</label>
+				<h:selectOneMenu style="width: 100%;" id="situacao"
+					value="#{producaoMB.situacao}" styleClass="form-control">
+					<f:selectItem itemLabel="TODOS" itemValue="0" />
+					<f:selectItem itemLabel="AGUARDANDO ASSINATURA" itemValue="1" />
+					<f:selectItem itemLabel="AGUARDANDO PAGAMENTO" itemValue="2" />
+					<f:selectItem itemLabel="CANCELADOS" itemValue="3" />
+					<f:selectItem itemLabel="PAGO AO CLIENTE" itemValue="4" />
+					<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="usuario">Periodo Última Situação</label>
+				<h:panelGrid columns="2" style="width:80%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{producaoMB.dataini}" id="dataini" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{producaoMB.datafin}" id="datafin" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+
+
+			<div class="form-group col-md-4">
+				<label for="usuario">Periodo Cadastramento</label>
+				<h:panelGrid columns="2" style="width:80%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{producaoMB.dataCadastroIni}" id="dataCadastroini"
+						size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{producaoMB.dataCadastroFinal}" id="dataCadastrofin"
+						size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						value="Pesquisar" action="#{producaoMB.pesquisar()}"
+						update="idTabelaComissao, panelNumeros" />
+					<p:commandLink ajax="false" style="margin-left:1%;"
+						styleClass="btn btn-link" value="Limpar"
+						action="#{producaoMB.limpar()}"
+						update="idTabelaComissao, usuario, situacao, tipooperacao, panelNumeros" />
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="row" style="color: white;" align="center"
+			id="panelNumeros">
+			<div class="col-md-2">
+				<div class="panel-stat3"
+					style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+					<b style="font-family: Segoe UI Semibold; font-size: 13px;">PRODUÇÃO</b>
+					<br />
+					<hr style="background-color: white;" />
+					<div align="center" style="font-size: 11px;">
+						<b>R$ <h:outputText value="#{producaoMB.valorProducao}"
+								style="font-size:16px;">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									locale="pt_BR" />
+							</h:outputText></b> <br /> <br /> <b><p:outputLabel
+								value="(#{producaoMB.nProducao})" /></b>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="panel-stat3"
+					style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+					<b style="font-family: Segoe UI Semibold; font-size: 13px;">PORTABILIDADE</b>
+					<br />
+					<hr style="background-color: white;" />
+					<div align="center" style="font-size: 11px;">
+						<b>R$ <h:outputText value="#{producaoMB.valorPortabilidade}"
+								style="font-size:16px;">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									locale="pt_BR" />
+							</h:outputText></b> <br /> <br /> <b><p:outputLabel
+								value="(#{producaoMB.nPortabilidade})" /></b>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="panel-stat3 bg-primary"
+					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+					<b style="font-family: Segoe UI Semibold; font-size: 13px;">CARTÃO</b>
+					<br />
+					<hr style="background-color: white;" />
+					<div align="center" style="font-size: 11px;">
+						<b>R$ <h:outputText value="#{producaoMB.valorCartao}"
+								style="font-size:16px;">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									locale="pt_BR" />
+							</h:outputText></b> <br /> <br /> <b><p:outputLabel
+								value="(#{producaoMB.nCartao})" /></b>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="panel-stat3 bg-primary"
+					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+					<b style="font-family: Segoe UI Semibold; font-size: 13px;">MARGEM
+						(NOVO)</b> <br />
+					<hr style="background-color: white;" />
+					<div align="center" style="font-size: 11px;">
+						<b>R$ <h:outputText value="#{producaoMB.valorMargem}"
+								style="font-size:16px;">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									locale="pt_BR" />
+							</h:outputText></b> <br />
+						<br /> <b><p:outputLabel value="(#{producaoMB.nMargem})" /></b>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="panel-stat3 bg-primary"
+					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+					<b style="font-family: Segoe UI Semibold; font-size: 13px;">REFINANCIAMENTO</b>
+					<hr style="background-color: white;" />
+					<div align="center" style="font-size: 11px;">
+						<b>R$ <h:outputText value="#{producaoMB.valorRefin}"
+								style="font-size:16px;">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+									locale="pt_BR" />
+							</h:outputText></b> <br />
+						<br /> <b><p:outputLabel value="(#{producaoMB.nRefin})" /></b>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<br />
+		<p:dataTable id="idTabelaComissao" var="comissao"
+			value="#{producaoMB.listaComissao}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{comissao.idhistoricocomissao}">
+
+
+			<p:column headerText="Lançamento"
+				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.usuario.nome}" />
+			</p:column>
+			<p:column headerText="Cliente"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="Banco"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText
+					value="#{comissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}" />
+			</p:column>
+			<p:column headerText="Cadastro"
+				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.codigocontrato}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
+			</p:column>
+			<p:column headerText="Situação"
+				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.situacao.descricao}" />
+			</p:column>
+			<p:column headerText="Promotora"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.promotora.descricao}" />
+			</p:column>
+			<p:column headerText="PROD. LIQ"
+				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				<h:outputText value="#{comissao.prodliq}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

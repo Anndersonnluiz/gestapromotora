@@ -29,8 +29,12 @@
 		<class>br.com.gestapromotora.model.Contratoarquivo</class>
 		<class>br.com.gestapromotora.model.Contasreceber</class>
 		<class>br.com.gestapromotora.model.Rankingvendasanual</class>
+		<class>br.com.gestapromotora.model.Promotora</class>
+		<class>br.com.gestapromotora.model.Funcionario</class>
+		<class>br.com.gestapromotora.model.Funcionarioarquivo</class>
+		<class>br.com.gestapromotora.model.Historicousuario</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemadeltafinanceira.acessotemporario.net:3306/sistemad_deltafinanceira?useTimezone=true&amp;serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemadeltafinanceira.acessotemporario.net:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
 			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>

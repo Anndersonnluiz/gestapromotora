@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Cadastro de Funcionarios</h4>
+		<hr />
+
+		<h6>Dados pessoais</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputNome">Nome</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.nome}"
+					class="form-control" id="inputNome" placeholder="Nome" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputCpf">CPF</label>
+				<p:inputMask mask="999.999.999-99" id="inputCpf"
+					styleClass="form-control"
+					value="#{cadFuncionariosMB.funcionario.cpf}" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="dataNasc">Data Nascimento</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+					size="15" value="#{cadFuncionariosMB.funcionario.nascimento}"
+					id="dataNasc">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-2">
+				<label for="dataEmissao">Data Contratação</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="15"
+					style="widht:98%;"
+					value="#{cadFuncionariosMB.funcionario.contratacao}"
+					id="dataEmissao">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputcelular">Telefone</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.telefone}"
+					class="form-control" id="inputcelular" placeholder="Nome Mãe" />
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputcelular">Banco que Trabalha</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.ondetrabalha}"
+					class="form-control" id="inputTrabalha" />
+			</div>
+		</div>
+
+		<br />
+
+		<h6>Endereço</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputCEP">CEP</label>
+
+				<h:panelGrid columns="2" style="width:100%;">
+					<h:inputText value="#{cadFuncionariosMB.funcionario.cep}"
+						class="form-control" id="inputCEP" placeholder="CEP" />
+					<p:commandLink id="btnConfirmar" value="Buscar"
+						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado"
+						action="#{cadFuncionariosMB.buscarendereco()}" ajax="false"
+						styleClass="btn btn-primary" />
+				</h:panelGrid>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputTipoLogradouro">Tipo Logradouro</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.tipologradouro}"
+					class="form-control" id="inputTipoLogradouro"
+					placeholder="Tipo Logradouro" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputlogradouro">Logradouro</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.logradouro}"
+					class="form-control" id="inputlogradouro" placeholder="Logradouro" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputNumero">Número</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.numero}"
+					class="form-control" id="inputNumero" placeholder="Número" />
+			</div>
+		</div>
+
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputComplemento">Complemento</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.complemento}"
+					class="form-control" id="inputComplemento" placeholder="CEP" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputBairro">Bairro</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.bairro}"
+					class="form-control" id="inputBairro" placeholder="Bairro" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputCidade">Cidade</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.cidade}"
+					class="form-control" id="inputCidade" placeholder="Cidade" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputUfEstado">UF - Estado</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.ufestado}"
+					class="form-control" id="inputUfEstado" placeholder="UF Estado" />
+			</div>
+		</div>
+
+		<br />
+
+
+		<h6>Dados Bancarios</h6>
+		<hr />
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label>Banco</label>
+				<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+					immediate="true" value="#{cadFuncionariosMB.bancoDadosBancario}"
+					converter="BancoConverter" styleClass="form-control"
+					onchange="orgaobanco">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadFuncionariosMB.listaBanco}"
+						var="bancoSelecionado"
+						itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+						itemValue="#{bancoSelecionado}" />
+					<f:attribute name="listaBanco"
+						value="#{cadFuncionariosMB.listaBanco}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Agência</label>
+				<h:inputText value="#{cadFuncionariosMB.dadosbancario.agencia}"
+					class="form-control" placeholder="Agência" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Agência</label>
+				<h:inputText
+					value="#{cadFuncionariosMB.dadosbancario.digitoagencia}"
+					class="form-control" placeholder="Digito da agência" />
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label>Tipo conta</label>
+				<h:selectOneMenu style="width: 100%;"
+					value="#{cadFuncionariosMB.dadosbancario.tipoconta}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
+					<f:selectItem itemLabel="Conta Corrente" itemValue="Conta Corrente" />
+					<f:selectItem itemLabel="Conta Poupança" itemValue="Conta Poupança" />
+					<f:selectItem itemLabel="Ordem de Pagamento"
+						itemValue="Ordem de Pagamento" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>N° Conta</label>
+				<h:inputText value="#{cadFuncionariosMB.dadosbancario.nconta}"
+					class="form-control" placeholder="Número da conta" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Conta</label>
+				<h:inputText value="#{cadFuncionariosMB.dadosbancario.digitoconta}"
+					class="form-control" placeholder="Digito da conta" />
+			</div>
+		</div>
+
+		<br />
+		<h6>Uplaod dos documentos</h6>
+		<hr />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<p:fileUpload
+					fileUploadListener="#{cadFuncionariosMB.fileUploadListener}"
+					label="Anexar Banner" mode="advanced" value="#{cadFuncionariosMB.file}"
+					update="growl, idTabelaContrato" auto="true" />
+			</div>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="contrato"
+			value="#{cadFuncionariosMB.listaFuncionarioArquivo}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single" rowKey="1"
+			rowIndexVar="rowIx">
+
+
+			<p:column headerText="Data Upload"
+				style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.dataupload}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Nome Arquivo"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.nomearquivo}" />
+			</p:column>
+
+			<p:column headerText=""
+				style="width:15%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+
+				<p:commandLink ajax="false" 
+					action="#{cadFuncionariosMB.excluirArquivo(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaContrato">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+
+				<p:commandLink ajax="false"
+					action="#{cadFuncionariosMB.baixarArquivoFTP(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="download"></span>
+
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadFuncionariosMB.salvar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-danger"
+				style="margin-left:2%;" value="Cancelar"
+				action="#{cadFuncionariosMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

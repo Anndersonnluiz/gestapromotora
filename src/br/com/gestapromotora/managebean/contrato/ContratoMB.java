@@ -281,7 +281,7 @@ public class ContratoMB implements Serializable{
 	
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>();
 		}
@@ -358,7 +358,7 @@ public class ContratoMB implements Serializable{
 	
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
 		}

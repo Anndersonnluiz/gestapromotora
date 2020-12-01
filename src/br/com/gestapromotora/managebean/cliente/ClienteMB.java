@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.ClienteFacade;
 import br.com.gestapromotora.model.Cliente;
+import br.com.gestapromotora.util.Formatacao;
 
 @Named
 @ViewScoped
@@ -107,6 +108,14 @@ public class ClienteMB implements Serializable{
 		gerarListaCliente();
 		nomeCliente = "";
 		cpf = "";
+	}
+	
+	
+	public String historicoContrato(Cliente cliente) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("cliente", cliente);
+		return "historicoContrato";
 	}
 	
 	

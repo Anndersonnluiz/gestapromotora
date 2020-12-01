@@ -79,10 +79,20 @@
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
-												data-feather="users"></span> Tipo Colaborador
+												data-feather="users"></span> Grupo de Acessos
 											</a>
 											<a class="nav-link" href="pages/usuario/consUsuario.jsf">
-												<span data-feather="user"></span> Gerênciamento Colaborador
+												<span data-feather="user"></span> Usuários
+											</a>
+										</h:panelGroup> <h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
+											<a class="nav-link" href="pages/promotora/consPromotora.jsf">
+												<span data-feather="users"></span> Promotora
+											</a>
+										</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+											<a class="nav-link"
+												href="pages/funcionarios/consFuncionarios.jsf"> <span
+												data-feather="users"></span> Funcionários
 											</a>
 										</h:panelGroup></li>
 								</ul></li>
@@ -94,38 +104,33 @@
 							<li class="nav-item"><a class="nav-link"
 								href="pages/cliente/consCliente.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="users"></span> Clientes
+									data-feather="users"></span> Carteira de Clientes
 							</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/contrato/confDadosContrato.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="file-plus"></span> Emissão
-							</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/contrato/consPortabilidade.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="align-center"></span> Portabilidade
-							</a></li>
+
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false"> <span data-feather="align-center"></span>
-									Demais Operações
+									Contratos
 							</a>
 								<ul class="dropdown-menu">
+
 									<li style="font-size: 12px;"><a class="nav-link"
+										href="pages/contrato/confDadosContrato.jsf" role="button"
+										aria-haspopup="true" aria-expanded="false"> <span
+											data-feather="file-plus"></span> Emissão
+									</a><a class="nav-link" href="pages/contrato/consPortabilidade.jsf"
+										role="button" aria-haspopup="true" aria-expanded="false">
+											<span data-feather="align-center"></span> Portabilidade
+									</a><a class="nav-link"
 										href="pages/contrato/consDemaisOperacoesINSS.jsf"> <span
-											data-feather="align-center"></span> INSS
+											data-feather="align-center"></span> Demais Ope. INSS
 									</a> <a class="nav-link"
 										href="pages/contrato/consDemaisOperacoes.jsf"> <span
-											data-feather="align-center"></span> SIAPE/GOV/PREF
+											data-feather="align-center"></span> Demais Ope.
+											SIAPE/GOV/PREF
 									</a></li>
 								</ul></li>
-							
-							<li class="nav-item"><a class="nav-link"
-								href="pages/contrato/trocarTitular.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="refresh-cw"></span> Troca de Titular
-							</a></li>
+
 							<li class="nav-item, dropdown"><h:panelGroup
 									rendered="false">
 									<a class="nav-link" href="#" data-toggle="dropdown"
@@ -185,11 +190,31 @@
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="printer"></span> Roteiros
 							</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/usuario/alterarSenha.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="refresh-cw"></span> Alterar Senha
-							</a></li>
+							<li class="nav-item, dropdown"><a class="nav-link" href="#"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false"> <span data-feather="settings"></span>
+									Configurações
+							</a>
+								<ul class="dropdown-menu">
+									<li style="font-size: 12px;"><a class="nav-link"
+										href="pages/usuario/alterarSenha.jsf" role="button"
+										aria-haspopup="true" aria-expanded="false"> <span
+											data-feather="refresh-cw"></span> Alterar Senha
+									</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+											<a class="nav-link" href="pages/contrato/trocarTitular.jsf"
+												role="button" aria-haspopup="true" aria-expanded="false">
+												<span data-feather="refresh-cw"></span> Troca de Titular
+											</a>
+										</h:panelGroup>
+										<h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+											<a class="nav-link"
+												href="pages/historico/consHistoricoUsuario.jsf"
+												role="button" aria-haspopup="true" aria-expanded="false">
+												<span data-feather="file-text"></span> Histórico de Usuário
+											</a>
+										</h:panelGroup></li>
+								</ul></li>
 
 							<li class="nav-item"><p:commandLink ajax="false"
 									action="#{usuarioLogadoMB.deslogar()}" value="Sair"
@@ -202,7 +227,7 @@
 					<h2>Faturamento</h2>
 					<hr />
 					<div class="row" style="color: white;">
-						
+
 						<h:panelGroup>
 							<div class="col-md-4">
 								<div class="panel-stat3"
@@ -213,16 +238,24 @@
 											ASSINATURA</h5>
 										<h4 class="m-top-none" id="visitorCount"
 											style="color: black; font-family: Segoe UI Semibold;">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorPagar}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+												R$:
+												<p:outputLabel value="#{dashBoardMB.valorPagar}">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{!usuarioLogadoMB.usuario.diretoria}">
+												<p:outputLabel value="#{dashBoardMB.nAguardandoAssinatura}" />
+											</h:panelGroup>
 										</h4>
 										<span class="m-left-xs"
 											style="color: black; font-family: Segoe UI Semibold;">
-											#{dashBoardMB.nAguardandoAssinatura} contratos aguardando
-											assinatura</span>
+											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+												#{dashBoardMB.nAguardandoAssinatura} 
+											</h:panelGroup> contratos aguardando assinatura
+										</span>
 										<div class="stat-icon" style="opacity: 0.9;">
 											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
 										</div>
@@ -239,15 +272,23 @@
 										PAGAMENTO</h5>
 									<h4 class="m-top-none"
 										style="color: black; font-family: Segoe UI Semibold;">
-										R$:
-										<p:outputLabel value="#{dashBoardMB.valorReceber}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorReceber}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h:panelGroup>
+										<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.diretoria}">
+											<p:outputLabel value="#{dashBoardMB.nAguardandoPagamento}" />
+										</h:panelGroup>
 									</h4>
 									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">#{dashBoardMB.nAguardandoPagamento}
-										contratos aguardando pagamento</span>
+										style="color: black; font-family: Segoe UI Semibold;">
+										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+											#{dashBoardMB.nAguardandoPagamento}
+										</h:panelGroup> contratos aguardando pagamento
+									</span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
 									</div>
@@ -260,18 +301,27 @@
 
 								<p:commandLink action="#{dashBoardMB.pagoCliente()}"
 									style="width:100%;text-decoration:none;" ajax="false">
-									<h5 style="font-family: Segoe UI Semibold; color: white;">PAGO AO CLIENTE</h5>
+									<h5 style="font-family: Segoe UI Semibold; color: white;">PAGO
+										AO CLIENTE</h5>
 									<h4 class="m-top-none" id="userCount"
 										style="color: black; font-family: Segoe UI Semibold;">
-										R$:
-										<p:outputLabel value="#{dashBoardMB.fatutamento}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+										<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.fatutamento}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h:panelGroup>
+										<h:panelGroup rendered="#{!dashBoardMB.viewPagoCliente}">
+											<p:outputLabel value="#{dashBoardMB.nProducao}" />
+										</h:panelGroup>
 									</h4>
 									<span class="m-left-xs"
 										style="color: black; font-family: Segoe UI Semibold;">
-										#{dashBoardMB.nProducao} contratos pagos ao cliente </span>
+										<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+										#{dashBoardMB.nProducao}
+										</h:panelGroup> contratos pagos ao cliente
+									</span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 									</div>
@@ -292,15 +342,23 @@
 										AVERBAÇÃO</h5>
 									<h4 class="m-top-none" id="userCount"
 										style="color: black; font-family: Segoe UI Semibold;">
-										R$:
-										<p:outputLabel value="#{dashBoardMB.valorAverbacao}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
+										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorAverbacao}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h:panelGroup>
+										<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.diretoria}">
+											<p:outputLabel value="#{dashBoardMB.nPendenciaAverbacao}" />
+										</h:panelGroup>
 									</h4>
 									<span class="m-left-xs"
 										style="color: black; font-family: Segoe UI Semibold;">
-										#{dashBoardMB.nPendenciaAverbacao} contratos com pendências </span>
+										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
+											#{dashBoardMB.nPendenciaAverbacao} 
+										</h:panelGroup> contratos com pendências
+									</span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
 									</div>
@@ -308,31 +366,87 @@
 								</p:commandLink>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="panel-stat3 bg-success"
-								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.supervisao}">
+							<div class="col-md-4">
+								<div class="panel-stat3 bg-danger"
+									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
 
-								<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<h5 style="font-family: Segoe UI Semibold; color: white;">COMISSÃO RECEBIDA</h5>
-									<h4 class="m-top-none" id="userCount"
-										style="color: black; font-family: Segoe UI Semibold;">
-										R$:
-										<p:outputLabel value="#{dashBoardMB.valorComissaoRecebida}">
-											<f:convertNumber locale="pt_BR" minFractionDigits="2"
-												maxFractionDigits="2" />
-										</p:outputLabel>
-									</h4>
-									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">
-										#{dashBoardMB.nComissaoRecebida} contratos </span>
-									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-									</div>
+									<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<h5 style="font-family: Segoe UI Semibold; color: white;">PENDÊNCIA
+											DOCUMENTAÇÃO</h5>
+										<h4 class="m-top-none" id="userCount"
+											style="color: black; font-family: Segoe UI Semibold;">
+											<p:outputLabel value="#{dashBoardMB.nPendenciaDocumento}" />
+										</h4>
+										<span class="m-left-xs"
+											style="color: black; font-family: Segoe UI Semibold;">
+											contratos com pendência </span>
+										<div class="stat-icon" style="opacity: 0.9;">
+											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+										</div>
 
-								</p:commandLink>
+									</p:commandLink>
+								</div>
 							</div>
-						</div>
+						</h:panelGroup>
+						<h:panelGroup
+							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
+							<div class="col-md-4">
+								<div class="panel-stat3 bg-success"
+									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+
+									<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<h5 style="font-family: Segoe UI Semibold; color: white;">COMISSÃO
+											RECEBIDA</h5>
+										<h4 class="m-top-none" id="userCount"
+											style="color: black; font-family: Segoe UI Semibold;">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorComissaoRecebida}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h4>
+										<span class="m-left-xs"
+											style="color: black; font-family: Segoe UI Semibold;">
+											#{dashBoardMB.nComissaoRecebida} contratos </span>
+										<div class="stat-icon" style="opacity: 0.9;">
+											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+										</div>
+
+									</p:commandLink>
+								</div>
+							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+							<div class="col-md-4">
+								<div class="panel-stat3 bg-success"
+									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+
+									<p:commandLink action="#{dashBoardMB.producaoGeral()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<h5 style="font-family: Segoe UI Semibold; color: white;">PRODUÇÃO
+											LIQUIDA</h5>
+										<h4 class="m-top-none" id="userCount"
+											style="color: black; font-family: Segoe UI Semibold;">
+											R$:
+											<p:outputLabel value="#{dashBoardMB.valorProducao}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</p:outputLabel>
+										</h4>
+										<span class="m-left-xs"
+											style="color: black; font-family: Segoe UI Semibold;">
+											#{dashBoardMB.nTotalProducao} contratos </span>
+										<div class="stat-icon" style="opacity: 0.9;">
+											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+										</div>
+
+									</p:commandLink>
+								</div>
+							</div>
+						</h:panelGroup>
 					</div>
 					<canvas id="myChart" width="600" height="400"></canvas>
 					<h:panelGroup rendered="false">
@@ -502,29 +616,25 @@
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script>
-		var data = [
-		    {
-		        value: 300,
-		        color:"#F7464A",
-		        highlight: "#FF5A5E",
-		        label: "Red"
-		    },
-		    {
-		        value: 50,
-		        color: "#46BFBD",
-		        highlight: "#5AD3D1",
-		        label: "Green"
-		    },
-		    {
-		        value: 100,
-		        color: "#FDB45C",
-		        highlight: "#FFC870",
-		        label: "Yellow"
-		    }
-		];
+			var data = [ {
+				value : 300,
+				color : "#F7464A",
+				highlight : "#FF5A5E",
+				label : "Red"
+			}, {
+				value : 50,
+				color : "#46BFBD",
+				highlight : "#5AD3D1",
+				label : "Green"
+			}, {
+				value : 100,
+				color : "#FDB45C",
+				highlight : "#FFC870",
+				label : "Yellow"
+			} ];
 
-		var ctx = document.getElementById("myChart").getContext("2d");
-		new Chart(ctx).Pie(data);
+			var ctx = document.getElementById("myChart").getContext("2d");
+			new Chart(ctx).Pie(data);
 		</script>
 
 

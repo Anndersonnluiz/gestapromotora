@@ -76,4 +76,9 @@ public class UsuarioFacade {
 			return null;
 		}
 	}
+
+	public void excluir(int idusuario) {
+		usuarioDao = new UsuarioDao();
+		usuarioDao.excluir(idusuario);
+	}
 }

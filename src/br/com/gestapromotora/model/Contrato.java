@@ -125,6 +125,9 @@ public class Contrato implements Serializable{
 	private boolean reducaoparcela;
 	@Column(name = "operacaoinss")
 	private boolean operacaoinss;
+	@JoinColumn(name = "promotora_idpromotora", referencedColumnName = "idpromotora")
+	@ManyToOne(optional = false)
+	private Promotora promotora;
 	
 	
 	public Contrato() {
@@ -135,6 +138,7 @@ public class Contrato implements Serializable{
 		descricaobloqueio = "unlock";
 		descricaodigitado = "file";
 		descricaofisico = "x-circle";
+		ultimamudancasituacao = new Date();
 	}
 
 
@@ -586,6 +590,16 @@ public class Contrato implements Serializable{
 
 	public void setOperacaoinss(boolean operacaoinss) {
 		this.operacaoinss = operacaoinss;
+	}
+
+
+	public Promotora getPromotora() {
+		return promotora;
+	}
+
+
+	public void setPromotora(Promotora promotora) {
+		this.promotora = promotora;
 	}
 
 

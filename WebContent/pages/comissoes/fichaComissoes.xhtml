@@ -15,10 +15,26 @@
 	<!-- Font Awesome -->
 	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="../../resources/css/css.css" rel="stylesheet" />
+	<script>
+		function printContent(el) {
+			var restorepage = $('h:form').html();
+			var printcontent = $('#' + el).clone();
+			$('h:form').empty().html(printcontent);
+			window.print();
+			$('h:form').html(restorepage);
+		}
+	</script>
 </h:head>
 <h:body style="background:white;">
 	<br />
 	<h:form>
+	
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Voltar" action="#{fichaComissoesMB.voltar()}" />
+			<button id="print" onclick="printContent('conteudo');" class="btn btn-primary">Imprimir</button>
+		</div>
+		
 		<div align="left" style="margin-left: 5%;">
 			<p:commandLink action="#{fichaComissoesMB.voltar()}" ajax="false">
 				<img src="../../resources/img/outralogo.png" width="15%" />
@@ -58,9 +74,9 @@
 				value="#{fichaComissoesMB.listaComissao}">
 
 
-				<p:column headerText="Pg Cliente"
+				<p:column headerText="Lançamento"
 					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.datapagamento}">
+					<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -84,6 +100,10 @@
 				<p:column headerText="Operação"
 					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
+				</p:column>
+				<p:column headerText="Promotora"
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.promotora.descricao}" />
 				</p:column>
 				<p:column headerText="PROD."
 					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">

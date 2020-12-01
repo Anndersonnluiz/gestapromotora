@@ -8,22 +8,27 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.gestapromotora.bean.AlteracaoBean;
 import br.com.gestapromotora.dao.NotificacaoDao;
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.HistoricoUsuarioFacade;
 import br.com.gestapromotora.facade.RankingVendasAnualFacade;
 import br.com.gestapromotora.facade.RankingVendasFacade;
 import br.com.gestapromotora.facade.RegrasCoeficienteFacade;
 import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Historicousuario;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.Rankingvendas;
 import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Situacao;
 import br.com.gestapromotora.util.Formatacao;
+import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
 @ViewScoped
@@ -33,11 +38,14 @@ public class AlterarSituacaoMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Inject
+	private UsuarioLogadoMB usuarioLogadoMB;
 	private Contrato contrato;
 	private Situacao situacao;
 	private List<Situacao> listaSituacao;
 	private String voltar;
 	private Regrascoeficiente regrascoeficiente;
+	private AlteracaoBean alteracaoBean;
 
 	@PostConstruct
 	public void init() {
@@ -50,6 +58,8 @@ public class AlterarSituacaoMB implements Serializable {
 		situacao = contrato.getSituacao();
 		gerarListaSituacao();
 		buscarRegraCoeficiente();
+		alteracaoBean = new AlteracaoBean();
+		alteracaoBean.setDescricao(contrato.getSituacao().getDescricao());
 	}
 
 	public Contrato getContrato() {
@@ -84,6 +94,22 @@ public class AlterarSituacaoMB implements Serializable {
 		this.regrascoeficiente = regrascoeficiente;
 	}
 
+	public String getVoltar() {
+		return voltar;
+	}
+
+	public void setVoltar(String voltar) {
+		this.voltar = voltar;
+	}
+
+	public AlteracaoBean getAlteracaoBean() {
+		return alteracaoBean;
+	}
+
+	public void setAlteracaoBean(AlteracaoBean alteracaoBean) {
+		this.alteracaoBean = alteracaoBean;
+	}
+
 	public void gerarListaSituacao() {
 		SituacaoFacade situacaoFacade = new SituacaoFacade();
 		String sql = "Select s From Situacao s WHERE s.visualizar=true ";
@@ -110,10 +136,13 @@ public class AlterarSituacaoMB implements Serializable {
 		} else if (situacao.getIdsituacao() == 2) {
 			descontarRankingAnual();
 			descontarRankingMensal();
-		} else if (situacao.getIdsituacao() == 28) {
-			gerarNotificacao();
-		}
+		} 
+		gerarNotificacao();
 		contrato = contratoFacade.salvar(contrato);
+		if (!alteracaoBean.getDescricao().equalsIgnoreCase(contrato.getSituacao().getDescricao())) {
+			Historicousuario historicousuario = new Historicousuario();
+			salvarHistorico(historicousuario);
+		}
 		return voltar;
 	}
 
@@ -172,6 +201,18 @@ public class AlterarSituacaoMB implements Serializable {
 	public void buscarRegraCoeficiente() {
 		RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
 		regrascoeficiente = regrasCoeficienteFacade.consultar(contrato.getIdregracoeficiente());
+	}
+	
+	
+	public void salvarHistorico(Historicousuario historicousuario) {
+		HistoricoUsuarioFacade historicoUsuarioFacade = new HistoricoUsuarioFacade();
+		historicousuario.setDatacadastro(new Date());
+		historicousuario.setHora(Formatacao.foramtarHoraString());
+		historicousuario.setUsuario(usuarioLogadoMB.getUsuario());
+		historicousuario.setDescricao("Situação alterada de " + alteracaoBean.getDescricao() +
+				" para " + contrato.getSituacao().getDescricao() + ", Tipo do contrato: " + contrato.getTipooperacao().getDescricao()
+				+ ", Código do contrato: " + contrato.getCodigocontrato());
+		historicoUsuarioFacade.salvar(historicousuario);
 	}
 
 }

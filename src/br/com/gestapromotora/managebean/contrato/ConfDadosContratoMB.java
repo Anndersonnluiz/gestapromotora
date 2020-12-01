@@ -138,7 +138,7 @@ public class ConfDadosContratoMB implements Serializable{
 	
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
 		}

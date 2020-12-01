@@ -54,6 +54,9 @@ public class HistoricoComissaoMB implements Serializable{
 	private String cpf;
 	private String statusTipo;
 	private boolean selecionarTodos;
+	private int nBaixa;
+	private Date dataCadastroIni;
+	private Date dataCadastroFinal;
 	
 	
 	@PostConstruct
@@ -68,7 +71,8 @@ public class HistoricoComissaoMB implements Serializable{
 		gerarListaInicial();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			unicoUsuario = true;
 			usuario = usuarioLogadoMB.getUsuario();
 		}
@@ -318,10 +322,41 @@ public class HistoricoComissaoMB implements Serializable{
 	}
 
 
+	public int getnBaixa() {
+		return nBaixa;
+	}
+
+
+	public void setnBaixa(int nBaixa) {
+		this.nBaixa = nBaixa;
+	}
+
+
+	public Date getDataCadastroIni() {
+		return dataCadastroIni;
+	}
+
+
+	public void setDataCadastroIni(Date dataCadastroIni) {
+		this.dataCadastroIni = dataCadastroIni;
+	}
+
+
+	public Date getDataCadastroFinal() {
+		return dataCadastroFinal;
+	}
+
+
+	public void setDataCadastroFinal(Date dataCadastroFinal) {
+		this.dataCadastroFinal = dataCadastroFinal;
+	}
+
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2";
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		if (tipoFiltro.equalsIgnoreCase("19")) {
@@ -334,7 +369,7 @@ public class HistoricoComissaoMB implements Serializable{
 			sql = sql + " and h.contrato.situacao.idsituacao=36 and h.tipo='PENDENTE'";
 			situacao = 5;
 		}else if(tipoFiltro.equalsIgnoreCase("comissao")) {
-			sql = sql + " and h.tipo='Pago'";
+			sql = sql + " and h.tipo='Pago' and h.contrato.ultimamudancasituacao>='2020-11-01'";
 			situacao = 6;
 		}else if(tipoFiltro.equalsIgnoreCase("16")) {
 			sql = sql + " and h.tipo<>'Pago' and h.contrato.situacao.idsituacao=16";
@@ -382,14 +417,17 @@ public class HistoricoComissaoMB implements Serializable{
 			sql = sql + " and h.mes=" + dataLancamento;
 		}
 		
-		if (usuario != null && usuario.getIdusuario() != null) {
-			sql = sql + " and h.usuario.idusuario=" + usuario.getIdusuario();
-		}
+		
 		
 		if (dataini != null && datafin != null) {
-			sql = sql + " and h.datalancamento>='" + Formatacao.ConvercaoDataNfe(dataini)
-				+ "' and h.datalancamento<='" + Formatacao.ConvercaoDataNfe(datafin)
+			sql = sql + " and h.contrato.ultimamudancasituacao>='" + Formatacao.ConvercaoDataNfe(dataini)
+				+ "' and h.contrato.ultimamudancasituacao<='" + Formatacao.ConvercaoDataNfe(datafin)
 				+ "'";
+		}
+		
+		if (dataCadastroIni != null && dataCadastroFinal != null) {
+			sql = sql + " and h.datalancamento>='" + Formatacao.ConvercaoDataNfe(dataCadastroIni) + "'"
+					+ " and h.datalancamento<='" + Formatacao.ConvercaoDataNfe(dataCadastroFinal) + "'"; 
 		}
 		
 		if (situacao > 0) {
@@ -407,11 +445,24 @@ public class HistoricoComissaoMB implements Serializable{
 				sql = sql + " and h.contrato.situacao.idsituacao=36";
 			}
 		}
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}else {
+			if (usuario != null && usuario.getIdusuario() != null) {
+				sql = sql + " and h.usuario.idusuario=" + usuario.getIdusuario();
+			}
 		}
 		if (statusTipo != null && statusTipo.length() > 0) {
 			sql = sql + " and h.tipo='" + statusTipo + "'";
+		}
+		
+		if (nBaixa > 0) {
+			if (nBaixa == 1) {
+				sql = sql + " and h.baixa=true";
+			}else {
+				sql = sql + " and h.baixa=false";
+			}
 		}
 		sql = sql + " order by h.contrato.datapagamento";
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
@@ -454,6 +505,9 @@ public class HistoricoComissaoMB implements Serializable{
 		datafin = null;
 		dataini = null;
 		cpf = "";
+		nBaixa = 0;
+		dataCadastroFinal = null;
+		dataCadastroIni = null;
 		gerarListaInicial();
 	}
 	
@@ -461,13 +515,14 @@ public class HistoricoComissaoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("historicocomissao", historicocomissao);
+		session.setAttribute("tipoFiltro", tipoFiltro);
 		return "editarComissao";
 	}
 	
 	
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u WHERE u.ativo=true");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u WHERE u.ativo=true order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>(); 
 		}
@@ -526,6 +581,21 @@ public class HistoricoComissaoMB implements Serializable{
 		for (int i = 0; i < listaComissao.size(); i++) {
 			listaComissao.get(i).setSelecionado(tipo);
 		}
+	}
+	
+	
+	public void pagou(Historicocomissao historicocomissao) {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		if (historicocomissao.getDescricaobaixa().equalsIgnoreCase("thumbs-down")) {
+			historicocomissao.setDescricaobaixa("thumbs-up");
+			historicocomissao.setCorbaixa("green");
+			historicocomissao.setBaixa(true);
+		}else {
+			historicocomissao.setDescricaobaixa("thumbs-down");
+			historicocomissao.setCorbaixa("red");
+			historicocomissao.setBaixa(false);
+		}
+		historicoComissaoFacade.salvar(historicocomissao);
 	}
 	
 	

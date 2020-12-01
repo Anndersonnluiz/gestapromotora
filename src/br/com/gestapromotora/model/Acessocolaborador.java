@@ -47,6 +47,22 @@ public class Acessocolaborador implements Serializable{
 	private boolean notificacaooperacional;
 	@Column(name = "cadastrarroteiro")
 	private boolean cadastrarroteiro;
+	@Column(name = "comissaorecebida")
+	private boolean comissaorecebida;
+	@Column(name = "acessooperacional")
+	private boolean acessooperacional;
+	@Column(name = "cliente")
+	private boolean cliente;
+	@Column(name = "cadastrarcliente")
+	private boolean cadastrarcliente;
+	@Column(name = "historicocliente")
+	private boolean historicocliente;
+	@Column(name = "metas")
+	private boolean metas;
+	@Column(name = "cadastrarmetas")
+	private boolean cadastrarmetas;
+	@Column(name = "cadastrarpromotora")
+	private boolean cadastrarpromotora;
 
 	 
 	public Acessocolaborador() {
@@ -62,6 +78,14 @@ public class Acessocolaborador implements Serializable{
 		cadastrarvalores = true;
 		notificacaooperacional = true;
 		cadastrarroteiro = true;
+		comissaorecebida = true;
+		acessooperacional = true;
+		cliente = true;
+		cadastrarcliente = true;
+		historicocliente = true;
+		metas = true;
+		cadastrarmetas = true;
+		cadastrarpromotora = true;
 	}
 	
 	
@@ -154,6 +178,89 @@ public class Acessocolaborador implements Serializable{
 	public void setCadastrar(boolean cadastrar) {
 		this.cadastrar = cadastrar;
 	}
+	
+	
+	
+	public boolean isComissaorecebida() {
+		return comissaorecebida;
+	}
+
+
+	public void setComissaorecebida(boolean comissaorecebida) {
+		this.comissaorecebida = comissaorecebida;
+	}
+
+
+	public boolean isAcessooperacional() {
+		return acessooperacional;
+	}
+
+
+	public void setAcessooperacional(boolean acessooperacional) {
+		this.acessooperacional = acessooperacional;
+	}
+
+
+	public boolean isCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(boolean cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public boolean isCadastrarcliente() {
+		return cadastrarcliente;
+	}
+
+
+	public void setCadastrarcliente(boolean cadastrarcliente) {
+		this.cadastrarcliente = cadastrarcliente;
+	}
+
+
+	public boolean isHistoricocliente() {
+		return historicocliente;
+	}
+
+
+	public void setHistoricocliente(boolean historicocliente) {
+		this.historicocliente = historicocliente;
+	}
+
+
+	public boolean isMetas() {
+		return metas;
+	}
+
+
+	public void setMetas(boolean metas) {
+		this.metas = metas;
+	}
+
+
+	public boolean isCadastrarmetas() {
+		return cadastrarmetas;
+	}
+
+
+	public void setCadastrarmetas(boolean cadastrarmetas) {
+		this.cadastrarmetas = cadastrarmetas;
+	}
+
+
+	public boolean isCadastrarpromotora() {
+		return cadastrarpromotora;
+	}
+
+
+	public void setCadastrarpromotora(boolean cadastrarpromotora) {
+		this.cadastrarpromotora = cadastrarpromotora;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

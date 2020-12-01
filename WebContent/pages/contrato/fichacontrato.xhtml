@@ -15,10 +15,25 @@
 	<!-- Font Awesome -->
 	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="../../resources/css/css.css" rel="stylesheet" />
+	<script>
+		function printContent(el) {
+			var restorepage = $('h:form').html();
+			var printcontent = $('#' + el).clone();
+			$('h:form').empty().html(printcontent);
+			window.print();
+			$('h:form').html(restorepage);
+		}
+	</script>
 </h:head>
 <h:body style="background:white;">
 	<br />
 	<h:form>
+		
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+					value="Voltar" action="#{fichaContratoMB.voltar()}" />
+			<button id="print" onclick="printContent('conteudo');" class="btn btn-primary">Imprimir</button>
+		</div>
 		<div align="left" style="margin-left: 5%;">
 			<p:commandLink action="#{fichaContratoMB.voltar()}" ajax="false">
 				<img src="../../resources/img/outralogo.png" width="15%" />
@@ -30,7 +45,7 @@
 			<h4>PROPOSTA DO EMPRÉSTIMO</h4>
 		</div>
 		<br />
-		<div
+		<div id="conteudo"
 			style="font-family: sans-serif; font-size: 16px; width: 90%; margin-left: 5%;">
 
 

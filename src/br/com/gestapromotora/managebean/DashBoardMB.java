@@ -70,6 +70,10 @@ public class DashBoardMB implements Serializable{
 	private float valorAverbacao;
 	private float valorComissaoRecebida;
 	private int nComissaoRecebida;
+	private boolean viewPagoCliente;
+	private int nPendenciaDocumento;
+	private float valorProducao;
+	private int nTotalProducao;
 	
 	
 	
@@ -83,6 +87,11 @@ public class DashBoardMB implements Serializable{
 		listarNotificacao();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		mesAtual = Formatacao.nomeMes(mes);
+		if (usuarioLogadoMB.getUsuario().isDiretoria() || usuarioLogadoMB.getUsuario().isSupervisao()) {
+			viewPagoCliente = true;
+		}else {
+			viewPagoCliente = false;
+		}
 	}
 
 	public Rankingvendas getPrimeiroMes() {
@@ -362,6 +371,38 @@ public class DashBoardMB implements Serializable{
 		this.nComissaoRecebida = nComissaoRecebida;
 	}
 
+	public boolean isViewPagoCliente() {
+		return viewPagoCliente;
+	}
+
+	public void setViewPagoCliente(boolean viewPagoCliente) {
+		this.viewPagoCliente = viewPagoCliente;
+	}
+
+	public int getnPendenciaDocumento() {
+		return nPendenciaDocumento;
+	}
+
+	public void setnPendenciaDocumento(int nPendenciaDocumento) {
+		this.nPendenciaDocumento = nPendenciaDocumento;
+	}
+
+	public float getValorProducao() {
+		return valorProducao;
+	}
+
+	public void setValorProducao(float valorProducao) {
+		this.valorProducao = valorProducao;
+	}
+
+	public int getnTotalProducao() {
+		return nTotalProducao;
+	}
+
+	public void setnTotalProducao(int nTotalProducao) {
+		this.nTotalProducao = nTotalProducao;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		listaMetaMensal = metaFaturamentoMensalDao.lista("Select m From Metafaturamentomensal m WHERE "
@@ -472,10 +513,12 @@ public class DashBoardMB implements Serializable{
 	
 	
 	public void faturamentoMensal() {
+		Date dataInicio = Formatacao.ConvercaoStringData("2020-10-31");
 		mesatual = Formatacao.getMesData(new Date()) + 1;
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2"  ;
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		List<Historicocomissao> lista = historicoComissaoFacade.lista(sql);
@@ -488,18 +531,20 @@ public class DashBoardMB implements Serializable{
 		fatutamento = 0.00f;
 		valorPagar = 0.00f;
 		valorReceber = 0.00f;
+		nPendenciaDocumento = 0;
+		valorProducao = 0.00f;
+		nTotalProducao = 0;
 		for (int i = 0; i < lista.size(); i++) {
-//			if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//				fatutamento = fatutamento + lista.get(i).getCmdbruta();
-//			}else {
-//				fatutamento = fatutamento + lista.get(i).getCmsliq();
-//			}
 			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16 
 					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
-				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					fatutamento = fatutamento + lista.get(i).getCmdbruta();
+				if (usuarioLogadoMB.getUsuario().isSupervisao()) {
+					fatutamento = fatutamento + lista.get(i).getProdliq();
 				}else {
-					fatutamento = fatutamento + lista.get(i).getCmsliq();
+					if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+						fatutamento = fatutamento + lista.get(i).getCmdbruta();
+					}else {
+						fatutamento = fatutamento + lista.get(i).getCmsliq();
+					}
 				}
 				nProducao = nProducao + 1;
 			}else if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 19
@@ -526,7 +571,11 @@ public class DashBoardMB implements Serializable{
 					valorAverbacao  = valorAverbacao + lista.get(i).getCmsliq();
 				}
 				nPendenciaAverbacao = nPendenciaAverbacao + 1;
-			}else if (lista.get(i).getTipo().equalsIgnoreCase("Pago")) { 
+			}else if(lista.get(i).getContrato().getSituacao().getIdsituacao() == 5
+					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
+				nPendenciaDocumento = nPendenciaDocumento + 1;
+			}else if (lista.get(i).getTipo().equalsIgnoreCase("Pago") 
+					&& lista.get(i).getContrato().getUltimamudancasituacao().after(dataInicio)) { 
 				if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
 					valorComissaoRecebida = valorComissaoRecebida + lista.get(i).getCmdbruta();
 				}else {
@@ -535,6 +584,11 @@ public class DashBoardMB implements Serializable{
 				nComissaoRecebida = nComissaoRecebida + 1;
 			}
 			
+			if (lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")
+					&& lista.get(i).getContrato().getUltimamudancasituacao().after(dataInicio)) {
+				valorProducao = valorProducao + lista.get(i).getProdliq();
+				nTotalProducao = nTotalProducao + 1;
+			}
 		}
 	}
 	
@@ -587,6 +641,11 @@ public class DashBoardMB implements Serializable{
 			listaNotificacao = new ArrayList<Notificacao>();
 		}
 		nNotificacao = listaNotificacao.size();
+	}
+	
+	
+	public String producaoGeral() {
+		return "consProducao";
 	}
 	
 	

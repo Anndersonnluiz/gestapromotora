@@ -2,6 +2,7 @@ package br.com.gestapromotora.managebean.contrato.demaisoperacoes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +14,16 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
+import br.com.gestapromotora.facade.HistoricoComissaoFacade;
+import br.com.gestapromotora.facade.RegrasCoeficienteFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
+import br.com.gestapromotora.model.Historicocomissao;
+import br.com.gestapromotora.model.Regrascoeficiente;
 import br.com.gestapromotora.model.Usuario;
+import br.com.gestapromotora.util.Formatacao;
+import br.com.gestapromotora.util.Mensagem;
 import br.com.gestapromotora.util.UsuarioLogadoMB;
 
 @Named
@@ -51,6 +58,7 @@ public class DemaisOperacoesMB implements Serializable{
 	private int nAguardandoPagamento;
 	private int nInconsistenciaBanco;
 	private int nInconsistenciaAguardando;
+	private int nAguardandoAssinatura;
 	private int nDigitadoPago;
 	private int nLiberal;
 	private int nMaloteNaoEnviado;
@@ -65,6 +73,7 @@ public class DemaisOperacoesMB implements Serializable{
 	private int nTodos;
 	private List<Banco> listaBanco;
 	private Banco banco;
+	private boolean unicoUsuario;
 	
 	
 	
@@ -73,6 +82,11 @@ public class DemaisOperacoesMB implements Serializable{
 		gerarListaUsuario();
 		gerarListaInicial();
 		gerarListaBanco();
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
+			unicoUsuario = true;
+			usuario = usuarioLogadoMB.getUsuario();
+		}
 	}
 
 
@@ -508,6 +522,30 @@ public class DemaisOperacoesMB implements Serializable{
 
 
 
+	public boolean isUnicoUsuario() {
+		return unicoUsuario;
+	} 
+
+
+
+	public void setUnicoUsuario(boolean unicoUsuario) {
+		this.unicoUsuario = unicoUsuario;
+	}
+
+
+
+	public int getnAguardandoAssinatura() {
+		return nAguardandoAssinatura;
+	}
+
+
+
+	public void setnAguardandoAssinatura(int nAguardandoAssinatura) {
+		this.nAguardandoAssinatura = nAguardandoAssinatura;
+	}
+
+
+
 	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql =  "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
@@ -515,7 +553,8 @@ public class DemaisOperacoesMB implements Serializable{
 		if (situacao > 0) {
 			sql = sql + " and c.situacao.idsituacao ="+ situacao;
 		}
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
+				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		listaContrato = contratoFacade.lista(sql);
@@ -532,7 +571,8 @@ public class DemaisOperacoesMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		return "visualizarContrato";
+		session.setAttribute("voltarTela", "consDemaisOperacoes");
+		return "cadContrato";
 	}
 	
 	
@@ -548,7 +588,7 @@ public class DemaisOperacoesMB implements Serializable{
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>();
 		}
@@ -557,10 +597,13 @@ public class DemaisOperacoesMB implements Serializable{
 	
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
-				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.situacao.idsituacao=" + nSituacao
+				"%' and c.cliente.cpf like '%"+ cpf +"%'"
 				+ " and c.operacaoinss=false ";
-		if (usuario != null && usuario.getIdusuario() != null  && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
-				.equalsIgnoreCase("Operacional")) {
+		if (nSituacao > 0) {
+			sql = sql + " and c.situacao.idsituacao=" + nSituacao;
+		}
+		if (usuario != null && usuario.getIdusuario() != null  
+				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		if (banco != null && banco.getIdbanco() != null) {
@@ -591,14 +634,15 @@ public class DemaisOperacoesMB implements Serializable{
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'"
 				+ " and c.operacaoinss=false ";
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao()
-				.equalsIgnoreCase("Operacional")) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() 
+				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
 		}
 		listaContratoPesquisa = contratoFacade.lista(sql);
 		if (listaContratoPesquisa == null) {
 			listaContratoPesquisa = new ArrayList<Contrato>();
 		}
+		nAguardandoAssinatura = 0;
 		nDigitados = 0;
 		nPendenciaDocumentacao = 0;
 		nAguardandoPagamento = 0;
@@ -611,6 +655,8 @@ public class DemaisOperacoesMB implements Serializable{
 				nDigitados = nDigitados + 1;
 			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 5) {
 				nPendenciaDocumentacao = nPendenciaDocumentacao + 1;
+			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 28) {
+				nAguardandoAssinatura = nAguardandoAssinatura + 1;
 			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 19) {
 				nAguardandoPagamento = nAguardandoPagamento + 1;
 			}else  if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16){
@@ -644,7 +690,7 @@ public class DemaisOperacoesMB implements Serializable{
 	
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum'");
+		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
 		}
@@ -656,6 +702,43 @@ public class DemaisOperacoesMB implements Serializable{
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("voltar", "consDemaisOperacoes");
 		return "fichaContrato";
+	}
+	
+	public void detalheSituacao(Contrato contrato) {
+		Mensagem.lancarMensagemInfo("Situação do Contrato:", contrato.getDetalhesituacao());
+	}
+	
+	
+	public void gerarComissao(Contrato contrato) {
+		RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
+		Regrascoeficiente regrascoeficiente = regrasCoeficienteFacade.consultar(contrato.getIdregracoeficiente());
+		Historicocomissao historicocomissao = new Historicocomissao();
+		historicocomissao.setDatalancamento(new Date());
+		historicocomissao.setContrato(contrato);
+		historicocomissao.setUsuario(contrato.getUsuario());
+		historicocomissao.setTipo("PENDENTE");
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		historicocomissao.setAno(ano);
+		historicocomissao.setMes(mes);
+		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			historicocomissao.setCmdbruta(contrato.getValorquitar() * (regrascoeficiente.getFlatrecebidaregra() / 100));
+			historicocomissao.setCmsliq(contrato.getValorquitar() * (regrascoeficiente.getFlatrepassadavista() / 100));
+			historicocomissao.setProdliq(contrato.getValorquitar());
+
+		} else if (contrato.getTipooperacao().getIdtipooperacao() != 1) {
+			historicocomissao
+					.setCmdbruta(contrato.getValoroperacao() * (regrascoeficiente.getFlatrecebidaregra() / 100));
+			historicocomissao
+					.setCmsliq(contrato.getValoroperacao() * (regrascoeficiente.getFlatrepassadavista() / 100));
+			historicocomissao.setProdliq(contrato.getValoroperacao());
+		} else {
+			historicocomissao.setCmdbruta(0.0f);
+			historicocomissao.setCmsliq(0.0f);
+			historicocomissao.setProdliq(0.0f);
+		}
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		historicoComissaoFacade.salvar(historicocomissao);
 	}
 
 }

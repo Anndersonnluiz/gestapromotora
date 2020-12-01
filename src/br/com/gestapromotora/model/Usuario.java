@@ -26,7 +26,7 @@ public class Usuario implements Serializable{
     @Column(name = "idusuario")
     private Integer idusuario;
     @Column(name = "cdinterno")
-    private int cdinterno;
+    private String cdinterno;
     @Column(name = "nome")
     private String nome;
     @Column(name = "cpf")
@@ -45,6 +45,10 @@ public class Usuario implements Serializable{
 	private boolean acessogeral;
 	@Column(name = "comissao")
 	private boolean comissao;
+	@Column(name = "diretoria")
+	private boolean diretoria;
+	@Column(name = "supervisao")
+	private boolean supervisao;
     @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
     @ManyToOne(optional = false)
     private Tipocolaborador tipocolaborador;
@@ -64,12 +68,17 @@ public class Usuario implements Serializable{
 	public void setIdusuario(Integer idusuario) {
 		this.idusuario = idusuario;
 	}
-	public int getCdinterno() {
+	
+	public String getCdinterno() {
 		return cdinterno;
 	}
-	public void setCdinterno(int cdinterno) {
+
+
+	public void setCdinterno(String cdinterno) {
 		this.cdinterno = cdinterno;
 	}
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -155,6 +164,26 @@ public class Usuario implements Serializable{
 
 	public void setComissao(boolean comissao) {
 		this.comissao = comissao;
+	}
+
+
+	public boolean isDiretoria() {
+		return diretoria;
+	}
+
+
+	public void setDiretoria(boolean diretoria) {
+		this.diretoria = diretoria;
+	}
+
+
+	public boolean isSupervisao() {
+		return supervisao;
+	}
+
+
+	public void setSupervisao(boolean supervisao) {
+		this.supervisao = supervisao;
 	}
 
 

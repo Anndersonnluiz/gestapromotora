@@ -39,6 +39,7 @@ import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.facade.MetaFaturamentoMensalFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
+import br.com.gestapromotora.facade.PromotoraFacade;
 import br.com.gestapromotora.facade.RankingVendasAnualFacade;
 import br.com.gestapromotora.facade.RankingVendasFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
@@ -52,6 +53,7 @@ import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Metafaturamentomensal;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.model.Promotora;
 import br.com.gestapromotora.model.Rankingvendas;
 import br.com.gestapromotora.model.Rankingvendasanual;
 import br.com.gestapromotora.model.Regrascoeficiente;
@@ -104,6 +106,8 @@ public class CadContratoMB implements Serializable {
 	private List<Usuario> listaUsuario;
 	private Usuario usuario;
 	private boolean habilitarUsuario = true;
+	private Promotora promotora;
+	private List<Promotora> listaPromotora;
 
 	@PostConstruct
 	public void init() {
@@ -124,6 +128,7 @@ public class CadContratoMB implements Serializable {
 		gerarListaTipoArquivo();
 		gerarListaOrgao();
 		gerarListaUsuario();
+		gerarListaPromotora();
 		if (contrato == null) {
 			contrato = new Contrato();
 			mes = Formatacao.getMesData(new Date()) + 1;
@@ -133,6 +138,7 @@ public class CadContratoMB implements Serializable {
 			novo = false;
 			gerarListaContratoAquivo();
 			usuario = contrato.getUsuario();
+			promotora = contrato.getPromotora();
 		}else {
 			usuario = usuarioLogadoMB.getUsuario();
 		}
@@ -400,9 +406,25 @@ public class CadContratoMB implements Serializable {
 		this.habilitarUsuario = habilitarUsuario;
 	}
 
+	public Promotora getPromotora() {
+		return promotora;
+	}
+
+	public void setPromotora(Promotora promotora) {
+		this.promotora = promotora;
+	}
+
+	public List<Promotora> getListaPromotora() {
+		return listaPromotora;
+	}
+
+	public void setListaPromotora(List<Promotora> listaPromotora) {
+		this.listaPromotora = listaPromotora;
+	}
+
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum'");
+		listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum' ORDER BY b.nome");
 		if (listaBancoOperacao == null) {
 			listaBancoOperacao = new ArrayList<Banco>();
 		}
@@ -489,8 +511,12 @@ public class CadContratoMB implements Serializable {
 			contrato.setCodigocontrato(gerarCodigo());
 			gerarMetaFaturamento();
 			contrato.setIdregracoeficiente(regrascoeficiente.getIdregrascoeficiente());
-			contrato.setBanco(banco);
 		}
+		if (promotora == null || promotora.getIdpromotora() == null) {
+			PromotoraFacade promotoraFacade = new PromotoraFacade();
+			promotora = promotoraFacade.consultar(1);
+		}
+		contrato.setPromotora(promotora);
 		contrato = contratoFacade.salvar(contrato);
 		verificarUpload();
 		if (novo) {
@@ -855,9 +881,18 @@ public class CadContratoMB implements Serializable {
 	
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>();
+		}
+	}
+	
+	
+	public void gerarListaPromotora() {
+		PromotoraFacade promotoraFacade = new PromotoraFacade();
+		listaPromotora = promotoraFacade.lista("SELECT p From Promotora p WHERE p.idpromotora>1");
+		if (listaPromotora == null) {
+			listaPromotora = new ArrayList<Promotora>();
 		}
 	}
 	

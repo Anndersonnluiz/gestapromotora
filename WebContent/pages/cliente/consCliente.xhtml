@@ -74,6 +74,12 @@
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
 				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{clienteMB.historicoContrato(cliente)}"
+					update=":frmConsultaBanco:growl, idTabelaContrato"
+					style="text-align: left;color:black;" title="Digitalização">
+					<span data-feather="file-text"></span>
+				</p:commandLink>
 			</p:column>
 		</p:dataTable>
 	</ui:define>

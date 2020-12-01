@@ -18,7 +18,7 @@
 				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
 					value="#{historicoComissaoMB.usuario}" converter="UsuarioConverter"
 					styleClass="form-control" onchange="usuario"
-					readonly="#{historicoComissaoMB.unicoUsuario}">
+					disabled="#{historicoComissaoMB.unicoUsuario}">
 					<f:selectItem itemLabel="Selecione" itemValue="0"
 						noSelectionOption="true" />
 					<f:selectItems value="#{historicoComissaoMB.listaUsuario}"
@@ -56,7 +56,7 @@
 					<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
 				</h:selectOneMenu>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label>Tipo</label>
 				<h:selectOneMenu style="width: 100%;" id="statusTipo"
 					value="#{historicoComissaoMB.statusTipo}" styleClass="form-control">
@@ -65,14 +65,23 @@
 					<f:selectItem itemLabel="PENDENTE" itemValue="PENDENTE" />
 				</h:selectOneMenu>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label>CPF Cliente</label>
 
 				<p:inputMask mask="999.999.999-99" id="cpf"
 					styleClass="form-control" value="#{historicoComissaoMB.cpf}" />
 			</div>
+			<div class="form-group col-md-2">
+				<label>Baixa</label>
+				<h:selectOneMenu style="width: 100%;" id="baixa"
+					value="#{historicoComissaoMB.nBaixa}" styleClass="form-control">
+					<f:selectItem itemLabel="TODOS" itemValue="0" />
+					<f:selectItem itemLabel="SIM" itemValue="1" />
+					<f:selectItem itemLabel="NÃO" itemValue="2" />
+				</h:selectOneMenu>
+			</div>
 			<div class="form-group col-md-4">
-				<label for="usuario">Periodo do Lançamento</label>
+				<label for="usuario">Periodo Alteração</label>
 				<h:panelGrid columns="2" style="width:80%;">
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
 						value="#{historicoComissaoMB.dataini}" id="dataini" size="11">
@@ -83,6 +92,25 @@
 					</p:calendar>
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
 						value="#{historicoComissaoMB.datafin}" id="datafin" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGrid>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="usuario">Periodo Cadastramento</label>
+				<h:panelGrid columns="2" style="width:80%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{historicoComissaoMB.dataCadastroIni}" id="dataCadastroini" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
+						value="#{historicoComissaoMB.dataCadastroFinal}" id="dataCadastrofin" size="11">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
@@ -160,79 +188,92 @@
 		<div align="right">
 			<p:commandLink 
 				action="#{historicoComissaoMB.fichaComissoes(false)}"
-				style="text-align: left;color:black;margin-right:5%;" value="Impressão Selecionados">
+				style="text-align: left;color:blue;margin-right:5%;font-weight:bold;" value="Impressão Selecionados">
 				<span data-feather="printer"></span>
 			</p:commandLink>
 			
 			<p:commandLink  
 				action="#{historicoComissaoMB.fichaComissoes(true)}"
-				style="text-align: left;color:black;" value="Impressão Todos">
+				style="text-align: left;color:blue;font-weight:bold;" value="Impressão Todos">
 				<span data-feather="printer"></span>
 			</p:commandLink>
 
 		</div>
 		<br/>
-		<p:dataTable id="idTabelaComissao" var="comissao"
+		<p:dataTable id="idTabelaComissao" var="comissao" 
 			value="#{historicoComissaoMB.listaComissao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
 			scrollHeight="300" selectionMode="single"
 			rowKey="#{comissao.idhistoricocomissao}">
 
 
-			<p:column headerText="Pago Cliente"
-				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.datapagamento}">
+			<p:column headerText="Lançamento"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Corretor"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.usuario.nome}" />
 			</p:column>
 			<p:column headerText="CPF"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.cliente.cpf}" />
 			</p:column>
 			<p:column headerText="Cliente"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.cliente.nome}" />
 			</p:column>
 			<p:column headerText="Banco"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText
 					value="#{comissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}" />
 			</p:column>
 			<p:column headerText="Contrato"
-				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.codigocontrato}" />
 			</p:column>
 			<p:column headerText="Operação"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
 			</p:column>
-			<p:column headerText="PROD. LIQ"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+			<p:column headerText="Promotora"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.promotora.descricao}" />
+			</p:column>
+			<p:column headerText="Produção"
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.prodliq}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="CMS RECEBIDA"
+			<p:column headerText="Recebida"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmdbruta}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="CMS REPASSADA"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+			<p:column headerText="Repassada"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmsliq}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Tipo"
-				style="width:6%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.tipo}" />
+			</p:column>
+			<p:column headerText="Baixa" rendered="#{usuarioLogadoMB.usuario.comissao}"
+				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<p:commandLink ajax="false" update="idTabelaComissao"
+						action="#{historicoComissaoMB.pagou(comissao)}"
+						title="Baixa" style="text-align: left;color:black;"
+						>
+						<span data-feather="#{comissao.descricaobaixa}" style="color:#{comissao.corbaixa};"></span>
+					</p:commandLink>
 			</p:column>
 
 			<p:column headerText=""
