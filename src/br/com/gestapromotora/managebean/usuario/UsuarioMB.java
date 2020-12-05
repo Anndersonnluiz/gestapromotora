@@ -76,16 +76,16 @@ public class UsuarioMB implements Serializable {
 
 	public void resetarSenhaUsuario(Usuario usuario) {
 		String senhaResetada;
-		try {
-			senhaResetada = Criptografia.encript("senha");
-			if (usuario != null) {
-				usuario.setSenha(senhaResetada);
-				UsuarioFacade usuarioFacade = new UsuarioFacade();
-				usuarioFacade.salvar(usuario);
-			}
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		//try {
+			//senhaResetada = Criptografia.encript("senha");
+		//	if (usuario != null) {
+			//	usuario.setSenha("");
+			//	UsuarioFacade usuarioFacade = new UsuarioFacade();
+			//	usuarioFacade.salvar(usuario);
+			//}
+		//} catch (NoSuchAlgorithmException ex) {
+		//	Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
+		//}
 	}
 
 	public void ativarDesativarUsuario(Usuario usuario) {

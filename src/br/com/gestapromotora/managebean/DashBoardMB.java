@@ -74,6 +74,7 @@ public class DashBoardMB implements Serializable{
 	private int nPendenciaDocumento;
 	private float valorProducao;
 	private int nTotalProducao;
+	private int nFormalizacaoPendencia;
 	
 	
 	
@@ -403,6 +404,14 @@ public class DashBoardMB implements Serializable{
 		this.nTotalProducao = nTotalProducao;
 	}
 
+	public int getnFormalizacaoPendencia() {
+		return nFormalizacaoPendencia;
+	}
+
+	public void setnFormalizacaoPendencia(int nFormalizacaoPendencia) {
+		this.nFormalizacaoPendencia = nFormalizacaoPendencia;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		listaMetaMensal = metaFaturamentoMensalDao.lista("Select m From Metafaturamentomensal m WHERE "
@@ -534,6 +543,7 @@ public class DashBoardMB implements Serializable{
 		nPendenciaDocumento = 0;
 		valorProducao = 0.00f;
 		nTotalProducao = 0;
+		nFormalizacaoPendencia = 0;
 		for (int i = 0; i < lista.size(); i++) {
 			if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 16 
 					&& lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")) {
@@ -582,6 +592,8 @@ public class DashBoardMB implements Serializable{
 					valorComissaoRecebida  = valorComissaoRecebida + lista.get(i).getCmsliq();
 				}
 				nComissaoRecebida = nComissaoRecebida + 1;
+			}else if (lista.get(i).getContrato().getSituacao().getIdsituacao() == 37) {
+				nFormalizacaoPendencia = nFormalizacaoPendencia + 1;
 			}
 			
 			if (lista.get(i).getTipo().equalsIgnoreCase("PENDENTE")

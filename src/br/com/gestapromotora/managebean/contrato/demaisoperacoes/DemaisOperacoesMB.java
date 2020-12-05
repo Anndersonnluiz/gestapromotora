@@ -74,6 +74,7 @@ public class DemaisOperacoesMB implements Serializable{
 	private List<Banco> listaBanco;
 	private Banco banco;
 	private boolean unicoUsuario;
+	private int nFormalizacaoPendencia;
 	
 	
 	
@@ -546,6 +547,18 @@ public class DemaisOperacoesMB implements Serializable{
 
 
 
+	public int getnFormalizacaoPendencia() {
+		return nFormalizacaoPendencia;
+	}
+
+
+
+	public void setnFormalizacaoPendencia(int nFormalizacaoPendencia) {
+		this.nFormalizacaoPendencia = nFormalizacaoPendencia;
+	}
+
+
+
 	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql =  "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
@@ -665,6 +678,8 @@ public class DemaisOperacoesMB implements Serializable{
 				nCancelados = nCancelados + 1;
 			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 36) {
 				nPendenciaAverbacao = nPendenciaAverbacao + 1;
+			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 37) {
+				nFormalizacaoPendencia = nFormalizacaoPendencia + 1;
 			}
 		}
 	}
@@ -739,6 +754,15 @@ public class DemaisOperacoesMB implements Serializable{
 		}
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		historicoComissaoFacade.salvar(historicocomissao);
+		Mensagem.lancarMensagemInfo("Lançamento com sucesso", "");
+	}
+	
+	
+	public String historicoContrato(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "linhaTempoContrato";
 	}
 
 }

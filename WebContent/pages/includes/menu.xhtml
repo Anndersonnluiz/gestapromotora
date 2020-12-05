@@ -39,9 +39,11 @@
 		<div class="row">
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 				<div class="sidebar-sticky">
-
+					<div align="center">
+						<img width="120" src="../../resources/img/outralogo.png"
+							class="brand_logo" alt="Logo" />
+					</div>
 					<ul class="nav flex-column">
-						<br />
 						<li class="nav-item"><a class="nav-link active"
 							href="/deltafinanceira/dashboard.jsf"> <span
 								data-feather="home"></span> Dashboard <span class="sr-only">(atual)</span>
@@ -70,12 +72,13 @@
 											href="/deltafinanceira/pages/promotora/consPromotora.jsf">
 											<span data-feather="users"></span> Promotora
 										</a>
-									</h:panelGroup><h:panelGroup
-											rendered="#{dashBoardMB.viewPagoCliente}">
-											<a class="nav-link" href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf">
-												<span data-feather="users"></span> Funcionários
-											</a>
-										</h:panelGroup></li>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+										<a class="nav-link"
+											href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf">
+											<span data-feather="users"></span> Funcionários
+										</a>
+									</h:panelGroup></li>
 							</ul></li>
 						<li class="nav-item"><a class="nav-link" target="_blank"
 							href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
@@ -88,28 +91,29 @@
 								data-feather="users"></span> Carteira de Clientes
 						</a></li>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="align-center"></span>
-									Contratos
-							</a>
-								<ul class="dropdown-menu">
-									
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/contrato/confDadosContrato.jsf" role="button"
-										aria-haspopup="true" aria-expanded="false"> <span
-											data-feather="file-plus"></span> Emissão
-									</a><a class="nav-link"
-										href="/deltafinanceira/pages/contrato/consPortabilidade.jsf" role="button"
-										aria-haspopup="true" aria-expanded="false"> <span
-											data-feather="align-center"></span> Portabilidade
-									</a><a class="nav-link"
-										href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf"> <span
-											data-feather="align-center"></span> Demais Ope. INSS
-									</a> <a class="nav-link"
-										href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf"> <span
-											data-feather="align-center"></span> Demais Ope. SIAPE/GOV/PREF
-									</a></li>
-								</ul></li>
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> <span data-feather="align-center"></span>
+								Contratos
+						</a>
+							<ul class="dropdown-menu">
+
+								<li style="font-size: 12px;"><a class="nav-link"
+									href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
+									role="button" aria-haspopup="true" aria-expanded="false"> <span
+										data-feather="file-plus"></span> Emissão
+								</a><a class="nav-link"
+									href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
+									role="button" aria-haspopup="true" aria-expanded="false"> <span
+										data-feather="align-center"></span> Portabilidade
+								</a><a class="nav-link"
+									href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf">
+										<span data-feather="align-center"></span> Demais Ope. INSS
+								</a> <a class="nav-link"
+									href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
+										<span data-feather="align-center"></span> Demais Ope.
+										SIAPE/GOV/PREF
+								</a></li>
+							</ul></li>
 						<li class="nav-item, dropdown"><h:panelGroup rendered="false">
 								<a class="nav-link" href="#" data-toggle="dropdown"
 									role="button" aria-haspopup="true" aria-expanded="false"> <span
@@ -170,30 +174,30 @@
 								data-feather="printer"></span> Roteiros
 						</a></li>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="settings"></span>
-									Configurações
-							</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/usuario/alterarSenha.jsf" role="button"
-										aria-haspopup="true" aria-expanded="false"> <span
-											data-feather="refresh-cw"></span> Alterar Senha
-									</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											<a class="nav-link" href="/deltafinanceira/pages/pages/contrato/trocarTitular.jsf"
-												role="button" aria-haspopup="true" aria-expanded="false">
-												<span data-feather="refresh-cw"></span> Troca de Titular
-											</a>
-										</h:panelGroup>
-										<h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-											<a class="nav-link"
-												href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf"
-												role="button" aria-haspopup="true" aria-expanded="false">
-												<span data-feather="file-text"></span> Histórico de Usuário
-											</a>
-										</h:panelGroup></li>
-								</ul></li>
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> <span data-feather="settings"></span>
+								Configurações
+						</a>
+							<ul class="dropdown-menu">
+								<li style="font-size: 12px;"><a class="nav-link"
+									href="/deltafinanceira/pages/usuario/alterarSenha.jsf"
+									role="button" aria-haspopup="true" aria-expanded="false"> <span
+										data-feather="refresh-cw"></span> Alterar Senha
+								</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+										<a class="nav-link"
+											href="/deltafinanceira/pages/pages/contrato/trocarTitular.jsf"
+											role="button" aria-haspopup="true" aria-expanded="false">
+											<span data-feather="refresh-cw"></span> Troca de Titular
+										</a>
+									</h:panelGroup> <h:panelGroup
+										rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+										<a class="nav-link"
+											href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf"
+											role="button" aria-haspopup="true" aria-expanded="false">
+											<span data-feather="file-text"></span> Histórico de Usuário
+										</a>
+									</h:panelGroup></li>
+							</ul></li>
 						<li class="nav-item"><p:commandLink
 								action="#{usuarioLogadoMB.deslogar()}" value="Sair"
 								styleClass="nav-link" /></li>

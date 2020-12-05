@@ -7,7 +7,8 @@ package br.com.gestapromotora.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import sun.misc.BASE64Encoder;
+
+import base64.Base64Local;
 
 /**
  *
@@ -16,7 +17,7 @@ import sun.misc.BASE64Encoder;
 public class Criptografia {
 
     private static MessageDigest messageDigest;
-    private static BASE64Encoder encoder;
+    private static Base64Local encoder;
 
     public static String encript(String value) throws NoSuchAlgorithmException {
         if (messageDigest == null || !messageDigest.getAlgorithm().equalsIgnoreCase("SHA-256")) {
@@ -24,10 +25,10 @@ public class Criptografia {
         }
 
         if (encoder == null) {
-            encoder = new BASE64Encoder();
+            encoder = new Base64Local();
         }
 
         byte[] hash = messageDigest.digest(value.getBytes());
-        return encoder.encode(hash);
+        return "";
     }
 }

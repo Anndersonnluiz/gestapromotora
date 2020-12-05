@@ -7,7 +7,7 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h4>Cadastro de Contrato</h4>
+		<h4>Simulação de Contrato</h4>
 		<hr />
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
 			closable="false" resizable="false" showHeader="false"
@@ -16,21 +16,6 @@
 		</p:dialog>
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<div class="form-row">
-			<div class="form-group col-md-4">
-				<label for="usuario">Corretor</label>
-				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
-					value="#{cadContratoMB.usuario}" converter="UsuarioConverter"
-					styleClass="form-control" onchange="usuario"
-					disabled="#{cadContratoMB.habilitarUsuario}">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{cadContratoMB.listaUsuario}"
-						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
-						itemValue="#{usuarioSelecionado}" />
-					<f:attribute name="listaUsuario"
-						value="#{cadContratoMB.listaUsuario}" />
-				</h:selectOneMenu>
-			</div>
 			<div class="form-group col-md-3">
 				<label for="datacadastro">Data Cadastro</label>
 				<p:inputText class="form-control" id="datacadastro" disabled="true"
@@ -763,91 +748,12 @@
 				</h:inputTextarea>
 			</div>
 		</div>
-
-		<br />
-		<h6>Uplaod dos documentos</h6>
-		<hr />
-
-		<div class="form-row">
-			<div class="form-group col-md-4">
-				<label>Tipo Documento</label>
-				<h:selectOneMenu id="tipodocumento" style="width: 100%;"
-					immediate="true" value="#{cadContratoMB.tipoarquivo}"
-					converter="TipoArquivoConverter" styleClass="form-control">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{cadContratoMB.listaTipoArquivo}"
-						var="tipoArquivoSelecionado"
-						itemLabel="#{tipoArquivoSelecionado.descricao}"
-						itemValue="#{tipoArquivoSelecionado}" />
-					<f:attribute name="listaTipoArquivo"
-						value="#{cadContratoMB.listaTipoArquivo}" />
-					<p:ajax event="blur" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-4">
-				<p:fileUpload
-					fileUploadListener="#{cadContratoMB.fileUploadListener}"
-					label="Anexar Banner" mode="advanced" value="#{cadContratoMB.file}"
-					update="growl, idTabelaContrato" auto="true" />
-			</div>
-			<div class="form-group col-md-3">
-				<label>.</label>
-				<div>
-					<p:commandLink ajax="false" styleClass="btn btn-primary"
-						rendered="false" value="Adicionar"
-						action="#{cadContratoMB.salvar()}"
-						update="idTabelaContrato, growl" />
-				</div>
-			</div>
-		</div>
-		<br />
-		<p:dataTable id="idTabelaContrato" var="contrato"
-			value="#{cadContratoMB.listaContratoArquivo}" style="border:none;"
-			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single" rowKey="1"
-			rowIndexVar="rowIx">
-
-
-			<p:column headerText="Data Upload"
-				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.dataupload}">
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Tipo Documento"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.tipoarquivo.descricao}">
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Nome Arquivo"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.nomearquivo}" />
-			</p:column>
-
-			<p:column headerText=""
-				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-
-				<p:commandLink ajax="false"
-					action="#{cadContratoMB.excluirArquivo(rowIx)}"
-					style="text-align: left;color:black;" update="idTabelaContrato">
-					<span data-feather="trash"></span>
-				</p:commandLink>
-
-				<p:commandLink ajax="false"
-					action="#{cadContratoMB.baixarArquivoFTP(contrato)}"
-					style="text-align: left;color:black;">
-					<span data-feather="download"></span>
-
-				</p:commandLink>
-			</p:column>
-		</p:dataTable>
-
 		<br />
 		<hr />
 		<div align="center">
 			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				onclick="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()"
 				value="Salvar" action="#{cadContratoMB.salvar()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-danger"
 				style="margin-left:2%;" value="Cancelar"

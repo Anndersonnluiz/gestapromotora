@@ -7,72 +7,163 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>DELTA FINANCEIRA</title>
-	<link href="resources/css/cssLogin.css" rel="stylesheet"
-		type="text/css" />
-	<link rel="icon" href="resources/img/logotipoFinancemate.png"
-		type="image/x-icon" />
-
-	<!-- Bootstrap core CSS -->
-	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-		media="screen" />
-
-	<!-- Font Awesome -->
-	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
-	
-	<link rel="sortcut icon" href="resources/img/FaviconLogo.png" type="image/png" />
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+		crossorigin="anonymous" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+		crossorigin="anonymous" />
 </h:head>
 <h:body style="width:100%;">
 	<p:ajaxStatus onstart="PF('statusDialog').show()"
 		onsuccess="PF('statusDialog').hide()" />
 
 	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-		closable="false" resizable="false" showHeader="false">
-		<p:outputLabel value="Aguarde.." />
-		<br />
-		<img src="resources/img/ajax-carregando.gif" style="" />
+		closable="false" resizable="false" showHeader="false" 
+		style="margin-left:45%;margin-top:150px;font-size:20px;">
+		<img src="resources/img/novoCarregando.gif" width="130" />
 	</p:dialog>
 	<p:growl id="growl" showDetail="true" sticky="false" />
 	<h:form id="login">
-		<div id="tudo">
-			<div
-				style="display: block; padding: 4em; background-image: linear-gradient(to right, blue,  black);">
-				<div
-					style="display: block; padding: 4em; background-image: linear-gradient(to right, blue, black);">
-					<div style="display: block; padding: 4.3em; background: white;width: 55%;margin-left: 20%;border-radius:10px;"
-						align="center">
-						<img src="resources/img/outralogo.png" width="55%;"
-							 /><br /><br/>
-						<div class="form-row" align="center">
-							<div class="form-group col-md-12" >
-
-								<p:outputLabel value="LOGIN"  style="text-align:left;"/>
-								<br/>
-								<p:inputText id="nome"
-									style="color: white;font-size: 20px;background:#377591;border:0px;border-radius:2px;"
-									value="#{usuarioLogadoMB.login}" required="required"
-									requiredMessage="Campo Obrigatorio" />
-									
-							</div>
-							<div class="form-group col-md-12">
-								<p:outputLabel value="SENHA"  style="text-align:left;"/>
-								<br/>
-								<p:password id="senha"  
-									style="color: white;font-size: 20px;background:#377591;border:0px;border-radius:2px;"
-									value="#{usuarioLogadoMB.senha}" required="required"
-									requiredMessage="Campo Obrigatorio" />
-							</div>
-							
-						<div style="width: 100%;">
-							<p:commandLink title="Entra" value="Entrar" styleClass="btn btn-primary"
-								style="font-weight:bold;width: 56%;"
-								actionListener="#{usuarioLogadoMB.validarUsuario()}"
-								action="#{usuarioLogadoMB.logar()}" update="growl"/>
-						</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<div class="container h-100">
+			<div align="center">
+				<div class="user_card">
+					<div class="d-flex justify-content-center">
+						<div class="brand_logo_container">
+							<img width="40" style="background: white;"
+								src="resources/img/logologin.png" class="brand_logo" alt="Logo" />
 						</div>
 					</div>
+
+					<div align="center">
+							<img width="290" style="background: white;"
+								src="resources/img/nomedelte.png"  alt="Logo" />
+					</div>
+					<br/>
+					<div>
+						<div class="form-row">
+							<div class="form-group col-md-11">
+								<div class="input-group-append" style="margin-left: 6%;">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+
+									<p:inputText id="nome" styleClass="form-control input_pass"
+										value="#{usuarioLogadoMB.login}" required="required"
+										requiredMessage="Campo Obrigatorio" />
+								</div>
+							</div>
+							<div class="form-group col-md-11">
+								<div class="input-group-append" style="margin-left: 6%;">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+									<p:password id="senha" styleClass="form-control input_pass"
+										value="#{usuarioLogadoMB.senha}" required="required"
+										requiredMessage="Campo Obrigatorio" />
+								</div>
+							</div>
+
+							<div  style="width: 100%;" >
+								<p:commandLink title="Entra" value="Entrar"
+									style="font-weight:bold;font-size:20px;" styleClass="btn btn-primary"
+									actionListener="#{usuarioLogadoMB.validarUsuario()}"
+									action="#{usuarioLogadoMB.logar()}" update="growl" />
+							</div>
+						</div>
+
+					</div>
+
 				</div>
 			</div>
 		</div>
+		<style>
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-image: linear-gradient(to right, blue, #60a3bc,  blue);
+}
+
+.user_card {
+	height: 400px;
+	width: 350px;
+	margin-top: auto;
+	margin-bottom: auto;
+	background: #ffffff;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+}
+
+.brand_logo_container {
+	position: absolute;
+	height: 170px;
+	width: 170px;
+	top: -75px;
+	border-radius: 50%;
+	background: #60a3bc;
+	padding: 10px;
+	text-align: center;
+}
+
+.brand_logo {
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	border: 2px solid white;
+}
+
+.form_container {
+	margin-top: 100px;
+}
+
+.login_btn {
+	width: 100%;
+	background: #60a3bc !important;
+	color: white !important;
+}
+
+.login_btn:focus {
+	box-shadow: none !important;
+	outline: 0px !important;
+}
+
+.login_container {
+	padding: 0 2rem;
+}
+
+.input-group-text {
+	background: #60a3bc !important;
+	color: white !important;
+	border: 0 !important;
+	border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+.input_user, .input_pass:focus {
+	box-shadow: none !important;
+	outline: 0px !important;
+}
+
+.custom-checkbox .custom-control-input:checked ~.custom-control-label::before
+	{
+	background-color: #c0392b !important;
+}
+</style>
 	</h:form>
 </h:body>
 </html>

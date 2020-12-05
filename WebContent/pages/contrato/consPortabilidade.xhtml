@@ -12,8 +12,27 @@
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
 
 		<br />
-
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
 		<div class="row" style="color: white;" align="center">
+			<div class="col-md-2">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(37)}" ajax="false"
+					style="text-decoration:none;" update="@all">
+					<div class="panel-stat3"
+						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Formalização e 
+							Pendência</b> <br />
+						<hr style="background-color: white;" />
+						<div align="center" style="font-size: 11px;">
+							<b><p:outputLabel value="#{portabilidadeMB.nFormalizacaoPendencia}" /></b>
+							contrato(s)
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
 			<div class="col-md-2">
 				<p:commandLink
 					action="#{portabilidadeMB.gerarListaPortabilidade(1)}" ajax="false"
@@ -42,6 +61,23 @@
 						<div align="center" style="font-size: 11px;">
 							<b><p:outputLabel
 									value="#{portabilidadeMB.nPendenciaDocumentacao}" /></b>
+							contrato(s)
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-md-2">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(28)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="panel-stat3 bg-primary"
+						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
+							Assinatura</b>
+						<hr style="background-color: white;" />
+						<div align="center" style="font-size: 11px;">
+							<b><p:outputLabel
+									value="#{portabilidadeMB.nAguardandoAssinatura}" /></b>
 							contrato(s)
 						</div>
 					</div>
@@ -79,6 +115,9 @@
 					</div>
 				</p:commandLink>
 			</div>
+		</div>
+		<br />
+		<div class="row" style="color: white;" align="center">
 			<div class="col-md-2">
 				<p:commandLink
 					action="#{portabilidadeMB.gerarListaPortabilidade(16)}"
@@ -110,9 +149,6 @@
 					</div>
 				</p:commandLink>
 			</div>
-		</div>
-		<br />
-		<div class="row" style="color: white;" align="center">
 			<div class="col-md-2">
 				<p:commandLink
 					action="#{portabilidadeMB.gerarListaPortabilidade(0)}" ajax="false"
@@ -274,9 +310,16 @@
 						style="text-align: left;color:black;">
 						<span data-feather="printer"></span>
 					</p:commandLink>
-					<p:commandLink action="#{portabilidadeMB.gerarComissao(contrato)}" update="growl"
-						style="text-align: left;color:black;" rendered="#{usuarioLogadoMB.usuario.comissao}">
+					<p:commandLink action="#{portabilidadeMB.gerarComissao(contrato)}"
+						update="growl" onclick="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						style="text-align: left;color:black;"
+						rendered="#{usuarioLogadoMB.usuario.comissao}">
 						<span data-feather="dollar-sign"></span>
+					</p:commandLink>
+					<p:commandLink action="#{portabilidadeMB.historicoContrato(contrato)}"
+						style="text-align: left;color:black;">
+						<span data-feather="file-text"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>

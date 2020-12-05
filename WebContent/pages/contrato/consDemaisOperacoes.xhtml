@@ -10,14 +10,32 @@
 		<h4>Demais Operações - SIAPE/GOV/PREF</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
-
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
 		<br />
 		<div class="row" style="color: white;" align="center">
 			<div class="col-md-2">
 				<p:commandLink
+					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(37)}" ajax="false"
+					style="text-decoration:none;" update="@all">
+					<div class="panel-stat3"
+						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Formalização e 
+							Pendência</b> <br />
+						<hr style="background-color: white;" />
+						<div align="center" style="font-size: 11px;">
+							<b><p:outputLabel value="#{demaisOperacoesMB.nFormalizacaoPendencia}" /></b>
+							contrato(s)
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-md-2">
+				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(1)}"
-					ajax="false" style="text-decoration:none;" update="@all"
-					disabled="#{demaisOperacoesMB.unicoUsuario}">
+					ajax="false" style="text-decoration:none;" update="@all">
 					<div class="panel-stat3"
 						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
@@ -55,7 +73,7 @@
 						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
 							Assinatura</b>
-						<hr style="background-color: white;" /> 
+						<hr style="background-color: white;" />
 						<div align="center" style="font-size: 11px;">
 							<b><p:outputLabel
 									value="#{demaisOperacoesMB.nAguardandoAssinatura}" /></b>
@@ -98,6 +116,9 @@
 					</div>
 				</p:commandLink>
 			</div>
+			<div class="col-md-12"></div>
+			<div class="col-md-12"></div>
+			<br />
 			<div class="col-md-2">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(16)}"
@@ -114,9 +135,6 @@
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-12"></div>
-			<div class="col-md-12"></div>
-			<br />
 			<div class="col-md-2">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(2)}"
@@ -190,16 +208,17 @@
 								<f:selectItems value="#{demaisOperacoesMB.listaBanco}"
 									var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
 									itemValue="#{bancoSelecionado}" />
-								<f:attribute name="listaBanco" value="#{demaisOperacoesMB.listaBanco}" />
+								<f:attribute name="listaBanco"
+									value="#{demaisOperacoesMB.listaBanco}" />
 								<p:ajax event="blur" />
 							</h:selectOneMenu>
-						</div> 
+						</div>
 						<div class="form-group col-md-3">
 							<label>.</label>
 							<div>
 								<p:commandLink ajax="false" styleClass="btn btn-primary"
 									value="Pesquisar" action="#{demaisOperacoesMB.pesquisar()}"
-									update="idTabelaPortabilidade" style="color:white;"/>
+									update="idTabelaPortabilidade" style="color:white;" />
 								<p:commandLink ajax="false" style="margin-left:1%;"
 									styleClass="btn btn-link" value="Limpar"
 									action="#{demaisOperacoesMB.limpar()}"
@@ -265,22 +284,22 @@
 				</p:column>
 				<p:column headerText=""
 					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					
+
 					<p:commandLink ajax="false"
 						action="#{demaisOperacoesMB.editar(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
-					</p:commandLink> 
+					</p:commandLink>
 
 					<p:commandLink ajax="false"
-						action="#{demaisOperacoesMB.anexarArquivo(contrato)}" title="Arquivos"
-						style="text-align: left;color:black;">
+						action="#{demaisOperacoesMB.anexarArquivo(contrato)}"
+						title="Arquivos" style="text-align: left;color:black;">
 						<span data-feather="folder-plus"></span>
 					</p:commandLink>
 
 					<p:commandLink ajax="false"
 						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}"
-						action="#{demaisOperacoesMB.alterarSituacao(contrato)}" 
+						action="#{demaisOperacoesMB.alterarSituacao(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="arrow-right"></span>
 					</p:commandLink>
@@ -289,13 +308,24 @@
 						style="text-align: left;color:black;">
 						<span data-feather="eye"></span>
 					</p:commandLink>
-					<p:commandLink action="#{demaisOperacoesMB.imprimirFicha(contrato)}"
+					<p:commandLink
+						action="#{demaisOperacoesMB.imprimirFicha(contrato)}"
 						style="text-align: left;color:black;">
 						<span data-feather="printer"></span>
 					</p:commandLink>
-					<p:commandLink action="#{demaisOperacoesMB.gerarComissao(contrato)}" update="growl"
-						style="text-align: left;color:black;" rendered="#{usuarioLogadoMB.usuario.comissao}">
+					<p:commandLink
+						action="#{demaisOperacoesMB.gerarComissao(contrato)}"
+						update="growl" onclick="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						style="text-align: left;color:black;"
+						rendered="#{usuarioLogadoMB.usuario.comissao}">
 						<span data-feather="dollar-sign"></span>
+					</p:commandLink>
+					
+					<p:commandLink
+						action="#{demaisOperacoesMB.historicoContrato(contrato)}"
+						style="text-align: left;color:black;">
+						<span data-feather="file-text"></span>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>

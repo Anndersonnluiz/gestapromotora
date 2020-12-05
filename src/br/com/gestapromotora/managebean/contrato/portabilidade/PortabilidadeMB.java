@@ -96,6 +96,8 @@ public class PortabilidadeMB implements Serializable{
 	private Banco banco;
 	private List<Situacao> listaSituacao;
 	private boolean unicoUsuario;
+	private int nAguardandoAssinatura;
+	private int nFormalizacaoPendencia;
 	
 	
 	
@@ -786,6 +788,30 @@ public class PortabilidadeMB implements Serializable{
 
 
 
+	public int getnAguardandoAssinatura() {
+		return nAguardandoAssinatura;
+	}
+
+
+
+	public void setnAguardandoAssinatura(int nAguardandoAssinatura) {
+		this.nAguardandoAssinatura = nAguardandoAssinatura;
+	}
+
+
+
+	public int getnFormalizacaoPendencia() {
+		return nFormalizacaoPendencia;
+	}
+
+
+
+	public void setnFormalizacaoPendencia(int nFormalizacaoPendencia) {
+		this.nFormalizacaoPendencia = nFormalizacaoPendencia;
+	}
+
+
+
 	public void gerarListaPortabilidade(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like "
@@ -841,8 +867,7 @@ public class PortabilidadeMB implements Serializable{
 		if (nSituacao > 0) {
 			sql = sql + " and c.situacao.idsituacao=" + nSituacao;
 		}
-		if (usuario != null && usuario.getIdusuario() != null  
-				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
+		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		if (banco != null && banco.getIdbanco() != null) {
@@ -891,6 +916,10 @@ public class PortabilidadeMB implements Serializable{
 				nRefinanciamento = nRefinanciamento + 1;
 			}else if (listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 16){
 				nPagoCliente = nPagoCliente + 1;
+			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 28) {
+				nAguardandoAssinatura = nAguardandoAssinatura + 1;
+			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 37) {
+				nFormalizacaoPendencia = nFormalizacaoPendencia + 1;
 			}
 		}
 	}
@@ -987,6 +1016,15 @@ public class PortabilidadeMB implements Serializable{
 		}
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		historicoComissaoFacade.salvar(historicocomissao);
+		Mensagem.lancarMensagemInfo("Lançamento com sucesso", "");
+	}
+	
+	
+	public String historicoContrato(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "linhaTempoContrato";
 	}
 	
 	

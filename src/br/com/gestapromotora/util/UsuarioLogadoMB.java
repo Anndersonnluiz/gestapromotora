@@ -170,12 +170,12 @@ public class UsuarioLogadoMB implements Serializable {
 			context.addMessage(null, new FacesMessage("Erro", "Acesso Negado."));
 		} else {
 			String senha = "";
-			try {
-				senha = Criptografia.encript(this.senha);
+		//	try {
+			//	senha = Criptografia.encript(this.senha);
 				this.senha = "";
-			} catch (NoSuchAlgorithmException ex) {
-				Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
-			} 
+		//	} catch (NoSuchAlgorithmException ex) {
+			//	Logger.getLogger(UsuarioLogadoMB.class.getName()).log(Level.SEVERE, null, ex);
+			//} 
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
 			usuario = usuarioFacade.consultar(login, senha);
 			if (usuario == null) {

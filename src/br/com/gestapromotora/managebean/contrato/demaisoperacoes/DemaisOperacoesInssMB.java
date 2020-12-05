@@ -74,6 +74,7 @@ public class DemaisOperacoesInssMB implements Serializable {
 	private List<Banco> listaBanco;
 	private Banco banco;
 	private boolean unicoUsuario;
+	private int nFormalizacaoPendencia;
 	
 	
 	
@@ -534,6 +535,18 @@ public class DemaisOperacoesInssMB implements Serializable {
 
 
 
+	public int getnFormalizacaoPendencia() {
+		return nFormalizacaoPendencia;
+	}
+
+
+
+	public void setnFormalizacaoPendencia(int nFormalizacaoPendencia) {
+		this.nFormalizacaoPendencia = nFormalizacaoPendencia;
+	}
+
+
+
 	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
@@ -591,8 +604,7 @@ public class DemaisOperacoesInssMB implements Serializable {
 		if (nSituacao > 0) {
 			sql = sql + " and c.situacao.idsituacao=" + nSituacao;
 		}
-		if (usuario != null && usuario.getIdusuario() != null  
-				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
+		if (usuario != null && usuario.getIdusuario() != null) {
 			sql = sql + " and c.usuario.idusuario=" + usuario.getIdusuario();
 		}
 		if (banco != null && banco.getIdbanco() != null) {
@@ -731,5 +743,13 @@ public class DemaisOperacoesInssMB implements Serializable {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		historicoComissaoFacade.salvar(historicocomissao);
 		Mensagem.lancarMensagemInfo("Lançamento realizado com sucesso", "");
+	}
+	
+	
+	public String historicoContrato(Contrato contrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("contrato", contrato);
+		return "linhaTempoContrato";
 	}
 }

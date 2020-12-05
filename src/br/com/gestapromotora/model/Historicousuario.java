@@ -35,6 +35,12 @@ public class Historicousuario implements Serializable{
 	private String hora;
 	@Column(name = "descricao")
 	private String descricao;
+	@Column(name = "idcontrato")
+	private int idcontrato;
+	@Column(name = "titulo")
+	private String titulo;
+	@Column(name = "icone")
+	private String icone;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -105,6 +111,42 @@ public class Historicousuario implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+
+
+	public int getIdcontrato() {
+		return idcontrato;
+	}
+
+
+
+	public void setIdcontrato(int idcontrato) {
+		this.idcontrato = idcontrato;
+	}
+
+
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+	public String getIcone() {
+		return icone;
+	}
+
+
+
+	public void setIcone(String icone) {
+		this.icone = icone;
 	}
 
 

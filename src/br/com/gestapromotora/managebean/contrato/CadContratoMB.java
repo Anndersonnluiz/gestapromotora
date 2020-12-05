@@ -29,6 +29,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.gestapromotora.bean.ControladorCEPBean;
 import br.com.gestapromotora.bean.EnderecoBean;
 import br.com.gestapromotora.dao.NotificacaoDao;
+import br.com.gestapromotora.dao.RegrasCoeficienteDao;
 import br.com.gestapromotora.dao.TipoArquivoDao;
 import br.com.gestapromotora.dao.UsuarioDao;
 import br.com.gestapromotora.facade.BancoFacade;
@@ -37,6 +38,7 @@ import br.com.gestapromotora.facade.ContratoArquivoFacade;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
+import br.com.gestapromotora.facade.HistoricoUsuarioFacade;
 import br.com.gestapromotora.facade.MetaFaturamentoMensalFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
 import br.com.gestapromotora.facade.PromotoraFacade;
@@ -50,6 +52,7 @@ import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.Contratoarquivo;
 import br.com.gestapromotora.model.Dadosbancario;
 import br.com.gestapromotora.model.Historicocomissao;
+import br.com.gestapromotora.model.Historicousuario;
 import br.com.gestapromotora.model.Metafaturamentomensal;
 import br.com.gestapromotora.model.Notificacao;
 import br.com.gestapromotora.model.OrgaoBanco;
@@ -139,7 +142,7 @@ public class CadContratoMB implements Serializable {
 			gerarListaContratoAquivo();
 			usuario = contrato.getUsuario();
 			promotora = contrato.getPromotora();
-		}else {
+		} else {
 			usuario = usuarioLogadoMB.getUsuario();
 		}
 		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
@@ -447,7 +450,7 @@ public class CadContratoMB implements Serializable {
 		ClienteFacade clienteFacade = new ClienteFacade();
 		cliente = clienteFacade.consultarCpf(cpf);
 		contrato.setCliente(cliente);
-		if (cliente == null) { 
+		if (cliente == null) {
 			cliente = new Cliente();
 			dadosbancario = new Dadosbancario();
 		}
@@ -477,16 +480,21 @@ public class CadContratoMB implements Serializable {
 	public String selecionarCoeficiente() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		cliente.setCpf(cpf);
-		if (bancoDadosBancario != null) {
-			dadosbancario.setBanco(bancoDadosBancario);
+		if (gerarListaValores()) {
+			cliente.setCpf(cpf);
+			if (bancoDadosBancario != null) {
+				dadosbancario.setBanco(bancoDadosBancario);
+			}
+			cliente.setDadosbancario(dadosbancario);
+			contrato.setCliente(cliente);
+			session.setAttribute("contrato", contrato);
+			session.setAttribute("orgaobanco", orgaoBanco);
+			return "selecioneCoeficiente";
+		}else {
+			Mensagem.lancarMensagemWarn("Sem Coeficiente existente", "");
 		}
-		cliente.setDadosbancario(dadosbancario);
-		contrato.setCliente(cliente);
-		session.setAttribute("contrato", contrato);
-		session.setAttribute("orgaobanco", orgaoBanco);
-		return "selecioneCoeficiente";
-	}
+		return "";
+	} 
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
@@ -511,6 +519,7 @@ public class CadContratoMB implements Serializable {
 			contrato.setCodigocontrato(gerarCodigo());
 			gerarMetaFaturamento();
 			contrato.setIdregracoeficiente(regrascoeficiente.getIdregrascoeficiente());
+			contrato.setBanco(banco);
 		}
 		if (promotora == null || promotora.getIdpromotora() == null) {
 			PromotoraFacade promotoraFacade = new PromotoraFacade();
@@ -524,11 +533,12 @@ public class CadContratoMB implements Serializable {
 			gerarComissao();
 			gerarRankingMensal();
 			gerarRankingAnual();
+			Historicousuario historicousuario = new Historicousuario();
+			salvarHistorico(historicousuario);
 		}
 		return "consContrato";
 	}
-	
-	
+
 	public void verificarUpload() {
 		if (listaContratoArquivo == null) {
 			listaContratoArquivo = new ArrayList<Contratoarquivo>();
@@ -553,8 +563,8 @@ public class CadContratoMB implements Serializable {
 				notificacao.setUsuario(listaUsuario.get(i));
 				notificacao.setIdcontrato(contrato.getIdcontrato());
 				notificacao.setTitulo("Novo Contrato: " + contrato.getCodigocontrato());
-				notificacao.setDescricao(
-						contrato.getTipooperacao().getDescricao() + " emitido pelo corretor(a) " + usuarioLogadoMB.getUsuario().getNome());
+				notificacao.setDescricao(contrato.getTipooperacao().getDescricao() + " emitido pelo corretor(a) "
+						+ usuarioLogadoMB.getUsuario().getNome());
 				notificacaoDao.salvar(notificacao);
 			}
 		} catch (SQLException e) {
@@ -588,11 +598,9 @@ public class CadContratoMB implements Serializable {
 			metafaturamentomensal = lista.get(0);
 		}
 		if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao() == 1) {
-			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual()
-					+ contrato.getValorquitar());
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValorquitar());
 		} else {
-			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual()
-					+ contrato.getValoroperacao());
+			metafaturamentomensal.setValoratual(metafaturamentomensal.getValoratual() + contrato.getValoroperacao());
 		}
 		mensalFacade.salvar(metafaturamentomensal);
 	}
@@ -621,8 +629,7 @@ public class CadContratoMB implements Serializable {
 		}
 		rankingVendasFacade.salvar(rankingvendas);
 	}
-	
-	
+
 	public void gerarRankingAnual() {
 		RankingVendasAnualFacade rankingVendasFacade = new RankingVendasAnualFacade();
 		Rankingvendasanual rankingvendas;
@@ -687,7 +694,8 @@ public class CadContratoMB implements Serializable {
 			bancoDadosBancario = listaBanco.get(0);
 		}
 		if (cliente.getNascimento() != null) {
-			String diames = "" + Formatacao.getDiaData(cliente.getNascimento()) + (Formatacao.getMesData(cliente.getNascimento()) + 1);
+			String diames = "" + Formatacao.getDiaData(cliente.getNascimento())
+					+ (Formatacao.getMesData(cliente.getNascimento()) + 1);
 			cliente.setDiames(Integer.parseInt(diames));
 		}
 		salvarDadosBancarios();
@@ -716,8 +724,7 @@ public class CadContratoMB implements Serializable {
 		codigo = codigo + (lisContratos.size() + 1);
 		return codigo;
 	}
-	
-	
+
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
 		salvarArquivoFTP();
@@ -735,9 +742,10 @@ public class CadContratoMB implements Serializable {
 			salvarUpload();
 		}
 	}
+
 	public boolean salvarArquivoFTP() {
 		String msg = "";
-		Ftp ftp = new Ftp("sistemadeltafinanceira.acessotemporario.net", 
+		Ftp ftp = new Ftp("sistemadeltafinanceira.acessotemporario.net",
 				"deltafinanceiraftp@sistemadeltafinanceira.acessotemporario.net", "780920**Delta");
 		try {
 			if (!ftp.conectar()) {
@@ -747,14 +755,14 @@ public class CadContratoMB implements Serializable {
 		} catch (IOException ex) {
 			Logger.getLogger(AnexarArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			Mensagem.lancarMensagemInfo("Erro", "conectar FTP");
-		}    
+		}
 		try {
-			String nomeArquivoFTP = "" +  contrato.getIdcontrato();
+			String nomeArquivoFTP = "" + contrato.getIdcontrato();
 			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "");
 			if (arquivoEnviado) {
 				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
 				salvarUpload();
-			}else{
+			} else {
 				msg = " Erro no nome do arquivo";
 			}
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -773,9 +781,7 @@ public class CadContratoMB implements Serializable {
 		}
 		return false;
 	}
-	
-	
-	
+
 	public void gerarListaTipoArquivo() {
 		TipoArquivoDao tipoArquivoDao = new TipoArquivoDao();
 		listaTipoArquivo = tipoArquivoDao.listar("Select t From Tipoarquivo t");
@@ -783,17 +789,15 @@ public class CadContratoMB implements Serializable {
 			listaTipoArquivo = new ArrayList<Tipoarquivo>();
 		}
 	}
-	
-	
-	
+
 	public void salvarUpload() {
 		if (arquivoEnviado) {
 			try {
 				if (tipoarquivo != null && tipoarquivo.getIdtipoarquivo() != null) {
 					contratoarquivo = new Contratoarquivo();
 					contratoarquivo.setDataupload(new Date());
-					contratoarquivo.setNomearquivo(
-							 new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
+					contratoarquivo
+							.setNomearquivo(new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
 					contratoarquivo.setTipoarquivo(tipoarquivo);
 					if (listaContratoArquivo == null) {
 						listaContratoArquivo = new ArrayList<Contratoarquivo>();
@@ -804,7 +808,7 @@ public class CadContratoMB implements Serializable {
 					file = null;
 					arquivoEnviado = false;
 					Mensagem.lancarMensagemInfo("Salvo com sucesso", "");
-				}else {
+				} else {
 					Mensagem.lancarMensagemFatal("Erro", "Favor escolher o tipo de arquivo");
 				}
 			} catch (UnsupportedEncodingException e) {
@@ -812,20 +816,18 @@ public class CadContratoMB implements Serializable {
 			}
 		}
 	}
-	
-	
+
 	public void gerarListaContratoAquivo() {
 		ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
 		if (contrato != null) {
-			listaContratoArquivo = contratoArquivoFacade.lista("Select c From Contratoarquivo c WHERE c.contrato.idcontrato=" 
-					+ contrato.getIdcontrato());
+			listaContratoArquivo = contratoArquivoFacade
+					.lista("Select c From Contratoarquivo c WHERE c.contrato.idcontrato=" + contrato.getIdcontrato());
 		}
 		if (listaContratoArquivo == null) {
 			listaContratoArquivo = new ArrayList<Contratoarquivo>();
 		}
 	}
-	
-	
+
 	public void excluirArquivo(String ilinha) {
 		int linha = Integer.parseInt(ilinha);
 		ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
@@ -834,12 +836,10 @@ public class CadContratoMB implements Serializable {
 			listaContratoArquivo.remove(linha);
 		}
 	}
-	
-	
-	
+
 	public void baixarArquivoFTP(Contratoarquivo contratoarquivo) {
- 
-		Ftp ftp = new Ftp("sistemadeltafinanceira.acessotemporario.net", 
+
+		Ftp ftp = new Ftp("sistemadeltafinanceira.acessotemporario.net",
 				"deltafinanceiraftp@sistemadeltafinanceira.acessotemporario.net", "780920**Delta");
 		try {
 			if (!ftp.conectar()) {
@@ -848,24 +848,25 @@ public class CadContratoMB implements Serializable {
 		} catch (IOException ex) {
 			Logger.getLogger(AnexarArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			Mensagem.lancarMensagemInfo("Erro", "conectar FTP");
-		}    
+		}
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			InputStream is = ftp.receberArquivo(contratoarquivo.getNomearquivo(), contratoarquivo.getNomearquivo(), "");
-            ExternalContext externalContext = context.getExternalContext();
+			ExternalContext externalContext = context.getExternalContext();
 
-            externalContext.responseReset();
-            externalContext.setResponseHeader("Content-Disposition", "attachment;filename=" + contratoarquivo.getNomearquivo());
-			 OutputStream outputStream = externalContext.getResponseOutputStream();
+			externalContext.responseReset();
+			externalContext.setResponseHeader("Content-Disposition",
+					"attachment;filename=" + contratoarquivo.getNomearquivo());
+			OutputStream outputStream = externalContext.getResponseOutputStream();
 
-	            byte[] buffer = new byte[1024];
-	            int length;
-	            while ((length = is.read(buffer)) > 0) {
-	                outputStream.write(buffer, 0, length);
-	            }
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = is.read(buffer)) > 0) {
+				outputStream.write(buffer, 0, length);
+			}
 
-	            is.close();
-	            context.responseComplete();
+			is.close();
+			context.responseComplete();
 		} catch (IOException ex) {
 			Logger.getLogger(AnexarArquivoMB.class.getName()).log(Level.SEVERE, null, ex);
 			Mensagem.lancarMensagemInfo("Erro Salvar Arquivo", "" + ex);
@@ -877,8 +878,7 @@ public class CadContratoMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Erro", "desconectar FTP");
 		}
 	}
-	
-	
+
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
 		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
@@ -886,8 +886,7 @@ public class CadContratoMB implements Serializable {
 			listaUsuario = new ArrayList<Usuario>();
 		}
 	}
-	
-	
+
 	public void gerarListaPromotora() {
 		PromotoraFacade promotoraFacade = new PromotoraFacade();
 		listaPromotora = promotoraFacade.lista("SELECT p From Promotora p WHERE p.idpromotora>1");
@@ -895,7 +894,31 @@ public class CadContratoMB implements Serializable {
 			listaPromotora = new ArrayList<Promotora>();
 		}
 	}
+
+	public boolean gerarListaValores() {
+		RegrasCoeficienteDao regrasCoeficienteDao = new RegrasCoeficienteDao();
+		List<Regrascoeficiente> listaRegrasValores = regrasCoeficienteDao.lista(
+				"Select v From Regrascoeficiente v WHERE v.valorescoeficiente.coeficiente.orgaoBanco.idorgaobanco="
+						+ orgaoBanco.getIdorgaobanco()
+						+ " AND v.valorescoeficiente.coeficiente.tipooperacao.idtipooperacao="
+						+ contrato.getTipooperacao().getIdtipooperacao());
+		if (listaRegrasValores == null || listaRegrasValores.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 	
 	
+	public void salvarHistorico(Historicousuario historicousuario) {
+		HistoricoUsuarioFacade historicoUsuarioFacade = new HistoricoUsuarioFacade();
+		historicousuario.setDatacadastro(new Date());
+		historicousuario.setTitulo("Novo");
+		historicousuario.setIcone("novo.png");
+		historicousuario.setHora(Formatacao.foramtarHoraString());
+		historicousuario.setUsuario(usuarioLogadoMB.getUsuario());
+		historicousuario.setDescricao("Nova Emissão de contrato; Tipo do contrato: " + contrato.getTipooperacao().getDescricao()
+				+ ", Código do contrato: " + contrato.getCodigocontrato());
+		historicoUsuarioFacade.salvar(historicousuario);
+	}
 
 }

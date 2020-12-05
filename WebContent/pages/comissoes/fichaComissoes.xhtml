@@ -15,24 +15,26 @@
 	<!-- Font Awesome -->
 	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="../../resources/css/css.css" rel="stylesheet" />
-	<script>
-		function printContent(el) {
-			var restorepage = $('h:form').html();
-			var printcontent = $('#' + el).clone();
-			$('h:form').empty().html(printcontent);
-			window.print();
-			$('h:form').html(restorepage);
+	<style>
+		@media print {
+			#noprint {
+				display: none;
+			}
+			body {
+				background: #fff;
+			}
 		}
-	</script>
+	</style>
 </h:head>
 <h:body style="background:white;">
 	<br />
 	<h:form>
 	
-		<div align="center">
+		<div align="center" id="noprint">
 			<p:commandLink ajax="false" styleClass="btn btn-primary"
 					value="Voltar" action="#{fichaComissoesMB.voltar()}" />
-			<button id="print" onclick="printContent('conteudo');" class="btn btn-primary">Imprimir</button>
+			<a href="javascript:;" onclick="window.print();return false"><button
+					type="button" class="btn btn-primary" title="Imprimir">Imprimir</button></a>
 		</div>
 		
 		<div align="left" style="margin-left: 5%;">

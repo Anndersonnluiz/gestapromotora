@@ -124,7 +124,7 @@ public class AlterarSituacaoMB implements Serializable {
 	}
 
 	public String cancelar() {
-		return "consPortabilidade";
+		return voltar;
 	}
 
 	public String salvar() {
@@ -207,6 +207,9 @@ public class AlterarSituacaoMB implements Serializable {
 	public void salvarHistorico(Historicousuario historicousuario) {
 		HistoricoUsuarioFacade historicoUsuarioFacade = new HistoricoUsuarioFacade();
 		historicousuario.setDatacadastro(new Date());
+		historicousuario.setTitulo("Alteração");
+		historicousuario.setIcone("mudanca.png");
+		historicousuario.setIdcontrato(contrato.getIdcontrato());
 		historicousuario.setHora(Formatacao.foramtarHoraString());
 		historicousuario.setUsuario(usuarioLogadoMB.getUsuario());
 		historicousuario.setDescricao("Situação alterada de " + alteracaoBean.getDescricao() +
