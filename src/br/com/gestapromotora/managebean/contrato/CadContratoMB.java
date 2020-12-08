@@ -111,6 +111,7 @@ public class CadContratoMB implements Serializable {
 	private boolean habilitarUsuario = true;
 	private Promotora promotora;
 	private List<Promotora> listaPromotora;
+	private String voltarTela;
 
 	@PostConstruct
 	public void init() {
@@ -120,9 +121,11 @@ public class CadContratoMB implements Serializable {
 		orgaoBanco = (OrgaoBanco) session.getAttribute("orgaobanco");
 		banco = (Banco) session.getAttribute("banco");
 		regrascoeficiente = (Regrascoeficiente) session.getAttribute("regrascoeficiente");
+		voltarTela = (String) session.getAttribute("voltarTela");
 		session.removeAttribute("orgaobanco");
 		session.removeAttribute("contrato");
 		session.removeAttribute("regrascoeficiente");
+		session.removeAttribute("voltarTela");
 		cliente = contrato.getCliente();
 		if (orgaoBanco != null) {
 			banco = orgaoBanco.getBanco();
@@ -460,11 +463,11 @@ public class CadContratoMB implements Serializable {
 		ControladorCEPBean cep = new ControladorCEPBean();
 		cep.setCep(cliente.getCep());
 		EnderecoBean endereco = cep.carregarEndereco();
-		if (endereco.getLogradouro() != null) {
-			cliente.setBairro(endereco.getBairro());
-			cliente.setUfestado(endereco.getUf());
-			cliente.setCidade(endereco.getLocalidade());
-			cliente.setComplemento(endereco.getComplemento());
+		cliente.setBairro(endereco.getBairro());
+		cliente.setUfestado(endereco.getUf());
+		cliente.setCidade(endereco.getLocalidade());
+		cliente.setComplemento(endereco.getComplemento());
+		if (endereco.getLogradouro() != null && endereco.getLogradouro().length() > 2) {
 			String logradouro = endereco.getLogradouro().substring(endereco.getLogradouro().indexOf(" "),
 					endereco.getLogradouro().length());
 			int posicao = endereco.getLogradouro().length();
@@ -474,6 +477,8 @@ public class CadContratoMB implements Serializable {
 			String tipo = endereco.getLogradouro().substring(0, posicao + 1);
 			cliente.setLogradouro(logradouro);
 			cliente.setTipologradouro(tipo);
+		}else {
+			Mensagem.lancarMensagemInfo("CEP incompleto", "preencha manualmente");
 		}
 	}
 
@@ -490,11 +495,11 @@ public class CadContratoMB implements Serializable {
 			session.setAttribute("contrato", contrato);
 			session.setAttribute("orgaobanco", orgaoBanco);
 			return "selecioneCoeficiente";
-		}else {
+		} else {
 			Mensagem.lancarMensagemWarn("Sem Coeficiente existente", "");
 		}
 		return "";
-	} 
+	}
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
@@ -535,6 +540,9 @@ public class CadContratoMB implements Serializable {
 			gerarRankingAnual();
 			Historicousuario historicousuario = new Historicousuario();
 			salvarHistorico(historicousuario);
+		}
+		if (voltarTela != null && voltarTela.length() > 0) {
+			return voltarTela;
 		}
 		return "consContrato";
 	}
@@ -699,6 +707,9 @@ public class CadContratoMB implements Serializable {
 			cliente.setDiames(Integer.parseInt(diames));
 		}
 		salvarDadosBancarios();
+		if (cpf != null && cpf.length() > 0) {
+			cliente.setCpf(cpf);
+		}
 		cliente.setDadosbancario(dadosbancario);
 		return clienteFacade.salvar(cliente);
 	}
@@ -710,6 +721,9 @@ public class CadContratoMB implements Serializable {
 	}
 
 	public String cancelar() {
+		if (voltarTela != null && voltarTela.length() > 0) {
+			return voltarTela;
+		}
 		return "consContrato";
 	}
 
@@ -784,7 +798,7 @@ public class CadContratoMB implements Serializable {
 
 	public void gerarListaTipoArquivo() {
 		TipoArquivoDao tipoArquivoDao = new TipoArquivoDao();
-		listaTipoArquivo = tipoArquivoDao.listar("Select t From Tipoarquivo t");
+		listaTipoArquivo = tipoArquivoDao.listar("Select t From Tipoarquivo t order by t.descricao");
 		if (listaTipoArquivo == null) {
 			listaTipoArquivo = new ArrayList<Tipoarquivo>();
 		}
@@ -907,8 +921,7 @@ public class CadContratoMB implements Serializable {
 		}
 		return true;
 	}
-	
-	
+
 	public void salvarHistorico(Historicousuario historicousuario) {
 		HistoricoUsuarioFacade historicoUsuarioFacade = new HistoricoUsuarioFacade();
 		historicousuario.setDatacadastro(new Date());
@@ -916,8 +929,9 @@ public class CadContratoMB implements Serializable {
 		historicousuario.setIcone("novo.png");
 		historicousuario.setHora(Formatacao.foramtarHoraString());
 		historicousuario.setUsuario(usuarioLogadoMB.getUsuario());
-		historicousuario.setDescricao("Nova Emissão de contrato; Tipo do contrato: " + contrato.getTipooperacao().getDescricao()
-				+ ", Código do contrato: " + contrato.getCodigocontrato());
+		historicousuario.setDescricao("Nova Emissão de contrato; Tipo do contrato: "
+				+ contrato.getTipooperacao().getDescricao() + ", Código do contrato: " + contrato.getCodigocontrato());
+		historicousuario.setIdcontrato(contrato.getIdcontrato());
 		historicoUsuarioFacade.salvar(historicousuario);
 	}
 

@@ -7,7 +7,7 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h4>PRODUÇÃO LIQUIDA</h4>
+		<h4>PRODUÇÃO GERAL</h4>
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
@@ -53,6 +53,16 @@
 					<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
 				</h:selectOneMenu>
 			</div>
+			<div class="form-group col-md-3">
+				<label for="usuario">Convênio</label>
+				<h:selectOneMenu style="width: 100%;" id="convenio"
+					value="#{producaoMB.convenio}" styleClass="form-control">
+					<f:selectItem itemLabel="TODOS" itemValue="0" />
+					<f:selectItem itemLabel="INSS" itemValue="1" />
+					<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="2" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-1"></div>
 			<div class="form-group col-md-4">
 				<label for="usuario">Periodo Última Situação</label>
 				<h:panelGrid columns="2" style="width:80%;">
@@ -105,7 +115,7 @@
 					<p:commandLink ajax="false" style="margin-left:1%;"
 						styleClass="btn btn-link" value="Limpar"
 						action="#{producaoMB.limpar()}"
-						update="idTabelaComissao, usuario, situacao, tipooperacao, panelNumeros" />
+						update="idTabelaComissao, usuario, situacao, tipooperacao, panelNumeros, convenio" />
 				</div>
 			</div>
 		</div>
@@ -205,43 +215,44 @@
 
 
 			<p:column headerText="Lançamento"
-				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Corretor"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.usuario.nome}" />
 			</p:column>
 			<p:column headerText="Cliente"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.cliente.nome}" />
 			</p:column>
 			<p:column headerText="Banco"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText
-					value="#{comissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}" />
+					value="#{comissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} / 
+					#{comissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
 			</p:column>
 			<p:column headerText="Cadastro"
-				style="width:9%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.codigocontrato}" />
 			</p:column>
 			<p:column headerText="Operação"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
 			</p:column>
 			<p:column headerText="Situação"
-				style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.situacao.descricao}" />
 			</p:column>
 			<p:column headerText="Promotora"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.promotora.descricao}" />
 			</p:column>
 			<p:column headerText="PROD. LIQ"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.prodliq}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />

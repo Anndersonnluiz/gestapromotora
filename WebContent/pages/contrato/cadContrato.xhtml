@@ -411,7 +411,8 @@
 
 		<h6>Endereço</h6>
 		<hr />
-
+		<p:messages id="growlCep" showDetail="true" sticky="false" closable="true"
+			life="3000" />
 		<div class="form-row">
 			<div class="form-group col-md-3">
 				<label for="inputCEP">CEP</label>
@@ -421,7 +422,7 @@
 						style="border-color:black;" class="form-control" id="inputCEP"
 						placeholder="CEP" />
 					<p:commandLink id="btnConfirmar" value="Buscar"
-						update=":formulario:inputTipoLogradouro" process="@this"
+						update=":formulario:inputTipoLogradouro, growlCep" process="@this"
 						action="#{cadContratoMB.buscarendereco()}"
 						styleClass="btn btn-primary" ajax="false" />
 				</h:panelGrid>

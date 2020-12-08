@@ -228,20 +228,20 @@
 						<h:panelGroup>
 							<div class="col-md-4">
 								<div class="panel-stat3"
-									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
+									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									<p:commandLink action="#{dashBoardMB.formalizacao()}"
 										style="width:100%;text-decoration:none;" ajax="false">
 										<h6 style="font-family: Segoe UI Semibold; color: white;">FORMALIZAÇÃO
 											E PENDÊNCIA</h6>
 										<h4 class="m-top-none" id="visitorCount"
 											style="color: black; font-family: Segoe UI Semibold;">
 											<h:panelGroup>
-												<p:outputLabel value="#{dashBoardMB.nAguardandoAssinatura}" />
+												<p:outputLabel value="#{dashBoardMB.nFormalizacaoPendencia}" />
 											</h:panelGroup>
 										</h4>
 										<span class="m-left-xs"
 											style="color: black; font-family: Segoe UI Semibold;">
-											contratos aguardando assinatura </span>
+											contratos </span>
 										<div class="stat-icon" style="opacity: 0.9;">
 											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
 										</div>
@@ -252,7 +252,7 @@
 						<h:panelGroup>
 							<div class="col-md-4">
 								<div class="panel-stat3"
-									style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
 									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
 										style="width:100%;text-decoration:none;" ajax="false">
 										<h6 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
@@ -286,7 +286,7 @@
 						</h:panelGroup>
 						<div class="col-md-4">
 							<div class="panel-stat3 bg-info"
-								style="margin-right: 6%; background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
 								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
 									style="width:100%;text-decoration:none;" ajax="false">
 									<h6 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
@@ -308,7 +308,7 @@
 										style="color: black; font-family: Segoe UI Semibold;">
 										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
 											#{dashBoardMB.nAguardandoPagamento}
-										</h:panelGroup> contratos aguardando pagamento
+										</h:panelGroup> contratos aguardando pag.
 									</span>
 									<div class="stat-icon" style="opacity: 0.9;">
 										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
@@ -451,7 +451,7 @@
 									<p:commandLink action="#{dashBoardMB.producaoGeral()}"
 										style="width:100%;text-decoration:none;" ajax="false">
 										<h6 style="font-family: Segoe UI Semibold; color: white;">PRODUÇÃO
-											LIQUIDA</h6>
+											GERAL</h6>
 										<h4 class="m-top-none" id="userCount"
 											style="color: black; font-family: Segoe UI Semibold;">
 											R$:

@@ -285,7 +285,7 @@ public class AnexarArquivoMB implements Serializable{
 	
 	public void gerarListaTipoArquivo() {
 		TipoArquivoDao tipoArquivoDao = new TipoArquivoDao();
-		listaTipoArquivo = tipoArquivoDao.listar("Select t From Tipoarquivo t");
+		listaTipoArquivo = tipoArquivoDao.listar("Select t From Tipoarquivo t order by t.descricao");
 		if (listaTipoArquivo == null) {
 			listaTipoArquivo = new ArrayList<Tipoarquivo>();
 		}

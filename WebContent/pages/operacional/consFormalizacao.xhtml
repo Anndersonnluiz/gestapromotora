@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Formalização e Pendência</h4>
+		<hr />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<br />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
+
+		<p:dataTable id="idTabelaFormalizacao" var="contrato"
+			widgetVar="cellCars" editable="true" editMode="cell"
+			value="#{formalizacaoMB.listaContrato}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contrato.idcontrato}">
+
+
+
+			<p:column headerText="Código"
+				style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.codigocontrato}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.usuario.nome}" />
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:13%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.cliente.cpf}" />
+			</p:column>
+			<p:column headerText="Nome do Cliente"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="Banco/Órgão"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText
+					value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} /
+							 #{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.tipooperacao.descricao}" />
+			</p:column>
+			<p:column headerText="Parcela"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.parcela}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Situação"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.situacao.descricao}" />
+			</p:column>
+			<p:column headerText=""
+				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false"
+					action="#{formalizacaoMB.editar(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+
+				<p:commandLink ajax="false"
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}"
+					action="#{formalizacaoMB.alterarSituacao(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="arrow-right"></span>
+				</p:commandLink>
+
+				<p:commandLink
+					action="#{formalizacaoMB.historicoContrato(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="file-text"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

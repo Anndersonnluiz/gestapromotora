@@ -56,6 +56,7 @@ public class ProducaoMB implements Serializable{
 	private float valorProducao;
 	private Date dataCadastroIni;
 	private Date dataCadastroFinal;
+	private int convenio;
 	
 	
 	@PostConstruct
@@ -353,6 +354,16 @@ public class ProducaoMB implements Serializable{
 	}
 
 
+	public int getConvenio() {
+		return convenio;
+	}
+
+
+	public void setConvenio(int convenio) {
+		this.convenio = convenio;
+	}
+
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2"
@@ -440,6 +451,13 @@ public class ProducaoMB implements Serializable{
 		if (usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and h.usuario.idusuario<>6";
 		}
+		if (convenio > 0) {
+			if (convenio == 1) {
+				sql = sql + " and h.contrato.operacaoinss=true";
+			}else if(convenio == 2) {
+				sql = sql + " and h.contrato.operacaoinss=false";
+			}
+		}
 		sql = sql + " order by h.contrato.datapagamento";
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		listaComissao = historicoComissaoFacade.lista(sql);
@@ -491,6 +509,7 @@ public class ProducaoMB implements Serializable{
 		cpf = "";
 		dataCadastroFinal = null;
 		dataCadastroIni = null;
+		convenio = 0;
 		gerarListaInicial();
 	}
 	

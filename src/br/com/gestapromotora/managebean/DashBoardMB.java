@@ -661,6 +661,11 @@ public class DashBoardMB implements Serializable{
 	}
 	
 	
+	public String formalizacao() {
+		return "consFormalizacao";
+	}
+	
+	
 	
 	
 	

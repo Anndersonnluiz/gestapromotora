@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "contrato")
@@ -128,6 +129,8 @@ public class Contrato implements Serializable{
 	@JoinColumn(name = "promotora_idpromotora", referencedColumnName = "idpromotora")
 	@ManyToOne(optional = false)
 	private Promotora promotora;
+	@Transient
+	private String voltarTela;
 	
 	
 	public Contrato() {
@@ -600,6 +603,16 @@ public class Contrato implements Serializable{
 
 	public void setPromotora(Promotora promotora) {
 		this.promotora = promotora;
+	}
+
+
+	public String getVoltarTela() {
+		return voltarTela;
+	}
+
+
+	public void setVoltarTela(String voltarTela) {
+		this.voltarTela = voltarTela;
 	}
 
 

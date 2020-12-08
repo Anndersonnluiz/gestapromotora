@@ -173,6 +173,15 @@ public class ConfDadosContratoMB implements Serializable{
 		session.setAttribute("banco", banco);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", orgaoBanco);
+		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			contrato.setVoltarTela("consPortabilidade");
+		}else {
+			if (contrato.isOperacaoinss()) {
+				contrato.setVoltarTela("consDemaisOperacoesINSS");
+			}else {
+				contrato.setVoltarTela("consDemaisOperacoes");
+			}
+		}
 		return "cadContrato";
 	}
 	

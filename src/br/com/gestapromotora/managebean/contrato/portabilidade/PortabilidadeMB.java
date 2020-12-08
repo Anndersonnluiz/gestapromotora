@@ -837,7 +837,6 @@ public class PortabilidadeMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		session.setAttribute("voltarTela", "consPortabilidade");
 		return "cadContrato";
 	}
 	

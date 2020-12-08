@@ -573,7 +573,6 @@ public class DemaisOperacoesInssMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("contrato", contrato);
 		session.setAttribute("orgaobanco", contrato.getValorescoeficiente().getCoeficiente().getOrgaoBanco());
-		session.setAttribute("voltarTela", "consDemaisOperacoesInss");
 		return "cadContrato";
 	}
 	
@@ -666,6 +665,8 @@ public class DemaisOperacoesInssMB implements Serializable {
 				nCancelados = nCancelados + 1;
 			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 36) {
 				nPendenciaAverbacao = nPendenciaAverbacao + 1;
+			}else if(listaContratoPesquisa.get(i).getSituacao().getIdsituacao() == 37) {
+				nFormalizacaoPendencia = nFormalizacaoPendencia + 1;
 			}
 		}
 	}
