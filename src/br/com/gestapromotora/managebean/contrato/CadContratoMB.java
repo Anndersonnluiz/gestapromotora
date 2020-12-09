@@ -524,7 +524,9 @@ public class CadContratoMB implements Serializable {
 			contrato.setCodigocontrato(gerarCodigo());
 			gerarMetaFaturamento();
 			contrato.setIdregracoeficiente(regrascoeficiente.getIdregrascoeficiente());
-			contrato.setBanco(banco);
+			if (contrato.getBanco() == null || contrato.getBanco().getIdbanco() == null) {
+				contrato.setBanco(banco);
+			}
 		}
 		if (promotora == null || promotora.getIdpromotora() == null) {
 			PromotoraFacade promotoraFacade = new PromotoraFacade();
@@ -728,7 +730,7 @@ public class CadContratoMB implements Serializable {
 	}
 
 	public String gerarCodigo() {
-		String codigo = "FF " + Formatacao.ConvercaoDataPadrao(new Date()) + " - ";
+		String codigo = "DF " + Formatacao.ConvercaoDataPadrao(new Date()) + " - ";
 		ContratoFacade contratoFacade = new ContratoFacade();
 		List<Contrato> lisContratos = contratoFacade.lista(
 				"Select c From Contrato c Where c.datacadastro='" + Formatacao.ConvercaoDataSql(new Date()) + "'");

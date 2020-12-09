@@ -25,8 +25,8 @@
 		<nav
 			class="navbar navbar-primary fixed-top  flex-md-nowrap p-0 shadow"
 			style="background-color: #000080 !important;">
-			<a class="navbar col-md-3 mr-0 col-sm-3" href="#"><p:outputLabel
-					value="Bem Vindo, #{usuarioLogadoMB.nomeUsuario}"
+			<a class="navbar col-md-6 mr-0 col-sm-6" href="#"><p:outputLabel
+					value="#{usuarioLogadoMB.nomeUsuario} - #{usuarioLogadoMB.usuario.departamento.descricao}"
 					style="color:white;font-weight:bold;font-size:16px;" /></a>
 			<ul class="navbar-nav ml-auto nav-flex-icons"
 				style="margin-right: 2%;">
@@ -74,14 +74,17 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/banco/consBanco.jsf"> <span
 											data-feather="dollar-sign"></span> Banco
-									</a> <h:panelGroup
+									</a>
+									<h:panelGroup
+											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+											<a class="nav-link" href="pages/departamento/consDepartamento.jsf">
+												<span data-feather="users"></span> Departamento
+											</a>
+										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
 												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
 												data-feather="users"></span> Grupo de Acessos
-											</a>
-											<a class="nav-link" href="pages/usuario/consUsuario.jsf">
-												<span data-feather="user"></span> Usuários
 											</a>
 										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
@@ -440,9 +443,9 @@
 								</div>
 							</div>
 						</h:panelGroup>
-						</div>
-						<br/>
-						<div class="row" style="color: white;">
+					</div>
+					<br />
+					<div class="row" style="color: white;">
 						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 							<div class="col-md-4">
 								<div class="panel-stat3 bg-success"

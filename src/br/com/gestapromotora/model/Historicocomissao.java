@@ -58,6 +58,8 @@ public class Historicocomissao implements Serializable{
 	private String descricaobaixa;
 	@Column(name = "corbaixa")
 	private String corbaixa;
+	@Column(name="dataentrada")
+	private String dataentrada;
 	@Transient
 	private boolean selecionado;
 	
@@ -247,6 +249,18 @@ public class Historicocomissao implements Serializable{
 
 	public void setCorbaixa(String corbaixa) {
 		this.corbaixa = corbaixa;
+	}
+
+
+
+	public String getDataentrada() {
+		return dataentrada;
+	}
+
+
+
+	public void setDataentrada(String dataentrada) {
+		this.dataentrada = dataentrada;
 	}
 
 

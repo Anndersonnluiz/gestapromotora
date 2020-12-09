@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Departamentos</h4>
+		<hr />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
+				action="#{departamentoMB.novoDepartamento()}" />
+		</div>
+		<br/>
+		<div class="row" style="color: white;">
+			<ui:repeat var="departamento" value="#{departamentoMB.listaDepartamento}">
+				<div class="col-md-4">
+					<div class="panel-stat3"
+						style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;margin:2%;">
+						<p:commandLink  style="float:right;" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
+							action="#{departamentoMB.editar(departamento)}">
+							<img src="../../resources/img/editar.svg" class="img-fluid" alt="img" width="15"/>
+						</p:commandLink>
+						<p:commandLink action="#{departamentoMB.acessarUsuarios(departamento)}" style="width:100%;text-decoration:none;"
+							ajax="false">
+							<h6 style="font-family: Segoe UI Semibold; color: white;">#{departamento.descricao}</h6>
+							<h4 class="m-top-none" id="visitorCount"
+								style="color: black; font-family: Segoe UI Semibold;">
+								<h:panelGroup>
+									<p:outputLabel value="#{departamento.nusuario}" />
+								</h:panelGroup>
+							</h4>
+							<span class="m-left-xs"
+								style="color: black; font-family: Segoe UI Semibold;">
+								usuários cadastrados </span>
+							<div class="stat-icon" style="opacity: 0.9;">
+								<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+							</div>
+						</p:commandLink>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,12 +1,9 @@
 package br.com.gestapromotora.managebean.usuario;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -18,6 +15,7 @@ import br.com.gestapromotora.dao.UsuarioDao;
 import br.com.gestapromotora.facade.ContratoFacade;
 import br.com.gestapromotora.facade.HistoricoComissaoFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
+import br.com.gestapromotora.model.Departamento;
 import br.com.gestapromotora.model.Historicocomissao;
 import br.com.gestapromotora.model.Usuario;
 import br.com.gestapromotora.util.Criptografia;
@@ -33,9 +31,14 @@ public class UsuarioMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Usuario> listaUsuario;
 	private Usuario usuario;
+	private Departamento departamento;
 
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		departamento = (Departamento) session.getAttribute("departamento");
+		session.removeAttribute("departamento");
 		gerarListaUsuario();
 	}
 
@@ -57,13 +60,17 @@ public class UsuarioMB implements Serializable {
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
+		listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.departamento.iddepartamento="+ 
+		 departamento.getIddepartamento() +" order by u.nome");
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>();
 		}
 	}
 
 	public String novoUsuario() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("departamento", departamento);
 		return "cadUsuario";
 	}
 
@@ -76,16 +83,16 @@ public class UsuarioMB implements Serializable {
 
 	public void resetarSenhaUsuario(Usuario usuario) {
 		String senhaResetada;
-		//try {
-			//senhaResetada = Criptografia.encript("senha");
-		//	if (usuario != null) {
-			//	usuario.setSenha("");
-			//	UsuarioFacade usuarioFacade = new UsuarioFacade();
-			//	usuarioFacade.salvar(usuario);
-			//}
-		//} catch (NoSuchAlgorithmException ex) {
-		//	Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
-		//}
+		// try {
+		// senhaResetada = Criptografia.encript("senha");
+		// if (usuario != null) {
+		// usuario.setSenha("");
+		// UsuarioFacade usuarioFacade = new UsuarioFacade();
+		// usuarioFacade.salvar(usuario);
+		// }
+		// } catch (NoSuchAlgorithmException ex) {
+		// Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
+		// }
 	}
 
 	public void ativarDesativarUsuario(Usuario usuario) {
@@ -119,7 +126,7 @@ public class UsuarioMB implements Serializable {
 			usuarioFacade.excluir(usuario.getIdusuario());
 			listaUsuario.remove(usuario);
 			Mensagem.lancarMensagemInfo("Usuario excluido com sucesso", "");
-		}else {
+		} else {
 			Mensagem.lancarMensagemFatal("Atenção!!", "Este usuário não pode ser excluido");
 		}
 	}
@@ -127,8 +134,8 @@ public class UsuarioMB implements Serializable {
 	public void alterarDados(Usuario usuario, Usuario usuarioDelta) {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		ContratoFacade contratoFacade = new ContratoFacade();
-		List<Historicocomissao> listaComissao = historicoComissaoFacade
-				.lista("SELECT h FROM Historicocomissao h WHERE h.contrato.usuario.idusuario=" + usuario.getIdusuario());
+		List<Historicocomissao> listaComissao = historicoComissaoFacade.lista(
+				"SELECT h FROM Historicocomissao h WHERE h.contrato.usuario.idusuario=" + usuario.getIdusuario());
 		if (listaComissao == null) {
 			listaComissao = new ArrayList<Historicocomissao>();
 		}
@@ -140,11 +147,12 @@ public class UsuarioMB implements Serializable {
 		}
 	}
 	
+	
+	public String voltar() {
+		return "consDepartamento";
+	}
+	
+	
+	
 
-
-	
-	
-	
-	
-	
 }

@@ -6,68 +6,71 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Consulta de Usuário</h4>
-			<hr />
-			<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Novo" action="#{usuarioMB.novoUsuario()}" />
-			</div>
-			<p:dataTable id="idTabelaUsuario" var="usuario"
-				value="#{usuarioMB.listaUsuario}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{usuario.idusuario}">
+		<br />
+		<h4>Consulta de Usuário</h4>
+		<hr />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
+				<p:commandLink ajax="false" style="margin-right:1%;"
+					styleClass="btn btn-link" value="Voltar"
+					action="#{usuarioMB.voltar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{usuarioMB.novoUsuario()}" rendered="#{usuarioLogadoMB.usuario.acessogeral}"/>
+		</div>
+		<p:dataTable id="idTabelaUsuario" var="usuario"
+			value="#{usuarioMB.listaUsuario}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{usuario.idusuario}">
 
-				<p:column headerText="Cod. Inter." sortBy="#{usuario.cdinterno}"
-					style="width:20%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{usuario.cdinterno}" />
-				</p:column>
+			<p:column headerText="Cod. Inter." sortBy="#{usuario.cdinterno}"
+				style="width:20%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{usuario.cdinterno}" />
+			</p:column>
 
-				<p:column headerText="Nome" sortBy="#{usuario.nome}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{usuario.nome}" />
-				</p:column>
-				<p:column headerText="Email" sortBy="#{usuario.email}"
-					style="width:32%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<h:outputText value="#{usuario.email}" />
-				</p:column>
-				<p:column headerText="Sala" sortBy="#{usuario.cdinterno}"
-					style="width:25%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<h:outputText value="#{usuario.sala}" />
-				</p:column>
-				<p:column headerText="Funcionário"
-					sortBy="#{usuario.tipocolaborador.descricao}"
-					style="width:25%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<h:outputText value="#{usuario.tipocolaborador.descricao}" />
-				</p:column>
-				<p:column headerText=""
-					style="width:15%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{usuarioMB.editar(usuario)}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{usuarioMB.ativarDesativarUsuario(usuario)}"
-						update=":frmConsultaUsuario:growl, idTabelaUsuario"
-						style="text-align: left;color:black;">
-						<span data-feather="#{usuario.descricaoativo}"></span>
-					</p:commandLink>
-					<p:commandLink  ajax="false"
-						action="#{usuarioMB.resetSenha(usuario)}"
-						update=":formulario:growl, idTabelaUsuario"
-						style="text-align: left;color:black;">
-						<span data-feather="rotate-ccw"></span>
-					</p:commandLink>
-					<p:commandLink  ajax="false"
-						action="#{usuarioMB.excluirUsuario(usuario)}"
-						update=":formulario:growl, idTabelaUsuario"
-						style="text-align: left;color:black;">
-						<span data-feather="trash"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+			<p:column headerText="Nome" sortBy="#{usuario.nome}"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{usuario.nome}" />
+			</p:column>
+			<p:column headerText="Email" sortBy="#{usuario.email}"
+				style="width:32%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<h:outputText value="#{usuario.email}" />
+			</p:column>
+			<p:column headerText="Sala" sortBy="#{usuario.cdinterno}"
+				style="width:25%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<h:outputText value="#{usuario.sala}" />
+			</p:column>
+			<p:column headerText="Funcionário"
+				sortBy="#{usuario.tipocolaborador.descricao}"
+				style="width:25%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<h:outputText value="#{usuario.tipocolaborador.descricao}" />
+			</p:column>
+			<p:column headerText=""
+				style="width:15%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{usuarioMB.editar(usuario)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{usuarioMB.ativarDesativarUsuario(usuario)}"
+					update=":frmConsultaUsuario:growl, idTabelaUsuario"
+					style="text-align: left;color:black;">
+					<span data-feather="#{usuario.descricaoativo}"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{usuarioMB.resetSenha(usuario)}"
+					update=":formulario:growl, idTabelaUsuario"
+					style="text-align: left;color:black;">
+					<span data-feather="rotate-ccw"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{usuarioMB.excluirUsuario(usuario)}"
+					update=":formulario:growl, idTabelaUsuario"
+					style="text-align: left;color:black;">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

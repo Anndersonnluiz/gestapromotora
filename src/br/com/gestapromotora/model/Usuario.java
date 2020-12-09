@@ -49,12 +49,17 @@ public class Usuario implements Serializable{
 	private boolean diretoria;
 	@Column(name = "supervisao")
 	private boolean supervisao;
+	@Column(name = "responsaveldepartamento")
+	private boolean responsaveldepartamento;
     @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
     @ManyToOne(optional = false)
     private Tipocolaborador tipocolaborador;
     @JoinColumn(name = "dadosbancario_iddadosbancario", referencedColumnName = "iddadosbancario")
     @ManyToOne(optional = false)
     private Dadosbancario dadosbancario;
+    @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
+    @ManyToOne(optional = false)
+    private Departamento departamento;
     
     
     public Usuario() {
@@ -184,6 +189,26 @@ public class Usuario implements Serializable{
 
 	public void setSupervisao(boolean supervisao) {
 		this.supervisao = supervisao;
+	}
+
+
+	public synchronized boolean isResponsaveldepartamento() {
+		return responsaveldepartamento;
+	}
+
+
+	public synchronized void setResponsaveldepartamento(boolean responsaveldepartamento) {
+		this.responsaveldepartamento = responsaveldepartamento;
+	}
+
+
+	public synchronized Departamento getDepartamento() {
+		return departamento;
+	}
+
+
+	public synchronized void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 

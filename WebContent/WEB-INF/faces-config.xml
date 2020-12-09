@@ -611,6 +611,26 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDepartamento</from-outcome>
+			<to-view-id>pages/departamento/consDepartamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadDepartamento</from-outcome>
+			<to-view-id>pages/departamento/cadDepartamento.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
     
 	<application>
         <action-listener>
