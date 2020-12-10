@@ -64,7 +64,8 @@ public class ProducaoMB implements Serializable{
 		gerarListaInicial();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
-		if (!usuarioLogadoMB.getUsuario().isAcessogeral()) {
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() 
+				|| !usuarioLogadoMB.getUsuario().isResponsaveldepartamento()) {
 			unicoUsuario = true;
 			usuario = usuarioLogadoMB.getUsuario();
 		}
@@ -368,8 +369,9 @@ public class ProducaoMB implements Serializable{
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2"
 				+ " and h.contrato.ultimamudancasituacao>='2020-11-01'";
-		if (usuarioLogadoMB.getUsuario().isSupervisao()) {
-			sql = sql + " and h.usuario.idusuario<>6";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && usuarioLogadoMB.getUsuario().isResponsaveldepartamento()) {
+			sql = sql + " and h.contrato.usuario.departamento.iddepartamento=" +
+					usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
 		}
 		sql = sql + " order by h.contrato.ultimamudancasituacao";
 		listaComissao = historicoComissaoFacade.lista(sql);
@@ -517,7 +519,13 @@ public class ProducaoMB implements Serializable{
 	
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		listaUsuario = usuarioFacade.listar("Select u From Usuario u WHERE u.ativo=true order by u.nome");
+		String sql = "Select u From Usuario u WHERE u.ativo=true ";
+		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && 
+				usuarioLogadoMB.getUsuario().isResponsaveldepartamento()) {
+			sql = sql + " and u.departamento.iddepartamento=" 
+					+ usuarioLogadoMB.getUsuario().getDepartamento().getIddepartamento();
+		}
+		listaUsuario = usuarioFacade.listar(sql);
 		if (listaUsuario == null) {
 			listaUsuario = new ArrayList<Usuario>(); 
 		}

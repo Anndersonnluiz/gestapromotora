@@ -74,11 +74,11 @@
 									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/banco/consBanco.jsf"> <span
 											data-feather="dollar-sign"></span> Banco
-									</a>
-									<h:panelGroup
+									</a> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-											<a class="nav-link" href="pages/departamento/consDepartamento.jsf">
-												<span data-feather="users"></span> Departamento
+											<a class="nav-link"
+												href="pages/departamento/consDepartamento.jsf"> <span
+												data-feather="users"></span> Departamento
 											</a>
 										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
@@ -192,6 +192,11 @@
 								aria-haspopup="true" aria-expanded="false"> <span
 									data-feather="printer"></span> Roteiros
 							</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="pages/suporte/consSuporte.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> <span
+									data-feather="phone-call"></span> Suporte
+							</a></li>
 							<li class="nav-item, dropdown"><a class="nav-link" href="#"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false"> <span data-feather="settings"></span>
@@ -229,216 +234,171 @@
 					<hr />
 					<div class="row" style="color: white;">
 						<h:panelGroup>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<div class="panel-stat3"
-									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 									<p:commandLink action="#{dashBoardMB.formalizacao()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h6 style="font-family: Segoe UI Semibold; color: white;">FORMALIZAÇÃO
-											E PENDÊNCIA</h6>
-										<h4 class="m-top-none" id="visitorCount"
-											style="color: black; font-family: Segoe UI Semibold;">
-											<h:panelGroup>
-												<p:outputLabel value="#{dashBoardMB.nFormalizacaoPendencia}" />
-											</h:panelGroup>
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">
-											contratos </span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+										style="width:100%;text-decoration:none;color:white;"
+										ajax="false">
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">FORMALIZAÇÃO
+											E PENDÊNCIA</b>
+										<br />
+										<hr style="background-color: white;" />
+										<div align="center" style="font-size: 14px;">
+											<b><h:panelGroup>
+													<p:outputLabel
+														value="(#{dashBoardMB.nFormalizacaoPendencia})" />
+												</h:panelGroup></b> <br /> <br /> <b></b>
+
 										</div>
 									</p:commandLink>
 								</div>
 							</div>
 						</h:panelGroup>
 						<h:panelGroup>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<div class="panel-stat3"
-									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h6 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
-											ASSINATURA</h6>
-										<h4 class="m-top-none" id="visitorCount"
-											style="color: black; font-family: Segoe UI Semibold;">
+										style="width:100%;text-decoration:none;color:white;"
+										ajax="false">
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">AGUARDANDO
+											ASSINATURA</b>
+										<br />
+										<hr style="background-color: white;" />
+										<div align="center" style="font-size: 14px;">
 											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-												R$:
-												<p:outputLabel value="#{dashBoardMB.valorPagar}">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
+												<b>R$ <h:outputText value="#{dashBoardMB.valorPagar}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText></b>
 											</h:panelGroup>
-											<h:panelGroup
-												rendered="#{!usuarioLogadoMB.usuario.diretoria}">
-												<p:outputLabel value="#{dashBoardMB.nAguardandoAssinatura}" />
-											</h:panelGroup>
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-												#{dashBoardMB.nAguardandoAssinatura} 
-											</h:panelGroup> contratos aguardando assinatura
-										</span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
+											<br /> <b><p:outputLabel
+													value="(#{dashBoardMB.nAguardandoAssinatura})" /></b>
+
 										</div>
 									</p:commandLink>
 								</div>
 							</div>
 						</h:panelGroup>
-						<div class="col-md-4">
-							<div class="panel-stat3 bg-info"
-								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+						<div class="col-md-2">
+							<div class="panel-stat3"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<h6 style="font-family: Segoe UI Semibold; color: white;">AGUARDANDO
-										PAGAMENTO</h6>
-									<h4 class="m-top-none"
-										style="color: black; font-family: Segoe UI Semibold;">
+									style="width:100%;text-decoration:none;color:white;"
+									ajax="false">
+									<b style="font-family: Segoe UI Semibold; font-size: 13px;">AGUARDANDO
+										PAGAMENTO</b>
+									<br />
+									<hr style="background-color: white;" />
+									<div align="center" style="font-size: 14px;">
 										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorReceber}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+											<b>R$ <h:outputText value="#{dashBoardMB.valorReceber}">
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
+												</h:outputText></b>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.diretoria}">
-											<p:outputLabel value="#{dashBoardMB.nAguardandoPagamento}" />
-										</h:panelGroup>
-									</h4>
-									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">
-										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											#{dashBoardMB.nAguardandoPagamento}
-										</h:panelGroup> contratos aguardando pag.
-									</span>
-									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-plus fa-3x" style="color: #FFD700;"></i>
+										<br /> <b><p:outputLabel
+												value="(#{dashBoardMB.nAguardandoPagamento})" /></b>
+
 									</div>
 								</p:commandLink>
 							</div>
 						</div>
-					</div>
-					<br />
-					<div class="row" style="color: white;">
-						<div class="col-md-4">
-							<div class="panel-stat3 bg-success"
-								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-
+						<div class="col-md-2">
+							<div class="panel-stat3"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 								<p:commandLink action="#{dashBoardMB.pagoCliente()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<h6 style="font-family: Segoe UI Semibold; color: white;">PAGO
-										AO CLIENTE</h6>
-									<h4 class="m-top-none" id="userCount"
-										style="color: black; font-family: Segoe UI Semibold;">
+									style="width:100%;text-decoration:none;color:white;"
+									ajax="false">
+									<b style="font-family: Segoe UI Semibold; font-size: 13px;">PAGO
+										AO CLIENTE</b>
+									<br />
+									<br />
+									<hr style="background-color: white;" />
+									<div align="center" style="font-size: 14px;">
 										<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.fatutamento}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+											<b>R$ <h:outputText value="#{dashBoardMB.fatutamento}">
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
+												</h:outputText></b>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!dashBoardMB.viewPagoCliente}">
-											<p:outputLabel value="#{dashBoardMB.nProducao}" />
-										</h:panelGroup>
-									</h4>
-									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">
-										<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-										#{dashBoardMB.nProducao}
-										</h:panelGroup> contratos pagos ao cliente
-									</span>
-									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-									</div>
+										<br /> <b><p:outputLabel
+												value="(#{dashBoardMB.nProducao})" /></b>
 
+									</div>
 								</p:commandLink>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="panel-stat3 bg-danger"
-								style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-
+						<div class="col-md-2">
+							<div class="panel-stat3"
+								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 								<p:commandLink action="#{dashBoardMB.receitaPendencia()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<h6 style="font-family: Segoe UI Semibold; color: white;">PENDÊNCIA
-										AVERBAÇÃO</h6>
-									<h4 class="m-top-none" id="userCount"
-										style="color: black; font-family: Segoe UI Semibold;">
+									style="width:100%;text-decoration:none;color:white;"
+									ajax="false">
+									<b style="font-family: Segoe UI Semibold; font-size: 13px;">PENDÊNCIA
+										DE AVERBAÇÃO</b>
+									<br />
+									<hr style="background-color: white;" />
+									<div align="center" style="font-size: 14px;">
 										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorAverbacao}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+											<b>R$ <h:outputText value="#{dashBoardMB.valorAverbacao}">
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
+												</h:outputText></b>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.diretoria}">
-											<p:outputLabel value="#{dashBoardMB.nPendenciaAverbacao}" />
-										</h:panelGroup>
-									</h4>
-									<span class="m-left-xs"
-										style="color: black; font-family: Segoe UI Semibold;">
-										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											#{dashBoardMB.nPendenciaAverbacao} 
-										</h:panelGroup> contratos com pendências
-									</span>
-									<div class="stat-icon" style="opacity: 0.9;">
-										<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-									</div>
+										<br /> <b><p:outputLabel
+												value="(#{dashBoardMB.nPendenciaAverbacao})" /></b>
 
+									</div>
 								</p:commandLink>
 							</div>
 						</div>
+
 						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.supervisao}">
-							<div class="col-md-4">
-								<div class="panel-stat3 bg-danger"
-									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
+							<div class="col-md-2">
+								<div class="panel-stat3"
+									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
+									<p:commandLink action="#{dashBoardMB.receitaPendenciaDocs()}"
+										style="width:100%;text-decoration:none;color:white;"
+										ajax="false">
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PENDÊNCIA
+											DE DOCUMENTAÇÃO</b>
+										<br />
+										<hr style="background-color: white;" />
+										<div align="center" style="font-size: 14px;">
 
-									<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h6 style="font-family: Segoe UI Semibold; color: white;">PENDÊNCIA
-											DOCUMENTAÇÃO</h6>
-										<h4 class="m-top-none" id="userCount"
-											style="color: black; font-family: Segoe UI Semibold;">
-											<p:outputLabel value="#{dashBoardMB.nPendenciaDocumento}" />
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">
-											contratos com pendência </span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
+											<br /> <b><p:outputLabel
+													value="(#{dashBoardMB.nPendenciaDocumento})" /></b>
+
 										</div>
-
 									</p:commandLink>
 								</div>
 							</div>
 						</h:panelGroup>
 						<h:panelGroup
 							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
-							<div class="col-md-4">
-								<div class="panel-stat3 bg-success"
-									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
 
+							<div class="col-md-2">
+								<div class="panel-stat3"
+									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 									<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h6 style="font-family: Segoe UI Semibold; color: white;">COMISSÃO
-											RECEBIDA</h6>
-										<h4 class="m-top-none" id="userCount"
-											style="color: black; font-family: Segoe UI Semibold;">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorComissaoRecebida}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">
-											#{dashBoardMB.nComissaoRecebida} contratos </span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-										</div>
+										style="width:100%;text-decoration:none;color:white;"
+										ajax="false">
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">CMS
+											RECEBIDA</b>
+										<br />
+										<br />
+										<hr style="background-color: white;" />
+										<div align="center" style="font-size: 14px;">
+											<b>R$ <h:outputText
+													value="#{dashBoardMB.valorComissaoRecebida}">
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
+												</h:outputText></b> <br /> <b><p:outputLabel
+													value="(#{dashBoardMB.nComissaoRecebida})" /></b>
 
+										</div>
 									</p:commandLink>
 								</div>
 							</div>
@@ -447,29 +407,25 @@
 					<br />
 					<div class="row" style="color: white;">
 						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-							<div class="col-md-4">
-								<div class="panel-stat3 bg-success"
-									style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;">
-
+							<div class="col-md-2">
+								<div class="panel-stat3"
+									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
 									<p:commandLink action="#{dashBoardMB.producaoGeral()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<h6 style="font-family: Segoe UI Semibold; color: white;">PRODUÇÃO
-											GERAL</h6>
-										<h4 class="m-top-none" id="userCount"
-											style="color: black; font-family: Segoe UI Semibold;">
-											R$:
-											<p:outputLabel value="#{dashBoardMB.valorProducao}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</h4>
-										<span class="m-left-xs"
-											style="color: black; font-family: Segoe UI Semibold;">
-											#{dashBoardMB.nTotalProducao} contratos </span>
-										<div class="stat-icon" style="opacity: 0.9;">
-											<i class="fa fa-usd fa-3x" style="color: #FFD700;"></i>
-										</div>
+										style="width:100%;text-decoration:none;color:white;"
+										ajax="false">
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PRODUÇÃO GERAL</b>
+										<br /><br/>
+										<hr style="background-color: white;" />
+										<div align="center" style="font-size: 14px;">
+												<b>R$ <h:outputText
+														value="#{dashBoardMB.valorProducao}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText></b>
+											<br /> <b><p:outputLabel
+													value="(#{dashBoardMB.nTotalProducao})" /></b>
 
+										</div>
 									</p:commandLink>
 								</div>
 							</div>

@@ -662,9 +662,19 @@ public class DashBoardMB implements Serializable{
 	
 	
 	public String formalizacao() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("voltar", "dashboard");
 		return "consFormalizacao";
 	}
 	
+	
+	public String receitaPendenciaDocs() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("tipoFiltro", "5");
+		return "consPagamentoComissao";
+	}
 	
 	
 	

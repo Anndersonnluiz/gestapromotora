@@ -105,7 +105,7 @@ public class Ftp {
         FileInputStream arqEnviar = (FileInputStream) uploadedFile.getInputstream();
         String nomeArquivo =   new String(uploadedFile.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8");
         ftpClient.enterLocalPassiveMode();
-        if (ftpClient.storeFile(nomeArquivo, arqEnviar)) {
+        if (ftpClient.storeFile(arquivoFTP + "_" + nomeArquivo, arqEnviar)) {
         	arqEnviar.close();
             return true;
         } else {

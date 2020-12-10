@@ -11,7 +11,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.DepartamentoFacade;
+import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Departamento;
+import br.com.gestapromotora.model.Usuario;
 
 @Named
 @ViewScoped
@@ -74,6 +76,17 @@ public class DepartamentoMB implements Serializable{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("departamento", departamento);
 		return "consUsuario";
+	}
+	
+	
+	public int gerarNumeroUsuarios(Departamento departamento) {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		List<Usuario> listaUsuario = usuarioFacade.listar("Select u From Usuario u Where "
+				+ "u.departamento.iddepartamento="+ departamento.getIddepartamento());
+		if (listaUsuario == null) {
+			listaUsuario = new ArrayList<Usuario>();
+		}
+		return listaUsuario.size();
 	}
 	
 	

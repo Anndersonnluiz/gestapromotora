@@ -229,7 +229,7 @@ public class AnexarArquivoMB implements Serializable{
 			if (listaNomeArquivo == null) {
 				listaNomeArquivo = new ArrayList<String>();
 			}
-			listaNomeArquivo.add(nome);
+			listaNomeArquivo.add(contrato.getCliente().getCpf() + "_" + nome);
 		}
 	}
 	public boolean salvarArquivoFTP() {
@@ -299,7 +299,7 @@ public class AnexarArquivoMB implements Serializable{
 				if (tipoarquivo != null && tipoarquivo.getIdtipoarquivo() != null) {
 					contratoarquivo = new Contratoarquivo();
 					contratoarquivo.setDataupload(new Date());
-					contratoarquivo.setNomearquivo(
+					contratoarquivo.setNomearquivo(contrato.getCliente().getCpf() + "_" + 
 							 new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
 					contratoarquivo.setContrato(contrato);
 					contratoarquivo.setTipoarquivo(tipoarquivo);

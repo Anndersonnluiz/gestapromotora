@@ -12,12 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.DadosBancarioFacade;
+import br.com.gestapromotora.facade.DepartamentoFacade;
 import br.com.gestapromotora.facade.TipoColaboradorFacade;
 import br.com.gestapromotora.facade.UsuarioFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Dadosbancario;
+import br.com.gestapromotora.model.Departamento;
 import br.com.gestapromotora.model.Tipocolaborador;
 import br.com.gestapromotora.model.Usuario;
+import br.com.gestapromotora.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -33,6 +36,8 @@ public class CadUsuarioMB implements Serializable {
 	private List<Tipocolaborador> listaTipoColaborador;
 	private Banco bancoDadosBancario;
 	private List<Banco> listaBanco;
+	private List<Departamento> listaDepartamento;
+	private Departamento departamento;
 
 	@PostConstruct
 	public void init() {
@@ -49,8 +54,10 @@ public class CadUsuarioMB implements Serializable {
 			buscarDadosBancarios(usuario);
 			tipocolaborador = usuario.getTipocolaborador();
 			bancoDadosBancario = dadosbancario.getBanco();
+			departamento = usuario.getDepartamento();
 		}
 		gerarListaTipoColaborador();
+		gerarListaDepartamento();
 	}
 
 	public Usuario getUsuario() {
@@ -101,6 +108,22 @@ public class CadUsuarioMB implements Serializable {
 		this.listaBanco = listaBanco;
 	}
 
+	public synchronized List<Departamento> getListaDepartamento() {
+		return listaDepartamento;
+	}
+
+	public synchronized void setListaDepartamento(List<Departamento> listaDepartamento) {
+		this.listaDepartamento = listaDepartamento;
+	}
+
+	public synchronized Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public synchronized void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
 	public void gerarListaTipoColaborador() {
 		TipoColaboradorFacade tipoColaboradorFacade = new TipoColaboradorFacade();
 		listaTipoColaborador = tipoColaboradorFacade.listar("Select t From Tipocolaborador t");
@@ -118,18 +141,36 @@ public class CadUsuarioMB implements Serializable {
 	}
 
 	public String salvar() {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		usuario.setTipocolaborador(tipocolaborador);
-		salvarDadosBancarios();
-		usuario.setDadosbancario(dadosbancario);
-		if (usuario.getIdusuario() == null) {
-			usuario.setAtivo(true);
-			usuario.setSenha("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
-			usuario = usuarioFacade.salvar(usuario);
-		} else {
-			usuario = usuarioFacade.salvar(usuario);
+		if (validarDados()) {
+			UsuarioFacade usuarioFacade = new UsuarioFacade();
+			usuario.setTipocolaborador(tipocolaborador);
+			usuario.setDepartamento(departamento);
+			salvarDadosBancarios();
+			usuario.setDadosbancario(dadosbancario);
+			if (usuario.getIdusuario() == null) {
+				usuario.setAtivo(true);
+				usuario.setSenha("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
+				usuario = usuarioFacade.salvar(usuario);
+			} else {
+				usuario = usuarioFacade.salvar(usuario);
+			}
+			return "consDepartamento";
 		}
-		return "consUsuario";
+		return "";
+	}
+	
+	
+	public boolean validarDados() {
+		if (departamento == null || departamento.getIddepartamento() == null) {
+			Mensagem.lancarMensagemInfo("Selecione o Departamento", "");
+			return false;
+		}
+		
+		if (tipocolaborador == null || tipocolaborador.getIdtipocolaborador() == null) {
+			Mensagem.lancarMensagemInfo("Selecione o Tipo de Colaborador", "");
+			return false;
+		}
+		return true;
 	}
 	
 	
@@ -148,7 +189,7 @@ public class CadUsuarioMB implements Serializable {
 	}
 	
 	public String cancelar() {
-		return "consUsuario";
+		return "consDepartamento";
 	}
 	
 	
@@ -157,6 +198,15 @@ public class CadUsuarioMB implements Serializable {
 		listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum' ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
+		}
+	}
+	
+	
+	public void gerarListaDepartamento() {
+		DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+		listaDepartamento = departamentoFacade.lista("Select d From Departamento d");
+		if (listaDepartamento == null) {
+			listaDepartamento = new ArrayList<Departamento>();
 		}
 	}
 	

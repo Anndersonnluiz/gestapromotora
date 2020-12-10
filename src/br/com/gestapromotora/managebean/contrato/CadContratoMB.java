@@ -754,7 +754,7 @@ public class CadContratoMB implements Serializable {
 			if (listaNomeArquivo == null) {
 				listaNomeArquivo = new ArrayList<String>();
 			}
-			listaNomeArquivo.add(nome);
+			listaNomeArquivo.add(cpf + "_" + nome);
 			salvarUpload();
 		}
 	}
@@ -773,7 +773,7 @@ public class CadContratoMB implements Serializable {
 			Mensagem.lancarMensagemInfo("Erro", "conectar FTP");
 		}
 		try {
-			String nomeArquivoFTP = "" + contrato.getIdcontrato();
+			String nomeArquivoFTP = "" + cpf;
 			arquivoEnviado = ftp.enviarArquivoDOCS(file, nomeArquivoFTP, "");
 			if (arquivoEnviado) {
 				msg = "Arquivo: " + nomeArquivoFTP + " enviado com sucesso";
@@ -813,7 +813,7 @@ public class CadContratoMB implements Serializable {
 					contratoarquivo = new Contratoarquivo();
 					contratoarquivo.setDataupload(new Date());
 					contratoarquivo
-							.setNomearquivo(new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
+							.setNomearquivo(cpf + "_" +new String(file.getFileName().trim().getBytes("ISO-8859-1"), "UTF-8"));
 					contratoarquivo.setTipoarquivo(tipoarquivo);
 					if (listaContratoArquivo == null) {
 						listaContratoArquivo = new ArrayList<Contratoarquivo>();
