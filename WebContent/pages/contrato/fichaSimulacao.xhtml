@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Contrato</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Delta Financeira</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../../resources/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../resources/css/css.css" rel="stylesheet" />
+
+	<style>
+		@media print {
+			#noprint {
+				display: none;
+			}
+			body {
+				background: #fff;
+			}
+		}
+	</style>
+</h:head>
+<h:body style="background:white;">
+	<br />
+	<h:form>
+
+		<div align="center" id="noprint">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Voltar" action="#{fichaSimulacaoMB.voltar()}" />
+			<a href="javascript:;" onclick="window.print();return false"><button
+					type="button" class="btn btn-primary" title="Imprimir">Imprimir</button></a>
+			
+		</div>
+		<div align="left" style="margin-left: 5%;">
+			<p:commandLink action="#{fichaSimulacaoMB.voltar()}" ajax="false">
+				<img src="../../resources/img/outralogo.png" width="15%" />
+			</p:commandLink>
+		</div>
+		<br />
+
+		<div align="center">
+			<h4>SIMULAÇÃO DE CONTRATO</h4>
+		</div>
+		<br />
+		<div id="conteudo"
+			style="font-family: sans-serif; font-size: 16px; width: 90%; margin-left: 5%;">
+
+
+			<h:panelGrid
+				style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup>
+						<b>Corretor:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.usuario.nome}</h:panelGroup>
+
+					
+				</h:panelGrid>
+
+			</h:panelGrid>
+			<br />
+			<h:panelGroup align="center">
+				<b>TIPO CONTRATO </b>
+			</h:panelGroup>
+			<h:panelGrid
+				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="3">
+					<h:panelGroup>
+						<b>Operação:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.tipooperacao.descricao}</h:panelGroup>
+					<h:panelGroup>
+						<b>Tabela: </b> #{fichaSimulacaoMB.simulacaocontrato.tabela}</h:panelGroup>
+					<h:panelGroup>
+						<b>Secretaria: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.secretaria}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Orgão :</b> #{fichaSimulacaoMB.simulacaocontrato.orgaoBanco.nome}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Matricula:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.matricula}</h:panelGroup>
+					<h:panelGroup>
+						<b>Senha:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.senha}</h:panelGroup>
+
+					<br />
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<h:panelGroup align="center">
+				<b>DADOS CLIENTE </b>
+			</h:panelGroup>
+			<br />
+			<h:panelGrid
+				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup>
+						<b>Nome:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.nome}</h:panelGroup>
+					<h:panelGroup>
+						<b>CPF: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.cpf}</h:panelGroup>
+					<h:panelGroup>
+						<b>Email: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.email}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Data Nascimento:</b>
+						<h:outputText
+							value="#{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.nascimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>RG: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.rg}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Endereço: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.tipologradouro} #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.logradouro}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Complemento: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.complemento}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>UF: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.ufestado}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Cidade: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.cidade}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Bairro: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.bairro}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>CEP: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.cep}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Número: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.numero}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Valor Salário: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.valorsalario}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Telefone Residencial: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.telefoneresidencial}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Telefone Celular: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.telefonecelular}
+				</h:panelGroup>
+
+					<br />
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<br />
+			<h:panelGroup align="center">
+				<b>DADOS DA OPERAÇÃO</b>
+			</h:panelGroup>
+			<h:panelGrid
+				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup>
+						<b>Valor da Parcela:</b>
+						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.parcela}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Margem Utilizada:</b>
+						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.margemutilizada}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Valor Liberado: </b>
+						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.valorcliente}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</p:outputLabel>
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Banco: </b> #{fichaSimulacaoMB.simulacaocontrato.orgaoBanco.banco.nome}
+					</h:panelGroup>
+					<h:panelGroup>
+						<b>Contrato: </b>
+
+						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.contratoportado}" />
+					</h:panelGroup>
+
+				</h:panelGrid>
+			</h:panelGrid>
+			<br /> <br /> <br /> <br />
+			<hr width="80%" align="left" style="color: black;" />
+			<p>Assinatura do(a) Corretor(a):
+				#{fichaSimulacaoMB.simulacaocontrato.contrato.usuario.nome}</p>
+		</div>
+	</h:form>
+</h:body>
+</html>

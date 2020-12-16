@@ -63,7 +63,7 @@ public class FormalizacaoMB implements Serializable{
 
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		String sql = "Select c From Contrato c WHERE c.situacao.idsituacao=37 ";
+		String sql = "Select c From Contrato c WHERE c.situacao.idsituacao=37  and c.simulacao=false";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() 
 				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();

@@ -815,7 +815,7 @@ public class PortabilidadeMB implements Serializable{
 	public void gerarListaPortabilidade(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like "
-				+ "'%Portabilidade%'";
+				+ "'%Portabilidade%' and c.simulacao=false";
 		if (situacao > 0) {
 			sql = sql + " and c.situacao.idsituacao ="+ situacao;
 		}
@@ -862,7 +862,7 @@ public class PortabilidadeMB implements Serializable{
 	
 	public void pesquisar() {
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%"+ nomeCliente +
-				"%' and c.cliente.cpf like '%"+ cpf +"%'";
+				"%' and c.cliente.cpf like '%"+ cpf +"%' and c.simulacao=false";
 		if (nSituacao > 0) {
 			sql = sql + " and c.situacao.idsituacao=" + nSituacao;
 		}
@@ -892,7 +892,7 @@ public class PortabilidadeMB implements Serializable{
 	
 	public void gerarListaInicial() {
 		ContratoFacade contratoFacade = new ContratoFacade();
-		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%'";
+		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.simulacao=false";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() 
 				&& !usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
 			sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();

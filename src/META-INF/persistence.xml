@@ -36,8 +36,9 @@
 		<class>br.com.gestapromotora.model.Contratounificacao</class>
 		<class>br.com.gestapromotora.model.Departamento</class>
 		<class>br.com.gestapromotora.model.Suporte</class>
+		<class>br.com.gestapromotora.model.Simulacaocontrato</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemad_deltafinanceira"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemadeltafinanceira.acessotemporario.net:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
 			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>

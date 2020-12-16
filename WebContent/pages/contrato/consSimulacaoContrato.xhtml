@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<h4>Consulta Simulações de Contrato</h4>
+		<hr />
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<br />
+		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{simulacaoMB.novo()}" />
+		</div>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="simulacao"
+			value="#{simulacaoMB.listaSimulacao}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{simulacao.idsimulacaocontrato}">
+
+
+			<p:column headerText="Cadastro"
+				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{simulacao.datacadastro}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{simulacao.contrato.usuario.nome}">
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Nome"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{simulacao.contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{simulacao.contrato.cliente.cpf}" />
+			</p:column>
+			<p:column headerText="Banco/Órgão"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText
+					value="#{simulacao.orgaoBanco.banco.nome} / #{simulacao.orgaoBanco.nome}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{simulacao.contrato.tipooperacao.descricao}" />
+			</p:column>
+			<p:column headerText="Valor Parcela"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				<h:outputText value="#{simulacao.contrato.parcela}">
+					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText=""
+				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false"
+					action="#{simulacaoMB.editar(simulacao)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+
+				<p:commandLink action="#{simulacaoMB.imprimirFicha(simulacao)}"
+					style="text-align: left;color:black;">
+					<span data-feather="printer"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

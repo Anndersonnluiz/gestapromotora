@@ -19,4 +19,10 @@ public class TipoOperacaoFacade {
 		tipoOperacaoDao = new TipoOperacaoDao();
 		return tipoOperacaoDao.listar(sql);
 	}
+	
+	
+	public Tipooperacao consultar(int idtipooperacao) {
+		tipoOperacaoDao = new TipoOperacaoDao();
+		return tipoOperacaoDao.consultar(idtipooperacao);
+	}
 }

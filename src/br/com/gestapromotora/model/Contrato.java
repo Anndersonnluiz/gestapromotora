@@ -126,6 +126,8 @@ public class Contrato implements Serializable{
 	private boolean reducaoparcela;
 	@Column(name = "operacaoinss")
 	private boolean operacaoinss;
+	@Column(name = "simulacao")
+	private boolean simulacao;
 	@JoinColumn(name = "promotora_idpromotora", referencedColumnName = "idpromotora")
 	@ManyToOne(optional = false)
 	private Promotora promotora;
@@ -613,6 +615,16 @@ public class Contrato implements Serializable{
 
 	public void setVoltarTela(String voltarTela) {
 		this.voltarTela = voltarTela;
+	}
+
+
+	public synchronized boolean isSimulacao() {
+		return simulacao;
+	}
+
+
+	public synchronized void setSimulacao(boolean simulacao) {
+		this.simulacao = simulacao;
 	}
 
 
