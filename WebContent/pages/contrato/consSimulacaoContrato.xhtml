@@ -16,6 +16,80 @@
 				action="#{simulacaoMB.novo()}" />
 		</div>
 		<br />
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="usuario">Corretor</label>
+						<h:selectOneMenu id="usuario" style="width: 100%;"
+							immediate="true" value="#{simulacaoMB.usuario}" disabled="#{simulacaoMB.unicoUsuario}"
+							converter="UsuarioConverter" styleClass="form-control"
+							onchange="usuario">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{simulacaoMB.listaUsuario}"
+								var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+								itemValue="#{usuarioSelecionado}" />
+							<f:attribute name="listaUsuario"
+								value="#{simulacaoMB.listaUsuario}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-5">
+						<label for="nomecliente">Nome Cliente</label>
+						<h:inputText class="form-control" id="nomecliente"
+							value="#{simulacaoMB.nomeCliente}">
+						</h:inputText>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="cpf">CPF</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{simulacaoMB.cpf}" />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputRG">Tipo de Operação</label>
+						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+							value="#{simulacaoMB.tipooperacao}"
+							converter="TipoOperacaoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{simulacaoMB.listaTipoOperacao}"
+								var="tipoOperacaoSelecionado"
+								itemLabel="#{tipoOperacaoSelecionado.descricao}"
+								itemValue="#{tipoOperacaoSelecionado}" />
+							<f:attribute name="listaTipoOperacao"
+								value="#{simulacaoMB.listaTipoOperacao}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputNome">Banco</label>
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{simulacaoMB.banco}"
+							converter="BancoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{simulacaoMB.listaBanco}"
+								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+								itemValue="#{bancoSelecionado}" />
+							<f:attribute name="listaBanco" value="#{simulacaoMB.listaBanco}" />
+							<p:ajax event="blur" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-3">
+						<label>.</label>
+						<div>
+							<p:commandLink ajax="false" styleClass="btn btn-primary"
+								value="Pesquisar" action="#{simulacaoMB.pesquisar()}"
+								update="idTabelaContrato" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{simulacaoMB.limpar()}"
+								update="idTabelaContrato, cpf, nomecliente, usuario" />
+						</div>
+					</div>
+				</div>
+			</p:tab>
+		</p:accordionPanel>
+		<br/><br/>
 		<p:dataTable id="idTabelaContrato" var="simulacao"
 			value="#{simulacaoMB.listaSimulacao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
@@ -70,6 +144,7 @@
 				</p:commandLink>
 			</p:column>
 		</p:dataTable>
+		<br /><br />
 		<br />
 		<br />
 	</ui:define>

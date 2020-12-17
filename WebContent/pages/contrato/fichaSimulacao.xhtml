@@ -40,13 +40,13 @@
 		</div>
 		<div align="left" style="margin-left: 5%;">
 			<p:commandLink action="#{fichaSimulacaoMB.voltar()}" ajax="false">
-				<img src="../../resources/img/outralogo.png" width="15%" />
+				<img src="../../resources/img/outralogo.png" width="20%" />
 			</p:commandLink>
 		</div>
 		<br />
 
 		<div align="center">
-			<h4>SIMULAÇÃO DE CONTRATO</h4>
+			<h3>SIMULAÇÃO DE OPERAÇÃO</h3>
 		</div>
 		<br />
 		<div id="conteudo"
@@ -54,7 +54,7 @@
 
 
 			<h:panelGrid
-				style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+				style="width:100%;border-color:#9C9C9C;">
 				<h:panelGrid style="width:100%;" columns="2">
 					<h:panelGroup>
 						<b>Corretor:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.usuario.nome}</h:panelGroup>
@@ -62,31 +62,6 @@
 					
 				</h:panelGrid>
 
-			</h:panelGrid>
-			<br />
-			<h:panelGroup align="center">
-				<b>TIPO CONTRATO </b>
-			</h:panelGroup>
-			<h:panelGrid
-				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
-				<h:panelGrid style="width:100%;" columns="3">
-					<h:panelGroup>
-						<b>Operação:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.tipooperacao.descricao}</h:panelGroup>
-					<h:panelGroup>
-						<b>Tabela: </b> #{fichaSimulacaoMB.simulacaocontrato.tabela}</h:panelGroup>
-					<h:panelGroup>
-						<b>Secretaria: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.secretaria}
-				</h:panelGroup>
-					<h:panelGroup>
-						<b>Orgão :</b> #{fichaSimulacaoMB.simulacaocontrato.orgaoBanco.nome}
-				</h:panelGroup>
-					<h:panelGroup>
-						<b>Matricula:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.matricula}</h:panelGroup>
-					<h:panelGroup>
-						<b>Senha:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.senha}</h:panelGroup>
-
-					<br />
-				</h:panelGrid>
 			</h:panelGrid>
 			<br />
 			<h:panelGroup align="center">
@@ -136,15 +111,32 @@
 						<b>Número: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.numero}
 				</h:panelGroup>
 					<h:panelGroup>
-						<b>Valor Salário: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.valorsalario}
-				</h:panelGroup>
-					<h:panelGroup>
 						<b>Telefone Residencial: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.telefoneresidencial}
 				</h:panelGroup>
 					<h:panelGroup>
 						<b>Telefone Celular: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.cliente.telefonecelular}
 				</h:panelGroup>
 
+					<br />
+				</h:panelGrid>
+			</h:panelGrid>
+			<br />
+			<h:panelGroup align="center">
+				<b>TIPO CONTRATO </b>
+			</h:panelGroup>
+			<h:panelGrid
+				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="3">
+					<h:panelGroup>
+						<b>Operação:</b> #{fichaSimulacaoMB.simulacaocontrato.contrato.tipooperacao.descricao}</h:panelGroup>
+					<h:panelGroup>
+						<b>Tabela: </b> #{fichaSimulacaoMB.simulacaocontrato.tabela}</h:panelGroup>
+					<h:panelGroup>
+						<b>Secretaria: </b> #{fichaSimulacaoMB.simulacaocontrato.contrato.secretaria}
+				</h:panelGroup>
+					<h:panelGroup>
+						<b>Orgão :</b> #{fichaSimulacaoMB.simulacaocontrato.orgaoBanco.nome}
+				</h:panelGroup>
 					<br />
 				</h:panelGrid>
 			</h:panelGrid>
@@ -157,19 +149,19 @@
 				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
 				<h:panelGrid style="width:100%;" columns="2">
 					<h:panelGroup>
-						<b>Valor da Parcela:</b>
+						<b>Valor da Parcela: R$ </b>
 						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.parcela}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</p:outputLabel>
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>Margem Utilizada:</b>
+						<b>Margem Utilizada: R$ </b>
 						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.margemutilizada}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</p:outputLabel>
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>Valor Liberado: </b>
+						<b>Valor Liberado: R$ </b>
 						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.valorcliente}">
 							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 						</p:outputLabel>
@@ -178,17 +170,15 @@
 						<b>Banco: </b> #{fichaSimulacaoMB.simulacaocontrato.orgaoBanco.banco.nome}
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>Contrato: </b>
-
-						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.contrato.contratoportado}" />
+						<b>Taxa de Juros: R$ </b>
+						<p:outputLabel value="#{fichaSimulacaoMB.simulacaocontrato.taxajuros}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</p:outputLabel>
 					</h:panelGroup>
 
 				</h:panelGrid>
 			</h:panelGrid>
 			<br /> <br /> <br /> <br />
-			<hr width="80%" align="left" style="color: black;" />
-			<p>Assinatura do(a) Corretor(a):
-				#{fichaSimulacaoMB.simulacaocontrato.contrato.usuario.nome}</p>
 		</div>
 	</h:form>
 </h:body>

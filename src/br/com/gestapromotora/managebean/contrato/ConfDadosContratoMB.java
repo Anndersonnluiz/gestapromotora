@@ -13,12 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import br.com.gestapromotora.facade.BancoFacade;
 import br.com.gestapromotora.facade.OrgaoBancoFacade;
+import br.com.gestapromotora.facade.SimulacaoContratoFacade;
 import br.com.gestapromotora.facade.SituacaoFacade;
 import br.com.gestapromotora.facade.TipoOperacaoFacade;
 import br.com.gestapromotora.model.Banco;
 import br.com.gestapromotora.model.Contrato;
 import br.com.gestapromotora.model.OrgaoBanco;
+import br.com.gestapromotora.model.Simulacaocontrato;
 import br.com.gestapromotora.model.Tipooperacao;
+import br.com.gestapromotora.model.Valorescoeficiente;
 
 @Named
 @ViewScoped
@@ -35,6 +38,9 @@ public class ConfDadosContratoMB implements Serializable{
 	private Contrato contrato;
 	private List<Tipooperacao> listaTipoOperacao;
 	private Tipooperacao tipooiperacao;
+	private String nomeCliente;
+	private String cpf;
+	private List<Simulacaocontrato> listaSimulacao;
 	
 	
 	
@@ -136,6 +142,42 @@ public class ConfDadosContratoMB implements Serializable{
 	
 	
 	
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+
+	public List<Simulacaocontrato> getListaSimulacao() {
+		return listaSimulacao;
+	}
+
+
+
+	public void setListaSimulacao(List<Simulacaocontrato> listaSimulacao) {
+		this.listaSimulacao = listaSimulacao;
+	}
+
+
+
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
 		listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
@@ -185,6 +227,92 @@ public class ConfDadosContratoMB implements Serializable{
 		return "cadContrato";
 	}
 	
+	
+	public String cadContratoImporte(Simulacaocontrato simulacaocontrato) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		popularContrato(simulacaocontrato);
+		orgaoBanco = simulacaocontrato.getOrgaoBanco();
+		contrato.setDatacadastro(new Date());
+		SituacaoFacade situacaoFacade = new SituacaoFacade();
+		contrato.setSituacao(situacaoFacade.consultar(37));
+		session.setAttribute("banco", banco);
+		session.setAttribute("contrato", contrato);
+		session.setAttribute("orgaobanco", orgaoBanco);
+		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			contrato.setVoltarTela("consPortabilidade");
+		}else {
+			if (contrato.isOperacaoinss()) {
+				contrato.setVoltarTela("consDemaisOperacoesINSS");
+			}else {
+				contrato.setVoltarTela("consDemaisOperacoes");
+			}
+		}
+		return "cadContrato";
+	}
+	
+	
+	public void pesquisar() {
+		String sql = "Select s From Simulacaocontrato s WHERE " 
+				+ " s.contrato.cliente.nome like '%"+ nomeCliente +"%' and s.contrato.cliente.cpf like '%"+ cpf +"%'";
+		sql = sql + " ORDER BY s.idsimulacaocontrato DESC";
+		SimulacaoContratoFacade simulacaoContratoFacade = new SimulacaoContratoFacade();
+		listaSimulacao = simulacaoContratoFacade.lista(sql);
+		if (listaSimulacao == null) {
+			listaSimulacao = new ArrayList<Simulacaocontrato>();
+		}
+	}
+	
+	public void limpar() {
+		nomeCliente = "";
+		cpf = "";
+		banco = null;
+	}
+	
+	
+	public void popularContrato(Simulacaocontrato simulacaocontrato) {
+		contrato.setAjustecomissaocheck(simulacaocontrato.getContrato().isAjustecomissaocheck());
+		contrato.setAssinadobanco(simulacaocontrato.getContrato().isAssinadobanco());
+		contrato.setBanco(simulacaocontrato.getContrato().getBanco());
+		contrato.setBloqueio(simulacaocontrato.getContrato().isBloqueio());
+		contrato.setCliente(simulacaocontrato.getContrato().getCliente());
+		contrato.setCodigocontrato("");
+		contrato.setContratoportado(simulacaocontrato.getContrato().getContratoportado());
+		contrato.setDescricaobloqueio(simulacaocontrato.getContrato().getDescricaobloqueio());
+		contrato.setDescricaodigitado(simulacaocontrato.getContrato().getDescricaodigitado());
+		contrato.setDescricaofisico(simulacaocontrato.getContrato().getDescricaofisico());
+		contrato.setDetalhesituacao(simulacaocontrato.getContrato().getDetalhesituacao());
+		contrato.setDigitado(simulacaocontrato.getContrato().isDigitado());
+		contrato.setFisico(simulacaocontrato.getContrato().isFisico());
+		contrato.setMargemutilizada(simulacaocontrato.getContrato().getMargemutilizada());
+		contrato.setMatricula(simulacaocontrato.getContrato().getMatricula());
+		contrato.setObservacao(simulacaocontrato.getContrato().getObservacao());
+		contrato.setParcela(simulacaocontrato.getContrato().getParcela());
+		contrato.setParceladivergente(simulacaocontrato.getContrato().getParceladivergente());
+		contrato.setParcelaspagas(simulacaocontrato.getContrato().getParcelaspagas());
+		contrato.setParcelasrestantes(simulacaocontrato.getContrato().getParcelasrestantes());
+		contrato.setPendente(simulacaocontrato.getContrato().isPendente());
+		contrato.setPercentualpago(simulacaocontrato.getContrato().getPercentualpago());
+		contrato.setPromotora(simulacaocontrato.getContrato().getPromotora());
+		contrato.setReducaoparcela(simulacaocontrato.getContrato().isReducaoparcela());
+		contrato.setSaldoinadimplencia(simulacaocontrato.getContrato().getSaldoinadimplencia());
+		contrato.setSecretaria(simulacaocontrato.getContrato().getSecretaria());
+		contrato.setSenha(simulacaocontrato.getContrato().getSenha());
+		contrato.setSenhacontracheque(simulacaocontrato.getContrato().getSenhacontracheque());
+		contrato.setSimulacao(false);
+		contrato.setTarifa(simulacaocontrato.getContrato().getTarifa());
+		contrato.setTipooperacao(simulacaocontrato.getContrato().getTipooperacao());
+		contrato.setTotalparcelas(simulacaocontrato.getContrato().getTotalparcelas());
+		contrato.setUltimamudancasituacao(simulacaocontrato.getContrato().getUltimamudancasituacao());
+		contrato.setUsuario(simulacaocontrato.getContrato().getUsuario());
+		contrato.setValorcliente(simulacaocontrato.getContrato().getValorcliente());
+		contrato.setValorclientedivergente(simulacaocontrato.getContrato().getValoroperacaodivergente());
+		contrato.setValorescoeficiente(new Valorescoeficiente());
+		contrato.setValoroperacao(simulacaocontrato.getContrato().getValorcliente());
+		contrato.setValoroperacaodivergente(simulacaocontrato.getContrato().getValoroperacaodivergente());
+		contrato.setValorparcela(simulacaocontrato.getContrato().getValorparcela());
+		contrato.setValorquitar(simulacaocontrato.getContrato().getValorquitar());
+	}
 	
 	
 	

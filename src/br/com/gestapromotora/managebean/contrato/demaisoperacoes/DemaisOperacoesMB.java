@@ -562,7 +562,7 @@ public class DemaisOperacoesMB implements Serializable{
 	public void gerarListaDemaisOperacoes(int situacao) {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql =  "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
-				+ "'%Portabilidade%' and c.operacaoinss=false";
+				+ "'%Portabilidade%' and c.operacaoinss=false and c.simulacao=false";
 		if (situacao > 0) {
 			sql = sql + " and c.situacao.idsituacao ="+ situacao;
 		}

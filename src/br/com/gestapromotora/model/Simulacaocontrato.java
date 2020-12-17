@@ -1,7 +1,6 @@
 package br.com.gestapromotora.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "simulacaocontrato")
@@ -32,6 +29,8 @@ public class Simulacaocontrato implements Serializable{
 	private String datacadastro;
 	@Column(name = "tabela")
 	private String tabela;
+	@Column(name = "taxajuros")
+	private float taxajuros;
 	@JoinColumn(name = "contrato_idcontrato", referencedColumnName = "idcontrato")
 	@ManyToOne(optional = false)
 	private Contrato contrato;
@@ -94,6 +93,16 @@ public class Simulacaocontrato implements Serializable{
 
 	public void setTabela(String tabela) {
 		this.tabela = tabela;
+	}
+
+
+	public float getTaxajuros() {
+		return taxajuros;
+	}
+
+
+	public void setTaxajuros(float taxajuros) {
+		this.taxajuros = taxajuros;
 	}
 
 

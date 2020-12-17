@@ -404,7 +404,9 @@ public class CadSimulacaoMB implements Serializable{
 		simulacaocontrato.setOrgaoBanco(orgaoBanco);
 		ValoresCoeficienteFacade valoresCoeficienteFacade = new ValoresCoeficienteFacade();
 		simulacaocontrato.getContrato().setValorescoeficiente(valoresCoeficienteFacade.consultar(1));
-		simulacaocontrato.setContrato(contratoFacade.salvar(simulacaocontrato.getContrato()));
+		Contrato contrato = simulacaocontrato.getContrato();
+		contrato = contratoFacade.salvar(contrato);
+		simulacaocontrato.setContrato(contrato);
 		SimulacaoContratoFacade simulacaoContratoFacade = new SimulacaoContratoFacade();
 		simulacaocontrato = simulacaoContratoFacade.salvar(simulacaocontrato);
 		return "consSimulacaoContrato";

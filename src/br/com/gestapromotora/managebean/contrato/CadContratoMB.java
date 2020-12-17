@@ -147,6 +147,7 @@ public class CadContratoMB implements Serializable {
 			promotora = contrato.getPromotora();
 		} else {
 			usuario = usuarioLogadoMB.getUsuario();
+			promotora = contrato.getPromotora();
 		}
 		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			habilitarUsuario = false;

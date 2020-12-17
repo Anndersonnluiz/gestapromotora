@@ -354,7 +354,7 @@ public class HistoricoComissaoMB implements Serializable{
 
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false";
+		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral()
 				&& !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and h.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
@@ -408,7 +408,7 @@ public class HistoricoComissaoMB implements Serializable{
 	
 	public void pesquisar() {
 		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 "
-				+ "and h.contrato.cliente.cpf like '%"+ cpf +"%'";
+				+ "and h.contrato.cliente.cpf like '%"+ cpf +"%' and h.contrato.simulacao=false";
 		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
 			sql = sql + " and h.contrato.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
 		}

@@ -551,7 +551,7 @@ public class DemaisOperacoesInssMB implements Serializable {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like "
 				+ "'%Portabilidade%'"
-				+ " and c.operacaoinss=true ";
+				+ " and c.operacaoinss=true  and c.simulacao=false";
 		if (situacao > 0) {
 			sql = sql + " and c.situacao.idsituacao ="+ situacao;
 		}
