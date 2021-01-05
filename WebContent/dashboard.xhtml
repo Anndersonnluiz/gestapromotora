@@ -77,8 +77,8 @@
 									</a> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 											<a class="nav-link"
-												href="pages/departamento/consDepartamento.jsf"> <span
-												data-feather="users"></span> Departamento
+												href="pages/filial/consFilial.jsf"> <span
+												data-feather="users"></span> Filial
 											</a>
 										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
@@ -116,8 +116,7 @@
 							</a>
 								<ul class="dropdown-menu">
 
-									<li style="font-size: 12px;">
-									<a class="nav-link"
+									<li style="font-size: 12px;"><a class="nav-link"
 										href="pages/contrato/confDadosContrato.jsf" role="button"
 										aria-haspopup="true" aria-expanded="false"> <span
 											data-feather="file-plus"></span> Emissão
@@ -179,7 +178,7 @@
 									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 									<a class="nav-link" href="#" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">
-										<span data-feather="target"></span> Metas
+										<span data-feather="target"></span> Gestão Comercial
 									</a>
 									<ul class="dropdown-menu">
 										<li style="font-size: 12px;"><a class="nav-link"
@@ -215,6 +214,11 @@
 											<a class="nav-link" href="pages/contrato/trocarTitular.jsf"
 												role="button" aria-haspopup="true" aria-expanded="false">
 												<span data-feather="refresh-cw"></span> Troca de Titular
+											</a>
+										</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+											<a class="nav-link" href="pages/cliente/trocaCliente.jsf"
+												role="button" aria-haspopup="true" aria-expanded="false">
+												<span data-feather="refresh-cw"></span> Troca de Cliente
 											</a>
 										</h:panelGroup> <h:panelGroup
 											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
@@ -417,16 +421,16 @@
 									<p:commandLink action="#{dashBoardMB.producaoGeral()}"
 										style="width:100%;text-decoration:none;color:white;"
 										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PRODUÇÃO GERAL</b>
-										<br /><br/>
+										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PRODUÇÃO
+											GERAL</b>
+										<br />
+										<br />
 										<hr style="background-color: white;" />
 										<div align="center" style="font-size: 14px;">
-												<b>R$ <h:outputText
-														value="#{dashBoardMB.valorProducao}">
-														<f:convertNumber minFractionDigits="2"
-															maxFractionDigits="2" locale="pt_BR" />
-													</h:outputText></b>
-											<br /> <b><p:outputLabel
+											<b>R$ <h:outputText value="#{dashBoardMB.valorProducao}">
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
+												</h:outputText></b> <br /> <b><p:outputLabel
 													value="(#{dashBoardMB.nTotalProducao})" /></b>
 
 										</div>

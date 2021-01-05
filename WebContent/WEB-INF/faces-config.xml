@@ -671,6 +671,26 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFilial</from-outcome>
+			<to-view-id>pages/filial/consFilial.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFilial</from-outcome>
+			<to-view-id>pages/filial/cadFilial.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
     
 	<application>
         <action-listener>

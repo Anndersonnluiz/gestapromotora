@@ -39,7 +39,7 @@
 		<br />
 		<hr />
 		<div align="center">
-			<p:commandLink ajax="false" styleClass="btn btn-primary"
+			<p:commandLink ajax="false" styleClass="btn btn-primary" update="growl"
 				value="Próximo" action="#{confDadosContratoMB.cadContrato()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-danger"
 				style="margin-left:2%;" value="Cancelar"
@@ -54,7 +54,7 @@
 			<div class="formgroup col-md-3">
 				<label style="font-size: 14px;">.</label>
 				<p:selectOneRadio
-					value="#{confDadosContratoMB.contrato.operacaoinss}">
+					value="#{confDadosContratoMB.operacaoinss}">
 					<f:selectItem itemLabel="INSS" itemValue="true" />
 					<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="false" />
 				</p:selectOneRadio>

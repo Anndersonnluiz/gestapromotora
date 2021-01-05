@@ -260,16 +260,16 @@
 				<p:column headerText="Banco/Órgão"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText
-						value="#{contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome} /
-							#{contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}" />
+						value="#{contrato.orgaoBanco.banco.nome} /
+							#{contrato.orgaoBanco.nome}" />
 				</p:column>
 				<p:column headerText="Operação"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.tipooperacao.descricao}" />
 				</p:column>
-				<p:column headerText="Parcela"
+				<p:column headerText="Margem"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.parcela}">
+					<h:outputText value="#{contrato.margemutilizada}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>

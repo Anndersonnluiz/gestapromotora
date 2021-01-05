@@ -29,21 +29,13 @@
 				<h:inputText
 					value="#{cadValoresCoeficienteMB.valorescoeficiente.coeficientevalor}"
 					class="form-control" id="inputCoeficiente" placeholder="Prazo">
-					<f:convertNumber pattern="###,#####" minFractionDigits="5" locale="pt_BR"/>
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-2">
-				<label for="inputRecebimentos">Outros Recebimentos</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.valorescoeficiente.outrosrecebimentos}"
-					class="form-control" id="inputRecebimentos" placeholder="Prazo">
-					<f:convertNumber  minFractionDigits="2" locale="pt_BR"/>
+					<f:convertNumber  minFractionDigits="5" locale="pt_BR"/>
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-6">
 				<label>Vigência De</label>
-				<h:panelGrid columns="3" style="width:87%;">
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
+				<h:panelGrid columns="3" >
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:56%;"
 						value="#{cadValoresCoeficienteMB.valorescoeficiente.dataini}" id="dataini">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
@@ -62,19 +54,7 @@
 			</div>
 		</div>
 
-
-		<div class="form-row">
-			<div class="form-group col-md-12">
-				<label for="inputOBS">OBS Outros Recebimentos</label>
-				<h:inputTextarea
-					value="#{cadValoresCoeficienteMB.valorescoeficiente.obsrecebimento}"
-					class="form-control" id="inputOBS" placeholder="Prazo" />
-			</div>
-		</div>
-
 		<br />
-		<h6>Tabela de regras</h6>
-		<hr />
 		<br />
 		<h6>Regras</h6>
 		<hr />
@@ -125,35 +105,6 @@
 			</div>
 
 			<div class="form-group col-md-3">
-				<label>Bonus Recebido</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrecebidovista}"
-					class="form-control" id="bonusrecebido" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>Adiantamento Recebido</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrecebidovista}"
-					class="form-control" id="adiantamentorecebido" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>Total Recebido</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrecebidovista}"
-					class="form-control" id="totalrecebido" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col-md-3">
 				<label>Flat Repassada</label>
 				<h:inputText
 					value="#{cadValoresCoeficienteMB.regrascoeficiente.flatrepassadavista}"
@@ -161,35 +112,6 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
-
-			<div class="form-group col-md-3">
-				<label>Bonus Repassado</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.bonusrepassadavista}"
-					class="form-control" id="bonusrepassada" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>Adiantamento Repassado</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.adianrepassadavista}"
-					class="form-control" id="adiantamentorepassado" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>Total Repassado</label>
-				<h:inputText
-					value="#{cadValoresCoeficienteMB.regrascoeficiente.totalrepassadavista}"
-					class="form-control" id="totalrepassado" placeholder="Prazo">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
-
-
 		</div>
 		<br />
 		<h6>Comissão Á Prazo</h6>
@@ -257,45 +179,9 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Bônus Recebido"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.bonusrecebidovista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Adian. Recebido"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.adianrecebidovista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Total Recebido"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.totalrecebidovista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
 			<p:column headerText="Flat Repassada"
 				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{regras.flatrepassadavista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Bônus Repassado"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.bonusrepassadavista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Adian. Repassado"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.adianrepassadavista}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Total Repassado"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{regras.totalrepassadavista}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 			</p:column>

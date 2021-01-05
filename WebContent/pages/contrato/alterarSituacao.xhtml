@@ -7,33 +7,26 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h4>Trocar de Titular</h4>
+		<h4>Alterar situação de contrato</h4>
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-			closable="false" resizable="false" showHeader="false"
-			>
+			closable="false" resizable="false" showHeader="false">
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
 		<h6>Dados Contrato</h6>
 		<hr />
 		<div class="form-row">
-			<div class="form-group col-md-3">
-				<label for="inputNome">Código Contrato</label>
+			<div class="form-group col-md-6">
+				<label for="inputNome">Cliente</label>
 				<h:inputText class="form-control" id="inputNome" disabled="true"
-					value="#{alterarSituacaoMB.contrato.idcontrato}">
+					value="#{alterarSituacaoMB.contrato.cliente.nome}">
 				</h:inputText>
 			</div>
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-6">
 				<label for="situacao">Situação</label>
 				<h:inputText class="form-control" id="situacao" disabled="true"
 					value="#{alterarSituacaoMB.contrato.situacao.descricao}">
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-3">
-				<label for="banco">Banco</label>
-				<h:inputText class="form-control" id="banco" disabled="true"
-					value="#{alterarSituacaoMB.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}">
 				</h:inputText>
 			</div>
 		</div>
@@ -45,17 +38,66 @@
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
-				<label for="saldoquitacao">Saldo Quitação</label>
+				<label for="saldoquitacao">Saldo a Quitar</label>
 				<h:inputText class="form-control" id="saldoquitacao" disabled="true"
-					value="#{alterarSituacaoMB.contrato.banco.nome}">
+					value="#{alterarSituacaoMB.contrato.valorquitar}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
-				<label for="parcela">.</label>
+				<label for="parcela">Parcela</label>
 				<h:inputText class="form-control" id="parcela" disabled="true"
 					value="#{alterarSituacaoMB.contrato.parcela}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="valorliberado">Valor Liberado</label>
+				<h:inputText class="form-control" id="valorliberado"
+					disabled="#{alterarSituacaoMB.valorliberado}"
+					value="#{alterarSituacaoMB.contrato.valorcliente}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		</div>
+		<br />
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputNome">Banco</label>
+				<h:selectOneMenu id="exampleBancoSelecionar" style="width: 100%;"
+					immediate="true" value="#{alterarSituacaoMB.banco}"
+					converter="BancoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{alterarSituacaoMB.listaBanco}"
+						var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+						itemValue="#{bancoSelecionado}" />
+					<f:attribute name="listaBanco"
+						value="#{alterarSituacaoMB.listaBanco}" />
+					<p:ajax event="blur" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-2">
+				<label style="color:white">.</label>
+				<br/>
+				<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
+					action="#{alterarSituacaoMB.gerarListaOrgao()}" ajax="false"
+					update="orgaobanco" styleClass="btn btn-primary" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="orgaobanco">Orgão</label>
+				<h:selectOneMenu id="orgaobanco" style="width: 100%;"
+					value="#{alterarSituacaoMB.orgaoBanco}"
+					converter="OrgaoBancoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{alterarSituacaoMB.listaOrgao}"
+						var="orgaoBancoSelecionado"
+						itemLabel="#{orgaoBancoSelecionado.nome}"
+						itemValue="#{orgaoBancoSelecionado}" />
+					<f:attribute name="listaOrgao"
+						value="#{alterarSituacaoMB.listaOrgao}" />
+				</h:selectOneMenu>
 			</div>
 		</div>
 		<br />
@@ -79,11 +121,13 @@
 						value="#{alterarSituacaoMB.listaSituacao}" />
 				</h:selectOneMenu>
 			</div>
-			<div class="form-group col-md-6">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-12">
 				<label for="detalhesituacao">Detalhe Situação</label>
-				<h:inputText class="form-control" id="detalhesituacao"
+				<h:inputTextarea class="form-control" id="detalhesituacao"
 					value="#{alterarSituacaoMB.contrato.detalhesituacao}">
-				</h:inputText>
+				</h:inputTextarea>
 			</div>
 		</div>
 

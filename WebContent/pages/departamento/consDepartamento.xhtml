@@ -7,10 +7,12 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h4>Consulta de Departamentos</h4>
+		<h4>#{departamentoMB.filial.razaosocial} > Consulta de Departamentos</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
 		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-link" value="Voltar"
+				action="#{departamentoMB.voltar()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 				action="#{departamentoMB.novoDepartamento()}" />
 		</div>

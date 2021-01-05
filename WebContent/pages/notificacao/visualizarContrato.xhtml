@@ -355,11 +355,6 @@
 				<p:inputText value="#{cadContratoMB.contrato.parcelaspagas}" disabled="true"
 					style="border-color:black;" immediate="true" id="parcelaspagas"
 					class="form-control" placeholder="Parcelas Pagas">
-					<f:ajax event="blur" listener="#{cadContratoMB.calculoParcelas()}"
-						render="percentualpago" />
-					<f:ajax event="blur" render="parcelasrestantes, percentualpago" />
-					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
-						update="percentualpago, parcelasrestantes" event="change" />
 				</p:inputText>
 			</div> 
 			<div class="form-group col-md-3">
@@ -369,17 +364,7 @@
 					id="totalparcelas" class="form-control"
 					>
 
-					<p:ajax listener="#{cadContratoMB.calculoParcelas()}"
-						update="percentualpago, parcelasrestantes" event="change" />
 				</p:inputText>
-			</div>
-			<div class="form-group col-md-3">
-				<label>% Pago</label>
-				<h:inputText value="#{cadContratoMB.contrato.percentualpago}" 
-					style="border-color:black;" immediate="true" id="percentualpago"
-					disabled="true" class="form-control" placeholder="Percentual Pago">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
 			</div>
 		</div>
 
@@ -446,16 +431,6 @@
 				</h:inputText>
 			</div>
 
-			
-
-			<div class="form-group col-md-3">
-				<label>Tabela Selecionada</label>
-				<h:inputText disabled="true"
-					value="#{cadContratoMB.contrato.valorescoeficiente.coeficiente.nometabela}"
-					id="tabelaselecionada" class="form-control"
-					style="border-color:black;" placeholder="Saldo Inadimplência">
-				</h:inputText>
-			</div>
 		</div>
 		<br />
 		<div class="form-row">
@@ -469,40 +444,9 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Prazo</label>
-				<h:inputText value="#{cadContratoMB.valorescoeficiente.prazo}" disabled="true"
+				<h:inputText value="#{cadContratoMB.contrato.prazo}" disabled="true"
 					id="prazo" class="form-control"
 					style="border-color:black;" placeholder="Tarifá">
-				</h:inputText>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>Coeficiente</label>
-				<div>
-					<h:inputText style="border-color:black;" disabled="true"
-						value="#{cadContratoMB.valorescoeficiente.coeficientevalor}"
-						id="coeficienteresultado"  class="form-control"
-						placeholder="Coeficiente">
-						<f:convertNumber locale="pt_BR" minFractionDigits="5" />
-					</h:inputText>
-				</div>
-			</div>
-
-			<div class="form-group col-md-3">
-				<label>TAC</label>
-				<h:inputText value="#" id="tacresultado" disabled="true"
-					style="border-color:black;" class="form-control"
-					placeholder="TAC Resultado">
-				</h:inputText>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col-md-3">
-				<label>Valor Operação</label>
-				<h:inputText value="#{cadContratoMB.contrato.valoroperacao}" 
-					style="border-color:black;" id="valoroperacao" disabled="true"
-					class="form-control" placeholder="Parcela">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
 			<div class="form-group col-md-3">
@@ -513,6 +457,7 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
+
 		</div>
 		<br />
 		<h6>Outros Informações</h6>

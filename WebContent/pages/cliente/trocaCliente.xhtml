@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Trocar de Cliente</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Titular Atual</label>
+				<h:panelGrid columns="2" style="width:98%;">
+					<h:selectOneMenu id="usuarioAtual" style="width: 100%;"
+						immediate="true" value="#{trocaClienteMB.usuarioAtual}"
+						converter="UsuarioConverter" styleClass="form-control"
+						onchange="usuario">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{trocaClienteMB.listaUsuario}"
+							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+							itemValue="#{usuarioSelecionado}" />
+						<f:attribute name="listaUsuario"
+							value="#{trocaClienteMB.listaUsuario}" />
+					</h:selectOneMenu>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						update="idTabelaCliente" value="Buscar Cliente"
+						action="#{trocaClienteMB.buscarCliente()}" />
+				</h:panelGrid>
+			</div>
+		</div>
+		<br />
+		<div align="right">
+			<p:commandLink update="idTabelaCliente"
+				action="#{trocaClienteMB.selecionarTodosCliente()}"
+				style="text-align: left;color:black;" value="Selecionar Todos">
+				<span data-feather="printer"></span>
+			</p:commandLink>
+
+		</div>
+		<br />
+		<p:dataTable id="idTabelaCliente" var="cliente"
+			value="#{trocaClienteMB.listaCliente}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{cliente.idcliente}">
+
+
+			<p:column headerText="Nome"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.nome}" />
+			</p:column>
+			<p:column headerText="Nascimento"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.cpf}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.usuario.nome}" />
+			</p:column>
+			<p:column headerText=""
+				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:selectBooleanCheckbox value="#{cliente.selecionado}" />
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<h6>Troca da Titularidade</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Novo Titular</label>
+				<h:panelGrid columns="2" style="width:98%;">
+					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+						value="#{trocaClienteMB.usuario}" converter="UsuarioConverter"
+						styleClass="form-control" onchange="usuario">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{trocaClienteMB.listaUsuario}"
+							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+							itemValue="#{usuarioSelecionado}" />
+						<f:attribute name="listaUsuario"
+							value="#{trocaClienteMB.listaUsuario}" />
+					</h:selectOneMenu>
+
+					<p:commandLink ajax="false" styleClass="btn btn-primary" update="idTabelaCliente"
+						value="Salvar" action="#{trocaClienteMB.salvar()}" />
+				</h:panelGrid>
+			</div>
+		</div>
+
+		<br />
+		<br />
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

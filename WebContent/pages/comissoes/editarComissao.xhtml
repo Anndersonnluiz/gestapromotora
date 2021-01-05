@@ -29,7 +29,7 @@
 				<div class="form-group col-md-3">
 					<label for="banco">Banco</label>
 					<h:inputText class="form-control" id="banco" disabled="true"
-						value="#{editarComissaoMB.historicocomissao.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}">
+						value="#{editarComissaoMB.historicocomissao.contrato.orgaoBanco.banco.nome}">
 					</h:inputText>
 				</div>
 			</div>
@@ -38,13 +38,6 @@
 					<label for="tipooperacaos">Tipo Operação</label>
 					<h:inputText class="form-control" id="tipooperacao" disabled="true"
 						value="#{editarComissaoMB.historicocomissao.contrato.tipooperacao.descricao}">
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="saldoquitacao">Saldo Quitação</label>
-					<h:inputText class="form-control" id="saldoquitacao"
-						disabled="true"
-						value="#{editarComissaoMB.historicocomissao.contrato.banco.nome}">
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
@@ -66,7 +59,6 @@
 					<h:inputText class="form-control"
 						value="#{editarComissaoMB.historicocomissao.prodliq}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
-						<p:ajax event="change" listener="#{editarComissaoMB.calcularValores()}" update="comissaoRecebida, comissaoRepassada"/>
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">

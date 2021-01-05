@@ -7,7 +7,8 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-		<h4>Consulta de Usuário</h4>
+		<h4>#{usuarioMB.departamento.filial.razaosocial} > 
+		 #{usuarioMB.departamento.descricao} > Consulta de Usuário</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
 		<div align="right">
@@ -16,7 +17,7 @@
 					action="#{usuarioMB.voltar()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
 				action="#{usuarioMB.novoUsuario()}" rendered="#{usuarioLogadoMB.usuario.acessogeral}"/>
-		</div>
+		</div> 
 		<p:dataTable id="idTabelaUsuario" var="usuario"
 			value="#{usuarioMB.listaUsuario}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"

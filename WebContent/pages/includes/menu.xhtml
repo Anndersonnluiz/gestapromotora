@@ -59,18 +59,14 @@
 										data-feather="dollar-sign"></span> Banco
 								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 										<a class="nav-link"
-											href="/deltafinanceira/pages/departamento/consDepartamento.jsf"> <span
-											data-feather="users"></span> Departamento
+											href="/deltafinanceira/pages/filial/consFilial.jsf"> <span
+											data-feather="users"></span> Filial
 										</a>
 									</h:panelGroup> <h:panelGroup
 										rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 										<a class="nav-link"
 											href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
 											<span data-feather="users"></span> Grupo de Acessos
-										</a>
-										<a class="nav-link"
-											href="/deltafinanceira/pages/usuario/consUsuario.jsf"> <span
-											data-feather="user"></span> Usuários
 										</a>
 									</h:panelGroup> <h:panelGroup
 										rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
@@ -165,7 +161,7 @@
 								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 								<a class="nav-link" href="#" data-toggle="dropdown"
 									role="button" aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="target"></span> Metas
+									data-feather="target"></span> Gestão Comercial
 								</a>
 								<ul class="dropdown-menu">
 									<li style="font-size: 12px;"><a class="nav-link"
@@ -199,9 +195,15 @@
 										data-feather="refresh-cw"></span> Alterar Senha
 								</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 										<a class="nav-link"
-											href="/deltafinanceira/pages/pages/contrato/trocarTitular.jsf"
+											href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
 											role="button" aria-haspopup="true" aria-expanded="false">
 											<span data-feather="refresh-cw"></span> Troca de Titular
+										</a>
+									</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+										<a class="nav-link"
+											href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
+											role="button" aria-haspopup="true" aria-expanded="false">
+											<span data-feather="refresh-cw"></span> Troca de Cliente
 										</a>
 									</h:panelGroup> <h:panelGroup
 										rendered="#{usuarioLogadoMB.usuario.acessogeral}">
