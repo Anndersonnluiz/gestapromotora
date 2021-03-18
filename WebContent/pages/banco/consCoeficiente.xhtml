@@ -31,27 +31,22 @@
 				rowKey="#{coeficiente.idcoeficiente}">
 
 
-				<p:column headerText="Nome Tabela"
-					sortBy="#{coeficiente.nometabela}"
+				<p:column headerText="Tabela"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.nometabela}" />
 				</p:column>
-				<p:column headerText="Nome Produto"
-					sortBy="#{coeficiente.nomeproduto}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{coeficiente.nomeproduto}" />
+				<p:column headerText="Comissão Loja"
+					style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{coeficiente.comissaoloja}">
+						<f:convertNumber  minFractionDigits="2" locale="pt_BR"/>
+					</h:outputText>
 				</p:column>
-				<p:column headerText="Tipo Tabela"
-					sortBy="#{coeficiente.tipotabela}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{coeficiente.tipotabela}" />
+				<p:column headerText="Comissão Corretor"
+					style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+					<h:outputText value="#{coeficiente.comissaocorretor}">
+						<f:convertNumber  minFractionDigits="2" locale="pt_BR"/>
+					</h:outputText>
 				</p:column>
-				<p:column headerText="Codigo Tabela"
-					sortBy="#{coeficiente.codigotabela}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{coeficiente.codigotabela}" />
-				</p:column>
-				
 				<p:column headerText="Tipo Operação"
 					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{coeficiente.tipooperacao.descricao}" />
@@ -65,7 +60,7 @@
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-					<p:commandLink ajax="false"
+					<p:commandLink ajax="false" rendered="false"
 						action="#{coeficienteMB.novosValores(coeficiente)}"
 						title="Valores Coeficientes" style="text-align: left;color:black;">
 						<span data-feather="list"></span>

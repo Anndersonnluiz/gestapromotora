@@ -10,9 +10,9 @@
 		<h4>Consulta de Cliente</h4>
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-		
+
 		<h:panelGroup rendered="#{clienteMB.verificarAcesso}">
-			<div class="form-row" >
+			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label for="usuario">Corretor</label>
 					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
@@ -53,6 +53,16 @@
 				</div>
 			</div>
 		</div>
+		<br />
+		<div align="right">
+			<p:commandLink action="#{clienteMB.relatorioCliente()}"
+				style="text-align: left;color:blue;font-weight:bold;"
+				value="Imprimir">
+				<span data-feather="printer"></span>
+			</p:commandLink>
+
+		</div>
+		<br />
 
 
 		<div align="right">
@@ -100,7 +110,9 @@
 				</p:commandLink>
 			</p:column>
 		</p:dataTable>
-		<br /><br /><br />
+		<br />
+		<br />
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

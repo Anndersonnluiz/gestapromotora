@@ -6,13 +6,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<h4>Consulta de Suportes</h4>
+		<h4>Consulta de Novidades</h4>
 		<hr />
 
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 		<div align="right">
-			<p:commandLink
+			<p:commandLink rendered="#{suporteMB.novoCadastro}"
 				ajax="false" styleClass="btn btn-primary" value="Novo"
 				action="#{suporteMB.novo()}" />
 		</div>

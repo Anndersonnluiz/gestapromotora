@@ -11,7 +11,7 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<div class="form-row">
-			<div class="form-group col-md-8">
+			<div class="form-group col-md-6">
 				<label for="inputRG">Tipo de Operação</label>
 				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
 					value="#{confDadosContratoMB.contrato.tipooperacao}"
@@ -26,12 +26,13 @@
 						value="#{confDadosContratoMB.listaTipoOperacao}" />
 				</h:selectOneMenu>
 			</div>
-			<div class="formgroup col-md-3">
-				<label style="font-size: 14px;">.</label>
+			<div class="formgroup col-md-5">
+				<label style="font-size: 14px;color:white;">.</label>
 				<p:selectOneRadio
-					value="#{confDadosContratoMB.contrato.operacaoinss}">
-					<f:selectItem itemLabel="INSS" itemValue="true" />
-					<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="false" />
+					value="#{confDadosContratoMB.tipoOpcoes}">
+					<f:selectItem itemLabel="INSS" itemValue="1" />
+					<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="2" />
+					<f:selectItem itemLabel="CRED. PESSOAL" itemValue="3" />
 				</p:selectOneRadio>
 			</div>
 		</div>

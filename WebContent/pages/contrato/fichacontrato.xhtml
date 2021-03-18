@@ -74,12 +74,10 @@
 					<h:panelGroup>
 						<b>Operação:</b> #{fichaContratoMB.contrato.tipooperacao.descricao}</h:panelGroup>
 					<h:panelGroup>
-						<b>Tabela: </b> #{fichaContratoMB.contrato.valorescoeficiente.coeficiente.nometabela}</h:panelGroup>
-					<h:panelGroup>
 						<b>Secretaria: </b> #{fichaContratoMB.contrato.secretaria}
 				</h:panelGroup>
 					<h:panelGroup>
-						<b>Orgão :</b> #{fichaContratoMB.contrato.valorescoeficiente.coeficiente.orgaoBanco.nome}
+						<b>Orgão :</b> #{fichaContratoMB.contrato.orgaoBanco.nome}
 				</h:panelGroup>
 					<h:panelGroup>
 						<b>Matricula:</b> #{fichaContratoMB.contrato.matricula}</h:panelGroup>
@@ -192,14 +190,7 @@
 					<h:panelGroup>
 						<b>Prazo: </b>
 						<p:outputLabel
-							value="#{fichaContratoMB.contrato.valorescoeficiente.prazo}">
-						</p:outputLabel>
-					</h:panelGroup>
-					<h:panelGroup>
-						<b>Coeficiente: </b>
-						<p:outputLabel
-							value="#{fichaContratoMB.contrato.valorescoeficiente.coeficientevalor}">
-							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+							value="#{fichaContratoMB.contrato.prazo}">
 						</p:outputLabel>
 					</h:panelGroup>
 					<h:panelGroup>
@@ -216,7 +207,7 @@
 						</p:outputLabel>
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>Banco: </b> #{fichaContratoMB.contrato.valorescoeficiente.coeficiente.orgaoBanco.banco.nome}
+						<b>Banco: </b> #{fichaContratoMB.contrato.orgaoBanco.banco.nome}
 					</h:panelGroup>
 					<h:panelGroup>
 						<b>Contrato: </b>

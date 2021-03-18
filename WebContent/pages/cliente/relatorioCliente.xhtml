@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ficha Contrato</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Delta Financeira</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../../resources/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<!-- Font Awesome -->
+	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../resources/css/css.css" rel="stylesheet" />
+	<style>
+@media print {
+	#noprint {
+		display: none;
+	}
+	body {
+		background: #fff;
+	}
+}
+</style>
+</h:head>
+<h:body style="background:white;">
+	<br />
+	<h:form>
+
+		<div align="center" id="noprint">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Voltar" action="#{relatorioClienteMB.voltar()}" />
+			<a href="javascript:;" onclick="window.print();return false"><button
+					type="button" class="btn btn-primary" title="Imprimir">Imprimir</button></a>
+		</div>
+
+		<div align="left" style="margin-left: 5%;">
+			<p:commandLink action="#{relatorioClienteMB.voltar()}" ajax="false">
+				<img src="../../resources/img/outralogo.png" width="15%" />
+			</p:commandLink>
+		</div>
+		<br />
+
+		<div align="center">
+			<h4>RELATÓRIO DE CLIENTES</h4>
+		</div>
+		<br />
+		<div
+			style="font-family: sans-serif; font-size: 16px; width: 90%; margin-left: 5%;">
+
+
+			<h:panelGrid
+				style="border: 2px solid;width:100%;border-color:#9C9C9C;">
+				<h:panelGrid style="width:100%;" columns="2">
+					<h:panelGroup>
+						<b>Corretor: </b>
+						#{relatorioClienteMB.corretor}
+					</h:panelGroup>
+
+				</h:panelGrid>
+
+			</h:panelGrid>
+			<br />
+			<h:panelGroup align="center">
+				<b>LISTA DE CLIENTES </b>
+			</h:panelGroup>
+			<br /><br/>
+			<p:dataTable id="idTabelaCliente" var="cliente"
+				value="#{relatorioClienteMB.listaCliente}">
+
+
+				<p:column headerText="Nome"
+					style="width:32%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="Nascimento"
+					style="width:20%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.nascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="CPF"
+					style="width:25%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				<p:column headerText="Corretor"
+					style="width:32%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{cliente.usuario.nome}" />
+				</p:column>
+			</p:dataTable>
+			<br /> <br />
+		</div>
+	</h:form>
+</h:body>
+</html>

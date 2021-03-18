@@ -7,112 +7,86 @@
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
 		<br />
-			<h4>Cadastro de Coeficiente</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<h4>Cadastro de Coeficiente</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="inputRG">Tipo de Operação</label>
-					<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-						value="#{cadCoeficienteMB.tipooiperacao}"
-						converter="TipoOperacaoConverter" styleClass="form-control">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadCoeficienteMB.listaTipoOperacao}"
-							var="tipoOperacaoSelecionado"
-							itemLabel="#{tipoOperacaoSelecionado.descricao}"
-							itemValue="#{tipoOperacaoSelecionado}" />
-						<f:attribute name="listaTipoOperacao"
-							value="#{cadCoeficienteMB.listaTipoOperacao}" />
-					</h:selectOneMenu>
-				</div>
-							</div>
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="inputNomeTabela">Nome Tabela</label>
-					<h:inputText value="#{cadCoeficienteMB.coeficiente.nometabela}"
-						class="form-control" id="inputNomeTabela" placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputNomeProduto">Nome Produto</label>
-					<h:inputText value="#{cadCoeficienteMB.coeficiente.nomeproduto}"
-						class="form-control" id="inputNomeProduto" placeholder="CPF" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputRG">Tipo Tabela</label>
-					<h:selectOneMenu style="width: 100%;"
-						value="#{cadCoeficienteMB.coeficiente.tipotabela}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Tabela Mensal" itemValue="Tabela Mensal" />
-						<f:selectItem itemLabel="Tabela Diaria" itemValue="Tabela Diaria" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="inputRG">Tipo de Operações</label>
-					<h:selectOneMenu style="width: 100%;"
-						value="#{cadCoeficienteMB.coeficiente.tipooperacoes}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Operações Normais"
-							itemValue="Operacoes Normais" />
-						<f:selectItem itemLabel="Operações Cartão"
-							itemValue="Operacoes Cartao" />
-					</h:selectOneMenu>
-				</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputRG">Tipo de Operação</label>
+				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+					value="#{cadCoeficienteMB.tipooiperacao}"
+					converter="TipoOperacaoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadCoeficienteMB.listaTipoOperacao}"
+						var="tipoOperacaoSelecionado"
+						itemLabel="#{tipoOperacaoSelecionado.descricao}"
+						itemValue="#{tipoOperacaoSelecionado}" />
+					<f:attribute name="listaTipoOperacao"
+						value="#{cadCoeficienteMB.listaTipoOperacao}" />
+				</h:selectOneMenu>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputNomeTabela">Nome Tabela</label>
+				<h:inputText value="#{cadCoeficienteMB.coeficiente.nometabela}"
+					class="form-control" id="inputNomeTabela" placeholder="Nome" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputPrazo">Prazo</label>
+				<h:inputText
+					value="#{cadCoeficienteMB.coeficiente.prazo}"
+					class="form-control" id="inputPrazo" placeholder="Prazo" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="codigotabela">Código Tabela</label>
+				<h:inputText value="#{cadCoeficienteMB.coeficiente.codigotabela}"
+					class="form-control" id="codigotabela" placeholder="Nome" />
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="inputCoeficiente">Coeficiente</label>
+				<h:inputText
+					value="#{cadCoeficienteMB.coeficiente.coeficientevalor}"
+					class="form-control" id="inputCoeficiente" placeholder="Prazo">
+					<f:convertNumber  minFractionDigits="5" locale="pt_BR"/>
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Comissão Loja</label>
+				<h:inputText
+					value="#{cadCoeficienteMB.coeficiente.comissaoloja}"
+					class="form-control" id="flatrecebida" placeholder="Prazo">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="codigotabela">Código Tabela</label>
-					<h:inputText value="#{cadCoeficienteMB.coeficiente.codigotabela}"
-						class="form-control" id="codigotabela" placeholder="Nome" />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="formatizacao">Formatização Digital</label>
-					<h:selectOneMenu style="width: 100%;"
-						value="#{cadUsuarioMB.dadosbancario.tipoconta}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Não" itemValue="Nao" />
-						<f:selectItem itemLabel="Sim" itemValue="Sim" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="stautustabela">Status Tabela</label>
-					<h:selectOneMenu style="width: 100%;"
-						value="#{cadUsuarioMB.dadosbancario.tipoconta}"
-						styleClass="form-control">
-						<f:selectItem itemLabel="Normal" itemValue="Normal" />
-					</h:selectOneMenu>
-				</div>
-				<div class="form-group col-md-3">
-					<label for="taxasjuros">Taxa de Juros</label>
-					<h:panelGrid columns="3" style="width:100%;">
-						<h:inputText value="#{cadCoeficienteMB.coeficiente.taxasjurosini}"
-							class="form-control" id="jurosini" placeholder="CPF">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</h:inputText>
-						<p:outputLabel value="até" />
-						<h:inputText value="#{cadCoeficienteMB.coeficiente.taxasjurosfin}"
-							class="form-control" id="jurosfin" placeholder="CPF">
-							<f:convertNumber pattern="##,###,###,###.##"
-								minFractionDigits="2" />
-						</h:inputText>
-					</h:panelGrid>
-				</div>
+			<div class="form-group col-md-3">
+				<label>Comissão Corretor</label>
+				<h:inputText
+					value="#{cadCoeficienteMB.coeficiente.comissaocorretor}"
+					class="form-control" id="flatrepassada" placeholder="Prazo">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
 			</div>
-			
+		</div>
 
-			<br />
-			<hr />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					 value="Salvar" action="#{cadCoeficienteMB.salvar()}" />
-				<p:commandLink ajax="false" style="margin-left:2%;" styleClass="btn btn-danger"
-					value="Cancelar" action="#{cadCoeficienteMB.cancelar()}" />
-			</div>
-			<br />
-			<br />
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadCoeficienteMB.salvar()}" />
+			<p:commandLink ajax="false" style="margin-left:2%;"
+				styleClass="btn btn-danger" value="Cancelar"
+				action="#{cadCoeficienteMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
 
 	</ui:define>
 </ui:composition>

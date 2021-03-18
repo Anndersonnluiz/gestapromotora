@@ -104,8 +104,8 @@
 									role="button" aria-haspopup="true" aria-expanded="false"> <span
 										data-feather="file-plus"></span> Emissão
 								</a><a class="nav-link"
-										href="/deltafinanceira/pages/contrato/consSimulacaoContrato.jsf"> <span
-											data-feather="align-center"></span> Simulação
+										href="/deltafinanceira/pages/contrato/consContrato.jsf"> <span
+											data-feather="align-center"></span> Busca Rapida
 									</a><a class="nav-link"
 									href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
 									role="button" aria-haspopup="true" aria-expanded="false"> <span
@@ -178,11 +178,14 @@
 							role="button" aria-haspopup="true" aria-expanded="false"> <span
 								data-feather="printer"></span> Roteiros
 						</a></li>
-						<li class="nav-item"><a class="nav-link"
-								href="/deltafinanceira/pages/suporte/consSuporte.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="phone-call"></span> Suporte
-							</a></li>
+						<h:panelGroup
+								rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<li class="nav-item"><a class="nav-link"
+									href="/deltafinanceira/pages/suporte/consSuporte.jsf" role="button"
+									aria-haspopup="true" aria-expanded="false"> <span
+										data-feather="phone-call"></span> Novidades
+								</a></li>
+						</h:panelGroup>
 						<li class="nav-item, dropdown"><a class="nav-link" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false"> <span data-feather="settings"></span>

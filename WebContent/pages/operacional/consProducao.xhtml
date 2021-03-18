@@ -106,8 +106,19 @@
 				</h:panelGrid>
 			</div>
 
+			<div class="form-group col-md-4">
+				<label for="nomecliente">Nome Cliente</label>
+				<h:inputText class="form-control" id="nomecliente"
+					value="#{producaoMB.nomecliente}">
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="cpf">CPF</label>
+				<p:inputMask mask="999.999.999-99" id="cpf"
+					styleClass="form-control" value="#{producaoMB.cpf}" />
+			</div>
 			<div class="form-group col-md-3">
-				<label>.</label>
+				<label style="color:white;">9.</label>
 				<div>
 					<p:commandLink ajax="false" styleClass="btn btn-primary"
 						value="Pesquisar" action="#{producaoMB.pesquisar()}"
@@ -115,7 +126,7 @@
 					<p:commandLink ajax="false" style="margin-left:1%;"
 						styleClass="btn btn-link" value="Limpar"
 						action="#{producaoMB.limpar()}"
-						update="idTabelaComissao, usuario, situacao, tipooperacao, panelNumeros, convenio" />
+						update="nomecliente, cpf, idTabelaComissao, usuario, situacao, tipooperacao, panelNumeros, convenio" />
 				</div>
 			</div>
 		</div>
@@ -183,8 +194,8 @@
 								style="font-size:16px;">
 								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
 									locale="pt_BR" />
-							</h:outputText></b> <br />
-						<br /> <b><p:outputLabel value="(#{producaoMB.nMargem})" /></b>
+							</h:outputText></b> <br /> <br /> <b><p:outputLabel
+								value="(#{producaoMB.nMargem})" /></b>
 
 					</div>
 				</div>
@@ -199,11 +210,26 @@
 								style="font-size:16px;">
 								<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
 									locale="pt_BR" />
-							</h:outputText></b> <br />
-						<br /> <b><p:outputLabel value="(#{producaoMB.nRefin})" /></b>
+							</h:outputText></b> <br /> <br /> <b><p:outputLabel
+								value="(#{producaoMB.nRefin})" /></b>
 					</div>
 				</div>
 			</div>
+
+		</div>
+		<br />
+		<div align="right">
+			<p:commandLink action="#{producaoMB.relatorioGeral(false)}"
+				style="text-align: left;color:blue;margin-right:5%;font-weight:bold;"
+				value="Impressão Selecionados">
+				<span data-feather="printer"></span>
+			</p:commandLink>
+
+			<p:commandLink action="#{producaoMB.relatorioGeral(true)}"
+				style="text-align: left;color:blue;font-weight:bold;"
+				value="Impressão Todos">
+				<span data-feather="printer"></span>
+			</p:commandLink>
 
 		</div>
 		<br />
@@ -257,6 +283,10 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />
 				</h:outputText>
+			</p:column>
+			<p:column headerText=""
+				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:selectBooleanCheckbox value="#{comissao.selecionado}" />
 			</p:column>
 		</p:dataTable>
 		<br />

@@ -78,8 +78,7 @@
 				</h:selectOneMenu>
 			</div>
 			<div class="form-group col-md-2">
-				<label style="color:white">.</label>
-				<br/>
+				<label style="color: white">.</label> <br />
 				<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
 					action="#{alterarSituacaoMB.gerarListaOrgao()}" ajax="false"
 					update="orgaobanco" styleClass="btn btn-primary" />
@@ -100,6 +99,33 @@
 				</h:selectOneMenu>
 			</div>
 		</div>
+		<br />
+		<h:panelGroup>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="comboCoeficiente">Tabela (Coeficiente)</label>
+					<h:selectOneMenu id="comboCoeficiente" style="width: 100%;"
+						disabled="#{alterarSituacaoMB.valorliberado}"
+						value="#{alterarSituacaoMB.coeficiente}"
+						converter="CoeficienteConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{alterarSituacaoMB.listaCoefiente}"
+							var="coeficienteSelecionado"
+							itemLabel="#{coeficienteSelecionado.nometabela}"
+							itemValue="#{coeficienteSelecionado}" />
+						<f:attribute name="listaCoeficiente"
+							value="#{alterarSituacaoMB.listaCoefiente}" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="valorliberado">Operador</label>
+					<h:inputText class="form-control" id="operador" disabled="true"
+						value="#{alterarSituacaoMB.contrato.operador}">
+					</h:inputText>
+				</div>
+			</div>
+		</h:panelGroup>
 		<br />
 		<br />
 		<h6>Alterar Situação</h6>
@@ -135,9 +161,7 @@
 		<br />
 		<div align="center">
 			<p:commandLink ajax="false" styleClass="btn btn-primary"
-				onclick="PF('statusDialog').show()"
-				onsuccess="PF('statusDialog').hide()" value="Salvar"
-				action="#{alterarSituacaoMB.salvar()}" />
+				value="Salvar" action="#{alterarSituacaoMB.salvar()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-danger"
 				style="margin-left:2%;" value="Cancelar"
 				action="#{alterarSituacaoMB.cancelar()}" />

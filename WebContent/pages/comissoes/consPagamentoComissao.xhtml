@@ -249,14 +249,14 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Recebida"
+			<p:column headerText="Cms Loja"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmdbruta}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Repassada"
+			<p:column headerText="Cms Corretor"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmsliq}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
@@ -304,7 +304,7 @@
 				</h:panelGroup>
 				<h:panelGroup id="infValorRecebida" style="margin:2%;"
 					rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-					<h:outputText value="RECEBIDA"
+					<h:outputText value="LOJA"
 						style="font-size:24px;margin:2%;font-weight: bold;" />
 					<br />
 					<h:outputText value="R$ "
@@ -316,7 +316,7 @@
 					</h:outputText>
 				</h:panelGroup>
 				<h:panelGroup id="infValorRepassadal" style="margin:2%;">
-					<h:outputText value="REPASSADA"
+					<h:outputText value="CORRETOR"
 						style="font-size:24px;margin:2%;font-weight: bold;" />
 					<br />
 					<h:outputText value="R$ "
