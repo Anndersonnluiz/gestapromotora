@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<h4>Importação de Coeficiente</h4>
+		<hr />
+
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" closable="true" />
+		
+		<div class="form-row">
+			
+			<div class="form-group col-md-4">
+				<p:fileUpload
+					fileUploadListener="#{importacaoCoeficienteMB.fileUploadListener}"
+					label="Anexar Banner" mode="advanced" value="#{importacaoCoeficienteMB.file}"
+					update="growl" auto="true" />
+			</div>
+		</div>
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

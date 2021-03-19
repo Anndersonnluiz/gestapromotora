@@ -81,4 +81,11 @@ public class CoeficienteMB implements Serializable {
     session.setAttribute("coeficiente", coeficiente);
     return "consValoresCoeficiente";
   }
+  
+  public String novaImportacao() {
+	    FacesContext fc = FacesContext.getCurrentInstance();
+	    HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
+	    session.setAttribute("orgaobanco", this.orgaobanco);
+	    return "importacaoCoeficiente";
+	  }
 }

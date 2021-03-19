@@ -1,16 +1,16 @@
 package br.com.deltafinanceira.managebean.contrato.demaisoperacoes;
 
 import br.com.deltafinanceira.facade.BancoFacade;
+import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.PromotoraFacade;
-import br.com.deltafinanceira.facade.RegrasCoeficienteFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Promotora;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Formatacao;
 import br.com.deltafinanceira.util.Mensagem;
@@ -569,7 +569,7 @@ public class DemaisOperacoesInssMB implements Serializable {
   
   public void gerarListaBanco() {
     BancoFacade bancoFacade = new BancoFacade();
-    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
+    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.visualizar=true ORDER BY b.nome");
     if (this.listaBanco == null)
       this.listaBanco = new ArrayList<>(); 
   }
@@ -587,8 +587,8 @@ public class DemaisOperacoesInssMB implements Serializable {
   }
   
   public void gerarComissao(Contrato contrato) {
-    RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
-    Regrascoeficiente regrascoeficiente = regrasCoeficienteFacade.consultar(contrato.getIdregracoeficiente());
+    CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+    Coeficiente coeficiente = coeficienteFacade.consultar(contrato.getIdregracoeficiente());
     Historicocomissao historicocomissao = new Historicocomissao();
     historicocomissao.setDatalancamento(new Date());
     historicocomissao.setContrato(contrato);
@@ -599,14 +599,14 @@ public class DemaisOperacoesInssMB implements Serializable {
     historicocomissao.setAno(ano);
     historicocomissao.setMes(mes);
     if (contrato.getParcelaspagas() > 12 && contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
-      historicocomissao.setCmdbruta(contrato.getValorquitar() * regrascoeficiente.getFlatrecebidaregra() / 100.0F);
-      historicocomissao.setCmsliq(contrato.getValorquitar() * regrascoeficiente.getFlatrepassadavista() / 100.0F);
+      historicocomissao.setCmdbruta(contrato.getValorquitar() * coeficiente.getComissaoloja() / 100.0F);
+      historicocomissao.setCmsliq(contrato.getValorquitar() * coeficiente.getComissaocorretor() / 100.0F);
       historicocomissao.setProdliq(contrato.getValorquitar());
     } else if (contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
       historicocomissao
-        .setCmdbruta(contrato.getValoroperacao() * regrascoeficiente.getFlatrecebidaregra() / 100.0F);
+        .setCmdbruta(contrato.getValoroperacao() * coeficiente.getComissaoloja() / 100.0F);
       historicocomissao
-        .setCmsliq(contrato.getValoroperacao() * regrascoeficiente.getFlatrepassadavista() / 100.0F);
+        .setCmsliq(contrato.getValoroperacao() * coeficiente.getComissaocorretor() / 100.0F);
       historicocomissao.setProdliq(contrato.getValoroperacao());
     } else {
       historicocomissao.setCmdbruta(0.0F);

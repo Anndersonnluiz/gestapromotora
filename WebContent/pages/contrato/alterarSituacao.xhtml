@@ -79,7 +79,7 @@
 			</div>
 			<div class="form-group col-md-2">
 				<label style="color: white">.</label> <br />
-				<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
+				<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"  style="font-size:12px;"
 					action="#{alterarSituacaoMB.gerarListaOrgao()}" ajax="false"
 					update="orgaobanco" styleClass="btn btn-primary" />
 			</div>
@@ -97,6 +97,12 @@
 					<f:attribute name="listaOrgao"
 						value="#{alterarSituacaoMB.listaOrgao}" />
 				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-2">
+				<label style="color: white">.</label> <br />
+				<p:commandLink id="btnPesquisarOrgao" value="Pesquisar Tabela" style="font-size:12px;"
+					action="#{alterarSituacaoMB.gerarListaValores()}" ajax="false"
+					update="comboCoeficiente" styleClass="btn btn-primary" />
 			</div>
 		</div>
 		<br />
@@ -118,11 +124,19 @@
 							value="#{alterarSituacaoMB.listaCoefiente}" />
 					</h:selectOneMenu>
 				</div>
-				<div class="form-group col-md-3">
-					<label for="valorliberado">Operador</label>
-					<h:inputText class="form-control" id="operador" disabled="true"
-						value="#{alterarSituacaoMB.contrato.operador}">
-					</h:inputText>
+				<div class="form-group col-md-4">
+					<label for="usuario">Operador</label>
+					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+						value="#{alterarSituacaoMB.operador}" converter="UsuarioConverter"
+						styleClass="form-control" onchange="usuario">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{alterarSituacaoMB.listaUsuario}"
+							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+							itemValue="#{usuarioSelecionado}" />
+						<f:attribute name="listaUsuario"
+							value="#{alterarSituacaoMB.listaUsuario}" />
+					</h:selectOneMenu>
 				</div>
 			</div>
 		</h:panelGroup>

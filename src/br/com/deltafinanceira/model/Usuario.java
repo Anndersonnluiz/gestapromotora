@@ -61,6 +61,9 @@ public class Usuario implements Serializable {
   @Column(name = "responsaveldepartamento")
   private boolean responsaveldepartamento;
   
+  @Column(name = "operador")
+  private boolean operador;
+  
   @JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
   @ManyToOne(optional = false)
   private Tipocolaborador tipocolaborador;
@@ -209,7 +212,15 @@ public class Usuario implements Serializable {
     this.departamento = departamento;
   }
   
-  public int hashCode() {
+  public boolean isOperador() {
+	return operador;
+}
+
+public void setOperador(boolean operador) {
+	this.operador = operador;
+}
+
+public int hashCode() {
     int hash = 0;
     hash += (this.idusuario != null) ? this.idusuario.hashCode() : 0;
     return hash;

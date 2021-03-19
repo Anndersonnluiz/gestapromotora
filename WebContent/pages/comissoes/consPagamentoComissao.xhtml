@@ -218,6 +218,10 @@
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.usuario.nome}" />
 			</p:column>
+			<p:column headerText="Operador"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.operador}" />
+			</p:column>
 			<p:column headerText="CPF"
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.cliente.cpf}" />
@@ -230,10 +234,6 @@
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText
 					value="#{comissao.contrato.orgaoBanco.banco.nome}" />
-			</p:column>
-			<p:column headerText="Contrato"
-				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.codigocontrato}" />
 			</p:column>
 			<p:column headerText="Operação"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">

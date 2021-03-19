@@ -223,7 +223,8 @@
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems value="#{demaisOperacoesInssMB.listaPromotora}"
-									var="promotoraSelecionado" itemLabel="#{promotoraSelecionado.descricao}"
+									var="promotoraSelecionado"
+									itemLabel="#{promotoraSelecionado.descricao}"
 									itemValue="#{promotoraSelecionado}" />
 								<f:attribute name="listaPromotora"
 									value="#{demaisOperacoesInssMB.listaPromotora}" />
@@ -231,7 +232,7 @@
 							</h:selectOneMenu>
 						</div>
 						<div class="form-group col-md-3">
-							<label style="color:white;">.</label>
+							<label style="color: white;">.</label>
 							<div>
 								<p:commandLink ajax="false" styleClass="btn btn-primary"
 									value="Pesquisar" action="#{demaisOperacoesInssMB.pesquisar()}"
@@ -256,13 +257,13 @@
 
 
 
-				<p:column headerText="Código"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{contrato.codigocontrato}" />
-				</p:column>
 				<p:column headerText="Corretor"
 					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.usuario.nome}" />
+				</p:column>
+				<p:column headerText="Operador"
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.operador}" />
 				</p:column>
 				<p:column headerText="CPF"
 					style="width:13%; font-size:12px; background:white; color:black; border:none;text-align:left;">

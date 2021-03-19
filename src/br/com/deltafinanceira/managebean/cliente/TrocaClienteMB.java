@@ -3,7 +3,7 @@ package br.com.deltafinanceira.managebean.cliente;
 import br.com.deltafinanceira.facade.ClienteFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Cliente;
-import br.com.deltafinanceira.model.Regrascoeficiente;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Mensagem;
 import java.io.Serializable;
@@ -26,7 +26,7 @@ public class TrocaClienteMB implements Serializable {
   
   private String senha;
   
-  private Regrascoeficiente regracoeficiente;
+  private Coeficiente coeficiente;
   
   private Usuario usuarioAtual;
   
@@ -55,15 +55,17 @@ public class TrocaClienteMB implements Serializable {
     this.usuario = usuario;
   }
   
-  public Regrascoeficiente getRegracoeficiente() {
-    return this.regracoeficiente;
-  }
   
-  public void setRegracoeficiente(Regrascoeficiente regracoeficiente) {
-    this.regracoeficiente = regracoeficiente;
-  }
   
-  public Usuario getUsuarioAtual() {
+  public Coeficiente getCoeficiente() {
+	return coeficiente;
+}
+
+public void setCoeficiente(Coeficiente coeficiente) {
+	this.coeficiente = coeficiente;
+}
+
+public Usuario getUsuarioAtual() {
     return this.usuarioAtual;
   }
   

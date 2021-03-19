@@ -206,7 +206,7 @@ public class CadFuncionariosMB implements Serializable {
 
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum' ORDER BY b.nome");
+		listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.nome");
 		if (listaBanco == null) {
 			listaBanco = new ArrayList<Banco>();
 		}

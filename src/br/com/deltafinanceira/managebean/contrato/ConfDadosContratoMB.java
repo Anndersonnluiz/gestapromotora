@@ -159,7 +159,7 @@ public class ConfDadosContratoMB implements Serializable {
   
   public void gerarListaBanco() {
     BancoFacade bancoFacade = new BancoFacade();
-    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
+    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.visualizar=true ORDER BY b.nome");
     if (this.listaBanco == null)
       this.listaBanco = new ArrayList<>(); 
   }
@@ -174,7 +174,7 @@ public class ConfDadosContratoMB implements Serializable {
   
   public void gerarListaTipoOperacao() {
     TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Order By t.descricao");
     if (this.listaTipoOperacao == null)
       this.listaTipoOperacao = new ArrayList<>(); 
   }

@@ -20,13 +20,13 @@
 						value="#{editarComissaoMB.historicocomissao.contrato.idcontrato}">
 					</h:inputText>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<label for="situacao">Situação</label>
 					<h:inputText class="form-control" id="situacao" disabled="true"
 						value="#{editarComissaoMB.historicocomissao.contrato.situacao.descricao}">
 					</h:inputText>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-5">
 					<label for="banco">Banco</label>
 					<h:inputText class="form-control" id="banco" disabled="true"
 						value="#{editarComissaoMB.historicocomissao.contrato.orgaoBanco.banco.nome}">
@@ -34,14 +34,14 @@
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-6">
 					<label for="tipooperacaos">Tipo Operação</label>
 					<h:inputText class="form-control" id="tipooperacao" disabled="true"
 						value="#{editarComissaoMB.historicocomissao.contrato.tipooperacao.descricao}">
 					</h:inputText>
 				</div>
 				<div class="form-group col-md-3">
-					<label for="parcela">.</label>
+					<label for="parcela">Parcela</label>
 					<h:inputText class="form-control" id="parcela" disabled="true"
 						value="#{editarComissaoMB.historicocomissao.contrato.parcela}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
@@ -53,31 +53,9 @@
 			<h6>Alterar Valores</h6>
 			<hr />
 
+			
 			<div class="form-row">
-				<div class="form-group col-md-3">
-					<label for="detalhesituacao">PROD. LIQ</label>
-					<h:inputText class="form-control"
-						value="#{editarComissaoMB.historicocomissao.prodliq}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>COMISSÃO LOJA</label>
-					<h:inputText class="form-control" id="comissaoRecebida"
-						value="#{editarComissaoMB.historicocomissao.cmdbruta}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
-					</h:inputText>
-				</div>
-				<div class="form-group col-md-3">
-					<label>COMISSÃO CORRETOR</label>
-					<h:inputText class="form-control" id="comissaoRepassada"
-						value="#{editarComissaoMB.historicocomissao.cmsliq}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
-					</h:inputText>
-				</div>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-3"> 
+				<div class="form-group col-md-4"> 
 					<label for="promotora">Promotora</label>
 					<h:selectOneMenu id="promotorahhhj" style="width: 100%;"
 						immediate="true" value="#{editarComissaoMB.promotora}"
@@ -93,7 +71,7 @@
 						<p:ajax event="blur" />
 					</h:selectOneMenu>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<label for="novasituacao">Situação Contrato</label>
 					<h:selectOneMenu id="novasituacao" style="width: 100%;"
 						value="#{editarComissaoMB.situacao}"
@@ -108,7 +86,7 @@
 							value="#{editarComissaoMB.listaSituacao}" />
 					</h:selectOneMenu>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<label>Status Comissão</label>
 					<h:selectOneMenu style="width: 100%;" id="tipoconta"
 						value="#{editarComissaoMB.historicocomissao.tipo}"
@@ -118,8 +96,31 @@
 					</h:selectOneMenu>
 				</div>
 			</div>
-
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="detalhesituacao">PRODUÇÃO LIQUIDA</label>
+					<h:inputText class="form-control"
+						value="#{editarComissaoMB.historicocomissao.prodliq}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-4">
+					<label>COMISSÃO LOJA</label>
+					<h:inputText class="form-control" id="comissaoRecebida"
+						value="#{editarComissaoMB.historicocomissao.cmdbruta}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-4">
+					<label>COMISSÃO CORRETOR</label>
+					<h:inputText class="form-control" id="comissaoRepassada" 
+						value="#{editarComissaoMB.historicocomissao.cmsliq}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					</h:inputText>
+				</div>
+			</div>
 			<br />
+			<hr/>
 			<br />
 			<div align="center">
 				<p:commandLink ajax="false" styleClass="btn btn-primary"

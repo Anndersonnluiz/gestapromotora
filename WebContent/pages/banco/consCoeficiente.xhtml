@@ -23,6 +23,10 @@
 					value="Novo"
 					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
 					action="#{coeficienteMB.novoCoeficiente()}" />
+				<p:commandLink ajax="false" styleClass="btn btn-primary" 
+					value="Importação"
+					rendered="false"
+					action="#{coeficienteMB.novaImportacao()}" />
 			</div>
 			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
 				value="#{coeficienteMB.listaCoeficiente}" style="border:none;"

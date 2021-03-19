@@ -3,11 +3,11 @@ package br.com.deltafinanceira.managebean.contrato;
 import br.com.deltafinanceira.bean.ControladorCEPBean;
 import br.com.deltafinanceira.bean.EnderecoBean;
 import br.com.deltafinanceira.dao.NotificacaoDao;
-import br.com.deltafinanceira.dao.RegrasCoeficienteDao;
 import br.com.deltafinanceira.dao.TipoArquivoDao;
 import br.com.deltafinanceira.dao.UsuarioDao;
 import br.com.deltafinanceira.facade.BancoFacade;
 import br.com.deltafinanceira.facade.ClienteFacade;
+import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoArquivoFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.ContratoUnificacaoFacade;
@@ -23,6 +23,7 @@ import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
 import br.com.deltafinanceira.model.Cliente;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Contratoarquivo;
 import br.com.deltafinanceira.model.Contratounificacao;
@@ -35,7 +36,6 @@ import br.com.deltafinanceira.model.OrgaoBanco;
 import br.com.deltafinanceira.model.Promotora;
 import br.com.deltafinanceira.model.Rankingvendas;
 import br.com.deltafinanceira.model.Rankingvendasanual;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Tipoarquivo;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.model.Usuario;
@@ -108,7 +108,7 @@ public class CadContratoMB implements Serializable {
   
   private int ano;
   
-  private Regrascoeficiente regrascoeficiente;
+  private Coeficiente coeficiente;
   
   private boolean novo = true;
   
@@ -153,11 +153,11 @@ public class CadContratoMB implements Serializable {
     this.contrato = (Contrato)session.getAttribute("contrato");
     this.orgaoBanco = (OrgaoBanco)session.getAttribute("orgaobanco");
     this.banco = (Banco)session.getAttribute("banco");
-    this.regrascoeficiente = (Regrascoeficiente)session.getAttribute("regrascoeficiente");
+    this.coeficiente = (Coeficiente) session.getAttribute("coeficiente");
     this.voltarTela = (String)session.getAttribute("voltarTela");
     session.removeAttribute("orgaobanco");
     session.removeAttribute("contrato");
-    session.removeAttribute("regrascoeficiente");
+    session.removeAttribute("coeficiente");
     session.removeAttribute("voltarTela");
     this.cliente = this.contrato.getCliente();
     if (this.orgaoBanco != null)
@@ -184,6 +184,9 @@ public class CadContratoMB implements Serializable {
       this.usuario = this.usuarioLogadoMB.getUsuario();
       this.promotora = this.contrato.getPromotora();
       this.contratounificacao = new Contratounificacao();
+      BancoFacade bancoFacade = new BancoFacade();
+      this.banco = bancoFacade.consultar(165);
+      gerarListaOrgao();
     } 
     if (this.usuarioLogadoMB.getUsuario().isAcessogeral())
       this.habilitarUsuario = false; 
@@ -327,15 +330,15 @@ public class CadContratoMB implements Serializable {
     this.ano = ano;
   }
   
-  public Regrascoeficiente getRegrascoeficiente() {
-    return this.regrascoeficiente;
-  }
-  
-  public void setRegrascoeficiente(Regrascoeficiente regrascoeficiente) {
-    this.regrascoeficiente = regrascoeficiente;
-  }
-  
-  public boolean isNovo() {
+  public Coeficiente getCoeficiente() {
+	return coeficiente;
+}
+
+public void setCoeficiente(Coeficiente coeficiente) {
+	this.coeficiente = coeficiente;
+}
+
+public boolean isNovo() {
     return this.novo;
   }
   
@@ -481,7 +484,7 @@ public class CadContratoMB implements Serializable {
   
   public void gerarListaBanco() {
     BancoFacade bancoFacade = new BancoFacade();
-    this.listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.nome !='Nenhum' ORDER BY b.nome");
+    this.listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.nome");
     if (this.listaBancoOperacao == null)
       this.listaBancoOperacao = new ArrayList<>(); 
     this.listaBanco = this.listaBancoOperacao;
@@ -686,10 +689,10 @@ public class CadContratoMB implements Serializable {
     } 
     if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValorquitar() * this.regrascoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
     } else {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValoroperacao() * this.regrascoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
     } 
     rankingVendasFacade.salvar(rankingvendas);
   }
@@ -709,10 +712,10 @@ public class CadContratoMB implements Serializable {
     } 
     if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValorquitar() * this.regrascoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
     } else {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValoroperacao() * this.regrascoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
     } 
     rankingVendasFacade.salvar(rankingvendas);
   }
@@ -946,11 +949,11 @@ public class CadContratoMB implements Serializable {
   }
   
   public boolean gerarListaValores() {
-    RegrasCoeficienteDao regrasCoeficienteDao = new RegrasCoeficienteDao();
-    List<Regrascoeficiente> listaRegrasValores = regrasCoeficienteDao.lista(
-        "Select v From Regrascoeficiente v WHERE v.valorescoeficiente.coeficiente.orgaoBanco.idorgaobanco=" + 
+    CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+    List<Coeficiente> listaRegrasValores = coeficienteFacade.lista(
+        "Select v From Coeficiente v WHERE v.orgaoBanco.idorgaobanco=" + 
         this.orgaoBanco.getIdorgaobanco() + 
-        " AND v.valorescoeficiente.coeficiente.tipooperacao.idtipooperacao=" + 
+        " AND v.tipooperacao.idtipooperacao=" + 
         this.contrato.getTipooperacao().getIdtipooperacao());
     if (listaRegrasValores == null || listaRegrasValores.isEmpty())
       return false; 

@@ -13,16 +13,16 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.deltafinanceira.bean.AlteracaoBean;
+import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.HistoricoUsuarioFacade;
 import br.com.deltafinanceira.facade.PromotoraFacade;
-import br.com.deltafinanceira.facade.RegrasCoeficienteFacade;
 import br.com.deltafinanceira.facade.SituacaoFacade;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Historicousuario;
 import br.com.deltafinanceira.model.Promotora;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.util.Formatacao;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
@@ -183,12 +183,12 @@ public class EditarComissaoMB implements Serializable{
 	
 	
 	public void calcularValores() {
-		RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
-		Regrascoeficiente regrascoeficiente = regrasCoeficienteFacade.consultar(historicocomissao.getContrato().getIdregracoeficiente());
+		CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+		Coeficiente coeficiente = coeficienteFacade.consultar(historicocomissao.getContrato().getIdregracoeficiente());
 		historicocomissao.setCmdbruta(historicocomissao.getProdliq() 
-				* (regrascoeficiente.getFlatrecebidaregra() / 100));
+				* (coeficiente.getComissaoloja() / 100));
 		historicocomissao.setCmsliq(historicocomissao.getProdliq() 
-				* (regrascoeficiente.getFlatrepassadavista() / 100));
+				* (coeficiente.getComissaocorretor() / 100));
 	}
 	
 	

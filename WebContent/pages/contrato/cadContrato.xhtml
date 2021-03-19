@@ -42,26 +42,6 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-4">
-				<label for="inputNome">Banco</label>
-				<h:panelGrid columns="2" style="width:100%;">
-					<h:selectOneMenu id="exampleBancoSelecionar" style="width: 100%;"
-						immediate="true" value="#{cadContratoMB.banco}"
-						converter="BancoConverter" styleClass="form-control">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{cadContratoMB.listaBancoInicio}"
-							var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
-							itemValue="#{bancoSelecionado}" />
-						<f:attribute name="listaBanco"
-							value="#{cadContratoMB.listaBancoInicio}" />
-						<p:ajax event="blur" />
-					</h:selectOneMenu>
-					<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"
-						action="#{cadContratoMB.gerarListaOrgao()}" ajax="false"
-						update="orgaobanco" styleClass="btn btn-primary" />
-				</h:panelGrid>
-			</div>
-			<div class="form-group col-md-4">
 				<label for="orgaobanco">Orgão</label>
 				<h:selectOneMenu id="orgaobanco" style="width: 100%;"
 					value="#{cadContratoMB.orgaoBanco}" converter="OrgaoBancoConverter"

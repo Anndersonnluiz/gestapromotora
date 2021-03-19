@@ -27,6 +27,8 @@ public class Banco implements Serializable{
 	private int codigo;
 	@Column(name = "nome")
 	private String nome;
+	@Column(name = "visualizar")
+	private boolean visualizar;
 	
 	
 	public Banco() {
@@ -61,6 +63,16 @@ public class Banco implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
 	}
 
 

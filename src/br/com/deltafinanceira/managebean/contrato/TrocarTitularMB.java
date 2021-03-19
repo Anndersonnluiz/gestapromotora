@@ -1,16 +1,16 @@
 package br.com.deltafinanceira.managebean.contrato;
 
+import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.RankingVendasAnualFacade;
 import br.com.deltafinanceira.facade.RankingVendasFacade;
-import br.com.deltafinanceira.facade.RegrasCoeficienteFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Rankingvendas;
 import br.com.deltafinanceira.model.Rankingvendasanual;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Formatacao;
 import br.com.deltafinanceira.util.Mensagem;
@@ -35,7 +35,7 @@ public class TrocarTitularMB implements Serializable {
   
   private String senha;
   
-  private Regrascoeficiente regracoeficiente;
+  private Coeficiente coeficiente;
   
   private Usuario usuarioAtual;
   
@@ -80,15 +80,15 @@ public class TrocarTitularMB implements Serializable {
     this.senha = senha;
   }
   
-  public Regrascoeficiente getRegracoeficiente() {
-    return this.regracoeficiente;
-  }
-  
-  public void setRegracoeficiente(Regrascoeficiente regracoeficiente) {
-    this.regracoeficiente = regracoeficiente;
-  }
-  
-  public Usuario getUsuarioAtual() {
+  public Coeficiente getCoeficiente() {
+	return coeficiente;
+}
+
+public void setCoeficiente(Coeficiente coeficiente) {
+	this.coeficiente = coeficiente;
+}
+
+public Usuario getUsuarioAtual() {
     return this.usuarioAtual;
   }
   
@@ -152,10 +152,10 @@ public class TrocarTitularMB implements Serializable {
       Rankingvendas rankingvendas = listaRanking.get(0);
       if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
         rankingvendas.setValorvenda(rankingvendas.getValorvenda() - 
-            this.contrato.getValorquitar() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+            this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
       } else {
         rankingvendas.setValorvenda(rankingvendas.getValorvenda() - 
-            this.contrato.getValoroperacao() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+            this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
       } 
       rankingVendasFacade.salvar(rankingvendas);
     } 
@@ -177,10 +177,10 @@ public class TrocarTitularMB implements Serializable {
     } 
     if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValorquitar() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
     } else {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValoroperacao() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValoroperacao() * this.coeficiente.getComissaoloja() / 100.0F);
     } 
     rankingVendasFacade.salvar(rankingvendas);
   }
@@ -194,10 +194,10 @@ public class TrocarTitularMB implements Serializable {
       Rankingvendasanual rankingvendas = listaRanking.get(0);
       if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
         rankingvendas.setValorvenda(rankingvendas.getValorvenda() - 
-            this.contrato.getValorquitar() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+            this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
       } else {
         rankingvendas.setValorvenda(rankingvendas.getValorvenda() - 
-            this.contrato.getValoroperacao() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+            this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
       } 
       rankingVendasFacade.salvar(rankingvendas);
     } 
@@ -218,10 +218,10 @@ public class TrocarTitularMB implements Serializable {
     } 
     if (this.contrato.getParcelaspagas() > 12 && this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValorquitar() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
     } else {
       rankingvendas.setValorvenda(rankingvendas.getValorvenda() + 
-          this.contrato.getValoroperacao() * this.regracoeficiente.getFlatrecebidaregra() / 100.0F);
+          this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
     } 
     rankingVendasFacade.salvar(rankingvendas);
   }
@@ -237,9 +237,9 @@ public class TrocarTitularMB implements Serializable {
     } 
   }
   
-  public void buscarRegraCoeficiente() {
-    RegrasCoeficienteFacade regrasCoeficienteFacade = new RegrasCoeficienteFacade();
-    this.regracoeficiente = regrasCoeficienteFacade.consultar(this.contrato.getIdregracoeficiente());
+  public void buscarRegrasCoeficiente() {
+    CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+    this.coeficiente = coeficienteFacade.consultar(this.contrato.getIdregracoeficiente());
   }
   
   public void buscarContratos() {

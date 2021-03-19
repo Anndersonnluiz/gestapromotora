@@ -41,14 +41,6 @@
 					class="form-control" id="inputPrazo" placeholder="Prazo" />
 			</div>
 			<div class="form-group col-md-3">
-				<label for="codigotabela">Código Tabela</label>
-				<h:inputText value="#{cadCoeficienteMB.coeficiente.codigotabela}"
-					class="form-control" id="codigotabela" placeholder="Nome" />
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col-md-3">
 				<label for="inputCoeficiente">Coeficiente</label>
 				<h:inputText
 					value="#{cadCoeficienteMB.coeficiente.coeficientevalor}"
@@ -56,8 +48,11 @@
 					<f:convertNumber  minFractionDigits="5" locale="pt_BR"/>
 				</h:inputText>
 			</div>
+		</div>
+
+		<div class="form-row">
 			<div class="form-group col-md-3">
-				<label>Comissão Loja</label>
+				<label>Comissão Loja (%)</label>
 				<h:inputText
 					value="#{cadCoeficienteMB.coeficiente.comissaoloja}"
 					class="form-control" id="flatrecebida" placeholder="Prazo">
@@ -66,7 +61,7 @@
 			</div>
 
 			<div class="form-group col-md-3">
-				<label>Comissão Corretor</label>
+				<label>Comissão Corretor (%)</label>
 				<h:inputText
 					value="#{cadCoeficienteMB.coeficiente.comissaocorretor}"
 					class="form-control" id="flatrepassada" placeholder="Prazo">

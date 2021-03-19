@@ -19,6 +19,11 @@ public class HistoricoComissaoFacade {
 		return historicoComissaoDao.consultar(idhistoricocomissao);
 	}
 	
+	public Historicocomissao consultarPorContrato(int idcontrato) {
+		historicoComissaoDao = new HistoricoComissaoDao();
+		return historicoComissaoDao.consultarPorContrato(idcontrato);
+	}
+	
 	public List<Historicocomissao> lista(String sql) {
 		historicoComissaoDao = new HistoricoComissaoDao();
 		return historicoComissaoDao.lista(sql);

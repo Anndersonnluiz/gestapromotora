@@ -198,7 +198,7 @@ public class HistoricoContratoMB implements Serializable {
   
   public void gerarListaBanco() {
     BancoFacade bancoFacade = new BancoFacade();
-    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.nome !='Nenhum' ORDER BY b.nome");
+    this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.visualizar=true ORDER BY b.nome");
     if (this.listaBanco == null)
       this.listaBanco = new ArrayList<>(); 
   }

@@ -182,6 +182,9 @@ public class Contrato implements Serializable {
   @Column(name = "operador")
   private String operador;
   
+  @Column(name = "idoperador")
+  private int idoperador;
+  
   @JoinColumn(name = "promotora_idpromotora", referencedColumnName = "idpromotora")
   @ManyToOne(optional = false)
   private Promotora promotora;
@@ -622,6 +625,16 @@ public String getOperador() {
 public void setOperador(String operador) {
 	this.operador = operador;
 }
+
+public int getIdoperador() {
+	return idoperador;
+}
+
+
+public void setIdoperador(int idoperador) {
+	this.idoperador = idoperador;
+}
+
 
 public int hashCode() {
     int hash = 0;

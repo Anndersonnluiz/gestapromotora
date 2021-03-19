@@ -1,9 +1,9 @@
 package br.com.deltafinanceira.managebean.contrato;
 
-import br.com.deltafinanceira.dao.RegrasCoeficienteDao;
+import br.com.deltafinanceira.facade.CoeficienteFacade;
+import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.OrgaoBanco;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Valorescoeficiente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class SelecioneCoeficienteMB implements Serializable {
   
   private List<Valorescoeficiente> listaValores;
   
-  private List<Regrascoeficiente> listaRegrasValores;
+  private List<Coeficiente> listaRegrasValores;
   
   private OrgaoBanco orgaobanco;
   
@@ -54,38 +54,48 @@ public class SelecioneCoeficienteMB implements Serializable {
     this.listaValores = listaValores;
   }
   
-  public List<Regrascoeficiente> getListaRegrasValores() {
-    return this.listaRegrasValores;
-  }
   
-  public void setListaRegrasValores(List<Regrascoeficiente> listaRegrasValores) {
-    this.listaRegrasValores = listaRegrasValores;
-  }
   
-  public void gerarListaValores() {
-    RegrasCoeficienteDao regrasCoeficienteDao = new RegrasCoeficienteDao();
-    this.listaRegrasValores = regrasCoeficienteDao
-      .lista("Select v From Regrascoeficiente v WHERE v.valorescoeficiente.coeficiente.orgaoBanco.idorgaobanco=" + 
-        this.orgaobanco.getIdorgaobanco() + " AND v.valorescoeficiente.coeficiente.tipooperacao.idtipooperacao=" + 
+  public List<Coeficiente> getListaRegrasValores() {
+	return listaRegrasValores;
+}
+
+public void setListaRegrasValores(List<Coeficiente> listaRegrasValores) {
+	this.listaRegrasValores = listaRegrasValores;
+}
+
+public OrgaoBanco getOrgaobanco() {
+	return orgaobanco;
+}
+
+public void setOrgaobanco(OrgaoBanco orgaobanco) {
+	this.orgaobanco = orgaobanco;
+}
+
+public void gerarListaValores() {
+    CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+    this.listaRegrasValores = coeficienteFacade
+      .lista("Select v From Coeficiente v WHERE v.orgaoBanco.idorgaobanco=" + 
+        this.orgaobanco.getIdorgaobanco() + " AND v.tipooperacao.idtipooperacao=" + 
         this.contrato.getTipooperacao().getIdtipooperacao());
     if (this.listaRegrasValores == null)
       this.listaRegrasValores = new ArrayList<>(); 
   }
   
-  public String selecionarCoeficiente(Regrascoeficiente regrascoeficiente) {
+  public String selecionarCoeficiente(Coeficiente coeficiente) {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
-    this.contrato.setValorescoeficiente(regrascoeficiente.getValorescoeficiente().getIdvalorescoeficiente().intValue());
+    this.contrato.setValorescoeficiente(coeficiente.getIdcoeficiente().intValue());
     if (this.contrato.getTipooperacao() != null)
       if (this.contrato.getTipooperacao().isMargem()) {
-        this.contrato.setValoroperacao(this.contrato.getMargemutilizada() / regrascoeficiente.getValorescoeficiente().getCoeficientevalor());
+        this.contrato.setValoroperacao(this.contrato.getMargemutilizada() / coeficiente.getCoeficientevalor());
       } else {
         this.contrato.setValoroperacao(
-            this.contrato.getParcela() / regrascoeficiente.getValorescoeficiente().getCoeficientevalor() - this.contrato.getValorquitar());
+            this.contrato.getParcela() / coeficiente.getCoeficientevalor() - this.contrato.getValorquitar());
       }  
     this.contrato.setValorcliente(this.contrato.getValoroperacao());
     session.setAttribute("contrato", this.contrato);
-    session.setAttribute("regrascoeficiente", regrascoeficiente);
+    session.setAttribute("coeficiente", coeficiente);
     session.setAttribute("orgaobanco", this.orgaobanco);
     return "cadContrato";
   }
