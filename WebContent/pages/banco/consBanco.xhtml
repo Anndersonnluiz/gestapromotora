@@ -8,9 +8,12 @@
 	<ui:define name="corpo">
 			<br />
 			<h4>Consulta de Banco</h4>
-			<hr />
+			<hr /> 
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 			<div align="right">
+				<p:commandLink ajax="false" style="margin-right:1%;"
+					styleClass="btn btn-link" value="Importar Coeficientes"
+					action="#{bancoMB.novaImportacao()}" />
 				<p:commandLink
 					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
 					ajax="false" styleClass="btn btn-primary" value="Novo"
@@ -21,12 +24,12 @@
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single" rowKey="#{banco.idbanco}">
 
-				<p:column headerText="Código" sortBy="#{banco.codigo}"
+				<p:column headerText="Código"
 					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{banco.codigo}" />
 				</p:column>
 
-				<p:column headerText="Nome" sortBy="#{banco.nome}"
+				<p:column headerText="Nome"
 					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{banco.nome}" />
 				</p:column>

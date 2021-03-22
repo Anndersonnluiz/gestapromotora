@@ -109,6 +109,9 @@ public class Cliente implements Serializable {
   @Column(name = "diames")
   private int diames;
   
+  @Column(name = "matricula")
+  private String matricula;
+  
   @JoinColumn(name = "dadosbancario_iddadosbancario", referencedColumnName = "iddadosbancario")
   @ManyToOne(optional = false)
   private Dadosbancario dadosbancario;
@@ -368,7 +371,15 @@ public class Cliente implements Serializable {
     this.selecionado = selecionado;
   }
   
-  public int hashCode() {
+  public String getMatricula() {
+	return matricula;
+}
+
+public void setMatricula(String matricula) {
+	this.matricula = matricula;
+}
+
+public int hashCode() {
     int hash = 0;
     hash += (this.idcliente != null) ? this.idcliente.hashCode() : 0;
     return hash;

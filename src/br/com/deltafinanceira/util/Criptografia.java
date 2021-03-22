@@ -28,7 +28,8 @@ public class Criptografia {
             encoder = new Base64Local();
         }
 
-        byte[] hash = messageDigest.digest(value.getBytes());
+        @SuppressWarnings("unused")
+		byte[] hash = messageDigest.digest(value.getBytes());
         return "";
     }
 }

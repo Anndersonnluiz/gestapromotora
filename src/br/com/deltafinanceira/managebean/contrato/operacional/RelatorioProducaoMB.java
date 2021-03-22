@@ -42,7 +42,8 @@ public class RelatorioProducaoMB implements Serializable {
   
   private boolean viewRefinanciamento;
   
-  @PostConstruct
+  @SuppressWarnings("unchecked")
+@PostConstruct
   public void init() {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);

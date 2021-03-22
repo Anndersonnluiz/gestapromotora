@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import br.com.deltafinanceira.model.Coeficiente;
 import br.eti.rogerioaguilar.minhasclasses.util.excel.leitor.LeitorExcel;
 import br.eti.rogerioaguilar.minhasclasses.util.excel.leitor.exception.ListenerException;
 import br.eti.rogerioaguilar.minhasclasses.util.excel.leitor.exception.PlanilhaNaoEncontradaException;
@@ -17,9 +16,8 @@ import br.eti.rogerioaguilar.minhasclasses.util.excel.leitor.util.LinhaColunaLis
 
 public class ImportarExcelBean {
 	
-	private List<Coeficiente> listaCoeficiente;
 
-	public List<Coeficiente> importar(InputStream is) {
+	public List<DadosBean> importar(InputStream is) {
 		LeitorExcel leitor = null;
 
 		// Lista que irá guardar os dados da planilha
@@ -31,38 +29,59 @@ public class ImportarExcelBean {
 					DadosBean dadosVO = null;
 
 					@Override
-					public boolean lendoColuna(int linha, int coluna, Map dadosColuna) throws ListenerException {
+					public boolean lendoColuna(int linha, int coluna, @SuppressWarnings("rawtypes") Map dadosColuna) throws ListenerException {
 						LinhaColunaListenerVo voAtual = (LinhaColunaListenerVo) dadosColuna
 								.get(ColunaListener.CHAVE_VO_COLUNA);
 						if (linha > 1) { // Pula primeira linha pois é a linha que possui o título
 							switch (coluna) {
-							case 1:// Coluna data
+							case 1: //Coluna
+								if (dadosVO == null) {
+									dadosVO = new DadosBean();
+								}
+								String nomeBanco = voAtual.getCelulaAtual().getStringCellValue();
+								dadosVO.setNomeBanco(nomeBanco);
+								break;
+							case 2: //Coluna
+								if (dadosVO == null) {
+									dadosVO = new DadosBean();
+								}
+								String nomeOrgao = voAtual.getCelulaAtual().getStringCellValue();
+								dadosVO.setNomeOrgao(nomeOrgao);
+								break;
+							case 3:// Coluna
 								if (dadosVO == null) {
 									dadosVO = new DadosBean();
 								}
 								String nomeTabela = voAtual.getCelulaAtual().getStringCellValue();
 								dadosVO.setNomeTabela(nomeTabela);
 								break;
-							case 2:// Coluna meta
+							case 4:// Coluna
 								if (dadosVO == null) {
 									dadosVO = new DadosBean();
 								}
-								String coeficiente = voAtual.getCelulaAtual().getStringCellValue();
-								dadosVO.setNomeTabela(coeficiente);
+								Double coeficiente = voAtual.getCelulaAtual().getNumericCellValue();
+								dadosVO.setCoeficiente(coeficiente.floatValue());
 								break;
-							case 3:// Coluna meta
+							case 5:// Coluna
 								if (dadosVO == null) {
 									dadosVO = new DadosBean();
 								}
-								String comissaoloja = voAtual.getCelulaAtual().getStringCellValue();
-								dadosVO.setNomeTabela(comissaoloja);
+								Double comissaoloja = voAtual.getCelulaAtual().getNumericCellValue();
+								dadosVO.setComissaoloja(comissaoloja.floatValue());
 								break;
-							case 4:// Coluna meta
+							case 6:// Coluna
 								if (dadosVO == null) {
 									dadosVO = new DadosBean();
 								}
-								String comissaocorretor = voAtual.getCelulaAtual().getStringCellValue();
-								dadosVO.setNomeTabela(comissaocorretor);
+								Double comissaocorretor = voAtual.getCelulaAtual().getNumericCellValue();
+								dadosVO.setComissaocorretor(comissaocorretor.floatValue());
+								break;
+							case 7:// Coluna
+								if (dadosVO == null) {
+									dadosVO = new DadosBean();
+								}
+								String tipoOperacao = voAtual.getCelulaAtual().getStringCellValue();
+								dadosVO.setTipoOperacao(tipoOperacao);
 								
 								listaDadosBean.add(dadosVO);
 								dadosVO = null;
@@ -88,10 +107,11 @@ public class ImportarExcelBean {
 			e.printStackTrace();
 		}
 
-		// Agora faço o que quiser com os dados da planilha
-		for (DadosBean vo : listaDadosBean) {
-			System.out.println(vo);
-		}
-		return listaCoeficiente;
+		return listaDadosBean;
 	}
+	
+	
+	
+	
+	
 }

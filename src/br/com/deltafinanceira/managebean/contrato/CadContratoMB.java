@@ -572,6 +572,9 @@ public boolean isNovo() {
   }
   
   public String salvar() {
+	if (contrato.getMatricula() != null) {
+		cliente.setMatricula(contrato.getMatricula());
+	}
     this.contrato.setCliente(salvarCliente());
     this.contrato.setUsuario(this.usuario);
     ContratoFacade contratoFacade = new ContratoFacade();
