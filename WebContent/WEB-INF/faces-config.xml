@@ -3,7 +3,7 @@
     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2"> 
+    version="2.2">  
     
      <navigation-rule>
 		<from-view-id>*</from-view-id>
@@ -13,7 +13,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-     
+      
     <navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -697,6 +697,16 @@
 		<navigation-case>
 			<from-outcome>importacaoCoeficiente</from-outcome>
 			<to-view-id>pages/banco/importacaoCoeficiente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importacaoCliente</from-outcome>
+			<to-view-id>pages/cliente/importacaoCliente.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

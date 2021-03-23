@@ -5,223 +5,266 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-	<nav class="navbar navbar-primary fixed-top flex-md-nowrap p-0 shadow"
-		style="background-color: #000080 !important;">
-		<a class="navbar col-sm-6 col-md-6 mr-0" href="#"><p:outputLabel
-				value="#{usuarioLogadoMB.nomeUsuario} - #{usuarioLogadoMB.usuario.departamento.descricao}"
-				style="color:white;font-weight:bold;font-size:16px;" /></a>
-		<ul class="navbar-nav ml-auto nav-flex-icons"
-			style="margin-right: 2%;">
-			<li class="nav-item avatar dropdown"><a
-				class="nav-link waves-effect waves-light"
-				href="/deltafinanceira/pages/notificacao/consAniversariantes.jsf"
-				id="navbarDropdownMenuLink-5" aria-haspopup="true"
-				aria-expanded="true"> <span class="badge badge-danger ml-4"
-					style="font-size: 14px;"> <p:outputLabel
-							value="#{usuarioLogadoMB.nAniversario}" />
-				</span> <img alt="" src="../../resources/img/niver.png" style="width: 7%" />
+	<ul
+		class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+		id="accordionSidebar">
 
-			</a></li>
-		</ul>
-		<a class="nav-link waves-effect waves-light"
-			href="/deltafinanceira/pages/notificacao/consNotificacao.jsf"
-			id="navbarDropdownMenuLink-5" aria-haspopup="true"
-			aria-expanded="true"> <span class="badge badge-danger ml-2"
-			style="font-size: 14px;"> <p:outputLabel
-					value="#{dashBoardMB.nNotificacao}" />
-		</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
-
+		<!-- Sidebar - Brand -->
+		<a
+			class="sidebar-brand d-flex align-items-center justify-content-center"
+			href="dashboard.jsf">
+			<div class="sidebar-brand-text mx-3">BEM VINDO(A)</div>
 		</a>
-	</nav>
 
-	<div class="container-fluid">
+		<!-- Divider -->
+		<hr class="sidebar-divider my-0" />
 
-		<div class="row">
-			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-				<div class="sidebar-sticky">
-					<div align="center">
-						<img width="120" src="../../resources/img/outralogo.png"
-							class="brand_logo" alt="Logo" />
-					</div>
-					<ul class="nav flex-column">
-						<li class="nav-item"><a class="nav-link active"
-							href="/deltafinanceira/dashboard.jsf"> <span
-								data-feather="home"></span> Dashboard <span class="sr-only">(atual)</span>
-						</a></li>
-						<li class="nav-item, dropdown"><a class="nav-link" href="#"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"> <span data-feather="file-plus"></span>
-								Cadastros
+		<!-- Nav Item - Dashboard -->
+		<li class="nav-item active"><a class="nav-link"
+			href="/deltafinanceira/dashboard.jsf"> <i class="fas fa-fw fa-home"></i> <span>Dashboard</span></a>
+		</li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider" />
+
+		<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item"><a class="nav-link collapsed" href="#"
+			data-toggle="collapse" data-target="#collapseTwo"
+			aria-expanded="true" aria-controls="collapseTwo"> <i
+				class="fas fa-fw fa-plus"></i> <span>Cadastro</span>
+		</a>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+				data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" href="/deltafinanceira/pages/banco/consBanco.jsf">Banco</a>
+					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+						<a class="collapse-item" href="/deltafinanceira/pages/filial/consFilial.jsf">Filial</a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf"> Grupo
+							de Acessos </a>
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
+						<a class="collapse-item" href="/deltafinanceira/pages/promotora/consPromotora.jsf">
+							Promotora </a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf"> Funcionários
 						</a>
-							<ul class="dropdown-menu">
-								<li style="font-size: 12px;"><a class="nav-link"
-									href="/deltafinanceira/pages/banco/consBanco.jsf"> <span
-										data-feather="dollar-sign"></span> Banco
-								</a> <h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/filial/consFilial.jsf"> <span
-											data-feather="users"></span> Filial
-										</a>
-									</h:panelGroup> <h:panelGroup
-										rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
-											<span data-feather="users"></span> Grupo de Acessos
-										</a>
-									</h:panelGroup> <h:panelGroup
-										rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/promotora/consPromotora.jsf">
-											<span data-feather="users"></span> Promotora
-										</a>
-									</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf">
-											<span data-feather="users"></span> Funcionários
-										</a>
-									</h:panelGroup></li>
-							</ul></li>
-						<li class="nav-item"><a class="nav-link" target="_blank"
-							href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
-							role="button" aria-haspopup="true" aria-expanded="false"> <span
-								data-feather="percent"></span> Calculadora
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/deltafinanceira/pages/cliente/consCliente.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false"> <span
-								data-feather="users"></span> Carteira de Clientes
-						</a></li>
-						<li class="nav-item, dropdown"><a class="nav-link" href="#"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"> <span data-feather="align-center"></span>
-								Contratos
-						</a>
-							<ul class="dropdown-menu">
-
-								<li style="font-size: 12px;">
-								<a class="nav-link"
-									href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-										data-feather="file-plus"></span> Emissão
-								</a><a class="nav-link"
-										href="/deltafinanceira/pages/contrato/consContrato.jsf"> <span
-											data-feather="align-center"></span> Busca Rapida
-									</a><a class="nav-link"
-									href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-										data-feather="align-center"></span> Portabilidade
-								</a><a class="nav-link"
-									href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf">
-										<span data-feather="align-center"></span> Demais Ope. INSS
-								</a> <a class="nav-link"
-									href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
-										<span data-feather="align-center"></span> Demais Ope.
-										SIAPE/GOV/PREF
-								</a></li>
-							</ul></li>
-						<li class="nav-item, dropdown"><h:panelGroup rendered="false">
-								<a class="nav-link" href="#" data-toggle="dropdown"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="file"></span> Fisico
-								</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
-											<a class="nav-link"
-												href="/deltafinanceira/pages/fisico/cons3etapa.jsf"> <span
-												data-feather="dollar-sign"></span> 3 - Pago ao Cliente
-											</a>
-										</h:panelGroup> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
-											<a class="nav-link"
-												href="/deltafinanceira/pages/fisico/cons4etapa.jsf"> <span
-												data-feather="dollar-sign"></span> 4 - Envio de Malote
-											</a>
-										</h:panelGroup></li>
-								</ul>
-							</h:panelGroup></li>
-						<li class="nav-item, dropdown"><h:panelGroup
-								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-								<a class="nav-link" href="#" data-toggle="dropdown"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="dollar-sign"></span> Financeiro
-								</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/despesa/consDespesa.jsf"> <span
-											data-feather="user"></span> Tipo Despesa
-									</a> <a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consContasPagar.jsf">
-											<span data-feather="dollar-sign"></span> Contas a Pagar
-									</a></li>
-								</ul>
-							</h:panelGroup></li>
-
-						<li class="nav-item, dropdown"><h:panelGroup
-								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-								<a class="nav-link" href="#" data-toggle="dropdown"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="target"></span> Gestão Comercial
-								</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
-											<span data-feather="target"></span> Cadastro
-									</a> <a class="nav-link"
-										href="/deltafinanceira/pages/financeiro/consMetaMensal.jsf">
-											<span data-feather="target"></span> Dashboard
-									</a></li>
-								</ul>
-							</h:panelGroup></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/deltafinanceira/pages/roteiros/consBancoRoteiro.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false"> <span
-								data-feather="printer"></span> Roteiros
-						</a></li>
-						<h:panelGroup
-								rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-							<li class="nav-item"><a class="nav-link"
-									href="/deltafinanceira/pages/suporte/consSuporte.jsf" role="button"
-									aria-haspopup="true" aria-expanded="false"> <span
-										data-feather="phone-call"></span> Novidades
-								</a></li>
-						</h:panelGroup>
-						<li class="nav-item, dropdown"><a class="nav-link" href="#"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"> <span data-feather="settings"></span>
-								Configurações
-						</a>
-							<ul class="dropdown-menu">
-								<li style="font-size: 12px;"><a class="nav-link"
-									href="/deltafinanceira/pages/usuario/alterarSenha.jsf"
-									role="button" aria-haspopup="true" aria-expanded="false"> <span
-										data-feather="refresh-cw"></span> Alterar Senha
-								</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
-											role="button" aria-haspopup="true" aria-expanded="false">
-											<span data-feather="refresh-cw"></span> Troca de Titular
-										</a>
-									</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
-											role="button" aria-haspopup="true" aria-expanded="false">
-											<span data-feather="refresh-cw"></span> Troca de Cliente
-										</a>
-									</h:panelGroup> <h:panelGroup
-										rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-										<a class="nav-link"
-											href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf"
-											role="button" aria-haspopup="true" aria-expanded="false">
-											<span data-feather="file-text"></span> Histórico de Usuário
-										</a>
-									</h:panelGroup></li>
-							</ul></li>
-						<li class="nav-item"><p:commandLink
-								action="#{usuarioLogadoMB.deslogar()}" value="Sair"
-								styleClass="nav-link" /></li>
-					</ul>
+					</h:panelGroup>
 				</div>
+			</div></li>
+
+		<li class="nav-item"><a class="nav-link" target="_blank"
+			href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
+				<i class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
+		</a></li>
+
+		<li class="nav-item"><a class="nav-link"
+			href="/deltafinanceira/pages/cliente/consCliente.jsf"> <i
+				class="fas fa-fw fa-users"></i> <span>Carteira de Clientes</span>
+		</a></li>
+
+
+		<li class="nav-item"><a class="nav-link collapsed" href="#"
+			data-toggle="collapse" data-target="#collapseTree"
+			aria-expanded="true" aria-controls="collapseTree"> <i
+				class="fas fa-fw fa-file"></i> <span>Contrato</span>
+		</a>
+			<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
+				data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/confDadosContrato.jsf" role="button"
+						aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
+						class="collapse-item" href="/deltafinanceira/pages/contrato/consContrato.jsf">
+						Busca Rapida </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf" role="button"
+						aria-haspopup="true" aria-expanded="false"> Portabilidade </a> <a
+						class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf"> Demais Ope.
+						INSS </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
+						SIAPE </a>
+				</div>
+			</div></li>
+
+
+		<li class="nav-item"><a class="nav-link collapsed" href="#"
+			data-toggle="collapse" data-target="#collapseFor"
+			aria-expanded="true" aria-controls="collapseFor"> <i
+				class="fas fa-fw fa-cog"></i> <span>Configurações</span>
+		</a>
+			<div id="collapseFor" class="collapse" aria-labelledby="headingTwo"
+				data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+						<a class="collapse-item" href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Troca de Titular </a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+						<a class="collapse-item" href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Troca de Cliente </a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Histórico de
+							Usuário </a>
+					</h:panelGroup>
+				</div>
+			</div></li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider d-none d-md-block" />
+
+
+
+	</ul>
+	<!-- End of Sidebar -->
+
+	<!-- Content Wrapper -->
+	<div id="content-wrapper" class="d-flex flex-column">
+
+		<!-- Main Content -->
+		<div id="content">
+
+			<!-- Topbar -->
+			<nav
+				class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+				<!-- Sidebar Toggle (Topbar) -->
+				<button id="sidebarToggleTop"
+					class="btn btn-link d-md-none rounded-circle mr-3">
+					<i class="fa fa-bars"></i>
+				</button>
+
+
+				<!-- Topbar Navbar -->
+				<ul class="navbar-nav ml-auto">
+
+					<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+					<li class="nav-item dropdown no-arrow d-sm-none"><a
+						class="nav-link dropdown-toggle" href="#" id="searchDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
+					</a> <!-- Dropdown - Messages -->
+						<div
+							class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+							aria-labelledby="searchDropdown">
+							<form class="form-inline mr-auto w-100 navbar-search">
+								<div class="input-group">
+									<h:inputText class="form-control bg-light border-0 small"
+										type="text" placeholder="Search for..." aria-label="Search"
+										aria-describedby="basic-addon2" />
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button">
+											<i class="fas fa-search fa-sm"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div></li>
+
+					<!-- Nav Item - Alerts -->
+					<li class="nav-item dropdown no-arrow mx-1"><a
+						class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
+							<span class="badge badge-danger badge-counter">#{dashBoardMB.nNotificacao}</span>
+					</a> <!-- Dropdown - Alerts -->
+						<div
+							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="alertsDropdown">
+							<h6 class="dropdown-header">Notificações</h6>
+
+							<ui:repeat var="notificacao"
+								value="#{dashBoardMB.listaNotificacao}">
+								<a class="dropdown-item d-flex align-items-center" href="#">
+									<div class="mr-3">
+										<div class="icon-circle bg-warning">
+											<i class="fas fa-bell text-white"></i>
+										</div>
+									</div>
+									<div>
+										<div class="small text-gray-500">#{notificacao.titulo}</div>
+										<span class="font-weight-bold">#{notificacao.descricao}</span>
+									</div>
+								</a>
+							</ui:repeat>
+
+							<a class="dropdown-item text-center small text-gray-500"
+								href="/deltafinanceira/pages/notificacao/consNotificacao.jsf">Todas
+								Notificações</a>
+						</div></li>
+
+					<!-- Nav Item - Messages -->
+					<li class="nav-item dropdown no-arrow mx-1"><a
+						class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-birthday-cake fa-fw"></i>
+							<!-- Counter - Messages --> <span
+							class="badge badge-danger badge-counter">#{usuarioLogadoMB.nAniversario}</span>
+					</a> <!-- Dropdown - Messages -->
+						<div
+							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="messagesDropdown">
+							<h6 class="dropdown-header">Aniversariantes do dia -
+								Clientes</h6>
+
+							<ui:repeat var="aniversario"
+								value="#{usuarioLogadoMB.listaCliente}">
+								<a class="dropdown-item d-flex align-items-center" href="#">
+									<div class="mr-3">
+										<div class="icon-circle bg-info">
+											<i class="fas fa-birthday-cake text-white"></i>
+										</div>
+									</div>
+									<div>
+										<div class="small text-gray-500">
+											<h:outputText value="#{aniversario.nascimento}">
+												<f:convertDateTime pattern="dd/MM/yyyy"
+													timeZone="America/Sao_Paulo" />
+											</h:outputText>
+										</div>
+										<span class="font-weight-bold">#{aniversario.nome}</span>
+									</div>
+								</a>
+							</ui:repeat>
+							<a class="dropdown-item text-center small text-gray-500"
+								href="/deltafinanceira/pages/notificacao/consAniversariantes.jsf">Todos os
+								Aniversariantes</a>
+						</div></li>
+
+					<div class="topbar-divider d-none d-sm-block"></div>
+
+					<!-- Nav Item - User Information -->
+					<li class="nav-item dropdown no-arrow"><a
+						class="nav-link dropdown-toggle" href="#" id="userDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <span
+							class="mr-2 d-none d-lg-inline text-gray-600 small">#{usuarioLogadoMB.nomeUsuario}</span>
+							<img class="img-profile rounded-circle"
+							src="../../resources/img/logologin.png" />
+					</a> <!-- Dropdown - User Information -->
+						<div
+							class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="userDropdown">
+							<a class="dropdown-item" href="pages/usuario/alterarSenha.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Alterar Senha </a>
+							<div class="dropdown-divider"></div>
+							<p:commandLink action="#{usuarioLogadoMB.deslogar()}"
+								value="Sair" styleClass="dropdown-item " />
+						</div></li>
+
+				</ul>
+
 			</nav>
 
 		</div>

@@ -23,41 +23,34 @@
 			</div>
 		</div>
 		<br />
-		<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
-			value="#{importacaoCoeficienteMB.listaDados}" style="border:none;"
+		<p:dataTable id="idTabelaCliente" var="cliente"
+			value="#{clienteMB.listaCliente}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300">
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{cliente.idcliente}">
 
-			<p:column headerText="Banco/Orgão"
+
+			<p:column headerText="Nome"
 				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText
-					value="#{coeficiente.nomeBanco} / #{coeficiente.nomeOrgao}" />
+				<h:outputText value="#{cliente.nome}" />
 			</p:column>
-			<p:column headerText="Tabela"
-				style="width:25%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{coeficiente.nomeTabela}" />
-			</p:column>
-			<p:column headerText="Cms Loja"
-				style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-				<h:outputText value="#{coeficiente.comissaoloja}">
-					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
+			<p:column headerText="Nascimento"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Cms Corretor"
-				style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-				<h:outputText value="#{coeficiente.comissaocorretor}">
-					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Operação"
-				style="width:25%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{coeficiente.tipoOperacao}" />
+			<p:column headerText="CPF"
+				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{cliente.cpf}" />
 			</p:column>
 		</p:dataTable>
-		<br /> 
+		<br />
 		<div align="center">
-			<p:commandLink ajax="false" styleClass="btn btn-primary"  update="growl"
-				value="Salvar" action="#{importacaoCoeficienteMB.salvar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				update="growl" value="Salvar"
+				action="#{importacaoCoeficienteMB.salvar()}" />
 			<p:commandLink ajax="false" styleClass="btn btn-danger"
 				style="margin-left:2%;" value="Cancelar"
 				action="#{importacaoCoeficienteMB.cancelar()}" />

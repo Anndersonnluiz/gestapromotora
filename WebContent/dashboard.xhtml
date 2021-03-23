@@ -2,7 +2,8 @@
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<!-- Meta tags Obrigatórias -->
 	<meta charset="utf-8" />
@@ -16,582 +17,671 @@
 		crossorigin="anonymous" />
 	<link href="resources/csslocal/dashboard.css" rel="stylesheet" />
 
+	<!-- Custom fonts for this template-->
+	<link href="resources/vendor/fontawesome-free/css/all.min.css"
+		rel="stylesheet" type="text/css" />
+
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
+	<!-- Custom styles for this template-->
+	<link href="resources/css/sb-admin-2.min.css" rel="stylesheet" />
 	<title>DELTA FINANCEIRA</title>
 </h:head>
 <h:body>
 	<h:form>
-		<br />
-		<br />
-		<nav
-			class="navbar navbar-primary fixed-top  flex-md-nowrap p-0 shadow"
-			style="background-color: #000080 !important;">
-			<a class="navbar col-md-6 mr-0 col-sm-6" href="#"><p:outputLabel
-					value="#{usuarioLogadoMB.nomeUsuario} - #{usuarioLogadoMB.usuario.departamento.descricao}"
-					style="color:white;font-weight:bold;font-size:16px;" /></a>
-			<ul class="navbar-nav ml-auto nav-flex-icons"
-				style="margin-right: 2%;">
-				<li class="nav-item avatar dropdown"><a
-					class="nav-link waves-effect waves-light"
-					href="pages/notificacao/consAniversariantes.jsf"
-					id="navbarDropdownMenuLink-5" aria-haspopup="true"
-					aria-expanded="true"> <span class="badge badge-danger ml-4"
-						style="font-size: 14px;"> <p:outputLabel
-								value="#{usuarioLogadoMB.nAniversario}" />
-					</span> <img alt="" src="resources/img/niver.png" style="width: 7%" />
 
-				</a></li>
-			</ul>
-			<a class="nav-link waves-effect waves-light"
-				href="pages/notificacao/consNotificacao.jsf"
-				id="navbarDropdownMenuLink-5" aria-haspopup="true"
-				aria-expanded="true"> <span class="badge badge-danger ml-2"
-				style="font-size: 14px;"> <p:outputLabel
-						value="#{dashBoardMB.nNotificacao}" />
-			</span> <span data-feather="bell" style="font-size: 14px; color: white;"></span>
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+			id="accordionSidebar">
 
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="dashboard.jsf">
+				<div class="sidebar-brand-text mx-3">BEM VINDO(A)</div>
 			</a>
-		</nav>
-		<div class="container-fluid">
 
-			<div class="row">
-				<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-					<div class="sidebar-sticky">
-						<div align="center">
-							<img width="120" src="resources/img/outralogo.png"
-								class="brand_logo" alt="Logo" />
-						</div>
-						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link active" href="#">
-									<span data-feather="home"></span> Dashboard <span
-									class="sr-only">(atual)</span>
-							</a></li>
-							<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="file-plus"></span>
-									Cadastros
-							</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="pages/banco/consBanco.jsf"> <span
-											data-feather="dollar-sign"></span> Banco
-									</a> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-											<a class="nav-link"
-												href="pages/filial/consFilial.jsf"> <span
-												data-feather="users"></span> Filial
-											</a>
-										</h:panelGroup> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-											<a class="nav-link"
-												href="pages/tipocolaborador/consTipoColaborador.jsf"> <span
-												data-feather="users"></span> Grupo de Acessos
-											</a>
-										</h:panelGroup> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
-											<a class="nav-link" href="pages/promotora/consPromotora.jsf">
-												<span data-feather="users"></span> Promotora
-											</a>
-										</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											<a class="nav-link"
-												href="pages/funcionarios/consFuncionarios.jsf"> <span
-												data-feather="users"></span> Funcionários
-											</a>
-										</h:panelGroup></li>
-								</ul></li>
-							<li class="nav-item"><a class="nav-link" target="_blank"
-								href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas"
-								role="button" aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="percent"></span> Calculadora
-							</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/cliente/consCliente.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="users"></span> Carteira de Clientes
-							</a></li>
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0" />
 
-							<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="align-center"></span>
-									Contratos
-							</a>
-								<ul class="dropdown-menu">
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item active"><a class="nav-link"
+				href="dashboard.jsf"> <i class="fas fa-fw fa-home"></i> <span>Dashboard</span></a>
+			</li>
 
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="pages/contrato/confDadosContrato.jsf" role="button"
-										aria-haspopup="true" aria-expanded="false"> <span
-											data-feather="file-plus"></span> Emissão
-									</a><a class="nav-link"
-										href="pages/contrato/consSimulacaoContrato.jsf"> <span
-											data-feather="align-center"></span> Simulação
-									</a><a class="nav-link" href="pages/contrato/consPortabilidade.jsf"
-										role="button" aria-haspopup="true" aria-expanded="false">
-											<span data-feather="align-center"></span> Portabilidade
-									</a><a class="nav-link"
-										href="pages/contrato/consDemaisOperacoesINSS.jsf"> <span
-											data-feather="align-center"></span> Demais Ope. INSS
-									</a> <a class="nav-link"
-										href="pages/contrato/consDemaisOperacoes.jsf"> <span
-											data-feather="align-center"></span> Demais Ope.
-											SIAPE/GOV/PREF
-									</a></li>
-								</ul></li>
+			<!-- Divider -->
+			<hr class="sidebar-divider" />
 
-							<li class="nav-item, dropdown"><h:panelGroup
-									rendered="false">
-									<a class="nav-link" href="#" data-toggle="dropdown"
-										role="button" aria-haspopup="true" aria-expanded="false">
-										<span data-feather="file"></span> Fisico
-									</a>
-									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"><h:panelGroup
-												rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa3}">
-												<a class="nav-link" href="pages/fisico/cons3etapa.jsf">
-													<span data-feather="dollar-sign"></span> 3 - Pago ao
-													Cliente
-												</a>
-											</h:panelGroup> <h:panelGroup
-												rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.etapa4}">
-												<a class="nav-link" href="pages/fisico/cons4etapa.jsf">
-													<span data-feather="dollar-sign"></span> 4 - Envio de
-													Malote
-												</a>
-											</h:panelGroup></li>
-									</ul>
-								</h:panelGroup></li>
-							<li class="nav-item, dropdown"><h:panelGroup
-									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-									<a class="nav-link" href="#" data-toggle="dropdown"
-										role="button" aria-haspopup="true" aria-expanded="false">
-										<span data-feather="dollar-sign"></span> Financeiro
-									</a>
-									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"><a class="nav-link"
-											href="pages/despesa/consDespesa.jsf"> <span
-												data-feather="user"></span> Tipo Despesa
-										</a> <a class="nav-link"
-											href="pages/financeiro/consContasPagar.jsf"> <span
-												data-feather="dollar-sign"></span> Contas a Pagar
-										</a></li>
-									</ul>
-								</h:panelGroup></li>
-							<li class="nav-item, dropdown"><h:panelGroup
-									rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
-									<a class="nav-link" href="#" data-toggle="dropdown"
-										role="button" aria-haspopup="true" aria-expanded="false">
-										<span data-feather="target"></span> Gestão Comercial
-									</a>
-									<ul class="dropdown-menu">
-										<li style="font-size: 12px;"><a class="nav-link"
-											href="pages/financeiro/consMetaMensal.jsf"> <span
-												data-feather="target"></span> Cadastro
-										</a> <a class="nav-link"
-											href="pages/financeiro/consMetaMensal.jsf"> <span
-												data-feather="target"></span> Dashboard
-										</a></li>
-									</ul>
-								</h:panelGroup></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/roteiros/consBancoRoteiro.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="printer"></span> Roteiros
-							</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="pages/suporte/consSuporte.jsf" role="button"
-								aria-haspopup="true" aria-expanded="false"> <span
-									data-feather="phone-call"></span> Suporte
-							</a></li>
-							<li class="nav-item, dropdown"><a class="nav-link" href="#"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"> <span data-feather="settings"></span>
-									Configurações
-							</a>
-								<ul class="dropdown-menu">
-									<li style="font-size: 12px;"><a class="nav-link"
-										href="pages/usuario/alterarSenha.jsf" role="button"
-										aria-haspopup="true" aria-expanded="false"> <span
-											data-feather="refresh-cw"></span> Alterar Senha
-									</a> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											<a class="nav-link" href="pages/contrato/trocarTitular.jsf"
-												role="button" aria-haspopup="true" aria-expanded="false">
-												<span data-feather="refresh-cw"></span> Troca de Titular
-											</a>
-										</h:panelGroup> <h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											<a class="nav-link" href="pages/cliente/trocaCliente.jsf"
-												role="button" aria-haspopup="true" aria-expanded="false">
-												<span data-feather="refresh-cw"></span> Troca de Cliente
-											</a>
-										</h:panelGroup> <h:panelGroup
-											rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-											<a class="nav-link"
-												href="pages/historico/consHistoricoUsuario.jsf"
-												role="button" aria-haspopup="true" aria-expanded="false">
-												<span data-feather="file-text"></span> Histórico de Usuário
-											</a>
-										</h:panelGroup></li>
-								</ul></li>
-
-							<li class="nav-item"><p:commandLink ajax="false"
-									action="#{usuarioLogadoMB.deslogar()}" value="Sair"
-									styleClass="nav-link" /></li>
-						</ul>
-					</div>
-				</nav>
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-					<h2>Faturamento</h2>
-					<hr />
-					<div class="row" style="color: white;">
-						<h:panelGroup>
-							<div class="col-md-2">
-								<div class="panel-stat3"
-									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-									<p:commandLink action="#{dashBoardMB.formalizacao()}"
-										style="width:100%;text-decoration:none;color:white;"
-										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">FORMALIZAÇÃO
-											E PENDÊNCIA</b>
-										<br />
-										<hr style="background-color: white;" />
-										<div align="center" style="font-size: 14px;">
-											<b><h:panelGroup>
-													<p:outputLabel
-														value="(#{dashBoardMB.nFormalizacaoPendencia})" />
-												</h:panelGroup></b> <br /> <br /> <b></b>
-
-										</div>
-									</p:commandLink>
-								</div>
-							</div>
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseTwo"
+				aria-expanded="true" aria-controls="collapseTwo"> <i
+					class="fas fa-fw fa-plus"></i> <span>Cadastro</span>
+			</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="pages/banco/consBanco.jsf">Banco</a>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<a class="collapse-item" href="pages/filial/consFilial.jsf">Filial</a>
 						</h:panelGroup>
-						<h:panelGroup>
-							<div class="col-md-2">
-								<div class="panel-stat3"
-									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-									<p:commandLink action="#{dashBoardMB.receitaPaga()}"
-										style="width:100%;text-decoration:none;color:white;"
-										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">AGUARDANDO
-											ASSINATURA</b>
-										<br />
-										<hr style="background-color: white;" />
-										<div align="center" style="font-size: 14px;">
-											<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-												<b>R$ <h:outputText value="#{dashBoardMB.valorPagar}">
-														<f:convertNumber minFractionDigits="2"
-															maxFractionDigits="2" locale="pt_BR" />
-													</h:outputText></b>
-											</h:panelGroup>
-											<br /> <b><p:outputLabel
-													value="(#{dashBoardMB.nAguardandoAssinatura})" /></b>
-
-										</div>
-									</p:commandLink>
-								</div>
-							</div>
-						</h:panelGroup>
-						<div class="col-md-2">
-							<div class="panel-stat3"
-								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-								<p:commandLink action="#{dashBoardMB.receitaNaoPaga()}"
-									style="width:100%;text-decoration:none;color:white;"
-									ajax="false">
-									<b style="font-family: Segoe UI Semibold; font-size: 13px;">AGUARDANDO
-										PAGAMENTO</b>
-									<br />
-									<hr style="background-color: white;" />
-									<div align="center" style="font-size: 14px;">
-										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											<b>R$ <h:outputText value="#{dashBoardMB.valorReceber}">
-													<f:convertNumber minFractionDigits="2"
-														maxFractionDigits="2" locale="pt_BR" />
-												</h:outputText></b>
-										</h:panelGroup>
-										<br /> <b><p:outputLabel
-												value="(#{dashBoardMB.nAguardandoPagamento})" /></b>
-
-									</div>
-								</p:commandLink>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="panel-stat3"
-								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-								<p:commandLink action="#{dashBoardMB.pagoCliente()}"
-									style="width:100%;text-decoration:none;color:white;"
-									ajax="false">
-									<b style="font-family: Segoe UI Semibold; font-size: 13px;">PAGO
-										AO CLIENTE</b>
-									<br />
-									<br />
-									<hr style="background-color: white;" />
-									<div align="center" style="font-size: 14px;">
-										<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-											<b>R$ <h:outputText value="#{dashBoardMB.fatutamento}">
-													<f:convertNumber minFractionDigits="2"
-														maxFractionDigits="2" locale="pt_BR" />
-												</h:outputText></b>
-										</h:panelGroup>
-										<br /> <b><p:outputLabel
-												value="(#{dashBoardMB.nProducao})" /></b>
-
-									</div>
-								</p:commandLink>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="panel-stat3"
-								style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-								<p:commandLink action="#{dashBoardMB.receitaPendencia()}"
-									style="width:100%;text-decoration:none;color:white;"
-									ajax="false">
-									<b style="font-family: Segoe UI Semibold; font-size: 13px;">PENDÊNCIA
-										DE AVERBAÇÃO</b>
-									<br />
-									<hr style="background-color: white;" />
-									<div align="center" style="font-size: 14px;">
-										<h:panelGroup rendered="#{usuarioLogadoMB.usuario.diretoria}">
-											<b>R$ <h:outputText value="#{dashBoardMB.valorAverbacao}">
-													<f:convertNumber minFractionDigits="2"
-														maxFractionDigits="2" locale="pt_BR" />
-												</h:outputText></b>
-										</h:panelGroup>
-										<br /> <b><p:outputLabel
-												value="(#{dashBoardMB.nPendenciaAverbacao})" /></b>
-
-									</div>
-								</p:commandLink>
-							</div>
-						</div>
-
-						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.supervisao}">
-							<div class="col-md-2">
-								<div class="panel-stat3"
-									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-									<p:commandLink action="#{dashBoardMB.receitaPendenciaDocs()}"
-										style="width:100%;text-decoration:none;color:white;"
-										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PENDÊNCIA
-											DE DOCUMENTAÇÃO</b>
-										<br />
-										<hr style="background-color: white;" />
-										<div align="center" style="font-size: 14px;">
-
-											<br /> <b><p:outputLabel
-													value="(#{dashBoardMB.nPendenciaDocumento})" /></b>
-
-										</div>
-									</p:commandLink>
-								</div>
-							</div>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<a class="collapse-item"
+								href="pages/tipocolaborador/consTipoColaborador.jsf"> Grupo
+								de Acessos </a>
 						</h:panelGroup>
 						<h:panelGroup
-							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
-
-							<div class="col-md-2">
-								<div class="panel-stat3"
-									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-									<p:commandLink action="#{dashBoardMB.comissaoRecebida()}"
-										style="width:100%;text-decoration:none;color:white;"
-										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">CMS
-											RECEBIDA</b>
-										<br />
-										<br />
-										<hr style="background-color: white;" />
-										<div align="center" style="font-size: 14px;">
-											<b>R$ <h:outputText
-													value="#{dashBoardMB.valorComissaoRecebida}">
-													<f:convertNumber minFractionDigits="2"
-														maxFractionDigits="2" locale="pt_BR" />
-												</h:outputText></b> <br /> <b><p:outputLabel
-													value="(#{dashBoardMB.nComissaoRecebida})" /></b>
-
-										</div>
-									</p:commandLink>
-								</div>
-							</div>
+							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
+							<a class="collapse-item" href="pages/promotora/consPromotora.jsf">
+								Promotora </a>
 						</h:panelGroup>
-					</div>
-					<br />
-					<div class="row" style="color: white;">
 						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-							<div class="col-md-2">
-								<div class="panel-stat3"
-									style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-									<p:commandLink action="#{dashBoardMB.producaoGeral()}"
-										style="width:100%;text-decoration:none;color:white;"
-										ajax="false">
-										<b style="font-family: Segoe UI Semibold; font-size: 13px;">PRODUÇÃO
-											GERAL</b>
-										<br />
-										<br />
-										<hr style="background-color: white;" />
-										<div align="center" style="font-size: 14px;">
-											<b>R$ <h:outputText value="#{dashBoardMB.valorProducao}">
-													<f:convertNumber minFractionDigits="2"
-														maxFractionDigits="2" locale="pt_BR" />
-												</h:outputText></b> <br /> <b><p:outputLabel
-													value="(#{dashBoardMB.nTotalProducao})" /></b>
-
-										</div>
-									</p:commandLink>
-								</div>
-							</div>
+							<a class="collapse-item"
+								href="pages/funcionarios/consFuncionarios.jsf"> Funcionários
+							</a>
 						</h:panelGroup>
 					</div>
-					<h:panelGroup rendered="false">
-						<div
-							class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-							<h1 class="h2">Vendas</h1>
+				</div></li>
 
-						</div>
+			<li class="nav-item"><a class="nav-link" target="_blank"
+				href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
+					<i class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
+			</a></li>
 
-						<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+			<li class="nav-item"><a class="nav-link"
+				href="pages/cliente/consCliente.jsf"> <i
+					class="fas fa-fw fa-users"></i> <span>Carteira de Clientes</span>
+			</a></li>
 
 
-						<br />
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseTree"
+				aria-expanded="true" aria-controls="collapseTree"> <i
+					class="fas fa-fw fa-file"></i> <span>Contrato</span>
+			</a>
+				<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item"
+							href="pages/contrato/confDadosContrato.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
+							class="collapse-item" href="pages/contrato/consContrato.jsf">
+							Busca Rapida </a> <a class="collapse-item"
+							href="pages/contrato/consPortabilidade.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Portabilidade </a> <a
+							class="collapse-item"
+							href="pages/contrato/consDemaisOperacoesINSS.jsf"> Demais
+							Ope. INSS </a> <a class="collapse-item"
+							href="pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
+							SIAPE </a>
+					</div>
+				</div></li>
 
-						<h3>RANKING DE VENDAS</h3>
+
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseFor"
+				aria-expanded="true" aria-controls="collapseFor"> <i
+					class="fas fa-fw fa-cog"></i> <span>Configurações</span>
+			</a>
+				<div id="collapseFor" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+							<a class="collapse-item" href="pages/contrato/trocarTitular.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Troca de Titular </a>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+							<a class="collapse-item" href="pages/cliente/trocaCliente.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Troca de Cliente </a>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<a class="collapse-item"
+								href="pages/historico/consHistoricoUsuario.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> Histórico de
+								Usuário </a>
+						</h:panelGroup>
+					</div>
+				</div></li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block" />
+
+
+
+		</ul>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
+
+
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
+
+						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+						<li class="nav-item dropdown no-arrow d-sm-none"><a
+							class="nav-link dropdown-toggle" href="#" id="searchDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
+						</a> <!-- Dropdown - Messages -->
+							<div
+								class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+								aria-labelledby="searchDropdown">
+								<form class="form-inline mr-auto w-100 navbar-search">
+									<div class="input-group">
+										<h:inputText class="form-control bg-light border-0 small"
+											type="text" placeholder="Search for..." aria-label="Search"
+											aria-describedby="basic-addon2" />
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="button">
+												<i class="fas fa-search fa-sm"></i>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div></li>
+
+						<!-- Nav Item - Alerts -->
+						<li class="nav-item dropdown no-arrow mx-1"><a
+							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
+								<span class="badge badge-danger badge-counter">#{dashBoardMB.nNotificacao}</span>
+						</a> <!-- Dropdown - Alerts -->
+							<div
+								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="alertsDropdown">
+								<h6 class="dropdown-header">Notificações</h6>
+
+								<ui:repeat var="notificacao"
+									value="#{dashBoardMB.listaNotificacao}">
+									<a class="dropdown-item d-flex align-items-center" href="#">
+										<div class="mr-3">
+											<div class="icon-circle bg-warning">
+												<i class="fas fa-bell text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">#{notificacao.titulo}
+
+											</div>
+											<span class="font-weight-bold">#{notificacao.descricao}</span>
+										</div>
+									</a>
+								</ui:repeat>
+
+								<a class="dropdown-item text-center small text-gray-500"
+									href="pages/notificacao/consNotificacao.jsf">Todas
+									Notificações</a>
+							</div></li>
+
+						<!-- Nav Item - Messages -->
+						<li class="nav-item dropdown no-arrow mx-1"><a
+							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-birthday-cake fa-fw"></i>
+								<!-- Counter - Messages --> <span
+								class="badge badge-danger badge-counter">#{usuarioLogadoMB.nAniversario}</span>
+						</a> <!-- Dropdown - Messages -->
+							<div
+								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="messagesDropdown">
+								<h6 class="dropdown-header">Aniversariantes do dia - Clientes</h6>
+
+								<ui:repeat var="aniversario"
+									value="#{usuarioLogadoMB.listaCliente}">
+									<a class="dropdown-item d-flex align-items-center" href="#">
+										<div class="mr-3">
+											<div class="icon-circle bg-info">
+												<i class="fas fa-birthday-cake text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">
+												<h:outputText value="#{aniversario.nascimento}">
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+												</h:outputText>
+											</div>
+											<span class="font-weight-bold">#{aniversario.nome}</span>
+										</div>
+									</a>
+								</ui:repeat>
+								<a class="dropdown-item text-center small text-gray-500"
+									href="pages/notificacao/consAniversariantes.jsf">Todos os
+									Aniversariantes</a>
+							</div></li>
+
+						<div class="topbar-divider d-none d-sm-block"></div>
+
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span
+								class="mr-2 d-none d-lg-inline text-gray-600 small">#{usuarioLogadoMB.nomeUsuario}</span>
+								<img class="img-profile rounded-circle"
+								src="resources/img/logologin.png" />
+						</a> <!-- Dropdown - User Information -->
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="pages/usuario/alterarSenha.jsf"
+									role="button" aria-haspopup="true" aria-expanded="false">
+									Alterar Senha </a>
+								<div class="dropdown-divider"></div>
+								<p:commandLink action="#{usuarioLogadoMB.deslogar()}"
+									value="Sair" styleClass="dropdown-item " />
+							</div></li>
+
+					</ul>
+
+				</nav>
+
+
+				<!-- End of Topbar -->
+				<div class="container-fluid">
+					<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-8">
+
+						<h2>Dashboard</h2>
 						<hr />
+						<!-- Content Row -->
+						<div class="row">
 
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
-								<div style="border: 2px solid black; border-radius: 10px;">
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/primeirolugar.png"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel
-												value="#{dashBoardMB.primeiroMes.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
-												style="font-weight:bold;font-size:18px;margin-left:2%;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</div>
-									</div>
-									<hr />
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/segundolugar.jpg"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel value="#{dashBoardMB.segundoMes.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
-												style="font-weight:bold;font-size:18px;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</div>
-									</div>
-									<hr />
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/terceirolugar.png"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel
-												value="#{dashBoardMB.terceiroMes.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
-												style="font-weight:bold;font-size:18px;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card border-left-danger shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<h:commandLink action="#{dashBoardMB.formalizacao()}"
+													style="width:100%;text-decoration:none;" ajax="false">
+													<div style="font-size: 12px;"
+														class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+														Formalização e Pendência</div>
+													<div class="h5 mb-0 font-weight-bold text-gray-800">#{dashBoardMB.nFormalizacaoPendencia}</div>
+												</h:commandLink>
+											</div>
+											<div class="col-auto">
+												<i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="form-group col-md-6">
-								<h5>RANKING DO ANO - 2020</h5>
-								<div style="border: 2px solid black; border-radius: 10px;">
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/primeirolugar.png"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel
-												value="#{dashBoardMB.primeiroAno.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
-												style="font-weight:bold;font-size:18px;margin-left:2%;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</div>
-									</div>
-									<hr />
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/segundolugar.jpg"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel value="#{dashBoardMB.segundoAno.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
-												style="font-weight:bold;font-size:18px;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
-										</div>
-									</div>
-									<hr />
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<br /> <img src="resources/img/terceirolugar.png"
-												style="width: 80%;" />
-										</div>
-										<div class="form-group col-md-9">
-											<br />
-											<p:outputLabel
-												value="#{dashBoardMB.terceiroAno.usuario.nome}"
-												style="font-weight:bold;font-size:16px;" />
-											<hr />
-											<p:outputLabel value="R$"
-												style="font-weight:bold;font-size:18px;" />
-											<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
-												style="font-weight:bold;font-size:18px;">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</p:outputLabel>
+
+							<!-- Earnings (Monthly) Card Example -->
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card border-left-danger shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div
+													class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+													Pendência de Averbação (#{dashBoardMB.nPendenciaAverbacao})</div>
+												<div class="h5 mb-0 font-weight-bold text-gray-800">
+													<h:panelGroup
+														rendered="#{usuarioLogadoMB.usuario.diretoria}">
+														<b>R$ <h:outputText
+																value="#{dashBoardMB.valorAverbacao}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+													</h:panelGroup>
+												</div>
+											</div>
+											<div class="col-auto">
+												<i class="fas fa-undo-alt fa-2x text-gray-300"></i>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<h:panelGroup rendered="#{usuarioLogadoMB.usuario.supervisao}">
+								<div class="col-xl-3 col-md-6 mb-4">
+									<div class="card border-left-danger shadow h-100 py-2">
+										<div class="card-body">
+											<div class="row no-gutters align-items-center">
+												<div class="col mr-2">
+													<div
+														class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+														Pendência Documentação</div>
+													<div class="h5 mb-0 font-weight-bold text-gray-800">
+														#{dashBoardMB.nPendenciaDocumento}</div>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-file-alt fa-2x text-gray-300"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</h:panelGroup>
+
+							<!-- Earnings (Monthly) Card Example -->
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card border-left-primary shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div
+													class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+													Aguardando Assinatura
+													(#{dashBoardMB.nAguardandoAssinatura})</div>
+												<div class="h5 mb-0 font-weight-bold text-gray-800">
+													<h:panelGroup
+														rendered="#{usuarioLogadoMB.usuario.diretoria}">
+														<b>R$ <h:outputText value="#{dashBoardMB.valorPagar}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+													</h:panelGroup>
+
+												</div>
+											</div>
+											<div class="col-auto">
+												<i class="fas fa-file-signature fa-2x text-gray-300"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Earnings (Monthly) Card Example -->
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card border-left-primary shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div
+													class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+													Aguardando Pagamento (#{dashBoardMB.nAguardandoPagamento})</div>
+												<div class="h5 mb-0 font-weight-bold text-gray-800">
+													<h:panelGroup
+														rendered="#{usuarioLogadoMB.usuario.diretoria}">
+														<b>R$ <h:outputText
+																value="#{dashBoardMB.valorReceber}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+													</h:panelGroup>
+
+												</div>
+											</div>
+											<div class="col-auto">
+												<i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Earnings (Monthly) Card Example -->
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card border-left-success shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div
+													class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+													Pago ao cliente (#{dashBoardMB.nProducao})</div>
+												<div class="h5 mb-0 font-weight-bold text-gray-800">
+													<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+														<b>R$ <h:outputText value="#{dashBoardMB.fatutamento}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+													</h:panelGroup>
+
+												</div>
+											</div>
+											<div class="col-auto">
+												<i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Earnings (Monthly) Card Example -->
+							<h:panelGroup
+								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
+								<div class="col-xl-3 col-md-6 mb-4">
+									<div class="card border-left-success shadow h-100 py-2">
+										<div class="card-body">
+											<div class="row no-gutters align-items-center">
+												<div class="col mr-2">
+													<div
+														class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+														Comissão Recebida (#{dashBoardMB.nComissaoRecebida})</div>
+													<div class="h5 mb-0 font-weight-bold text-gray-800">
+														<b>R$ <h:outputText
+																value="#{dashBoardMB.valorComissaoRecebida}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+
+
+													</div>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-wallet fa-2x text-gray-300"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</h:panelGroup>
+
+							<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
+								<div class="col-xl-3 col-md-6 mb-4">
+									<div class="card border-left-primary shadow h-100 py-2">
+										<div class="card-body">
+											<div class="row no-gutters align-items-center">
+												<div class="col mr-2">
+													<div
+														class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+														Produção Geral (#{dashBoardMB.nTotalProducao})</div>
+													<div class="h5 mb-0 font-weight-bold text-gray-800">
+														<b>R$ <h:outputText
+																value="#{dashBoardMB.valorProducao}">
+																<f:convertNumber minFractionDigits="2"
+																	maxFractionDigits="2" locale="pt_BR" />
+															</h:outputText></b>
+
+
+
+													</div>
+												</div>
+												<div class="col-auto"> 
+													<i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</h:panelGroup>
+
+
 						</div>
-						<br />
+						<div class="row" style="color: white;">
 
-					</h:panelGroup>
-				</main>
+							<h:panelGroup
+								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
+
+								<div class="col-md-3">
+									<div class="panel-stat3">
+										<p:commandLink action="#">
+
+										</p:commandLink>
+									</div>
+								</div>
+							</h:panelGroup>
+						</div>
+						<h:panelGroup rendered="false">
+							<br />
+
+							<h3>RANKING DE VENDAS</h3>
+							<hr />
+
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
+									<div style="border: 2px solid black; border-radius: 10px;">
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/primeirolugar.png"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.primeiroMes.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
+													style="font-weight:bold;font-size:18px;margin-left:2%;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+										<hr />
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/segundolugar.jpg"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.segundoMes.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
+													style="font-weight:bold;font-size:18px;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+										<hr />
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/terceirolugar.png"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.terceiroMes.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
+													style="font-weight:bold;font-size:18px;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<h5>RANKING DO ANO - 2020</h5>
+									<div style="border: 2px solid black; border-radius: 10px;">
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/primeirolugar.png"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.primeiroAno.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
+													style="font-weight:bold;font-size:18px;margin-left:2%;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+										<hr />
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/segundolugar.jpg"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.segundoAno.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
+													style="font-weight:bold;font-size:18px;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+										<hr />
+										<div class="form-row">
+											<div class="form-group col-md-3">
+												<br /> <img src="resources/img/terceirolugar.png"
+													style="width: 80%;" />
+											</div>
+											<div class="form-group col-md-9">
+												<br />
+												<p:outputLabel
+													value="#{dashBoardMB.terceiroAno.usuario.nome}"
+													style="font-weight:bold;font-size:16px;" />
+												<hr />
+												<p:outputLabel value="R$"
+													style="font-weight:bold;font-size:18px;" />
+												<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
+													style="font-weight:bold;font-size:18px;">
+													<f:convertNumber locale="pt_BR" minFractionDigits="2"
+														maxFractionDigits="2" />
+												</p:outputLabel>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+
+						</h:panelGroup>
+					</main>
+				</div>
 			</div>
 		</div>
 		<br />

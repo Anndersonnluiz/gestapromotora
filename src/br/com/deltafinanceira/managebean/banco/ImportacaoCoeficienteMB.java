@@ -13,7 +13,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.deltafinanceira.bean.DadosBean;
-import br.com.deltafinanceira.bean.ImportarExcelBean;
+import br.com.deltafinanceira.bean.ImportExcelCoeficienteBean;
 import br.com.deltafinanceira.facade.BancoFacade;
 import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.OrgaoBancoFacade;
@@ -68,7 +68,7 @@ public class ImportacaoCoeficienteMB implements Serializable {
 
 	public void fileUploadListener(FileUploadEvent e) {
 		this.file = e.getFile();
-		ImportarExcelBean importarExcelBean = new ImportarExcelBean();
+		ImportExcelCoeficienteBean importarExcelBean = new ImportExcelCoeficienteBean();
 		try {
 			listaDados = importarExcelBean.importar(file.getInputstream());
 		} catch (IOException e1) {
