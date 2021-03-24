@@ -51,8 +51,11 @@ public class AniversariantesMB implements Serializable{
 	public void gerarListaCliente() {
 		ClienteDao clienteDao = new ClienteDao();
 		String diames = "" + Formatacao.getDiaData(new Date()) +  (Formatacao.getMesData(new Date()) + 1);
-		listaCliente = clienteDao.lista("Select c From Cliente c WHERE c.diames=" + diames 
-				+ " AND c.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario());
+		String sql = "Select c From Cliente c WHERE c.diames=" + diames;
+		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && !this.usuarioLogadoMB.getUsuario().isSupervisao()) {
+			sql = sql + " AND c.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario();
+		}
+		listaCliente = clienteDao.lista(sql);
 		if (listaCliente == null) {
 			listaCliente = new ArrayList<Cliente>();
 		}

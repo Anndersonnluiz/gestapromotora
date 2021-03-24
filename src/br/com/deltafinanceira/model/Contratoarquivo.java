@@ -111,6 +111,18 @@ public class Contratoarquivo implements Serializable{
     
     
     
+	public boolean isNovoupload() {
+		return novoupload;
+	}
+
+
+
+	public void setNovoupload(boolean novoupload) {
+		this.novoupload = novoupload;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

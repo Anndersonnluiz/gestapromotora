@@ -656,9 +656,7 @@ public class DashBoardMB implements Serializable {
 						+ this.usuarioLogadoMB.getUsuario().getIdusuario());
 		if (listaNotificacao == null)
 			listaNotificacao = new ArrayList<>();
-		if (this.listaNotificacao == null) {
-			this.listaNotificacao = new ArrayList<Notificacao>();
-		}
+		this.listaNotificacao = new ArrayList<Notificacao>();
 		for (int i = 0; i < listaNotificacao.size(); i++) {
 			if (this.listaNotificacao.size() <3) {
 				this.listaNotificacao.add(listaNotificacao.get(i));

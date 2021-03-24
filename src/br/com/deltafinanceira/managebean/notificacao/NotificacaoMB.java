@@ -66,7 +66,7 @@ public class NotificacaoMB implements Serializable{
 	public void listarNotificacao() {
 		NotificacaoDao notificacaoDao = new NotificacaoDao();
 		listaNotificacao = notificacaoDao.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario=" + 
-					 usuarioLogadoMB.getUsuario().getIdusuario());
+					 usuarioLogadoMB.getUsuario().getIdusuario() + " ORDER BY n.datalancamento DESC");
 		if (listaNotificacao == null) {
 			listaNotificacao = new ArrayList<Notificacao>();
 		}

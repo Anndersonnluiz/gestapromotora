@@ -13,36 +13,30 @@
 
 		<div align="right">
 			<p:commandLink ajax="false" update="idTabelaNotificacao"
-				action="#{notificacaoMB.vistoTodos()}"
-				styleClass="btn btn-link" value="Limpar (TODOS)"
-				style="text-align: left;">
+				action="#{notificacaoMB.vistoTodos()}" styleClass="btn btn-link"
+				value="Limpar (TODOS)" style="text-align: left;">
 			</p:commandLink>
 		</div>
-		<p:dataTable id="idTabelaNotificacao" var="notificacao"
-			value="#{notificacaoMB.listaNotificacao}" style="border:none;"
-			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single"
-			rowKey="#{notificacao.idnotificacao}">
-
-
-			<p:column headerText="Data"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+		<h:dataTable id="idTabelaNotificacao" var="notificacao"
+			styleClass="table table-bordered"
+			value="#{notificacaoMB.listaNotificacao}" cellspacing="0">
+			<h:column>
+				<f:facet name="header">Lançamento</f:facet>
 				<h:outputText value="#{notificacao.datalancamento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-			</p:column>
-			<p:column headerText="Situação"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+			</h:column>
+			<h:column >
+				<f:facet name="header">Situação</f:facet>
 				<h:outputText value="#{notificacao.titulo}" />
-			</p:column>
-			<p:column headerText="Descrição"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+			</h:column>
+			<h:column >
+				<f:facet name="header">Descrição</f:facet>
 				<h:outputText value="#{notificacao.descricao}" />
-			</p:column>
+			</h:column>
 
-			<p:column headerText=""
-				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+			<h:column>
 				<p:commandLink ajax="false"
 					action="#{notificacaoMB.visualizarContrato(notificacao)}"
 					style="text-align: left;color:black;">
@@ -53,8 +47,8 @@
 					style="text-align: left;color:black;">
 					<span data-feather="check-circle"></span>
 				</p:commandLink>
-			</p:column>
-		</p:dataTable>
+			</h:column>
+		</h:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

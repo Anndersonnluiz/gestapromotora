@@ -351,9 +351,7 @@ public class UsuarioLogadoMB implements Serializable {
 		List<Cliente> listaCliente = clienteDao.lista(sql);
 		if (listaCliente == null)
 			listaCliente = new ArrayList<>();
-		if (this.listaCliente == null) {
-			this.listaCliente = new ArrayList<Cliente>();
-		}
+		this.listaCliente = new ArrayList<Cliente>();
 		for (int i = 0; i < listaCliente.size(); i++) {
 			if (this.listaCliente.size() <3) {
 				this.listaCliente.add(listaCliente.get(i));
