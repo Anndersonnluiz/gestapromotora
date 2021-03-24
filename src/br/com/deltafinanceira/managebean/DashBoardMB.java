@@ -653,7 +653,7 @@ public class DashBoardMB implements Serializable {
 		NotificacaoDao notificacaoDao = new NotificacaoDao();
 		List<Notificacao> listaNotificacao = notificacaoDao
 				.lista("Select n From Notificacao n WHERE n.visto=false AND n.usuario.idusuario="
-						+ this.usuarioLogadoMB.getUsuario().getIdusuario());
+						+ this.usuarioLogadoMB.getUsuario().getIdusuario() + " ORDER BY n.datalancamento DESC");
 		if (listaNotificacao == null)
 			listaNotificacao = new ArrayList<>();
 		this.listaNotificacao = new ArrayList<Notificacao>();

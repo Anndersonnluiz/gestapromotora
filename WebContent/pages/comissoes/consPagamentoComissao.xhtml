@@ -82,16 +82,16 @@
 			</div>
 			<div class="form-group col-md-4">
 				<label for="usuario">Periodo Alteração</label>
-				<h:panelGrid columns="2" style="width:80%;">
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.dataini}" id="dataini" size="11">
+				<h:panelGrid columns="2" style="width:75%;">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;font-size:12px;"
+						value="#{historicoComissaoMB.dataini}" id="dataini" size="9">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
+						<p:ajax event="blur" /> 
 					</p:calendar>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.datafin}" id="datafin" size="11">
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;font-size:12px;"
+						value="#{historicoComissaoMB.datafin}" id="datafin" size="9">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
@@ -99,18 +99,20 @@
 					</p:calendar>
 				</h:panelGrid>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-5">
 				<label for="usuario">Periodo Cadastramento</label>
 				<h:panelGrid columns="2" style="width:80%;">
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.dataCadastroIni}" id="dataCadastroini" size="11">
+						value="#{historicoComissaoMB.dataCadastroIni}"
+						id="dataCadastroini" size="11">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
 						<p:ajax event="blur" />
 					</p:calendar>
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.dataCadastroFinal}" id="dataCadastrofin" size="11">
+						value="#{historicoComissaoMB.dataCadastroFinal}"
+						id="dataCadastrofin" size="11">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
@@ -119,7 +121,7 @@
 				</h:panelGrid>
 			</div>
 
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
 				<label>.</label>
 				<div>
 					<p:commandLink ajax="false" styleClass="btn btn-primary"
@@ -135,72 +137,100 @@
 		<hr />
 		<div class="row" style="color: white;" align="center"
 			id="panelNumeros">
-			<div class="col-md-2">
-				<div class="panel-stat3"
-					style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-					<b style="font-family: Segoe UI Semibold; font-size: 13px;">PORTABILIDADE</b>
-					<br />
-					<hr style="background-color: white;" />
-					<div align="center" style="font-size: 11px;">
-						<b><p:outputLabel
-								value="#{historicoComissaoMB.nPortabilidade}" /></b> contrato(s)
+			<div class="col-xl-3 col-md-3 mb-3">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 12px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Portabilidade</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										<br />#{historicoComissaoMB.nPortabilidade}
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<div class="panel-stat3 bg-primary"
-					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-					<b style="font-family: Segoe UI Semibold; font-size: 13px;">CARTÃO</b>
-					<br />
-					<hr style="background-color: white;" />
-					<div align="center" style="font-size: 11px;">
-						<b><p:outputLabel value="#{historicoComissaoMB.nCartao}" /></b>
-						contrato(s)
+			<div class="col-xl-3 col-md-3 mb-3">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 12px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										CARTÃO</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										<br />#{historicoComissaoMB.nCartao}
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<div class="panel-stat3 bg-primary"
-					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-					<b style="font-family: Segoe UI Semibold; font-size: 13px;">MARGEM
-						LIVRE (NOVO)</b> <br />
-					<hr style="background-color: white;" />
-					<div align="center" style="font-size: 11px;">
-						<b><p:outputLabel value="#{historicoComissaoMB.nMargem}" /></b>
-						contrato(s)
+			<div class="col-xl-3 col-md-3 mb-3">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 12px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										MARGEM LIVRE</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										<br />#{historicoComissaoMB.nMargem}
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<div class="panel-stat3 bg-primary"
-					style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-					<b style="font-family: Segoe UI Semibold; font-size: 13px;">REFINANCIAMENTO</b>
-					<hr style="background-color: white;" />
-					<div align="center" style="font-size: 11px;">
-						<b><p:outputLabel value="#{historicoComissaoMB.nRefin}" /></b>
-						contrato(s)
+			<div class="col-xl-3 col-md-3 mb-3">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 12px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										REFIN</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										<br />#{historicoComissaoMB.nRefin}
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<br />
 		<div align="right">
-			<p:commandLink 
-				action="#{historicoComissaoMB.fichaComissoes(false)}"
-				style="text-align: left;color:blue;margin-right:5%;font-weight:bold;" value="Impressão Selecionados">
+			<p:commandLink action="#{historicoComissaoMB.fichaComissoes(false)}"
+				style="text-align: left;color:blue;margin-right:5%;font-weight:bold;font-size:14px;"
+				value="Impressão Selecionados">
 				<span data-feather="printer"></span>
 			</p:commandLink>
-			
-			<p:commandLink  
-				action="#{historicoComissaoMB.fichaComissoes(true)}"
-				style="text-align: left;color:blue;font-weight:bold;" value="Impressão Todos">
+
+			<p:commandLink action="#{historicoComissaoMB.fichaComissoes(true)}"
+				style="text-align: left;color:blue;font-weight:bold;font-size:14px;"
+				value="Impressão Todos">
 				<span data-feather="printer"></span>
 			</p:commandLink>
 
 		</div>
-		<br/>
-		<p:dataTable id="idTabelaComissao" var="comissao" 
+		<br />
+		<p:dataTable id="idTabelaComissao" var="comissao"
 			value="#{historicoComissaoMB.listaComissao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
 			scrollHeight="300" selectionMode="single"
@@ -232,8 +262,7 @@
 			</p:column>
 			<p:column headerText="Banco"
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText
-					value="#{comissao.contrato.orgaoBanco.banco.nome}" />
+				<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
 			</p:column>
 			<p:column headerText="Operação"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
@@ -246,34 +275,38 @@
 			<p:column headerText="Produção"
 				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.prodliq}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Cms Loja"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmdbruta}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Cms Corretor"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmsliq}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Tipo"
 				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.tipo}" />
 			</p:column>
-			<p:column headerText="Baixa" rendered="#{usuarioLogadoMB.usuario.comissao}"
+			<p:column headerText="Baixa"
+				rendered="#{usuarioLogadoMB.usuario.comissao}"
 				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<p:commandLink ajax="false" update="idTabelaComissao"
-						action="#{historicoComissaoMB.pagou(comissao)}"
-						title="Baixa" style="text-align: left;color:black;"
-						>
-						<span data-feather="#{comissao.descricaobaixa}" style="color:#{comissao.corbaixa};"></span>
-					</p:commandLink>
+					action="#{historicoComissaoMB.pagou(comissao)}" title="Baixa"
+					style="text-align: left;color:black;">
+					<span data-feather="#{comissao.descricaobaixa}"
+						style="color:#{comissao.corbaixa};"></span>
+				</p:commandLink>
 			</p:column>
 
 			<p:column headerText=""
@@ -288,47 +321,77 @@
 			</p:column>
 		</p:dataTable>
 		<br />
-		<div align="right" style="background: #f0f0f0;">
-			<h:panelGrid columns="3" style="width:90%;text-align:right;">
-				<h:panelGroup id="infValorProducao" style="margin:2%;">
-					<h:outputText value="PRODUÇÃO"
-						style="font-size:24px;margin:2%;font-weight: bold;" />
-					<br />
-					<h:outputText value="R$ "
-						style="font-size:28px;color:red;font-weight: bold;" />
-					<h:outputText value="#{historicoComissaoMB.valorProducao}"
-						style="font-size:28px;color:red;font-weight: bold;">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-							locale="pt_BR" />
-					</h:outputText>
-				</h:panelGroup>
-				<h:panelGroup id="infValorRecebida" style="margin:2%;"
-					rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-					<h:outputText value="LOJA"
-						style="font-size:24px;margin:2%;font-weight: bold;" />
-					<br />
-					<h:outputText value="R$ "
-						style="font-size:28px;color:red;font-weight: bold;" />
-					<h:outputText value="#{historicoComissaoMB.valorRecebida}"
-						style="font-size:28px;color:red;font-weight: bold;">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-							locale="pt_BR" />
-					</h:outputText>
-				</h:panelGroup>
-				<h:panelGroup id="infValorRepassadal" style="margin:2%;">
-					<h:outputText value="CORRETOR"
-						style="font-size:24px;margin:2%;font-weight: bold;" />
-					<br />
-					<h:outputText value="R$ "
-						style="font-size:28px;color:red;font-weight: bold;" />
-					<h:outputText value="#{historicoComissaoMB.valorRepassada}"
-						style="font-size:28px;color:red;font-weight: bold;">
-						<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-							locale="pt_BR" />
-					</h:outputText>
-				</h:panelGroup>
-			</h:panelGrid>
-			<br />
+		<div class="row" style="color: white;" align="center"
+			id="panelNumeros">
+			<div class="col-xl-3 col-md-4 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 14px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Produção</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$ <h:outputText value="#{historicoComissaoMB.valorProducao}"
+											>
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-md-4 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 14px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Loja</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$ <h:outputText value="#{historicoComissaoMB.valorRecebida}"
+											>
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-md-4 mb-4">
+				<div class="card border-left-danger shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 14px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Corretor</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$ <h:outputText value="#{historicoComissaoMB.valorRepassada}"
+											>
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<br />
 	</ui:define>

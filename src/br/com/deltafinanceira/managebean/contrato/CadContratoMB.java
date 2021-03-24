@@ -499,8 +499,26 @@ public class CadContratoMB implements Serializable {
 		if (this.listaOrgaoBanco == null)
 			this.listaOrgaoBanco = new ArrayList<>();
 	}
+	
+	public void ajustes() {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		Usuario usuario = usuarioFacade.consultar(13);
+		ClienteFacade clienteFacade = new ClienteFacade();
+		List<Cliente> listaCliente = clienteFacade.lista("Select c From Cliente c");
+		if (listaCliente == null) {
+			listaCliente = new ArrayList<Cliente>();
+		}
+		for (int i = 0; i < listaCliente.size(); i++) {
+			if (listaCliente.get(i).getUsuario() == null) {
+				listaCliente.get(i).setUsuario(usuario);
+				clienteFacade.salvar(listaCliente.get(i));;
+			}
+		}
+		System.out.println("Terminou!!");
+	}
 
 	public void buscarCliente() {
+		ajustes();
 		ClienteFacade clienteFacade = new ClienteFacade();
 		this.cliente = clienteFacade.consultarCpf(this.cpf);
 		this.contrato.setCliente(this.cliente);

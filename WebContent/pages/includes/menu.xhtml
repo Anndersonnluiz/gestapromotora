@@ -21,8 +21,8 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item active"><a class="nav-link"
-			href="/deltafinanceira/dashboard.jsf"> <i class="fas fa-fw fa-home"></i> <span>Dashboard</span></a>
-		</li>
+			href="/deltafinanceira/dashboard.jsf"> <i
+				class="fas fa-fw fa-home"></i> <span>Dashboard</span></a></li>
 
 		<!-- Divider -->
 		<hr class="sidebar-divider" />
@@ -36,24 +36,27 @@
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
-					<a class="collapse-item" href="/deltafinanceira/pages/banco/consBanco.jsf">Banco</a>
+					<a class="collapse-item"
+						href="/deltafinanceira/pages/banco/consBanco.jsf">Banco</a>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-						<a class="collapse-item" href="/deltafinanceira/pages/filial/consFilial.jsf">Filial</a>
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/filial/consFilial.jsf">Filial</a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf"> Grupo
-							de Acessos </a>
+							href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
+							Grupo de Acessos </a>
 					</h:panelGroup>
 					<h:panelGroup
 						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
-						<a class="collapse-item" href="/deltafinanceira/pages/promotora/consPromotora.jsf">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/promotora/consPromotora.jsf">
 							Promotora </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf"> Funcionários
-						</a>
+							href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf">
+							Funcionários </a>
 					</h:panelGroup>
 				</div>
 			</div></li>
@@ -78,17 +81,20 @@
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/confDadosContrato.jsf" role="button"
-						aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
-						class="collapse-item" href="/deltafinanceira/pages/contrato/consContrato.jsf">
-						Busca Rapida </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf" role="button"
-						aria-haspopup="true" aria-expanded="false"> Portabilidade </a> <a
+						href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
+						role="button" aria-haspopup="true" aria-expanded="false">
+						Emissão </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consContrato.jsf"> Busca
+						Rapida </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consSimulacao.jsf"> Simulação </a> <a
 						class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf"> Demais Ope.
-						INSS </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
-						SIAPE </a>
+						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
+						role="button" aria-haspopup="true" aria-expanded="false">
+						Portabilidade </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf">
+						Demais Ope. INSS </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
+						Demais Ope. SIAPE </a>
 				</div>
 			</div></li>
 
@@ -102,20 +108,22 @@
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-						<a class="collapse-item" href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Titular </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-						<a class="collapse-item" href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Cliente </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf" role="button"
-							aria-haspopup="true" aria-expanded="false"> Histórico de
-							Usuário </a>
+							href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Histórico de Usuário </a>
 					</h:panelGroup>
 				</div>
 			</div></li>
@@ -148,28 +156,7 @@
 				<!-- Topbar Navbar -->
 				<ul class="navbar-nav ml-auto">
 
-					<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-					<li class="nav-item dropdown no-arrow d-sm-none"><a
-						class="nav-link dropdown-toggle" href="#" id="searchDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
-					</a> <!-- Dropdown - Messages -->
-						<div
-							class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-							aria-labelledby="searchDropdown">
-							<form class="form-inline mr-auto w-100 navbar-search">
-								<div class="input-group">
-									<h:inputText class="form-control bg-light border-0 small"
-										type="text" placeholder="Search for..." aria-label="Search"
-										aria-describedby="basic-addon2" />
-									<div class="input-group-append">
-										<button class="btn btn-primary" type="button">
-											<i class="fas fa-search fa-sm"></i>
-										</button>
-									</div>
-								</div>
-							</form>
-						</div></li>
+
 
 					<!-- Nav Item - Alerts -->
 					<li class="nav-item dropdown no-arrow mx-1"><a
@@ -187,7 +174,7 @@
 								value="#{dashBoardMB.listaNotificacao}">
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
-										<div class="icon-circle bg-warning">
+										<div class="icon-circle bg-secondary">
 											<i class="fas fa-bell text-white"></i>
 										</div>
 									</div>
@@ -237,8 +224,8 @@
 								</a>
 							</ui:repeat>
 							<a class="dropdown-item text-center small text-gray-500"
-								href="/deltafinanceira/pages/notificacao/consAniversariantes.jsf">Todos os
-								Aniversariantes</a>
+								href="/deltafinanceira/pages/notificacao/consAniversariantes.jsf">Todos
+								os Aniversariantes</a>
 						</div></li>
 
 					<div class="topbar-divider d-none d-sm-block"></div>

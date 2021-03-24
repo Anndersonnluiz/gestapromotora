@@ -14,26 +14,23 @@
 				<p:commandLink ajax="false" styleClass="btn btn-primary"
 					value="Novo" action="#{tipoColaboradorMB.novoTipoColaborador()}" />
 			</div>
-			<p:dataTable id="idTabelaTipoColaborador" var="tipocolaborador"
-				value="#{tipoColaboradorMB.listaTipoColaborador}"
-				style="border:none;" class="tabelacontas" scrollRows="10"
-				scrollable="true" scrollHeight="300" selectionMode="single"
-				rowKey="#{tipocolaborador.idtipocolaborador}">
-
-				<p:column headerText="Descrição"
-					sortBy="#{tipocolaborador.descricao}"
-					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
+			
+			<h:dataTable id="idTabelaTipoColaborador" var="tipocolaborador" 
+					styleClass="table table-striped table-bordered display"
+					value="#{tipoColaboradorMB.listaTipoColaborador}" cellspacing="0">
+					
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
 					<h:outputText value="#{tipocolaborador.descricao}" />
-				</p:column>
-				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				</h:column>
+				<h:column >
 					<p:commandLink ajax="false"
 						action="#{tipoColaboradorMB.editar(tipocolaborador)}"
 						style="text-align: left;color:black;">
 						<span data-feather="edit"></span>
 					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+				</h:column>
+			</h:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

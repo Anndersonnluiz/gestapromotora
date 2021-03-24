@@ -6,33 +6,32 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Consulta de Promotoras</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Novo" action="#{promotoraMB.novo()}" />
-			</div>
-			<p:dataTable id="idTabelaPromotora" var="promotora"
-				value="#{promotoraMB.listaPromotora}"
-				style="border:none;" class="tabelacontas" scrollRows="10"
-				scrollable="true" scrollHeight="300" selectionMode="single"
-				rowKey="#{promotora.idpromotora}">
+		<h4>Consulta de Promotoras</h4>
+		<hr />
+		<br/>
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
+			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
+				action="#{promotoraMB.novo()}" />
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaPromotora" var="promotora"
+			styleClass="table table-striped table-bordered display"
+			value="#{promotoraMB.listaPromotora}" cellspacing="0">
 
-				<p:column headerText="Descrição"
-					style="font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{promotora.descricao}" />
-				</p:column>
-				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false"
-						action="#{promotoraMB.editar(promotora)}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				<h:outputText value="#{promotora.descricao}" />
+			</h:column>
+			<h:column>
+				<p:commandLink ajax="false"
+					action="#{promotoraMB.editar(promotora)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
+		<br/><br/>
 	</ui:define>
 </ui:composition>
 </html>

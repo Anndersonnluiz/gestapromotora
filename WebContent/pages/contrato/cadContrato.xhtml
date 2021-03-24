@@ -16,7 +16,7 @@
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000"
 			closable="true" />
 		<div class="form-row">
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="usuario">Corretor</label>
 				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
 					value="#{cadContratoMB.usuario}" converter="UsuarioConverter"
@@ -31,7 +31,7 @@
 						value="#{cadContratoMB.listaUsuario}" />
 				</h:selectOneMenu>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<label for="dataNasc">Assinado no banco ?</label>
 				<div>
 					<p:selectBooleanCheckbox
@@ -56,7 +56,7 @@
 						value="#{cadContratoMB.listaOrgaoBanco}" />
 				</h:selectOneMenu>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="inputRG">Tipo de Operação</label>
 				<h:inputText
 					value="#{cadContratoMB.contrato.tipooperacao.descricao}"
@@ -67,7 +67,7 @@
 		<div class="form-row">
 			<h:panelGroup
 				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}">
-				<div class="form-group col-md-4">
+				<div class="form-group col-md-6">
 					<label for="promotora">Promotora</label>
 					<h:selectOneMenu id="promotorahhhj" style="width: 100%;"
 						immediate="true" value="#{cadContratoMB.promotora}"
@@ -99,7 +99,7 @@
 				</div>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{cadContratoMB.contrato.operacaoinss}">
-				<div class="form-group col-md-8">
+				<div class="form-group col-md-12">
 					<label>Espécie Beneficio</label>
 					<h:selectOneMenu style="width: 100%;border-color:black;"
 						id="especieBeneficio" value="#{cadContratoMB.contrato.secretaria}"
@@ -250,7 +250,7 @@
 		<h6>Dados pessoais</h6>
 		<hr />
 		<div class="form-row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-5">
 				<label for="inputCpf">CPF</label>
 				<h:panelGrid columns="2" style="width:100%;">
 					<p:inputMask mask="999.999.999-99" id="inputCpf"
@@ -265,15 +265,18 @@
 				</h:panelGrid>
 			</div>
 
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-7">
 				<label for="inputNome">Nome</label>
 				<h:inputText value="#{cadContratoMB.cliente.nome}"
 					style="border-color:black;" class="form-control" id="inputNome"
 					placeholder="Nome" />
 			</div>
+		</div>
+
+		<div class="form-row">
 			<div class="form-group col-md-3">
 				<label for="dataNasc">Data Nascimento</label>
-				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="12"
 					value="#{cadContratoMB.cliente.nascimento}" id="dataNasc">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
@@ -281,9 +284,6 @@
 					<p:ajax event="blur" />
 				</p:calendar>
 			</div>
-		</div>
-
-		<div class="form-row">
 			<div class="form-group col-md-2">
 				<label for="inputRG">RG</label>
 				<h:inputText value="#{cadContratoMB.cliente.rg}"
@@ -302,21 +302,21 @@
 					style="border-color:black;" class="form-control" id="inputufrg"
 					placeholder="UF - RG" />
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label for="inputNaturalidade">Naturalidade</label>
 				<h:inputText value="#{cadContratoMB.cliente.naturalidade}"
 					style="border-color:black;" class="form-control"
 					id="inputNaturalidade" placeholder="Naturalidade" />
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label for="inputUfNaturalidade">UF - Naturalidade</label>
 				<h:inputText value="#{cadContratoMB.cliente.ufnaturalidade}"
 					class="form-control" id="inputUfNaturalidade"
 					style="border-color:black;" placeholder="Estado da Naturalidade" />
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3"> 
 				<label for="dataEmissao">Data Emissão</label>
-				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="13"
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="11"
 					value="#{cadContratoMB.cliente.emissao}" id="dataEmissao">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
@@ -324,22 +324,38 @@
 					<p:ajax event="blur" />
 				</p:calendar>
 			</div>
+			<div class="form-group col-md-3">
+				<label for="inputResidencial">Residêncial</label>
+				<h:inputText value="#{cadContratoMB.cliente.telefoneresidencial}"
+					class="form-control" id="inputResidencial"
+					style="border-color:black;" placeholder="Telefone Residencial" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputcelular">Celular</label>
+				<h:inputText value="#{cadContratoMB.cliente.telefonecelular}"
+					style="border-color:black;" class="form-control" id="inputcelular"
+					placeholder="Nome Mãe" />
+			</div>
 		</div>
 
 
 		<div class="form-row">
-			<div class="form-group col-md-5">
+			<div class="form-group col-md-6">
 				<label for="inputnomepai">Nome Pai</label>
 				<h:inputText value="#{cadContratoMB.cliente.nomepai}"
 					style="border-color:black;" class="form-control" id="inputnomepai"
 					placeholder="Nome Pai" />
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="inputnomemae">Noma Mãe</label>
 				<h:inputText value="#{cadContratoMB.cliente.nomemae}"
 					style="border-color:black;" class="form-control" id="inputnomemae"
 					placeholder="Nome Mãe" />
 			</div>
+		</div>
+
+
+		<div class="form-row">
 			<div class="form-group col-md-3">
 				<label for="inputValorSalario">Valor Salário</label>
 				<h:inputText value="#{cadContratoMB.cliente.valorsalario}"
@@ -348,26 +364,10 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
-		</div>
-
-
-		<div class="form-row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-9">
 				<label for="inputEmail">Email</label>
 				<h:inputText value="#{cadContratoMB.cliente.email}"
 					style="border-color:black;" class="form-control" id="inputEmail" />
-			</div>
-			<div class="form-group col-md-2">
-				<label for="inputResidencial">Telefone Residencial</label>
-				<h:inputText value="#{cadContrat'oMB.cliente.telefoneresidencial}"
-					class="form-control" id="inputResidencial"
-					style="border-color:black;" placeholder="Telefone Residencial" />
-			</div>
-			<div class="form-group col-md-2">
-				<label for="inputcelular">Telefone Celular</label>
-				<h:inputText value="#{cadContratoMB.cliente.telefonecelular}"
-					style="border-color:black;" class="form-control" id="inputcelular"
-					placeholder="Nome Mãe" />
 			</div>
 		</div>
 
@@ -378,7 +378,7 @@
 		<p:messages id="growlCep" showDetail="true" sticky="false"
 			closable="true" life="3000" />
 		<div class="form-row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-5">
 				<label for="inputCEP">CEP</label>
 
 				<h:panelGrid columns="2" style="width:100%;">
@@ -391,13 +391,15 @@
 						styleClass="btn btn-primary" ajax="false" />
 				</h:panelGrid>
 			</div>
-			<div class="form-group col-md-2">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-3">
 				<label for="inputTipoLogradouro">Tipo Logradouro</label>
 				<h:inputText value="#{cadContratoMB.cliente.tipologradouro}"
 					class="form-control" id="inputTipoLogradouro"
 					style="border-color:black;" placeholder="Tipo Logradouro" />
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="inputlogradouro">Logradouro</label>
 				<h:inputText value="#{cadContratoMB.cliente.logradouro}"
 					style="border-color:black;" class="form-control"
@@ -598,51 +600,47 @@
 			</div>
 			<br />
 			<br />
-			<p:dataTable id="idTabelaUnificacao" var="contrato"
-				widgetVar="cellCars" editable="true" editMode="cell"
-				value="#{cadContratoMB.listaContratoUnificacao}"
-				style="border:none;" class="tabelacontas" scrollRows="10"
-				scrollable="true" scrollHeight="300" rowIndexVar="rowIx">
+			<h:dataTable id="idTabelaUnificacao" var="contrato"
+				styleClass="table table-striped table-bordered display"
+				value="#{cadContratoMB.listaContratoUnificacao}" cellspacing="0">
 
 
-
-				<p:column headerText="Banco"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				<h:column>
+					<f:facet name="header">Banco</f:facet>
 					<h:outputText value="#{contrato.banco.nome}" />
-				</p:column>
-				<p:column headerText="Pagas"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				</h:column>
+				<h:column>
+					<f:facet name="header">Pagas</f:facet>
 					<h:outputText value="#{contrato.parcelaspagas}" />
-				</p:column>
-				<p:column headerText="Total"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				</h:column>
+				<h:column>
+					<f:facet name="header">Total</f:facet>
 					<h:outputText value="#{contrato.totalparcelas}">
 					</h:outputText>
-				</p:column>
-				<p:column headerText="Contrato"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				</h:column>
+				<h:column>
+					<f:facet name="header">Contrato</f:facet>
 					<h:outputText value="#{contrato.contratoportado}" />
-				</p:column>
-				<p:column headerText="Parcela"
-					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				</h:column>
+				<h:column>
+					<f:facet name="header">Parcela</f:facet>
 					<h:outputText value="#{contrato.parcela}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
-				</p:column>
-				<p:column headerText="Valor Quitar"
-					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:right;">
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor Quitar</f:facet>
 					<h:outputText value="#{contrato.valorquitar}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
-				</p:column>
-				<p:column headerText=""
-					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				</h:column>
+				<h:column>
 					<p:commandLink action="#{cadContratoMB.excluirOperacao(rowIx)}"
 						update="idTabelaUnificacao" style="text-align: left;color:black;">
 						<span data-feather="trash"></span>
 					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+				</h:column>
+			</h:dataTable>
 		</h:panelGroup>
 		<br />
 		<p:messages id="growlCoeficiente" showDetail="true" sticky="false"
@@ -732,32 +730,28 @@
 			</div>
 		</div>
 		<br />
-		<p:dataTable id="idTabelaContrato" var="contrato"
-			value="#{cadContratoMB.listaContratoArquivo}" style="border:none;"
-			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single" rowKey="1"
-			rowIndexVar="rowIx">
+		<h:dataTable id="idTabelaContrato" var="contrato"
+			styleClass="table table-striped table-bordered display"
+			value="#{cadContratoMB.listaContratoArquivo}" cellspacing="0">
 
-
-			<p:column headerText="Data Upload"
-				style="width:30%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+			<h:column>
+				<f:facet name="header">Data</f:facet>
 				<h:outputText value="#{contrato.dataupload}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-			</p:column>
-			<p:column headerText="Tipo Documento"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+			</h:column>
+			<h:column>
+				<f:facet name="header">Documento</f:facet>
 				<h:outputText value="#{contrato.tipoarquivo.descricao}">
 				</h:outputText>
-			</p:column>
-			<p:column headerText="Nome Arquivo"
-				style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+			</h:column>
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
 				<h:outputText value="#{contrato.nomearquivo}" />
-			</p:column>
+			</h:column>
 
-			<p:column headerText=""
-				style="width:30%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+			<h:column>
 
 				<p:commandLink ajax="false"
 					action="#{cadContratoMB.excluirArquivo(rowIx)}"
@@ -771,8 +765,8 @@
 					<span data-feather="download"></span>
 
 				</p:commandLink>
-			</p:column>
-		</p:dataTable>
+			</h:column>
+		</h:dataTable>
 
 		<br />
 		<hr />

@@ -6,7 +6,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
 		<h4>Consulta de Filial</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
@@ -20,7 +19,7 @@
 				<div class="col-md-4">
 					<div class="panel-stat3"
 						style="background: #145B7A; opacity: 0.75; padding: 25px 20px; border-radius: 15px;margin:2%;">
-						<p:commandLink  style="float:right;" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
+						<p:commandLink ajax="false"  style="float:right;" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 							action="#{filialMB.editar(filial)}">
 							<img src="../../resources/img/editar.svg" class="img-fluid" alt="img" width="15"/>
 						</p:commandLink>
@@ -34,11 +33,9 @@
 								</h:panelGroup>
 							</h4>
 							<span class="m-left-xs"
-								style="color: black; font-family: Segoe UI Semibold;">
+								style="color: black; font-family: Segoe UI Semibold;font-size:12px;">
 								departamentos cadastrados </span>
-							<div class="stat-icon" style="opacity: 0.9;">
-								<i class="fa fa-minus fa-3x" style="color: #FFD700;"></i>
-							</div>
+							
 						</p:commandLink>
 					</div>
 				</div>
