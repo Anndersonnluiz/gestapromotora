@@ -6,39 +6,34 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Consulta Tipo de Despesa</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<h4>Consulta Tipo de Despesa</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-			
-			<div align="right">
-				<p:commandLink
+
+		<div align="right">
+			<p:commandLink ajax="false" action="#{despesaMB.novo()}">
+				<img src="../../resources/img/cadastro.png" width="35" />
+			</p:commandLink>
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaComissao" var="despesa" 
+					styleClass="table table-striped table-bordered display"
+					value="#{despesaMB.listaTipoDespesa}" cellspacing="0">
 					
-					ajax="false" styleClass="btn btn-primary" value="Novo"
-					action="#{despesaMB.novo()}" />
-			</div>
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				<h:outputText value="#{despesa.descricao}" />
+			</h:column>
 
-			<p:dataTable id="idTabelaComissao" var="despesa"
-				value="#{despesaMB.listaTipoDespesa}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{despesa.idtipodespesa}">
-
-				<p:column headerText="Descrição"
-					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{despesa.descricao}" />
-				</p:column>
-
-				<p:column headerText=""
-					style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false"
-						action="#{despesaMB.editar(despesa)}"
-						style="text-align: left;color:black;" title="Editar">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+			<h:column>
+				<p:commandLink ajax="false" action="#{despesaMB.editar(despesa)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
+		<br/><br/>
 	</ui:define>
 </ui:composition>
 </html>

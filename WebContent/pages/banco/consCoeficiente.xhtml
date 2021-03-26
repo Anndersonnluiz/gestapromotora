@@ -6,68 +6,67 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>
-				Consulta de Coeficiente:
-				<p:outputLabel value="#{coeficienteMB.orgaobanco.banco.nome}" />
-				>
-				<p:outputLabel value="#{coeficienteMB.orgaobanco.nome}" />
-			</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink ajax="false" style="margin-right:1%;"
-					styleClass="btn btn-link" value="Voltar"
-					action="#{coeficienteMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Novo"
-					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
-					action="#{coeficienteMB.novoCoeficiente()}" />
+		<h4>
+			Consulta de Coeficiente:
+			<p:outputLabel value="#{coeficienteMB.orgaobanco.banco.nome}" />
+			>
+			<p:outputLabel value="#{coeficienteMB.orgaobanco.nome}" />
+		</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
+			<p:commandLink ajax="false" style="margin-right:1%;"
 				
-			</div>
-			<p:dataTable id="idTabelaCoeficiente" var="coeficiente"
-				value="#{coeficienteMB.listaCoeficiente}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{coeficiente.idcoeficiente}">
+				action="#{coeficienteMB.voltar()}" >
+				<img src="../../resources/img/voltar.png" width="35"/>
+			</p:commandLink>
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
+				action="#{coeficienteMB.novoCoeficiente()}" >
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
 
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaCoeficiente" var="coeficiente"
+			styleClass="table table-striped table-bordered display"
+			value="#{coeficienteMB.listaCoeficiente}" cellspacing="0">
 
-				<p:column headerText="Tabela"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{coeficiente.nometabela}" />
-				</p:column>
-				<p:column headerText="Comissão Loja"
-					style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{coeficiente.comissaoloja}">
-						<f:convertNumber  minFractionDigits="2" locale="pt_BR"/>
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Comissão Corretor"
-					style="width:22%; font-size:12px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{coeficiente.comissaocorretor}">
-						<f:convertNumber  minFractionDigits="2" locale="pt_BR"/>
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Tipo Operação"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{coeficiente.tipooperacao.descricao}" />
-				</p:column>
+			<h:column>
+				<f:facet name="header">Tabela</f:facet>
+				<h:outputText value="#{coeficiente.nometabela}" />
+			</h:column>
+			<p:column>
+				<f:facet name="header">Cms Loja</f:facet>
+				<h:outputText value="#{coeficiente.comissaoloja}">
+					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
+				</h:outputText>
+			</p:column>
+			<h:column>
+				<f:facet name="header">Cms Corretor</f:facet>
+				<h:outputText value="#{coeficiente.comissaocorretor}">
+					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Operação</f:facet>
+				<h:outputText value="#{coeficiente.tipooperacao.descricao}" />
+			</h:column>
 
-				<p:column headerText=""
-					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false"
-						action="#{coeficienteMB.editar(coeficiente)}"
-						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false" rendered="false"
-						action="#{coeficienteMB.novosValores(coeficiente)}"
-						title="Valores Coeficientes" style="text-align: left;color:black;">
-						<span data-feather="list"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+			<h:column>
+				<p:commandLink ajax="false"
+					action="#{coeficienteMB.editar(coeficiente)}"
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarcoeficiente}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false" rendered="false"
+					action="#{coeficienteMB.novosValores(coeficiente)}"
+					title="Valores Coeficientes" style="text-align: left;color:black;">
+					<span data-feather="list"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

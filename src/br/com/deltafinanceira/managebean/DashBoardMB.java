@@ -110,6 +110,8 @@ public class DashBoardMB implements Serializable {
 	private int nFormalizacaoPendencia;
 
 	private List<Notificacao> listaNotificacao;
+	
+	private int convenio = 0;
 
 	@PostConstruct
 	public void init() {
@@ -444,6 +446,14 @@ public class DashBoardMB implements Serializable {
 		this.listaNotificacao = listaNotificacao;
 	}
 
+	public int getConvenio() {
+		return convenio;
+	}
+
+	public void setConvenio(int convenio) {
+		this.convenio = convenio;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -543,6 +553,13 @@ public class DashBoardMB implements Serializable {
 		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && !this.usuarioLogadoMB.getUsuario().isSupervisao())
 			sql = String.valueOf(sql) + " and h.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario();
+		if (this.convenio > 0) {
+			if (this.convenio == 1) {
+				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=true";
+			} else if (this.convenio == 2) {
+				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=false";
+			}
+		}
 		List<Historicocomissao> lista = historicoComissaoFacade.lista(sql);
 		if (lista == null)
 			lista = new ArrayList<>();
@@ -552,6 +569,9 @@ public class DashBoardMB implements Serializable {
 		this.fatutamento = 0.0F;
 		this.valorPagar = 0.0F;
 		this.valorReceber = 0.0F;
+		this.valorComissaoRecebida = 0.0F;
+		this.valorAverbacao = 0.0F;
+		this.valorProducao = 0.0F;
 		this.nPendenciaDocumento = 0;
 		this.valorProducao = 0.0F;
 		this.nTotalProducao = 0;
@@ -618,6 +638,7 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "16");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 
@@ -625,6 +646,7 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "19");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 
@@ -632,6 +654,7 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "28");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 
@@ -639,6 +662,7 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "36");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 
@@ -646,6 +670,7 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "comissao");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 
@@ -682,6 +707,10 @@ public class DashBoardMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", "5");
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
+	
+	
+	
 }

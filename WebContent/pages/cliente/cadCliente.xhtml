@@ -6,27 +6,26 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
 			<h4>Cadastro de Cliente</h4>
 			<hr />
 			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 			<h6>Dados pessoais</h6>
 			<hr />
-			<div class="form-row">
+			<div class="form-row" style="font-size:14px;">
 				<div class="form-group col-md-6">
 					<label for="inputNome">Nome</label>
 					<h:inputText value="#{cadClienteMB.cliente.nome}"
 						class="form-control" id="inputNome" placeholder="Nome" />
 				</div>
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-3">
 					<label for="inputCpf">CPF</label>
 					<p:inputMask mask="999.999.999-99" id="inputCpf" styleClass="form-control" value="#{cadClienteMB.cliente.cpf}"/>
 				</div>
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-3">
 					<label for="dataNasc">Data Nascimento</label>
 					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
-						value="#{cadClienteMB.cliente.nascimento}" id="dataNasc">
+						value="#{cadClienteMB.cliente.nascimento}" id="dataNasc" size="9">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:ajax event="dateSelect" />
@@ -35,7 +34,7 @@
 				</div>
 			</div>
 
-			<div class="form-row">
+			<div class="form-row"  style="font-size:14px;">
 				<div class="form-group col-md-2">
 					<label for="inputRG">RG</label>
 					<h:inputText value="#{cadClienteMB.cliente.rg}"
@@ -58,14 +57,14 @@
 						placeholder="Naturalidade" />
 				</div>
 				<div class="form-group col-md-2">
-					<label for="inputUfNaturalidade">UF - Naturalidade</label>
+					<label for="inputUfNaturalidade">UF - Natur..</label>
 					<h:inputText value="#{cadClienteMB.cliente.ufnaturalidade}"
 						class="form-control" id="inputUfNaturalidade"
 						placeholder="Estado da Naturalidade" />
 				</div>
 				<div class="form-group col-md-2">
 					<label for="dataEmissao">Data Emissão</label>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="15" style="widht:98%;" 
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="9" style="widht:98%;" 
 						value="#{cadClienteMB.cliente.emissao}" id="dataEmissao">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
@@ -76,7 +75,7 @@
 			</div>
 
 
-			<div class="form-row">
+			<div class="form-row"  style="font-size:14px;">
 				<div class="form-group col-md-5">
 					<label for="inputnomepai">Nome Pai</label>
 					<h:inputText value="#{cadClienteMB.cliente.nomepai}"
@@ -99,25 +98,25 @@
 
 
 			<div class="form-row">
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-6">
 					<label for="inputEmail">Email</label>
 					<h:inputText value="#{cadClienteMB.cliente.email}"
 						class="form-control" id="inputEmail" />
 				</div>
-				<div class="form-group col-md-2">
-					<label for="inputResidencial">Telefone Residencial</label>
+				<div class="form-group col-md-3">
+					<label for="inputResidencial">Residencial</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefoneresidencial}"
 						class="form-control" id="inputResidencial"
 						placeholder="Telefone Residencial" />
 				</div>
-				<div class="form-group col-md-2">
-					<label for="inputcomercial">Telefone Comercial</label>
+				<div class="form-group col-md-3">
+					<label for="inputcomercial">Comercial</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefonecomercial}"
 						class="form-control" id="inputcomercial"
 						placeholder="Telefone Comercial" />
 				</div>
-				<div class="form-group col-md-2">
-					<label for="inputcelular">Telefone Celular</label>
+				<div class="form-group col-md-3">
+					<label for="inputcelular">Celular</label>
 					<h:inputText value="#{cadClienteMB.cliente.telefonecelular}"
 						class="form-control" id="inputcelular" placeholder="Nome Mãe" />
 				</div>
@@ -128,8 +127,8 @@
 			<h6>Endereço</h6>
 			<hr />
 
-			<div class="form-row">
-				<div class="form-group col-md-3">
+			<div class="form-row"  style="font-size:14px;">
+				<div class="form-group col-md-4">
 					<label for="inputCEP">CEP</label>
 
 					<h:panelGrid columns="2" style="width:100%;">
@@ -147,20 +146,20 @@
 						class="form-control" id="inputTipoLogradouro"
 						placeholder="Tipo Logradouro" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-5">
 					<label for="inputlogradouro">Logradouro</label>
 					<h:inputText value="#{cadClienteMB.cliente.logradouro}"
 						class="form-control" id="inputlogradouro" placeholder="Logradouro" />
 				</div>
+			</div>
+
+
+			<div class="form-row" style="font-size:14px;">
 				<div class="form-group col-md-3">
 					<label for="inputNumero">Número</label>
 					<h:inputText value="#{cadClienteMB.cliente.numero}"
 						class="form-control" id="inputNumero" placeholder="Número" />
 				</div>
-			</div>
-
-
-			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="inputComplemento">Complemento</label>
 					<h:inputText value="#{cadClienteMB.cliente.complemento}"
@@ -188,8 +187,8 @@
 
 			<h6>Dados Bancarios</h6>
 			<hr />
-			<div class="form-row">
-				<div class="form-group col-md-5">
+			<div class="form-row" style="font-size:14px;">
+				<div class="form-group col-md-6">
 					<label>Banco</label>
 					<h:selectOneMenu id="exampleBanco" style="width: 100%;"
 						immediate="true" value="#{cadClienteMB.bancoDadosBancario}"
@@ -209,14 +208,14 @@
 					<h:inputText value="#{cadClienteMB.dadosbancario.agencia}"
 						class="form-control" placeholder="Agência" />
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-2">
 					<label>Dig. Agência</label>
 					<h:inputText value="#{cadClienteMB.dadosbancario.digitoagencia}"
 						class="form-control" placeholder="Digito da agência" />
 				</div>
 			</div>
 
-			<div class="form-row">
+			<div class="form-row" style="font-size:14px;">
 				<div class="form-group col-md-3">
 					<label>Tipo conta</label>
 					<h:selectOneMenu style="width: 100%;"

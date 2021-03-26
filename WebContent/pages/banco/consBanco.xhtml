@@ -10,13 +10,15 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<div align="right" style="margin-right: 1%;">
-			<p:commandLink ajax="false" style="margin-right:1%;"
+			<p:commandLink ajax="false" style="margin-right:1%;text-decoration:none;"
 				styleClass="btn btn-link" value="Importar Coeficientes"
 				action="#{bancoMB.novaImportacao()}" />
-			<p:commandLink
+			<p:commandLink style="text-decoration:none;"
 				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarbanco}"
-				ajax="false" styleClass="btn btn-primary" value="Novo"
-				action="#{bancoMB.novoBanco()}" />
+				ajax="false"
+				action="#{bancoMB.novoBanco()}" >
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -40,7 +42,7 @@
 							<span data-feather="edit"></span>
 						</p:commandLink>
 						<p:commandLink ajax="false" action="#{bancoMB.listaOrgaos(banco)}"
-							title="Orgãos Vinculados" style="text-align: left;color:black;">
+							title="Orgãos Vinculados" style="text-align: left;color:black;text-decoration:none;">
 							<span data-feather="list"></span>
 						</p:commandLink>
 					</h:column>

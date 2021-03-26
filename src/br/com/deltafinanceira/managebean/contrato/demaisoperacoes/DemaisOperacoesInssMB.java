@@ -117,7 +117,7 @@ public class DemaisOperacoesInssMB implements Serializable {
   @PostConstruct
   public void init() {
     gerarListaUsuario();
-    gerarListaInicial();
+    gerarListaInicial(); 
     gerarListaBanco();
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
       !this.usuarioLogadoMB.getUsuario().isSupervisao()) {

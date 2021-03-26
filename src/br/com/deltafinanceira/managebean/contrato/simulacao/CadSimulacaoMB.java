@@ -332,6 +332,7 @@ public class CadSimulacaoMB implements Serializable {
     } 
     this.simulacaocontrato.getContrato().setPromotora(this.promotora);
     this.simulacaocontrato.setOrgaoBanco(this.orgaoBanco);
+    this.simulacaocontrato.getContrato().setOrgaoBanco(orgaoBanco);
     ValoresCoeficienteFacade valoresCoeficienteFacade = new ValoresCoeficienteFacade();
     this.simulacaocontrato.getContrato().setValorescoeficiente(valoresCoeficienteFacade.consultar(1).getIdvalorescoeficiente().intValue());
     Contrato contrato = this.simulacaocontrato.getContrato();

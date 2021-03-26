@@ -611,7 +611,7 @@ public class Formatacao {
     if (mes == 2)
       return "Fevereiro"; 
     if (mes == 3)
-      return "Mar"; 
+      return "Março"; 
     if (mes == 4)
       return "Abril"; 
     if (mes == 5)
@@ -630,7 +630,7 @@ public class Formatacao {
       return "Novembro"; 
     if (mes == 12)
       return "Dezembro"; 
-    return "nao encontrado";
+    return "não encontrado";
   }
   
   public static int subtrairDatas(Date dataInicial, Date dataFinal) {

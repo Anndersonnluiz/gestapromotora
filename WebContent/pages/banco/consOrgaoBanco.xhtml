@@ -6,47 +6,46 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>
-				Consulta de Orgãos:
-				<p:outputLabel value="#{orgaoBancoMB.banco.nome}" />
-			</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
-			<div align="right">
-				<p:commandLink ajax="false" style="margin-right:1%;"
-					styleClass="btn btn-link" value="Voltar"
-					action="#{orgaoBancoMB.voltar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Novo"
-					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
-					action="#{orgaoBancoMB.novoOrgao()}" />
-			</div>
-			<p:dataTable id="idTabelaBanco" var="orgao"
-				value="#{orgaoBancoMB.listaOrgao}" style="border:none;"
-				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{orgao.idorgaobanco}">
+		<h4>
+			Consulta de Orgãos:
+			<p:outputLabel value="#{orgaoBancoMB.banco.nome}" />
+		</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<div align="right">
+			<p:commandLink ajax="false" style="margin-right:1%;"
+				action="#{orgaoBancoMB.voltar()}" >
+				<img src="../../resources/img/voltar.png" width="35"/>
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
+				action="#{orgaoBancoMB.novoOrgao()}" style="text-decoration:none;">
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaBanco" var="orgao"
+			styleClass="table table-striped table-bordered display"
+			value="#{orgaoBancoMB.listaOrgao}" cellspacing="0">
 
-				<p:column headerText="Nome" sortBy="#{orgao.nome}"
-					style="width:32%; font-size:12px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{orgao.nome}" />
-				</p:column>
-				<p:column headerText=""
-					style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-					<p:commandLink ajax="false" action="#{orgaoBancoMB.editar(orgao)}"
-						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
-						style="text-align: left;color:black;">
-						<span data-feather="edit"></span>
-					</p:commandLink>
-					<p:commandLink ajax="false"
-						action="#{orgaoBancoMB.consultaCoeficiente(orgao)}"
-						title="Coeficientes Vinculados"
-						style="text-align: left;color:black;">
-						<span data-feather="list"></span>
-					</p:commandLink>
-				</p:column>
-			</p:dataTable>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{orgao.nome}" />
+			</h:column>
+			<h:column>
+				<p:commandLink ajax="false" action="#{orgaoBancoMB.editar(orgao)}"
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarorgao}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{orgaoBancoMB.consultaCoeficiente(orgao)}"
+					title="Coeficientes Vinculados"
+					style="text-align: left;color:black;text-decoration:none;">
+					<span data-feather="list"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
 	</ui:define>
 </ui:composition>
 </html>

@@ -86,8 +86,8 @@
 						Emissão </a> <a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/consContrato.jsf"> Busca
 						Rapida </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consSimulacao.jsf"> Simulação </a> <a
-						class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consSimulacaoContrato.jsf">
+						Simulação </a> <a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
 						Portabilidade </a> <a class="collapse-item"
@@ -97,6 +97,26 @@
 						Demais Ope. SIAPE </a>
 				</div>
 			</div></li>
+
+		<li class="nav-item"><h:panelGroup
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse"
+					data-target="#collapseFive" aria-expanded="true"
+					aria-controls="collapseFive"> <i class="fas fa-funnel-dollar fa-file"></i>
+					<span>Financeiro</span>
+				</a>
+				<div id="collapseFive" class="collapse"
+					aria-labelledby="headingFive" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/despesa/consDespesa.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Tipo Despesa </a> <a class="collapse-item"
+							href="/deltafinanceira/pages/financeiro/consContasPagar.jsf">
+							Contas a Pagar </a>
+					</div>
+				</div>
+			</h:panelGroup></li>
 
 
 		<li class="nav-item"><a class="nav-link collapsed" href="#"

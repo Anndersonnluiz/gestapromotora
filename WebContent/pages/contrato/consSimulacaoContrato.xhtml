@@ -11,15 +11,10 @@
 
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 		<br />
-		<div align="right">
-			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
-				action="#{simulacaoMB.novo()}" />
-		</div>
-		<br />
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
-				<div class="form-row">
-					<div class="form-group col-md-4">
+				<div class="form-row" style="font-size:14px;">
+					<div class="form-group col-md-6">
 						<label for="usuario">Corretor</label>
 						<h:selectOneMenu id="usuario" style="width: 100%;"
 							immediate="true" value="#{simulacaoMB.usuario}" disabled="#{simulacaoMB.unicoUsuario}"
@@ -34,18 +29,18 @@
 								value="#{simulacaoMB.listaUsuario}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-5">
+					<div class="form-group col-md-6">
 						<label for="nomecliente">Nome Cliente</label>
 						<h:inputText class="form-control" id="nomecliente"
 							value="#{simulacaoMB.nomeCliente}">
 						</h:inputText>
 					</div>
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-4">
 						<label for="cpf">CPF</label>
 						<p:inputMask mask="999.999.999-99" id="cpf"
 							styleClass="form-control" value="#{simulacaoMB.cpf}" />
 					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-8">
 						<label for="inputRG">Tipo de Operação</label>
 						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
 							value="#{simulacaoMB.tipooperacao}"
@@ -59,8 +54,8 @@
 							<f:attribute name="listaTipoOperacao"
 								value="#{simulacaoMB.listaTipoOperacao}" />
 						</h:selectOneMenu>
-					</div>
-					<div class="form-group col-md-4">
+					</div> 
+					<div class="form-group col-md-6">
 						<label for="inputNome">Banco</label>
 						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
 							immediate="true" value="#{simulacaoMB.banco}"
@@ -74,10 +69,10 @@
 							<p:ajax event="blur" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-3">
-						<label>.</label>
+					<div class="form-group col-md-4">
+						<label style="color:white;">.</label>
 						<div>
-							<p:commandLink ajax="false" styleClass="btn btn-primary"
+							<p:commandLink ajax="false" styleClass="btn btn-primary text-white"
 								value="Pesquisar" action="#{simulacaoMB.pesquisar()}"
 								update="idTabelaContrato" />
 							<p:commandLink ajax="false" style="margin-left:1%;"
@@ -89,7 +84,15 @@
 				</div>
 			</p:tab>
 		</p:accordionPanel>
-		<br/><br/>
+		<br/>
+		
+		<div align="right">
+			<p:commandLink ajax="false"
+				action="#{simulacaoMB.novo()}" >
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
+		</div>
+		<br/>
 		<p:dataTable id="idTabelaContrato" var="simulacao"
 			value="#{simulacaoMB.listaSimulacao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"

@@ -10,10 +10,14 @@
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
 		<div align="right">
-			<p:commandLink ajax="false" styleClass="btn btn-link" value="Voltar"
-				action="#{departamentoMB.voltar()}" />
-			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
-				action="#{departamentoMB.novoDepartamento()}" />
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{departamentoMB.voltar()}" >
+				<img src="../../resources/img/voltar.png" width="35"/>
+			</p:commandLink>
+			<p:commandLink ajax="false" rendered="#{usuarioLogadoMB.usuario.acessogeral}"
+				action="#{departamentoMB.novoDepartamento()}" style="text-decoration:none;">
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
 		</div>
 		<br/>
 		<div class="row" style="color: white;">

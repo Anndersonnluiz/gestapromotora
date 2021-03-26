@@ -6,7 +6,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
 		<h4>Demais Operações - INSS</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
@@ -15,165 +14,188 @@
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
 		<br />
-		<div class="row" style="color: white;" align="center">
-			<div class="col-md-2">
+		<div class="row" style="color: white;">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(37)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3"
-						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Formalização
-							e Pendência</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nFormalizacaoPendencia}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Formalização e Pendência</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nFormalizacaoPendencia}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(1)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3"
-						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Digitação</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesInssMB.nDigitados}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Digitação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nDigitados}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(5)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pendente
-							Documentação</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nPendenciaDocumentacao}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pendente Documentação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nPendenciaDocumentacao}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(28)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Assinatura</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nAguardandoAssinatura}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Assinatura</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nAguardandoAssinatura}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(36)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pendência
-							Averbação</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nPendenciaAverbacao}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pendência Averbação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nPendenciaAverbacao}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(19)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Pagamento</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nAguardandoPagamento}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Pagamento</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nAguardandoPagamento}</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> 
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(16)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pago ao Cliente</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nPagoCliente}</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(2)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Cancelados</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nCancelados}</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(0)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Todos</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesInssMB.nTodos}</div>
+								</div>
+							</div>
+						</div>
+					</div> 
 				</p:commandLink>
 			</div>
 		</div>
 		<br />
-		<div class="row" style="color: white;" align="center">
-			<div class="col-md-2">
-				<p:commandLink
-					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(16)}"
-					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pago
-							ao Cliente</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nPagoCliente}" /></b> contrato(s)
-						</div>
-					</div>
-				</p:commandLink>
-			</div>
-			<div class="col-md-2">
-				<p:commandLink
-					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(2)}"
-					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelados</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesInssMB.nCancelados}" /></b> contrato(s)
-						</div>
-					</div>
-				</p:commandLink>
-			</div>
-			<div class="col-md-2">
-				<p:commandLink
-					action="#{demaisOperacoesInssMB.gerarListaDemaisOperacoes(0)}"
-					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Todos</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesInssMB.nTodos}" /></b>
-							contrato(s)
-						</div>
-					</div>
-				</p:commandLink>
-			</div>
-		</div>
+		<br />
 		<br />
 		<h:panelGrid rendered="#{demaisOperacoesInssMB.mudarsituacao}"
 			id="idtabela">
 			<p:accordionPanel activeIndex="null">
 				<p:tab title="Filtros">
-					<div class="form-row">
-						<div class="form-group col-md-4">
+					<div class="form-row" style="font-size:14px;">
+						<div class="form-group col-md-5">
 							<label for="usuario">Corretor</label>
 							<h:selectOneMenu id="usuario" style="width: 100%;"
 								immediate="true" value="#{demaisOperacoesInssMB.usuario}"
@@ -189,18 +211,18 @@
 									value="#{demaisOperacoesInssMB.listaUsuario}" />
 							</h:selectOneMenu>
 						</div>
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-7">
 							<label for="nomecliente">Nome Cliente</label>
 							<h:inputText class="form-control" id="nomecliente"
 								value="#{demaisOperacoesInssMB.nomeCliente}">
 							</h:inputText>
 						</div>
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-3">
 							<label for="cpf">CPF</label>
 							<p:inputMask mask="999.999.999-99" id="cpf"
 								styleClass="form-control" value="#{demaisOperacoesInssMB.cpf}" />
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-5">
 							<label for="inputNome">Banco</label>
 							<h:selectOneMenu id="exampleBanco" style="width: 100%;"
 								immediate="true" value="#{demaisOperacoesInssMB.banco}"
@@ -231,10 +253,10 @@
 								<p:ajax event="blur" />
 							</h:selectOneMenu>
 						</div>
-						<div class="form-group col-md-3">
+						<div class="form-group col-md-4">
 							<label style="color: white;">.</label>
 							<div>
-								<p:commandLink ajax="false" styleClass="btn btn-primary"
+								<p:commandLink ajax="false" styleClass="btn btn-primary text-white"
 									value="Pesquisar" action="#{demaisOperacoesInssMB.pesquisar()}"
 									update="idTabelaPortabilidade" />
 								<p:commandLink ajax="false" style="margin-left:1%;"

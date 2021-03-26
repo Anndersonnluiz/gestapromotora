@@ -154,6 +154,7 @@ public class SimulacaoMB implements Serializable {
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() || 
       !this.usuarioLogadoMB.getUsuario().isResponsaveldepartamento())
       sql = String.valueOf(sql) + " and s.contrato.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario(); 
+    sql = sql + " ORDER BY s.idsimulacaocontrato DESC";
     this.listaSimulacao = simulacaoContratoFacade.lista(sql);
   }
   

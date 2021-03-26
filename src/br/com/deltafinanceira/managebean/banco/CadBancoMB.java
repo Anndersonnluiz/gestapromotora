@@ -24,6 +24,7 @@ public class CadBancoMB implements Serializable {
     session.removeAttribute("banco");
     if (this.banco == null)
       this.banco = new Banco(); 
+    	this.banco.setVisualizar(true);
   }
   
   public Banco getBanco() {

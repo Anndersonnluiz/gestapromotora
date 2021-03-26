@@ -15,158 +15,180 @@
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
 		<br />
-		<div class="row" style="color: white;" align="center">
-			<div class="col-md-2">
+		<div class="row" style="color: white;">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(37)}" ajax="false"
-					style="text-decoration:none;" update="@all">
-					<div class="panel-stat3"
-						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Formalização e 
-							Pendência</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesMB.nFormalizacaoPendencia}" /></b>
-							contrato(s)
+					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(37)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Formalização e Pendência</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nFormalizacaoPendencia}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(1)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3"
-						style="opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Digitação</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesMB.nDigitados}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Digitação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nDigitados}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(5)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pendente
-							Documentação</b> <br />
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesMB.nPendenciaDocumentacao}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pendente Documentação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nPendenciaDocumentacao}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(28)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Assinatura</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesMB.nAguardandoAssinatura}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Assinatura</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nAguardandoAssinatura}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(36)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pendência
-							Averbação</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesMB.nPendenciaAverbacao}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pendência Averbação</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nPendenciaAverbacao}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(19)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Aguardando
-							Pagamento</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel
-									value="#{demaisOperacoesMB.nAguardandoPagamento}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Aguardando Pagamento</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nAguardandoPagamento}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-12"></div>
-			<div class="col-md-12"></div>
-			<br />
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(16)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Pago
-							ao Cliente</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesMB.nPagoCliente}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pago ao Cliente</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nPagoCliente}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(2)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Cancelados</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesMB.nCancelados}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Cancelados</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nCancelados}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
-			<div class="col-md-2">
+			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{demaisOperacoesMB.gerarListaDemaisOperacoes(0)}"
 					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="panel-stat3 bg-primary"
-						style="background: #145B7A; opacity: 0.75; padding: 15px 10px; border-radius: 15px; height: 150px; color: white; background-color: #000080 !important;">
-						<b style="font-family: Segoe UI Semibold; font-size: 13px;">Todos</b>
-						<hr style="background-color: white;" />
-						<div align="center" style="font-size: 11px;">
-							<b><p:outputLabel value="#{demaisOperacoesMB.nTodos}" /></b>
-							contrato(s)
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Todos</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{demaisOperacoesMB.nTodos}</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
 		</div>
-		<br />
+		<br /><br /><br />
 		<h:panelGrid rendered="#{demaisOperacoesMB.mudarsituacao}"
 			id="idtabela">
 			<p:accordionPanel activeIndex="null">
@@ -221,7 +243,8 @@
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems value="#{demaisOperacoesMB.listaPromotora}"
-									var="promotoraSelecionado" itemLabel="#{promotoraSelecionado.descricao}"
+									var="promotoraSelecionado"
+									itemLabel="#{promotoraSelecionado.descricao}"
 									itemValue="#{promotoraSelecionado}" />
 								<f:attribute name="listaPromotora"
 									value="#{demaisOperacoesMB.listaPromotora}" />
@@ -229,7 +252,7 @@
 							</h:selectOneMenu>
 						</div>
 						<div class="form-group col-md-3">
-							<label style="color:white;">.</label>
+							<label style="color: white;">.</label>
 							<div>
 								<p:commandLink ajax="false" styleClass="btn btn-primary"
 									value="Pesquisar" action="#{demaisOperacoesMB.pesquisar()}"
@@ -334,7 +357,7 @@
 						rendered="#{usuarioLogadoMB.usuario.comissao}">
 						<span data-feather="dollar-sign"></span>
 					</p:commandLink>
-					
+
 					<p:commandLink
 						action="#{demaisOperacoesMB.historicoContrato(contrato)}"
 						style="text-align: left;color:black;">

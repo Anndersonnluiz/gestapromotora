@@ -13,8 +13,8 @@
 		<br />
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
-				<div class="form-row">
-					<div class="form-group col-md-4">
+				<div class="form-row" style="font-size:14px;">
+					<div class="form-group col-md-6">
 						<label for="usuario">Corretor</label>
 						<h:selectOneMenu id="usuario" style="width: 100%;" disabled="#{contratoMB.unicoUsuario}"
 							immediate="true" value="#{contratoMB.usuario}"
@@ -29,47 +29,7 @@
 								value="#{contratoMB.listaUsuario}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-5">
-						<label for="nomecliente">Nome Cliente</label>
-						<h:inputText class="form-control" id="nomecliente"
-							value="#{contratoMB.nomeCliente}">
-						</h:inputText>
-					</div>
-					<div class="form-group col-md-2">
-						<label for="cpf">CPF</label>
-						<p:inputMask mask="999.999.999-99" id="cpf"
-							styleClass="form-control" value="#{contratoMB.cpf}" />
-					</div>
-					<div class="form-group col-md-4">
-						<label for="inputRG">Tipo de Operação</label>
-						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-							value="#{contratoMB.tipooiperacao}"
-							converter="TipoOperacaoConverter" styleClass="form-control">
-							<f:selectItem itemLabel="Selecione" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems value="#{contratoMB.listaTipoOperacao}"
-								var="tipoOperacaoSelecionado"
-								itemLabel="#{tipoOperacaoSelecionado.descricao}"
-								itemValue="#{tipoOperacaoSelecionado}" />
-							<f:attribute name="listaTipoOperacao"
-								value="#{contratoMB.listaTipoOperacao}" />
-						</h:selectOneMenu>
-					</div>
-					<div class="form-group col-md-4">
-						<label for="inputNome">Banco</label>
-						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
-							immediate="true" value="#{contratoMB.banco}"
-							converter="BancoConverter" styleClass="form-control">
-							<f:selectItem itemLabel="Selecione" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems value="#{contratoMB.listaBanco}"
-								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
-								itemValue="#{bancoSelecionado}" />
-							<f:attribute name="listaBanco" value="#{contratoMB.listaBanco}" />
-							<p:ajax event="blur" />
-						</h:selectOneMenu>
-					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-6">
 						<label for="novasituacao">Situação</label>
 						<h:selectOneMenu id="novasituacao" style="width: 100%;"
 							value="#{contratoMB.situacao}" converter="SituacaoConverter"
@@ -84,7 +44,47 @@
 								value="#{contratoMB.listaSituacao}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-8">
+						<label for="nomecliente">Nome Cliente</label>
+						<h:inputText class="form-control" id="nomecliente"
+							value="#{contratoMB.nomeCliente}">
+						</h:inputText>
+					</div>
+					<div class="form-group col-md-4"> 
+						<label for="cpf">CPF</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{contratoMB.cpf}" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputRG">Tipo de Operação</label>
+						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+							value="#{contratoMB.tipooiperacao}"
+							converter="TipoOperacaoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaTipoOperacao}"
+								var="tipoOperacaoSelecionado"
+								itemLabel="#{tipoOperacaoSelecionado.descricao}"
+								itemValue="#{tipoOperacaoSelecionado}" />
+							<f:attribute name="listaTipoOperacao"
+								value="#{contratoMB.listaTipoOperacao}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputNome">Banco</label>
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{contratoMB.banco}"
+							converter="BancoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contratoMB.listaBanco}"
+								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+								itemValue="#{bancoSelecionado}" />
+							<f:attribute name="listaBanco" value="#{contratoMB.listaBanco}" />
+							<p:ajax event="blur" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-5">
 							<label for="inputNome">Promotora</label>
 							<h:selectOneMenu id="examplePromotora" style="width: 100%;"
 								immediate="true" value="#{contratoMB.promotora}"
@@ -99,10 +99,10 @@
 								<p:ajax event="blur" />
 							</h:selectOneMenu>
 						</div>
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-4">
 						<label>.</label>
 						<div>
-							<p:commandLink ajax="false" styleClass="btn btn-primary"
+							<p:commandLink ajax="false" styleClass="btn btn-primary text-white"
 								value="Pesquisar" action="#{contratoMB.pesquisar()}"
 								update="idTabelaContrato" />
 							<p:commandLink ajax="false" style="margin-left:1%;"

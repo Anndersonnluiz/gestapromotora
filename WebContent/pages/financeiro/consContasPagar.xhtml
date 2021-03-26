@@ -11,82 +11,88 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-
-		<div class="form-row">
-			<div class="form-group col-md-3">
-				<label for="usuario">Tipo Despesa</label>
-				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
-					value="#{contasPagarMB.tipodespesa}"
-					converter="TipoDespesaConverter" styleClass="form-control">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{contasPagarMB.listaTipoDespesa}"
-						var="usuarioSelecionado"
-						itemLabel="#{usuarioSelecionado.descricao}"
-						itemValue="#{usuarioSelecionado}" />
-					<f:attribute name="listaTipoDespesa"
-						value="#{contasPagarMB.listaTipoDespesa}" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-2">
-				<label for="cpf">Mês</label>
-				<h:selectOneMenu style="width: 100%;" id="cpf"
-					value="#{contasPagarMB.mesreferente}"
-					styleClass="form-control">
-					<f:selectItem itemLabel="Todos" itemValue="0" />
-					<f:selectItem itemLabel="Janeiro" itemValue="1" />
-					<f:selectItem itemLabel="Fevereiro" itemValue="2" />
-					<f:selectItem itemLabel="Março" itemValue="3" />
-					<f:selectItem itemLabel="Abril" itemValue="4" />
-					<f:selectItem itemLabel="Maio" itemValue="5" />
-					<f:selectItem itemLabel="Junho" itemValue="6" />
-					<f:selectItem itemLabel="Julho" itemValue="7" />
-					<f:selectItem itemLabel="Agosto" itemValue="8" />
-					<f:selectItem itemLabel="Setembro" itemValue="9" />
-					<f:selectItem itemLabel="Outubro" itemValue="10" />
-					<f:selectItem itemLabel="Novembro" itemValue="11" />
-					<f:selectItem itemLabel="Dezembro" itemValue="12" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-4">
-				<label for="usuario">Periodo do Pagamento</label>
-				<h:panelGrid columns="2" style="width:80%;">
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{contasPagarMB.dataini}" id="dataini" size="11">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
-					</p:calendar>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{contasPagarMB.datafin}" id="datafin" size="11">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
-					</p:calendar>
-				</h:panelGrid>
-			</div>
-			<div class="form-group col-md-3">
-				<label>.</label>
-				<div>
-					<p:commandLink ajax="false" styleClass="btn btn-primary"
-						value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
-						update="idTabelaComissao, infValorTotal, referente" />
-					<p:commandLink ajax="false" style="margin-left:1%;"
-						styleClass="btn btn-link" value="Limpar"
-						action="#{contasPagarMB.limpar()}"
-						update="idTabelaComissao, usuario, dataini, datafin, referente" />
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+				<div class="form-row" style="font-size: 14px;">
+					<div class="form-group col-md-5">
+						<label for="usuario">Tipo Despesa</label>
+						<h:selectOneMenu id="usuario" style="width: 100%;"
+							immediate="true" value="#{contasPagarMB.tipodespesa}"
+							converter="TipoDespesaConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{contasPagarMB.listaTipoDespesa}"
+								var="usuarioSelecionado"
+								itemLabel="#{usuarioSelecionado.descricao}"
+								itemValue="#{usuarioSelecionado}" />
+							<f:attribute name="listaTipoDespesa"
+								value="#{contasPagarMB.listaTipoDespesa}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="cpf">Mês</label>
+						<h:selectOneMenu style="width: 100%;" id="cpf"
+							value="#{contasPagarMB.mesreferente}" styleClass="form-control">
+							<f:selectItem itemLabel="Todos" itemValue="0" />
+							<f:selectItem itemLabel="Janeiro" itemValue="1" />
+							<f:selectItem itemLabel="Fevereiro" itemValue="2" />
+							<f:selectItem itemLabel="Março" itemValue="3" />
+							<f:selectItem itemLabel="Abril" itemValue="4" />
+							<f:selectItem itemLabel="Maio" itemValue="5" />
+							<f:selectItem itemLabel="Junho" itemValue="6" />
+							<f:selectItem itemLabel="Julho" itemValue="7" />
+							<f:selectItem itemLabel="Agosto" itemValue="8" />
+							<f:selectItem itemLabel="Setembro" itemValue="9" />
+							<f:selectItem itemLabel="Outubro" itemValue="10" />
+							<f:selectItem itemLabel="Novembro" itemValue="11" />
+							<f:selectItem itemLabel="Dezembro" itemValue="12" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="usuario">Periodo do Pagamento</label>
+						<h:panelGrid columns="2" style="width:80%;">
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;" value="#{contasPagarMB.dataini}" id="dataini"
+								size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;" value="#{contasPagarMB.datafin}" id="datafin"
+								size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+						</h:panelGrid>
+					</div>
+					<div class="form-group col-md-4">
+						<label>.</label>
+						<div>
+							<p:commandLink ajax="false" styleClass="btn btn-primary"
+								value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
+								update="idTabelaComissao, infValorTotal, referente" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{contasPagarMB.limpar()}"
+								update="idTabelaComissao, usuario, dataini, datafin, referente" />
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</p:tab>
+		</p:accordionPanel>
 		<br />
 		<div align="right">
-			<p:commandLink ajax="false" styleClass="btn btn-primary" value="Novo"
-				action="#{contasPagarMB.novo()}" />
+			<p:commandLink ajax="false" action="#{contasPagarMB.novo()}">
+				<img src="../../resources/img/cadastro.png" width="35" />
+			</p:commandLink>
 		</div>
-		<div id="referente" >
-			<p:outputLabel style="font-size:18px;font-weight:bold;" value="Fatura de: #{contasPagarMB.nomeMes}"/>
+		<div id="referente">
+			<p:outputLabel style="font-size:18px;font-weight:bold;"
+				value="Fatura de: #{contasPagarMB.nomeMes}" />
 		</div>
 		<p:dataTable id="idTabelaComissao" var="contas"
 			value="#{contasPagarMB.listaContasPagar}" style="border:none;"
@@ -136,7 +142,8 @@
 					style="text-align: left;color:black;" title="Editar">
 					<span data-feather="edit"></span>
 				</p:commandLink>
-				<p:commandLink ajax="false" action="#{contasPagarMB.excluirConta(rowIx)}"
+				<p:commandLink ajax="false"
+					action="#{contasPagarMB.excluirConta(rowIx)}"
 					style="text-align: left;color:black;" update="idTabelaComissao">
 					<span data-feather="trash"></span>
 				</p:commandLink>
@@ -151,13 +158,12 @@
 					style="font-size:28px;color:red;font-weight: bold;" />
 				<h:outputText value="#{contasPagarMB.nvalorTotal}"
 					style="font-size:28px;color:red;font-weight: bold;">
-					<f:convertNumber  minFractionDigits="2"
-						locale="pt_BR" />
+					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
 				</h:outputText>
 			</h:panelGroup>
 			<br />
 		</div>
-		<br/>
+		<br />
 	</ui:define>
 </ui:composition>
 </html>

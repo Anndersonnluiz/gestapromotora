@@ -11,6 +11,8 @@ import br.com.deltafinanceira.model.OrgaoBanco;
 import br.com.deltafinanceira.model.Simulacaocontrato;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.util.Mensagem;
+import br.com.deltafinanceira.util.UsuarioLogadoMB;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +28,9 @@ import javax.servlet.http.HttpSession;
 @ViewScoped
 public class ConfDadosContratoMB implements Serializable {
   private static final long serialVersionUID = 1L;
+  
+  @Inject
+  private UsuarioLogadoMB usuarioLogadoMB;
   
   private List<Banco> listaBanco;
   
@@ -238,6 +244,10 @@ public class ConfDadosContratoMB implements Serializable {
   public void pesquisar() {
     String sql = "Select s From Simulacaocontrato s WHERE  s.contrato.cliente.nome like '%" + this.nomeCliente + 
       "%' and s.contrato.cliente.cpf like '%" + this.cpf + "%'";
+    if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
+    	      !this.usuarioLogadoMB.getUsuario().isSupervisao()) {
+    	sql = sql + "s.contrato.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+    }
     sql = String.valueOf(sql) + " ORDER BY s.idsimulacaocontrato DESC";
     SimulacaoContratoFacade simulacaoContratoFacade = new SimulacaoContratoFacade();
     this.listaSimulacao = simulacaoContratoFacade.lista(sql);

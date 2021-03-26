@@ -10,54 +10,59 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-		<h:panelGroup rendered="#{clienteMB.verificarAcesso}">
-			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="usuario">Corretor</label>
-					<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
-						value="#{clienteMB.usuario}" converter="UsuarioConverter"
-						styleClass="form-control" onchange="usuario">
-						<f:selectItem itemLabel="Selecione" itemValue="0"
-							noSelectionOption="true" />
-						<f:selectItems value="#{clienteMB.listaUsuario}"
-							var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
-							itemValue="#{usuarioSelecionado}" />
-						<f:attribute name="listaUsuario" value="#{clienteMB.listaUsuario}" />
-					</h:selectOneMenu>
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+				<h:panelGroup rendered="#{clienteMB.verificarAcesso}">
+					<div class="form-row" style="font-size:14px;">
+						<div class="form-group col-md-5">
+							<label for="usuario">Corretor</label>
+							<h:selectOneMenu id="usuario" style="width: 100%;"
+								immediate="true" value="#{clienteMB.usuario}"
+								converter="UsuarioConverter" styleClass="form-control"
+								onchange="usuario">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{clienteMB.listaUsuario}"
+									var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+									itemValue="#{usuarioSelecionado}" />
+								<f:attribute name="listaUsuario"
+									value="#{clienteMB.listaUsuario}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group col-md-7">
+							<label for="nomecliente">Nome Cliente</label>
+							<h:inputText class="form-control" id="nomecliente"
+								value="#{clienteMB.nomeCliente}">
+							</h:inputText>
+						</div>
+					</div>
+				</h:panelGroup>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="cpf">CPF</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{clienteMB.cpf}" />
+					</div>
+					<div class="form-group col-md-4">
+						<label style="color: white;">.</label>
+						<div>
+							<p:commandLink ajax="false"
+								styleClass="btn btn-primary text-white" value="Pesquisar"
+								action="#{clienteMB.pesquisar()}" update="idTabelaCliente" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{clienteMB.limpar()}"
+								update="idTabelaCliente, cpf, nomecliente" />
+						</div>
+					</div>
 				</div>
-			</div>
-		</h:panelGroup>
-		<div class="form-row">
-			<div class="form-group col-md-5">
-				<label for="nomecliente">Nome Cliente</label>
-				<h:inputText class="form-control" id="nomecliente"
-					value="#{clienteMB.nomeCliente}">
-				</h:inputText>
-			</div>
-			<div class="form-group col-md-3">
-				<label for="cpf">CPF</label>
-				<p:inputMask mask="999.999.999-99" id="cpf"
-					styleClass="form-control" value="#{clienteMB.cpf}" />
-			</div>
-			<div class="form-group col-md-4">
-				<label>.</label>
-				<div>
-					<p:commandLink ajax="false" styleClass="btn btn-primary"
-						value="Pesquisar" action="#{clienteMB.pesquisar()}"
-						update="idTabelaCliente" />
-					<p:commandLink ajax="false" style="margin-left:1%;"
-						styleClass="btn btn-link" value="Limpar"
-						action="#{clienteMB.limpar()}"
-						update="idTabelaCliente, cpf, nomecliente" />
-				</div>
-			</div>
-		</div>
+			</p:tab>
+		</p:accordionPanel>
 		<br />
 		<div align="right">
 			<p:commandLink action="#{clienteMB.relatorioCliente()}"
-				style="text-align: left;color:blue;font-weight:bold;"
-				value="Imprimir">
-				<span data-feather="printer"></span>
+				style="text-align: left;font-weight:bold;">
+				<img src="../../resources/img/impressora.png" width="35" />
 			</p:commandLink>
 
 		</div>
@@ -70,9 +75,9 @@
 		</div>
 		<p:dataTable id="idTabelaCliente" var="cliente"
 			value="#{clienteMB.listaCliente}" style="border:none;"
-			styleClass="table table-striped table-bordered displa" scrollRows="10" scrollable="true"
-			scrollHeight="400" selectionMode="single"
-			rowKey="#{cliente.idcliente}">
+			styleClass="table table-striped table-bordered displa"
+			scrollRows="10" scrollable="true" scrollHeight="400"
+			selectionMode="single" rowKey="#{cliente.idcliente}">
 
 
 			<p:column headerText="Nome"
@@ -95,7 +100,7 @@
 				<h:outputText value="#{cliente.usuario.nome}" />
 			</p:column>
 
-			<p:column headerText="" 
+			<p:column headerText=""
 				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 				<p:commandLink ajax="false" action="#{clienteMB.editar(cliente)}"
 					style="text-align: left;color:black;">

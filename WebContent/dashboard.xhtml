@@ -109,7 +109,7 @@
 							aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
 							class="collapse-item" href="pages/contrato/consContrato.jsf">
 							Busca Rapida </a> <a class="collapse-item"
-							href="pages/contrato/consSimulacao.jsf"> Simulação </a> <a
+							href="pages/contrato/consSimulacaoContrato.jsf"> Simulação </a> <a
 							class="collapse-item" href="pages/contrato/consPortabilidade.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Portabilidade </a> <a class="collapse-item"
@@ -119,6 +119,25 @@
 							SIAPE </a>
 					</div>
 				</div></li>
+
+			<li class="nav-item"><h:panelGroup
+					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse"
+						data-target="#collapseFive" aria-expanded="true"
+						aria-controls="collapseFive"> <i class="fas fa-funnel-dollar fa-file"></i>
+						<span>Financeiro</span>
+					</a>
+					<div id="collapseFive" class="collapse"
+						aria-labelledby="headingFive" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<a class="collapse-item" href="pages/despesa/consDespesa.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Tipo Despesa </a> <a class="collapse-item"
+								href="pages/financeiro/consContasPagar.jsf"> Contas a Pagar
+							</a>
+						</div>
+					</div>
+				</h:panelGroup></li>
 
 
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
@@ -276,11 +295,29 @@
 				<!-- End of Topbar -->
 				<div class="container-fluid">
 					<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-8">
-
+						<div class="form-row">
+							<div class="form-group col-md-5">
+								<label style="color: white;">.</label>
+								<h:panelGrid columns="2" style="width:100%;">
+									<h:selectOneMenu style="width: 100%;" id="convenio"
+										value="#{dashBoardMB.convenio}" styleClass="form-control">
+										<f:selectItem itemLabel="TODOS" itemValue="0" />
+										<f:selectItem itemLabel="INSS" itemValue="1" />
+										<f:selectItem itemLabel="SIAPE" itemValue="2" />
+									</h:selectOneMenu>
+									<p:commandLink id="btnPesquisar" title="Recalcular"
+										action="#{dashBoardMB.faturamentoMensal()}" ajax="false"
+										update="panelValores">
+										<img src="resources/img/calculator.png" width="35" />
+									</p:commandLink>
+								</h:panelGrid>
+							</div>
+						</div>
+						<br />
 						<h2>Dashboard</h2>
 						<hr />
 						<!-- Content Row -->
-						<div class="row">
+						<div class="row" id="panelValores">
 
 							<div class="col-xl-3 col-md-6 mb-4">
 								<div class="card border-left-danger shadow h-100 py-2">

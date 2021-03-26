@@ -14,8 +14,8 @@
 		<br />
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
-				<div class="form-row">
-					<div class="form-group col-md-4">
+				<div class="form-row" style="font-size:14px;">
+					<div class="form-group col-md-6">
 						<label for="usuario">Usuário</label>
 						<h:selectOneMenu id="usuario" style="width: 100%;"
 							immediate="true" value="#{historicoUsuarioMB.usuario}"
@@ -35,7 +35,7 @@
 						<h:panelGrid columns="2" style="width:80%;">
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
 								style="widht:80%;" value="#{historicoUsuarioMB.dataini}"
-								id="dataini" size="11">
+								id="dataini" size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="dateSelect" />
@@ -43,7 +43,7 @@
 							</p:calendar>
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
 								style="widht:80%;" value="#{historicoUsuarioMB.datafin}"
-								id="datafin" size="11">
+								id="datafin" size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="dateSelect" />
@@ -51,14 +51,14 @@
 							</p:calendar>
 						</h:panelGrid>
 					</div>
-					<div class="form-group col-md-3">
-						<label>.</label>
+					<div class="form-group col-md-4">
+						<label style="color:white;">.</label>
 						<div>
 							<p:commandLink ajax="false" styleClass="btn btn-primary"
 								style="color:white;" value="Pesquisar"
 								action="#{historicoUsuarioMB.pesquisar()}"
 								update="idTabelaContrato" />
-							<p:commandLink ajax="false" style="margin-left:1%;"
+							<p:commandLink ajax="false" 
 								styleClass="btn btn-link" value="Limpar"
 								action="#{historicoUsuarioMB.limpar()}"
 								update="idTabelaContrato, usuario" />

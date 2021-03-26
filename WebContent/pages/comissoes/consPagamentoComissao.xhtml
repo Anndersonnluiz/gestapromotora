@@ -11,146 +11,160 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+				<div class="form-row" style="font-size: 14px;">
+					<div class="form-group col-md-5">
+						<label for="usuario">Corretor</label>
+						<h:selectOneMenu id="usuario" style="width: 100%;"
+							immediate="true" value="#{historicoComissaoMB.usuario}"
+							converter="UsuarioConverter" styleClass="form-control"
+							onchange="usuario" disabled="#{historicoComissaoMB.unicoUsuario}">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{historicoComissaoMB.listaUsuario}"
+								var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+								itemValue="#{usuarioSelecionado}" />
+							<f:attribute name="listaUsuario"
+								value="#{historicoComissaoMB.listaUsuario}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-7">
+						<label for="inputRG">Tipo de Operação</label>
+						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+							value="#{historicoComissaoMB.tipooiperacao}"
+							converter="TipoOperacaoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{historicoComissaoMB.listaTipoOperacao}"
+								var="tipoOperacaoSelecionado"
+								itemLabel="#{tipoOperacaoSelecionado.descricao}"
+								itemValue="#{tipoOperacaoSelecionado}" />
+							<f:attribute name="listaTipoOperacao"
+								value="#{historicoComissaoMB.listaTipoOperacao}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-3">
+						<label>Tipo</label>
+						<h:selectOneMenu style="width: 100%;" id="statusTipo"
+							value="#{historicoComissaoMB.statusTipo}"
+							styleClass="form-control">
+							<f:selectItem itemLabel="TODOS" itemValue="" />
+							<f:selectItem itemLabel="PAGO" itemValue="Pago" />
+							<f:selectItem itemLabel="PENDENTE" itemValue="PENDENTE" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-3">
+						<label>CPF Cliente</label>
 
-		<div class="form-row">
-			<div class="form-group col-md-4">
-				<label for="usuario">Corretor</label>
-				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
-					value="#{historicoComissaoMB.usuario}" converter="UsuarioConverter"
-					styleClass="form-control" onchange="usuario"
-					disabled="#{historicoComissaoMB.unicoUsuario}">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{historicoComissaoMB.listaUsuario}"
-						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
-						itemValue="#{usuarioSelecionado}" />
-					<f:attribute name="listaUsuario"
-						value="#{historicoComissaoMB.listaUsuario}" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-4">
-				<label for="inputRG">Tipo de Operação</label>
-				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-					value="#{historicoComissaoMB.tipooiperacao}"
-					converter="TipoOperacaoConverter" styleClass="form-control">
-					<f:selectItem itemLabel="Selecione" itemValue="0"
-						noSelectionOption="true" />
-					<f:selectItems value="#{historicoComissaoMB.listaTipoOperacao}"
-						var="tipoOperacaoSelecionado"
-						itemLabel="#{tipoOperacaoSelecionado.descricao}"
-						itemValue="#{tipoOperacaoSelecionado}" />
-					<f:attribute name="listaTipoOperacao"
-						value="#{historicoComissaoMB.listaTipoOperacao}" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-4">
-				<label>Situação</label>
-				<h:selectOneMenu style="width: 100%;" id="situacao" disabled="true"
-					value="#{historicoComissaoMB.situacao}" styleClass="form-control">
-					<f:selectItem itemLabel="TODOS" itemValue="0" />
-					<f:selectItem itemLabel="AGUARDANDO ASSINATURA" itemValue="1" />
-					<f:selectItem itemLabel="AGUARDANDO PAGAMENTO" itemValue="2" />
-					<f:selectItem itemLabel="CANCELADOS" itemValue="3" />
-					<f:selectItem itemLabel="COMISSÃO RECEBIDA" itemValue="6" />
-					<f:selectItem itemLabel="PAGO AO CLIENTE" itemValue="4" />
-					<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-3">
-				<label>Tipo</label>
-				<h:selectOneMenu style="width: 100%;" id="statusTipo"
-					value="#{historicoComissaoMB.statusTipo}" styleClass="form-control">
-					<f:selectItem itemLabel="TODOS" itemValue="" />
-					<f:selectItem itemLabel="PAGO" itemValue="Pago" />
-					<f:selectItem itemLabel="PENDENTE" itemValue="PENDENTE" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-3">
-				<label>CPF Cliente</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{historicoComissaoMB.cpf}" />
+					</div>
+					<div class="form-group col-md-2">
+						<label>Baixa</label>
+						<h:selectOneMenu style="width: 100%;" id="baixa"
+							value="#{historicoComissaoMB.nBaixa}" styleClass="form-control">
+							<f:selectItem itemLabel="TODOS" itemValue="0" />
+							<f:selectItem itemLabel="SIM" itemValue="1" />
+							<f:selectItem itemLabel="NÃO" itemValue="2" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="usuario">Convênio</label>
+						<h:selectOneMenu style="width: 100%;" id="convenio"
+							value="#{historicoComissaoMB.convenio}" styleClass="form-control">
+							<f:selectItem itemLabel="TODOS" itemValue="0" />
+							<f:selectItem itemLabel="INSS" itemValue="1" />
+							<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="2" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label>Situação</label>
+						<h:selectOneMenu style="width: 100%;" id="situacao"
+							disabled="true" value="#{historicoComissaoMB.situacao}"
+							styleClass="form-control">
+							<f:selectItem itemLabel="TODOS" itemValue="0" />
+							<f:selectItem itemLabel="AGUARDANDO ASSINATURA" itemValue="1" />
+							<f:selectItem itemLabel="AGUARDANDO PAGAMENTO" itemValue="2" />
+							<f:selectItem itemLabel="CANCELADOS" itemValue="3" />
+							<f:selectItem itemLabel="COMISSÃO RECEBIDA" itemValue="6" />
+							<f:selectItem itemLabel="PAGO AO CLIENTE" itemValue="4" />
+							<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="usuario">Periodo Alteração</label>
+						<h:panelGrid columns="2" style="width:75%;">
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;font-size:14px;"
+								value="#{historicoComissaoMB.dataini}" id="dataini" size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;font-size:14px;"
+								value="#{historicoComissaoMB.datafin}" id="datafin" size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+						</h:panelGrid>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="usuario">Periodo Cadastramento</label>
+						<h:panelGrid columns="2" style="width:80%;">
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;font-size:14px;"
+								value="#{historicoComissaoMB.dataCadastroIni}"
+								id="dataCadastroini" size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+								style="widht:80%;font-size:14px;"
+								value="#{historicoComissaoMB.dataCadastroFinal}"
+								id="dataCadastrofin" size="9">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+								<p:ajax event="dateSelect" />
+								<p:ajax event="blur" />
+							</p:calendar>
+						</h:panelGrid>
+					</div>
 
-				<p:inputMask mask="999.999.999-99" id="cpf"
-					styleClass="form-control" value="#{historicoComissaoMB.cpf}" />
-			</div>
-			<div class="form-group col-md-2">
-				<label>Baixa</label>
-				<h:selectOneMenu style="width: 100%;" id="baixa"
-					value="#{historicoComissaoMB.nBaixa}" styleClass="form-control">
-					<f:selectItem itemLabel="TODOS" itemValue="0" />
-					<f:selectItem itemLabel="SIM" itemValue="1" />
-					<f:selectItem itemLabel="NÃO" itemValue="2" />
-				</h:selectOneMenu>
-			</div>
-			<div class="form-group col-md-4">
-				<label for="usuario">Periodo Alteração</label>
-				<h:panelGrid columns="2" style="width:75%;">
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;font-size:12px;"
-						value="#{historicoComissaoMB.dataini}" id="dataini" size="9">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" /> 
-					</p:calendar>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;font-size:12px;"
-						value="#{historicoComissaoMB.datafin}" id="datafin" size="9">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
-					</p:calendar>
-				</h:panelGrid>
-			</div>
-			<div class="form-group col-md-5">
-				<label for="usuario">Periodo Cadastramento</label>
-				<h:panelGrid columns="2" style="width:80%;">
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.dataCadastroIni}"
-						id="dataCadastroini" size="11">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
-					</p:calendar>
-					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:80%;"
-						value="#{historicoComissaoMB.dataCadastroFinal}"
-						id="dataCadastrofin" size="11">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:ajax event="dateSelect" />
-						<p:ajax event="blur" />
-					</p:calendar>
-				</h:panelGrid>
-			</div>
-
-			<div class="form-group col-md-4">
-				<label>.</label>
-				<div>
-					<p:commandLink ajax="false" styleClass="btn btn-primary"
-						value="Pesquisar" action="#{historicoComissaoMB.pesquisar()}"
-						update="idTabelaComissao, panelNumeros" />
-					<p:commandLink ajax="false" style="margin-left:1%;"
-						styleClass="btn btn-link" value="Limpar"
-						action="#{historicoComissaoMB.limpar()}"
-						update="idTabelaComissao, cpf, nomecliente, usuario, situacao, tipooperacao, panelNumeros" />
+					<div class="form-group col-md-4">
+						<label style="color: white;">.</label>
+						<div>
+							<p:commandLink ajax="false"
+								styleClass="btn btn-primary text-white" value="Pesquisar"
+								action="#{historicoComissaoMB.pesquisar()}"
+								update="idTabelaComissao, panelNumeros" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{historicoComissaoMB.limpar()}"
+								update="idTabelaComissao, cpf, nomecliente, usuario, situacao, tipooperacao, panelNumeros" />
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</p:tab>
+		</p:accordionPanel>
 		<hr />
-		<div class="row" style="color: white;" align="center"
-			id="panelNumeros">
+		<div class="row" style="color: white;" id="panelNumeros">
 			<div class="col-xl-3 col-md-3 mb-3">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 12px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Portabilidade</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<br />#{historicoComissaoMB.nPortabilidade}
-									</div>
-								</p:commandLink>
+								<div style="font-size: 12px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Portabilidade</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									#{historicoComissaoMB.nPortabilidade}</div>
 							</div>
 						</div>
 					</div>
@@ -161,15 +175,11 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 12px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										CARTÃO</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<br />#{historicoComissaoMB.nCartao}
-									</div>
-								</p:commandLink>
+								<div style="font-size: 12px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									CARTÃO</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									#{historicoComissaoMB.nCartao}</div>
 							</div>
 						</div>
 					</div>
@@ -180,15 +190,11 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 12px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										MARGEM LIVRE</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<br />#{historicoComissaoMB.nMargem}
-									</div>
-								</p:commandLink>
+								<div style="font-size: 12px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									MARGEM LIVRE</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									#{historicoComissaoMB.nMargem}</div>
 							</div>
 						</div>
 					</div>
@@ -199,15 +205,11 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 12px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										REFIN</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										<br />#{historicoComissaoMB.nRefin}
-									</div>
-								</p:commandLink>
+								<div style="font-size: 12px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									REFIN</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									#{historicoComissaoMB.nRefin}</div>
 							</div>
 						</div>
 					</div>
@@ -216,16 +218,9 @@
 		</div>
 		<br />
 		<div align="right">
-			<p:commandLink action="#{historicoComissaoMB.fichaComissoes(false)}"
-				style="text-align: left;color:blue;margin-right:5%;font-weight:bold;font-size:14px;"
-				value="Impressão Selecionados">
-				<span data-feather="printer"></span>
-			</p:commandLink>
-
-			<p:commandLink action="#{historicoComissaoMB.fichaComissoes(true)}"
-				style="text-align: left;color:blue;font-weight:bold;font-size:14px;"
-				value="Impressão Todos">
-				<span data-feather="printer"></span>
+			<p:commandLink action="#{historicoComissaoMB.fichaComissoes()}"
+				style="font-size:14px;">
+				<img src="../../resources/img/impressora.png" width="35" />
 			</p:commandLink>
 
 		</div>
@@ -321,8 +316,7 @@
 			</p:column>
 		</p:dataTable>
 		<br />
-		<div class="row" style="color: white;" align="center"
-			id="panelNumeros">
+		<div class="row" style="color: white;" id="panelNumeros">
 			<div class="col-xl-3 col-md-4 mb-4">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
@@ -334,8 +328,8 @@
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Produção</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$ <h:outputText value="#{historicoComissaoMB.valorProducao}"
-											>
+										R$
+										<h:outputText value="#{historicoComissaoMB.valorProducao}">
 											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
 												locale="pt_BR" />
 										</h:outputText>
@@ -357,8 +351,8 @@
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Loja</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$ <h:outputText value="#{historicoComissaoMB.valorRecebida}"
-											>
+										R$
+										<h:outputText value="#{historicoComissaoMB.valorRecebida}">
 											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
 												locale="pt_BR" />
 										</h:outputText>
@@ -380,8 +374,8 @@
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Corretor</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$ <h:outputText value="#{historicoComissaoMB.valorRepassada}"
-											>
+										R$
+										<h:outputText value="#{historicoComissaoMB.valorRepassada}">
 											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
 												locale="pt_BR" />
 										</h:outputText>
