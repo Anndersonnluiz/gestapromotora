@@ -124,8 +124,8 @@
 					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse"
 						data-target="#collapseFive" aria-expanded="true"
-						aria-controls="collapseFive"> <i class="fas fa-funnel-dollar fa-file"></i>
-						<span>Financeiro</span>
+						aria-controls="collapseFive"> <i
+						class="fas fa-funnel-dollar fa-file"></i> <span>Financeiro</span>
 					</a>
 					<div id="collapseFive" class="collapse"
 						aria-labelledby="headingFive" data-parent="#accordionSidebar">
@@ -295,24 +295,27 @@
 				<!-- End of Topbar -->
 				<div class="container-fluid">
 					<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-8">
-						<div class="form-row">
-							<div class="form-group col-md-5">
-								<label style="color: white;">.</label>
-								<h:panelGrid columns="2" style="width:100%;">
-									<h:selectOneMenu style="width: 100%;" id="convenio"
-										value="#{dashBoardMB.convenio}" styleClass="form-control">
-										<f:selectItem itemLabel="TODOS" itemValue="0" />
-										<f:selectItem itemLabel="INSS" itemValue="1" />
-										<f:selectItem itemLabel="SIAPE" itemValue="2" />
-									</h:selectOneMenu>
-									<p:commandLink id="btnPesquisar" title="Recalcular"
-										action="#{dashBoardMB.faturamentoMensal()}" ajax="false"
-										update="panelValores">
-										<img src="resources/img/calculator.png" width="35" />
-									</p:commandLink>
-								</h:panelGrid>
+						<h:panelGroup
+							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
+							<div class="form-row">
+								<div class="form-group col-md-5">
+									<label style="color: white;">.</label>
+									<h:panelGrid columns="2" style="width:100%;">
+										<h:selectOneMenu style="width: 100%;" id="convenio"
+											value="#{dashBoardMB.convenio}" styleClass="form-control">
+											<f:selectItem itemLabel="TODOS" itemValue="0" />
+											<f:selectItem itemLabel="INSS" itemValue="1" />
+											<f:selectItem itemLabel="SIAPE" itemValue="2" />
+										</h:selectOneMenu>
+										<p:commandLink id="btnPesquisar" title="Recalcular"
+											action="#{dashBoardMB.faturamentoMensal()}" ajax="false"
+											update="panelValores">
+											<img src="resources/img/calculator.png" width="35" />
+										</p:commandLink>
+									</h:panelGrid>
+								</div>
 							</div>
-						</div>
+						</h:panelGroup>
 						<br />
 						<h2>Dashboard</h2>
 						<hr />

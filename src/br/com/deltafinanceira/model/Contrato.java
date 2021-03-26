@@ -138,6 +138,9 @@ public class Contrato implements Serializable {
   @Column(name = "margemutilizada")
   private float margemutilizada;
   
+  @Column(name = "nomeoperacao")
+  private String nomeoperacao;
+  
   @JoinColumn(name = "orgaobanco_idorgaobanco", referencedColumnName = "idorgaobanco")
   @ManyToOne(optional = false)
   private OrgaoBanco orgaoBanco;
@@ -633,6 +636,16 @@ public int getIdoperador() {
 
 public void setIdoperador(int idoperador) {
 	this.idoperador = idoperador;
+}
+
+
+public String getNomeoperacao() {
+	return nomeoperacao;
+}
+
+
+public void setNomeoperacao(String nomeoperacao) {
+	this.nomeoperacao = nomeoperacao;
 }
 
 

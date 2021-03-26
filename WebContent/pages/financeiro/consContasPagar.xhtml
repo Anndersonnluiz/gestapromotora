@@ -70,9 +70,9 @@
 						</h:panelGrid>
 					</div>
 					<div class="form-group col-md-4">
-						<label>.</label>
+						<label style="color:white">.</label>
 						<div>
-							<p:commandLink ajax="false" styleClass="btn btn-primary"
+							<p:commandLink ajax="false" styleClass="btn btn-primary text-white"
 								value="Pesquisar" action="#{contasPagarMB.pesquisar()}"
 								update="idTabelaComissao, infValorTotal, referente" />
 							<p:commandLink ajax="false" style="margin-left:1%;"
@@ -106,29 +106,29 @@
 				<h:outputText value="#{contas.tipodespesa.descricao}" />
 			</p:column>
 			<p:column headerText="Descrição"
-				style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:23%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contas.descricao}" />
 			</p:column>
 			<p:column headerText="Parcela"
-				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contas.nparcela}/#{contas.totalparcela}" />
 			</p:column>
 			<p:column headerText="Valor"
-				style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contas.valor}">
 					<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2"
 						locale="pt_BR" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Vencimento"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:10%; font-size:11px; background:white; color:black; border:none;">
 				<h:outputText value="#{contas.datavencimento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Pagamento"
-				style="width:8%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+				style="width:10%; font-size:11px; background:white; color:black; border:none;">
 				<h:outputText value="#{contas.datapagamento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
@@ -137,7 +137,7 @@
 
 
 			<p:column headerText=""
-				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 				<p:commandLink ajax="false" action="#{contasPagarMB.editar(contas)}"
 					style="text-align: left;color:black;" title="Editar">
 					<span data-feather="edit"></span>
@@ -149,19 +149,31 @@
 				</p:commandLink>
 			</p:column>
 		</p:dataTable>
-		<div align="right" style="background: #f0f0f0;">
-			<h:panelGroup id="infValorTotal" style="margin:2%;">
-				<h:outputText value="TOTAL"
-					style="font-size:24px;margin:2%;font-weight: bold;" />
-				<br />
-				<h:outputText value="R$ "
-					style="font-size:28px;color:red;font-weight: bold;" />
-				<h:outputText value="#{contasPagarMB.nvalorTotal}"
-					style="font-size:28px;color:red;font-weight: bold;">
-					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
-				</h:outputText>
-			</h:panelGroup>
-			<br />
+		<br/>
+		<div class="row" style="color: white;" id="panelNumeros">
+			<div class="col-xl-4 col-md-6 mb-6">
+				<div class="card border-left-danger shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<p:commandLink action="#{dashBoardMB.formalizacao()}"
+									style="width:100%;text-decoration:none;" ajax="false">
+									<div style="font-size: 16px;"
+										class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+										TOTAL</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$
+										<h:outputText value="#{contasPagarMB.nvalorTotal}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<br />
 	</ui:define>

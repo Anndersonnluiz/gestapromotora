@@ -35,6 +35,7 @@ public class FichaComissoesMB implements Serializable{
 	private boolean viewRefinanciamento;
 	private String tipoFiltro;
 	private String nomeSituacao;
+	private Integer convenio;
 	
 	
 	
@@ -53,6 +54,8 @@ public class FichaComissoesMB implements Serializable{
 		session.removeAttribute("corretor");
 		nomeSituacao = (String) session.getAttribute("nomeSituacao");
 		session.removeAttribute("nomeSituacao");
+		convenio = (Integer) session.getAttribute("convenio");
+		session.removeAttribute("convenio");
 		gerarCalculos();
 	}
 
@@ -290,6 +293,7 @@ public class FichaComissoesMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", tipoFiltro);
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 	

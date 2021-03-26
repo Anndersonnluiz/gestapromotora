@@ -1563,3 +1563,7 @@ button.pesquisar5 {
 .tamanho30{
     width:30%;
 }
+
+.tabelacontas{
+	overflow:auto;
+}

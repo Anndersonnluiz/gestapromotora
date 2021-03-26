@@ -199,12 +199,15 @@ public class ConfDadosContratoMB implements Serializable {
       if (this.tipoOpcoes == 1) {
         this.contrato.setOperacaoinss(true);
         this.contrato.setCredpessoal(false);
+        this.contrato.setNomeoperacao("INSS");
       } else if (this.tipoOpcoes == 2) {
         this.contrato.setOperacaoinss(false);
         this.contrato.setCredpessoal(false);
+        this.contrato.setNomeoperacao("SIAPE");
       } else if (this.tipoOpcoes == 3) {
         this.contrato.setOperacaoinss(false);
         this.contrato.setCredpessoal(true);
+        this.contrato.setNomeoperacao("CRED PESSOAL");
       } 
       if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
         this.contrato.setVoltarTela("consPortabilidade");

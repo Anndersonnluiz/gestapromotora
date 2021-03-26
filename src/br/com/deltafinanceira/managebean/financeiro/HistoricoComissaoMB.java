@@ -57,7 +57,7 @@ public class HistoricoComissaoMB implements Serializable {
 	private int nBaixa;
 	private Date dataCadastroIni;
 	private Date dataCadastroFinal;
-	private int convenio;
+	private Integer convenio;
 
 	@PostConstruct
 	public void init() {
@@ -68,7 +68,7 @@ public class HistoricoComissaoMB implements Serializable {
 		if (tipoFiltro == null || tipoFiltro.isEmpty()) {
 			tipoFiltro = "Todos";
 		}
-		convenio = (int) session.getAttribute("convenio");
+		convenio = (Integer) session.getAttribute("convenio");
 		session.removeAttribute("convenio");
 		gerarListaInicial();
 		gerarListaUsuario();
@@ -467,6 +467,7 @@ public class HistoricoComissaoMB implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("historicocomissao", historicocomissao);
 		session.setAttribute("tipoFiltro", tipoFiltro);
+		session.setAttribute("convenio", convenio);
 		return "editarComissao";
 	}
 
@@ -518,6 +519,7 @@ public class HistoricoComissaoMB implements Serializable {
 		}
 		session.setAttribute("corretor", corretor);
 		session.setAttribute("tipoFiltro", tipoFiltro);
+		session.setAttribute("convenio", convenio);
 		String nomeSituacao = "";
 		if (tipoFiltro.equalsIgnoreCase("19")) {
 			nomeSituacao = "Aguardando Pagamento";

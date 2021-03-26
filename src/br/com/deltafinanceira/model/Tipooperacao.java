@@ -27,6 +27,8 @@ public class Tipooperacao implements Serializable{
 	private String descricao;
 	@Column(name = "margem")
 	private boolean margem;
+	@Column(name = "apelido")
+	private String apelido;
 	
 	
 	
@@ -72,6 +74,18 @@ public class Tipooperacao implements Serializable{
 	
 	
 	
+	public String getApelido() {
+		return apelido;
+	}
+
+
+
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

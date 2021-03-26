@@ -45,6 +45,7 @@ public class EditarComissaoMB implements Serializable{
 	private Situacao situacao;
 	private Promotora promotora;
 	private AlteracaoBean alteracoesBean;
+	private Integer convenio;
 	
 	
 	@PostConstruct
@@ -55,6 +56,8 @@ public class EditarComissaoMB implements Serializable{
 		session.removeAttribute("historicocomissao");
 		tipoFiltro = (String) session.getAttribute("tipoFiltro");
 		session.removeAttribute("tipoFiltro");
+		convenio = (Integer) session.getAttribute("convenio");
+		session.removeAttribute("convenio");
 		tipoAntigo = historicocomissao.getTipo();
 		situacao = historicocomissao.getContrato().getSituacao();
 		promotora = historicocomissao.getContrato().getPromotora();
@@ -139,6 +142,7 @@ public class EditarComissaoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", tipoFiltro);
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 	
@@ -164,6 +168,7 @@ public class EditarComissaoMB implements Serializable{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("tipoFiltro", tipoFiltro);
+		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
 	

@@ -226,42 +226,57 @@
 		</div>
 		<br />
 		<p:dataTable id="idTabelaComissao" var="comissao"
-			value="#{historicoComissaoMB.listaComissao}" style="border:none;"
+			value="#{historicoComissaoMB.listaComissao}" style="overflow: auto;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single"
-			rowKey="#{comissao.idhistoricocomissao}">
+			scrollWidth="1300" scrollHeight="300" selectionMode="single"
+			reflow="true" rowKey="#{comissao.idhistoricocomissao}">
 
 
+
+			<p:column headerText=""
+				style="width:7%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:selectBooleanCheckbox value="#{comissao.selecionado}" />
+				<p:commandLink ajax="false"
+					rendered="#{usuarioLogadoMB.usuario.comissao}"
+					action="#{historicoComissaoMB.editar(comissao)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.tipooperacao.apelido}" />
+			</p:column>
+			<p:column headerText=""
+				style="width:5%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.nomeoperacao}" />
+			</p:column>
+			<p:column headerText="Cliente"
+				style="width:15%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="CPF"
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.contrato.cliente.cpf}" />
+			</p:column>
 			<p:column headerText="Lançamento"
-				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Corretor"
-				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				style="width:15%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.usuario.nome}" />
 			</p:column>
 			<p:column headerText="Operador"
-				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.operador}" />
-			</p:column>
-			<p:column headerText="CPF"
-				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.cliente.cpf}" />
-			</p:column>
-			<p:column headerText="Cliente"
-				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.cliente.nome}" />
 			</p:column>
 			<p:column headerText="Banco"
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
-			</p:column>
-			<p:column headerText="Operação"
-				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
 			</p:column>
 			<p:column headerText="Promotora"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
@@ -274,7 +289,7 @@
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Cms Loja"
+			<p:column headerText="$ Loja"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmdbruta}">
@@ -282,20 +297,20 @@
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Cms Corretor"
-				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
+			<p:column headerText="$ Corretor"
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.cmsliq}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Tipo"
-				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.tipo}" />
 			</p:column>
 			<p:column headerText="Baixa"
 				rendered="#{usuarioLogadoMB.usuario.comissao}"
-				style="width:6%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				style="width:5%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<p:commandLink ajax="false" update="idTabelaComissao"
 					action="#{historicoComissaoMB.pagou(comissao)}" title="Baixa"
 					style="text-align: left;color:black;">
@@ -304,16 +319,6 @@
 				</p:commandLink>
 			</p:column>
 
-			<p:column headerText=""
-				style="width:8%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-				<p:selectBooleanCheckbox value="#{comissao.selecionado}" />
-				<p:commandLink ajax="false"
-					rendered="#{usuarioLogadoMB.usuario.comissao}"
-					action="#{historicoComissaoMB.editar(comissao)}"
-					style="text-align: left;color:black;" title="Editar">
-					<span data-feather="edit"></span>
-				</p:commandLink>
-			</p:column>
 		</p:dataTable>
 		<br />
 		<div class="row" style="color: white;" id="panelNumeros">
@@ -340,29 +345,32 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-3 col-md-4 mb-4">
-				<div class="card border-left-success shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 14px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Loja</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$
-										<h:outputText value="#{historicoComissaoMB.valorRecebida}">
-											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-												locale="pt_BR" />
-										</h:outputText>
-									</div>
-								</p:commandLink>
+			<h:panelGroup
+				rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+				<div class="col-xl-3 col-md-4 mb-4">
+					<div class="card border-left-success shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<p:commandLink action="#{dashBoardMB.formalizacao()}"
+										style="width:100%;text-decoration:none;" ajax="false">
+										<div style="font-size: 14px;"
+											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Loja</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">
+											R$
+											<h:outputText value="#{historicoComissaoMB.valorRecebida}">
+												<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+													locale="pt_BR" />
+											</h:outputText>
+										</div>
+									</p:commandLink>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</h:panelGroup>
 			<div class="col-xl-3 col-md-4 mb-4">
 				<div class="card border-left-danger shadow h-100 py-2">
 					<div class="card-body">
