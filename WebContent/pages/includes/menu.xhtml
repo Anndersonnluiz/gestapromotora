@@ -13,7 +13,11 @@
 		<a
 			class="sidebar-brand d-flex align-items-center justify-content-center"
 			href="dashboard.jsf">
-			<div class="sidebar-brand-text mx-3">BEM VINDO(A)</div>
+			<div class="sidebar-brand-icon">
+				<img class="img-profile rounded-circle"
+					src="../../resources/img/logobranca2.png" width="55" />
+			</div>
+			<div class="sidebar-brand-text mx-3" style="font-size:13px;">BEM VINDO(A)</div>
 		</a>
 
 		<!-- Divider -->
@@ -102,8 +106,8 @@
 				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse"
 					data-target="#collapseFive" aria-expanded="true"
-					aria-controls="collapseFive"> <i class="fas fa-funnel-dollar fa-file"></i>
-					<span>Financeiro</span>
+					aria-controls="collapseFive"> <i
+					class="fas fa-funnel-dollar fa-file"></i> <span>Financeiro</span>
 				</a>
 				<div id="collapseFive" class="collapse"
 					aria-labelledby="headingFive" data-parent="#accordionSidebar">
@@ -188,7 +192,15 @@
 						<div
 							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 							aria-labelledby="alertsDropdown">
-							<h6 class="dropdown-header">Notificações</h6>
+							<h6 class="dropdown-header">
+								Notificações
+
+								<p:commandLink ajax="false" action="#{dashBoardMB.vistoTodos()}"
+									update="idnotificacao">
+									<i class="fas fa-times fa-2x text-gray-100"
+										style="font-size: 14px;"></i>
+								</p:commandLink>
+							</h6>
 
 							<ui:repeat var="notificacao"
 								value="#{dashBoardMB.listaNotificacao}">

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Leads</h4>
+		<hr />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<br />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
+		<div class="row" style="color: white;">
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(1)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										NOVOS</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(2)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										HOJE</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(3)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										ATRASADOS</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(4)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Todos</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+		</div>
+		<br />
+		<br />
+		<br />
+
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+
+			</p:tab>
+		</p:accordionPanel>
+
+
+		<p:dataTable id="idTabelaLead" var="contrato" widgetVar="cellCars"
+			editable="true" editMode="cell"
+			value="#{portabilidadeMB.listaContrato}" style="border:none;"
+			class="tabelacontas" scrollRows="10" scrollable="true"
+			scrollHeight="300" selectionMode="single"
+			rowKey="#{contrato.idcontrato}">
+
+			<p:column headerText="Cliente"
+				style="width:18%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.cliente.nome}" />
+			</p:column>
+			<p:column headerText="Corretor"
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.usuario.nome}" />
+			</p:column>
+			<p:column headerText="Operação"
+				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.usuario.nome}" />
+			</p:column>
+			<p:column headerText="Situação"
+				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{contrato.situacao.descricao}" />
+			</p:column>
+			<p:column headerText="Último Contato" sortBy="#{financeiro.dataade}"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{financeiro.dataade}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Próximo Contato"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{financeiro.dataade}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText=""
+				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false"
+					action="#{portabilidadeMB.editar(contrato)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+
+
+			</p:column>
+		</p:dataTable>
+		<br />
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
+</html>

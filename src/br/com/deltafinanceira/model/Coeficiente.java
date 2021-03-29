@@ -134,6 +134,9 @@ public class Coeficiente implements Serializable {
   @Column(name = "comissaocorretor")
   private float comissaocorretor;
   
+  @Column(name = "comissaototal")
+  private float comissaototal;
+  
   @JoinColumn(name = "tipooperacao_idtipooperacao", referencedColumnName = "idtipooperacao")
   @ManyToOne(optional = false)
   private Tipooperacao tipooperacao;
@@ -448,6 +451,14 @@ public float getComissaocorretor() {
 
 public void setComissaocorretor(float comissaocorretor) {
 	this.comissaocorretor = comissaocorretor;
+}
+
+public float getComissaototal() {
+	return comissaototal;
+}
+
+public void setComissaototal(float comissaototal) {
+	this.comissaototal = comissaototal;
 }
 
 public int hashCode() {

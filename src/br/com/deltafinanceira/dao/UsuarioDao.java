@@ -35,7 +35,7 @@ public class UsuarioDao {
 		EntityManager manager;
 		manager = ConectionFactory.getInstance();
 		Query q = manager.createQuery("select u from Usuario u where u.cdinterno='" + login + "'"
-				+ "  order by u.nome");
+				+ " and u.senha='"+ senha +"'  order by u.nome");
 		Usuario usuario = null;
 		if (q.getResultList().size() > 0) {
 			usuario = (Usuario) q.getResultList().get(0);

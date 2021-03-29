@@ -766,14 +766,17 @@ public class CadContratoMB implements Serializable {
 			historicocomissao.setCmdbruta(0.0F);
 			historicocomissao.setCmsliq(0.0F);
 			historicocomissao.setProdliq(contrato.getValorquitar());
+			historicocomissao.setComissaototal(0.0F);
 		} else if (contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
 			historicocomissao.setCmdbruta(0.0F);
 			historicocomissao.setCmsliq(0.0F);
 			historicocomissao.setProdliq(contrato.getValorcliente());
+			historicocomissao.setComissaototal(0.0F);
 		} else {
 			historicocomissao.setCmdbruta(0.0F);
 			historicocomissao.setCmsliq(0.0F);
 			historicocomissao.setProdliq(0.0F);
+			historicocomissao.setComissaototal(0.0F);
 		}
 		historicoComissaoFacade.salvar(historicocomissao);
 	}

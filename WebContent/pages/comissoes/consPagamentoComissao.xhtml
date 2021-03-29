@@ -289,6 +289,14 @@
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
+			<p:column headerText="$ Total"
+				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
+				<h:outputText value="#{comissao.comissaototal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
+				</h:outputText>
+			</p:column>
 			<p:column headerText="$ Loja"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
@@ -327,44 +335,59 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 14px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Produção</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$
-										<h:outputText value="#{historicoComissaoMB.valorProducao}">
-											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-												locale="pt_BR" />
-										</h:outputText>
-									</div>
-								</p:commandLink>
+								<div style="font-size: 14px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Produção</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									R$
+									<h:outputText value="#{historicoComissaoMB.valorProducao}">
+										<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+											locale="pt_BR" />
+									</h:outputText>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<h:panelGroup
-				rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+			<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 				<div class="col-xl-3 col-md-4 mb-4">
 					<div class="card border-left-success shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<p:commandLink action="#{dashBoardMB.formalizacao()}"
-										style="width:100%;text-decoration:none;" ajax="false">
-										<div style="font-size: 14px;"
-											class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-											Loja</div>
-										<div class="h5 mb-0 font-weight-bold text-gray-800">
-											R$
-											<h:outputText value="#{historicoComissaoMB.valorRecebida}">
-												<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-													locale="pt_BR" />
-											</h:outputText>
-										</div>
-									</p:commandLink>
+									<div style="font-size: 14px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										CMS TOTAL</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$
+										<h:outputText value="#{historicoComissaoMB.valortotal}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+				<div class="col-xl-3 col-md-4 mb-4">
+					<div class="card border-left-success shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 14px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Loja</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										R$
+										<h:outputText value="#{historicoComissaoMB.valorRecebida}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -376,19 +399,16 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<p:commandLink action="#{dashBoardMB.formalizacao()}"
-									style="width:100%;text-decoration:none;" ajax="false">
-									<div style="font-size: 14px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Corretor</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										R$
-										<h:outputText value="#{historicoComissaoMB.valorRepassada}">
-											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-												locale="pt_BR" />
-										</h:outputText>
-									</div>
-								</p:commandLink>
+								<div style="font-size: 14px;"
+									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									Corretor</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">
+									R$
+									<h:outputText value="#{historicoComissaoMB.valorRepassada}">
+										<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+											locale="pt_BR" />
+									</h:outputText>
+								</div>
 							</div>
 						</div>
 					</div>

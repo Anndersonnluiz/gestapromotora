@@ -60,6 +60,8 @@ public class Historicocomissao implements Serializable{
 	private String corbaixa;
 	@Column(name="dataentrada")
 	private String dataentrada;
+	@Column(name = "comissaototal")
+	private float comissaototal;
 	@Transient
 	private boolean selecionado;
 	
@@ -261,6 +263,18 @@ public class Historicocomissao implements Serializable{
 
 	public void setDataentrada(String dataentrada) {
 		this.dataentrada = dataentrada;
+	}
+
+
+
+	public float getComissaototal() {
+		return comissaototal;
+	}
+
+
+
+	public void setComissaototal(float comissaototal) {
+		this.comissaototal = comissaototal;
 	}
 
 

@@ -40,7 +40,12 @@
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="dashboard.jsf">
-				<div class="sidebar-brand-text mx-3">BEM VINDO(A)</div>
+				<div class="sidebar-brand-icon">
+					<img class="img-profile rounded-circle"
+						src="resources/img/logobranca2.png" width="55" />
+				</div>
+				<div class="sidebar-brand-text mx-3" style="font-size: 13px;">BEM
+					VINDO(A)</div>
 			</a>
 
 			<!-- Divider -->
@@ -193,7 +198,7 @@
 
 
 						<!-- Nav Item - Alerts -->
-						<li class="nav-item dropdown no-arrow mx-1"><a
+						<li class="nav-item dropdown no-arrow mx-1" id="idnotificacao"><a
 							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
@@ -202,7 +207,14 @@
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header">Notificações</h6>
+								<h6 class="dropdown-header">
+									Notificações
+									<p:commandLink ajax="false"
+										action="#{dashBoardMB.vistoTodos()}" update="idnotificacao">
+										<i class="fas fa-times fa-2x text-gray-100"
+											style="font-size: 14px;"></i>
+									</p:commandLink>
+								</h6>
 
 								<ui:repeat var="notificacao"
 									value="#{dashBoardMB.listaNotificacao}">
@@ -561,6 +573,34 @@
 
 
 						</div>
+						<h:panelGroup rendered="false">
+							<div class="row">
+								<!-- Donut Chart -->
+								<div class="col-xl-3 col-lg-4">
+									<div class="card shadow mb-4">
+										<!-- Card Header - Dropdown -->
+										<div class="card-header py-3">
+											<h6 class="m-0 font-weight-bold text-primary">FATURAMENTO
+												MENSAL</h6>
+										</div>
+										<!-- Card Body -->
+										<div class="card-body">
+											<div class="chart-pie pt-4">
+												<canvas id="myPieChart"></canvas>
+											</div>
+											<hr />
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												R$
+												<h:outputText value="#{dashBoardMB.valorProducao}">
+													<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+														locale="pt_BR" />
+												</h:outputText>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
 						<div class="row" style="color: white;">
 
 							<h:panelGroup
@@ -732,6 +772,14 @@
 			feather.replace()
 		</script>
 
+
+		<!-- Page level plugins -->
+		<script src="resources/vendor/chart.js/Chart.min.js"></script>
+
+		<!-- Page level custom scripts -->
+		<script src="resources/js/demo/chart-area-demo.js"></script>
+		<script src="resources/js/demo/chart-pie-demo.js"></script>
+		<script src="resources/js/demo/chart-bar-demo.js"></script>
 
 		<!-- JavaScript (Opcional) -->
 		<script

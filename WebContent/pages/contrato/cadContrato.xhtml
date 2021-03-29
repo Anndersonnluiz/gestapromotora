@@ -314,7 +314,7 @@
 					class="form-control" id="inputUfNaturalidade"
 					style="border-color:black;" placeholder="Estado da Naturalidade" />
 			</div>
-			<div class="form-group col-md-3"> 
+			<div class="form-group col-md-3">
 				<label for="dataEmissao">Data Emissão</label>
 				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="11"
 					value="#{cadContratoMB.cliente.emissao}" id="dataEmissao">
@@ -574,7 +574,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Parcela</label>
-					<h:inputText value="#{cadContratoMB.contratounificacao.parcela}"
+					<h:inputText value="#{cadContratoMB.contratounificacao.parcela}" onkeypress="mascara(this, valor);"
 						id="parcela" style="border-color:black;" class="form-control"
 						placeholder="Parcela">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
@@ -730,7 +730,7 @@
 			</div>
 		</div>
 		<br />
-		<h:dataTable id="idTabelaContrato" var="contrato"
+		<h:dataTable id="idTabelaContrato" var="contrato"  rowIndexVar="rowIx"
 			styleClass="table table-striped table-bordered display"
 			value="#{cadContratoMB.listaContratoArquivo}" cellspacing="0">
 
@@ -780,6 +780,32 @@
 		<br />
 		<br />
 
+		<script>
+		function mascara(o, f) {
+			v_obj = o;
+			v_fun = f;
+			setTimeout(“execmascara()”, 1);
+			}
+
+			        function execmascara() {
+			          v_obj.value = v_fun(v_obj.value);
+			        }
+
+			     function valor(v) {
+			    v = v.replace(/\D/g, "");
+			    v = v.replace(/[0-9]{15}/, "inválido");
+			    v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 11 digitos
+			    v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 8 digitos
+			    v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 5 digitos
+			    v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+			    // Últimos 2 digitos
+			    return v;
+			}
+		
+		</script>
 	</ui:define>
 </ui:composition>
 </html>

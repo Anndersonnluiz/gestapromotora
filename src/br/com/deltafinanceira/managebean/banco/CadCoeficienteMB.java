@@ -84,6 +84,8 @@ public class CadCoeficienteMB implements Serializable {
   
   public String salvar() {
     CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
+    this.coeficiente.setComissaototal(this.coeficiente.getComissaoloja() 
+    		+ this.coeficiente.getComissaocorretor());
     this.coeficiente.setOrgaoBanco(this.orgaoBanco);
     this.coeficiente.setTipooperacao(this.tipooiperacao);
     this.coeficiente = coeficienteFacade.salvar(this.coeficiente);

@@ -365,14 +365,17 @@ public class AlterarSituacaoMB implements Serializable {
 			historicocomissao.setCmdbruta(this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
 			historicocomissao
 					.setCmsliq(this.contrato.getValorquitar() * this.coeficiente.getComissaocorretor() / 100.0F);
+			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 		} else if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
 			historicocomissao
 					.setCmdbruta(this.contrato.getValorcliente() * this.coeficiente.getComissaoloja() / 100.0F);
 			historicocomissao
 					.setCmsliq(this.contrato.getValorcliente() * this.coeficiente.getComissaocorretor() / 100.0F);
+			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 		} else {
 			historicocomissao.setCmdbruta(0.0F);
 			historicocomissao.setCmsliq(0.0F);
+			historicocomissao.setComissaototal(0.0F);
 		}
 		historicoComissaoFacade.salvar(historicocomissao);
 	}

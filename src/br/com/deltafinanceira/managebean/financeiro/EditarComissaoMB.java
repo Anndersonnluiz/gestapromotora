@@ -194,6 +194,7 @@ public class EditarComissaoMB implements Serializable{
 				* (coeficiente.getComissaoloja() / 100));
 		historicocomissao.setCmsliq(historicocomissao.getProdliq() 
 				* (coeficiente.getComissaocorretor() / 100));
+		historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 	}
 	
 	

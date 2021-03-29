@@ -6,6 +6,7 @@ import br.com.deltafinanceira.dao.NotificacaoDao;
 import br.com.deltafinanceira.dao.RankingVendasAnualDao;
 import br.com.deltafinanceira.dao.RankingVendasDao;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
+import br.com.deltafinanceira.facade.NotificacaoFacade;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Metafaturamentoanual;
 import br.com.deltafinanceira.model.Metafaturamentomensal;
@@ -709,6 +710,20 @@ public class DashBoardMB implements Serializable {
 		session.setAttribute("tipoFiltro", "5");
 		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
+	}
+	
+	
+	public void vistoTodos() {
+		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+		if (listaNotificacao == null) {
+			listaNotificacao = new ArrayList<Notificacao>();
+		}
+		for (int i = 0; i < listaNotificacao.size(); i++) {
+			listaNotificacao.get(i).setVisto(true);
+			notificacaoFacade.salvar(listaNotificacao.get(i));
+		}
+		listaNotificacao = new ArrayList<Notificacao>();
+		listarNotificacao();
 	}
 	
 	

@@ -602,16 +602,19 @@ public class DemaisOperacoesInssMB implements Serializable {
       historicocomissao.setCmdbruta(contrato.getValorquitar() * coeficiente.getComissaoloja() / 100.0F);
       historicocomissao.setCmsliq(contrato.getValorquitar() * coeficiente.getComissaocorretor() / 100.0F);
       historicocomissao.setProdliq(contrato.getValorquitar());
+      historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
     } else if (contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
       historicocomissao
         .setCmdbruta(contrato.getValoroperacao() * coeficiente.getComissaoloja() / 100.0F);
       historicocomissao
         .setCmsliq(contrato.getValoroperacao() * coeficiente.getComissaocorretor() / 100.0F);
       historicocomissao.setProdliq(contrato.getValoroperacao());
+      historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
     } else {
       historicocomissao.setCmdbruta(0.0F);
       historicocomissao.setCmsliq(0.0F);
       historicocomissao.setProdliq(0.0F);
+      historicocomissao.setComissaototal(0.0F);
     } 
     HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
     historicoComissaoFacade.salvar(historicocomissao);

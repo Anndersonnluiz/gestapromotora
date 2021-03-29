@@ -58,7 +58,7 @@ public class UsuarioLogadoMB implements Serializable {
 	private int nAniversario;
 
 	private Filial filial;
-	
+
 	private List<Cliente> listaCliente;
 
 	@PostConstruct
@@ -190,16 +190,22 @@ public class UsuarioLogadoMB implements Serializable {
 			context.addMessage(null, new FacesMessage("Erro", "Acesso Negado."));
 		} else {
 			String senha = "";
-			this.senha = "";
-			UsuarioFacade usuarioFacade = new UsuarioFacade();
-			this.usuario = usuarioFacade.consultar(this.login, senha);
-			if (this.usuario == null) {
-				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
-			} else {
-				mensagemOl();
-				this.nomeUsuario = this.usuario.getNome();
-				gerarListaCliente();
-				return this.logar = true;
+			try {
+				senha = Criptografia.encript(this.senha);
+
+				this.senha = "";
+				UsuarioFacade usuarioFacade = new UsuarioFacade();
+				this.usuario = usuarioFacade.consultar(this.login, senha);
+				if (this.usuario == null) {
+					Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
+				} else {
+					mensagemOl();
+					this.nomeUsuario = this.usuario.getNome();
+					gerarListaCliente();
+					return this.logar = true;
+				}
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
 			}
 		}
 		this.usuario = new Usuario();
@@ -353,9 +359,9 @@ public class UsuarioLogadoMB implements Serializable {
 			listaCliente = new ArrayList<>();
 		this.listaCliente = new ArrayList<Cliente>();
 		for (int i = 0; i < listaCliente.size(); i++) {
-			if (this.listaCliente.size() <3) {
+			if (this.listaCliente.size() < 3) {
 				this.listaCliente.add(listaCliente.get(i));
-			}else {
+			} else {
 				i = listaCliente.size();
 			}
 		}

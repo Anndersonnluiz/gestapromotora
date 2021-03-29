@@ -58,6 +58,7 @@ public class HistoricoComissaoMB implements Serializable {
 	private Date dataCadastroIni;
 	private Date dataCadastroFinal;
 	private Integer convenio;
+	private float valortotal;
 
 	@PostConstruct
 	public void init() {
@@ -303,6 +304,18 @@ public class HistoricoComissaoMB implements Serializable {
 		this.convenio = convenio;
 	}
 
+	public float getValortotal() {
+		return valortotal;
+	}
+
+	public void setValortotal(float valortotal) {
+		this.valortotal = valortotal;
+	}
+
+	public void setConvenio(Integer convenio) {
+		this.convenio = convenio;
+	}
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
@@ -344,6 +357,7 @@ public class HistoricoComissaoMB implements Serializable {
 		nPortabilidade = 0;
 		nRefin = 0;
 		valorProducao = 0.0f;
+		valortotal = 0.0f;
 		for (int i = 0; i < listaComissao.size(); i++) {
 			if (listaComissao.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 1) {
 				nPortabilidade = nPortabilidade + 1;
@@ -360,6 +374,7 @@ public class HistoricoComissaoMB implements Serializable {
 			valorRecebida = valorRecebida + listaComissao.get(i).getCmdbruta();
 			valorRepassada = valorRepassada + listaComissao.get(i).getCmsliq();
 			valorProducao = valorProducao + listaComissao.get(i).getProdliq();
+			valortotal = valortotal + listaComissao.get(i).getComissaototal();
 		}
 	}
 
@@ -426,6 +441,7 @@ public class HistoricoComissaoMB implements Serializable {
 		nPortabilidade = 0;
 		nRefin = 0;
 		valorProducao = 0.0f;
+		valortotal = 0.0f;
 		for (int i = 0; i < listaComissao.size(); i++) {
 			if (listaComissao.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 1) {
 				nPortabilidade = nPortabilidade + 1;
@@ -442,6 +458,7 @@ public class HistoricoComissaoMB implements Serializable {
 			valorRecebida = valorRecebida + listaComissao.get(i).getCmdbruta();
 			valorRepassada = valorRepassada + listaComissao.get(i).getCmsliq();
 			valorProducao = valorProducao + listaComissao.get(i).getProdliq();
+			valortotal = valortotal + listaComissao.get(i).getComissaototal();
 		}
 	}
 
