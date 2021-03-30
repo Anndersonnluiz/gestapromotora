@@ -1,4 +1,4 @@
-package br.com.deltafinanceira.model;
+ package br.com.deltafinanceira.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -38,6 +38,10 @@ public class Lead implements Serializable {
 	private Date proximocontato;
 	@Column(name = "tipooperacao")
 	private String tipooperacao;
+	@Column(name = "idoperacao")
+	private int idoperacao;
+	@Column(name = "corsituacao")
+	private String corsituacao;
 	@JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
 	@ManyToOne(optional = false)
 	private Cliente cliente;
@@ -93,6 +97,24 @@ public class Lead implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public int getIdoperacao() {
+		return idoperacao;
+	}
+
+	public void setIdoperacao(int idoperacao) {
+		this.idoperacao = idoperacao;
+	}
+
+	public String getCorsituacao() {
+		return corsituacao;
+	}
+
+	public void setCorsituacao(String corsituacao) {
+		this.corsituacao = corsituacao;
+	}
+	
+	
 
 	public int hashCode() {
 		int hash = 0;

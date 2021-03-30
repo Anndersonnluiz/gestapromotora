@@ -6,7 +6,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-		<br />
 		<h4>Consulta de Leads</h4>
 		<hr />
 		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
@@ -16,10 +15,18 @@
 			closable="false" resizable="false" showHeader="false">
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
+
+
+		<p:accordionPanel activeIndex="null">
+			<p:tab title="Filtros">
+
+			</p:tab>
+		</p:accordionPanel>
+		<br />
+		<br />
 		<div class="row" style="color: white;">
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(1)}"
+				<p:commandLink action="#{leadMB.gerarListaPortabilidade(1)}"
 					ajax="false" style="text-decoration:none;" update="idTabelaLead">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
@@ -28,7 +35,8 @@
 									<div style="font-size: 11px;"
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										NOVOS</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nNovos}</div>
 								</div>
 							</div>
 						</div>
@@ -36,8 +44,43 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(2)}"
+				<p:commandLink action="#{leadMB.gerarListaPortabilidade(2)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-warning shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										HOJE</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nHoje}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink action="#{leadMB.gerarListaPortabilidade(3)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+					<div class="card border-left-danger shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										ATRASADOS</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nAtrasados}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink action="#{leadMB.gerarListaPortabilidade(4)}"
 					ajax="false" style="text-decoration:none;" update="idTabelaLead">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
@@ -45,44 +88,9 @@
 								<div class="col mr-2">
 									<div style="font-size: 11px;"
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										HOJE</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</p:commandLink>
-			</div>
-			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(3)}" ajax="false"
-					style="text-decoration:none;" update="idTabelaLead">
-					<div class="card border-left-primary shadow h-100 py-2">
-						<div class="card-body">
-							<div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									<div style="font-size: 11px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										ATRASADOS</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</p:commandLink>
-			</div>
-			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(4)}" ajax="false"
-					style="text-decoration:none;" update="idTabelaLead">
-					<div class="card border-left-primary shadow h-100 py-2">
-						<div class="card-body">
-							<div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									<div style="font-size: 11px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Todos</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nTodos}</div>
 								</div>
 							</div>
 						</div>
@@ -92,63 +100,102 @@
 		</div>
 		<br />
 		<br />
+
+
+		<div align="right" style="margin-right: 1%;">
+			<p:commandLink style="text-decoration:none;" ajax="false"
+				action="#{leadMB.novo()}">
+				<img src="../../resources/img/cadastro.png" width="35" />
+			</p:commandLink>
+		</div>
 		<br />
-
-		<p:accordionPanel activeIndex="null">
-			<p:tab title="Filtros">
-
-			</p:tab>
-		</p:accordionPanel>
-
-
-		<p:dataTable id="idTabelaLead" var="contrato" widgetVar="cellCars"
-			editable="true" editMode="cell"
-			value="#{portabilidadeMB.listaContrato}" style="border:none;"
-			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single"
-			rowKey="#{contrato.idcontrato}">
+		<p:dataTable id="idTabelaLead" var="lead" widgetVar="cellCars"
+			editable="true" editMode="cell" value="#{leadMB.listaLead}"
+			style="border:none;" class="tabelacontas" scrollRows="10"
+			scrollable="true" scrollHeight="400" selectionMode="single"
+			rowKey="#{lead.idlead}">
 
 			<p:column headerText="Cliente"
 				style="width:18%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.cliente.nome}" />
+				<h:outputText value="#{lead.cliente.nome}" />
 			</p:column>
 			<p:column headerText="Corretor"
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.usuario.nome}" />
+				<h:outputText value="#{lead.cliente.usuario.nome}" />
 			</p:column>
 			<p:column headerText="Operação"
 				style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.usuario.nome}" />
+				<h:outputText value="#{lead.tipooperacao}" />
 			</p:column>
 			<p:column headerText="Situação"
-				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.situacao.descricao}" />
+				style="width:10%; font-size:11px; background:white;border:none;text-align:center;">
+				<h:outputText value="#{lead.situacao}" 
+				style="color:white;font-size:13px;background-color:#{lead.corsituacao}"
+					styleClass="badge" />
 			</p:column>
-			<p:column headerText="Último Contato" sortBy="#{financeiro.dataade}"
-				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{financeiro.dataade}">
+			<p:column headerText="Último Contato"
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{lead.ultimocontato}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Próximo Contato"
-				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{financeiro.dataade}">
+				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{lead.proximocontato}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText=""
-				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-				<p:commandLink ajax="false"
-					action="#{portabilidadeMB.editar(contrato)}"
+				style="width:8%; text-align:left; font-size:13px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false" action="#{leadMB.historico(lead)}"
 					style="text-align: left;color:black;">
-					<span data-feather="edit"></span>
+					<span data-feather="file-plus"></span>
 				</p:commandLink>
 
 
 			</p:column>
 		</p:dataTable>
+		<br/>
+		<div class="row">
+			<h:outputText value="1" class="badge"
+				style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;color:white;" />
+			<h:outputText value="Novo Lead"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+			<h:outputText value="2" class="badge"
+				style="background-color:#2E5495;padding: 4px 6px;margin-left:3%;color:white;" />
+			<h:outputText value="Primeiro Contato"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+			<h:outputText value="3" class="badge"
+				style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;color:white;" />
+			<h:outputText value="Oportunidade Real"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+			<h:outputText value="4" class="badge"
+				style="background-color:#B22222;padding: 4px 6px;margin-left:3%;color:white;" />
+			<h:outputText value="Negociação Final"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+			<h:outputText value="5" class="badge"
+				style="background-color:yellow;padding: 4px 6px;margin-left:3%;color:black;" />
+			<h:outputText value="Contrato Emitido"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+		</div>
+		<br/>
+		<div class="row">
+			<h:outputText value="7" class="badge"
+				style="background-color:green;padding: 4px 6px;margin-left:2%;color:white;" />
+			<h:outputText value="Contrado Pago"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+			<h:outputText value="8" class="badge"
+				style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;color:white;" />
+			<h:outputText value="Stand By"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+		</div>
 		<br />
 		<br />
 		<br />

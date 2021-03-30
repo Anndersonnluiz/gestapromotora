@@ -3,13 +3,14 @@ package br.com.deltafinanceira.managebean.lead;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import br.com.deltafinanceira.facade.LeadFacade;
 import br.com.deltafinanceira.model.Lead;
@@ -137,9 +138,11 @@ public class LeadMB implements Serializable{
 		for (int i = 0; i < listaLead.size(); i++) {
 			if (listaLead.get(i).getSituacao() == 1) {
 				nNovos = nNovos + 1;
-			}else if(listaLead.get(i).getProximocontato().equals(dataHojeD)) {
+			}else if(listaLead.get(i).getProximocontato() != null 
+					&& listaLead.get(i).getProximocontato().equals(dataHojeD)) {
 				nHoje = nHoje + 1;
-			}else if(listaLead.get(i).getProximocontato().before(dataHojeD)) {
+			}else if(listaLead.get(i).getProximocontato() != null 
+					&& listaLead.get(i).getProximocontato().before(dataHojeD)) {
 				nAtrasados = nAtrasados + 1;
 			}
 			nTodos = nTodos + 1;
@@ -147,6 +150,12 @@ public class LeadMB implements Serializable{
 	}
 	
 	
+	public String historico(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		return "historicoLead";
+	}
 	 
 	
 	

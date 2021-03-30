@@ -999,8 +999,8 @@ public class CadContratoMB implements Serializable {
 		historicousuario.setIcone("novo.png");
 		historicousuario.setHora(Formatacao.foramtarHoraString());
 		historicousuario.setUsuario(this.usuarioLogadoMB.getUsuario());
-		historicousuario.setDescricao("Nova Emissde contrato; Tipo do contrato: "
-				+ contrato.getTipooperacao().getDescricao() + ", Cdo contrato: " + contrato.getCodigocontrato());
+		historicousuario.setDescricao("Nova Emissão de contrato; Tipo do contrato: "
+				+ contrato.getTipooperacao().getDescricao() + ", Código contrato: " + contrato.getCodigocontrato());
 		historicousuario.setIdcontrato(contrato.getIdcontrato().intValue());
 		historicoUsuarioFacade.salvar(historicousuario);
 	}

@@ -12,12 +12,13 @@
 		<!-- Sidebar - Brand -->
 		<a
 			class="sidebar-brand d-flex align-items-center justify-content-center"
-			href="dashboard.jsf">
+			href="/deltafinanceira/dashboard.jsf">
 			<div class="sidebar-brand-icon">
 				<img class="img-profile rounded-circle"
 					src="../../resources/img/logobranca2.png" width="55" />
 			</div>
-			<div class="sidebar-brand-text mx-3" style="font-size:13px;">BEM VINDO(A)</div>
+			<div class="sidebar-brand-text mx-3" style="font-size: 13px;">BEM
+				VINDO(A)</div>
 		</a>
 
 		<!-- Divider -->
@@ -65,15 +66,28 @@
 				</div>
 			</div></li>
 
-		<li class="nav-item"><a class="nav-link" target="_blank"
-			href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
-				<i class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
-		</a></li>
-
 		<li class="nav-item"><a class="nav-link"
 			href="/deltafinanceira/pages/cliente/consCliente.jsf"> <i
 				class="fas fa-fw fa-users"></i> <span>Carteira de Clientes</span>
 		</a></li>
+
+		<li class="nav-item"><a class="nav-link collapsed" href="#"
+			data-toggle="collapse" data-target="#collapseFor"
+			aria-expanded="true" aria-controls="collapseFor"> <i
+				class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
+		</a>
+			<div id="collapseFor" class="collapse" aria-labelledby="headingTwo"
+				data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" target="_blank"
+						href="https://fazaconta.com/amortizacao.htm" role="button"
+						aria-haspopup="true" aria-expanded="false"> Amortização </a><a
+						class="collapse-item" target="_blank"
+						href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
+						Cidadão </a>
+
+				</div>
+			</div></li>
 
 
 		<li class="nav-item"><a class="nav-link collapsed" href="#"
@@ -87,7 +101,9 @@
 					<a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
-						Emissão </a> <a class="collapse-item"
+						Emissão </a><a class="collapse-item" href="/deltafinanceira/pages/lead/consLead.jsf"
+						role="button" aria-haspopup="true" aria-expanded="false"> Lead
+					</a> <a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/consContrato.jsf"> Busca
 						Rapida </a> <a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/consSimulacaoContrato.jsf">

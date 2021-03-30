@@ -90,15 +90,28 @@
 					</div>
 				</div></li>
 
-			<li class="nav-item"><a class="nav-link" target="_blank"
-				href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
-					<i class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
-			</a></li>
-
 			<li class="nav-item"><a class="nav-link"
 				href="pages/cliente/consCliente.jsf"> <i
 					class="fas fa-fw fa-users"></i> <span>Carteira de Clientes</span>
 			</a></li>
+
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseFor"
+				aria-expanded="true" aria-controls="collapseFor"> <i
+					class="fas fa-fw fa-percentage"></i> <span>Calculadora</span>
+			</a>
+				<div id="collapseFor" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" target="_blank"
+							href="https://fazaconta.com/amortizacao.htm" role="button"
+							aria-haspopup="true" aria-expanded="false"> Amortização </a><a
+							class="collapse-item" target="_blank"
+							href="https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas">
+							Cidadão </a>
+
+					</div>
+				</div></li>
 
 
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
@@ -111,9 +124,12 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
 							href="pages/contrato/confDadosContrato.jsf" role="button"
-							aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
-							class="collapse-item" href="pages/contrato/consContrato.jsf">
-							Busca Rapida </a> <a class="collapse-item"
+							aria-haspopup="true" aria-expanded="false"> Emissão </a><a
+							class="collapse-item" href="pages/lead/consLead.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Lead </a> <a class="collapse-item"
+							href="pages/contrato/consContrato.jsf"> Busca Rapida </a> <a
+							class="collapse-item"
 							href="pages/contrato/consSimulacaoContrato.jsf"> Simulação </a> <a
 							class="collapse-item" href="pages/contrato/consPortabilidade.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
@@ -592,8 +608,8 @@
 											<div class="h5 mb-0 font-weight-bold text-gray-800">
 												R$
 												<h:outputText value="#{dashBoardMB.valorProducao}">
-													<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
-														locale="pt_BR" />
+													<f:convertNumber minFractionDigits="2"
+														maxFractionDigits="2" locale="pt_BR" />
 												</h:outputText>
 											</div>
 										</div>

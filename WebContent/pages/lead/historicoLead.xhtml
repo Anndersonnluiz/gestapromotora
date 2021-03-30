@@ -1,10 +1,227 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
 
-</body>
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
+
+
+		<div id="centro"
+			style="background: #F0F8FF; border-radius: 10px; border: 1px solid #F5F5F5; font-family: 'Trebuchet MS', sans-serif;">
+			<h:panelGrid style="width:95%;margin:2%;" columns="1"
+				columnClasses="tamanhoavisos, width47">
+				<h:panelGroup>
+					<p:commandLink id="btnVoltar" style="font-size:13px;" action="#{historicoLeadMB.voltar()}"
+						title="Voltar" value="Consulta de Leads">
+					</p:commandLink>
+					<p:outputLabel value="> Histórico"
+						style="margin-left:1%;color:#4D5C52;font-size:13px;" />
+					<hr />
+					<h:panelGrid style="width:95%;" columns="2">
+						<p:outputLabel id="nomeCliente"
+							value="#{historicoLeadMB.lead.cliente.nome}"
+							style="font-size:20px;color:black;font-family:'Trebuchet MS', sans-serif;" />
+						<p:outputLabel></p:outputLabel>
+						<p:outputLabel id="programa"
+							value="Operação: #{historicoLeadMB.lead.tipooperacao}"
+							style="font-size:12px;" />
+						<p:outputLabel></p:outputLabel>
+						<p:outputLabel style="font-size:12px;"
+							value="Corretor: #{historicoLeadMB.lead.cliente.usuario.nome}" />
+						<p:commandLink id="btnSituacao" title="Alterar a situação">
+							<h:outputText value="#{historicoLeadMB.lead.situacao}"
+								class="badge"
+								style="color:white;padding:5px 10px;font-size:22px;background-color:#{historicoLeadMB.lead.corsituacao}" />
+						</p:commandLink>
+					</h:panelGrid>
+
+					<p:overlayPanel id="painelSituacao" for="btnSituacao"
+						hideEffect="fade" style="background:#fff;">
+						<p:commandLink id="btnSituacao1" title="Lead Recebido" action="#"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="1" class="badge"
+								style="color:white;background-color:#1E90FF;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao2" title="Primeiro Contato"
+							action="#" update="btnSituacao,painelSituacao">
+							<h:outputText value="2" class="badge"
+								style="color:white;background-color:#2E5495;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+
+						<p:commandLink id="btnSituacao3" title="Oportunidade Real"
+							action="#" update="btnSituacao,painelSituacao">
+							<h:outputText value="3" class="badge"
+								style="color:white;background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao4" title="Negociação Final"
+							action="#" update="btnSituacao,painelSituacao">
+							<h:outputText value="4" class="badge"
+								style="color:white;background-color:#B22222;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao5" title="Contrato Emitido"
+							action="#" update="btnSituacao,painelSituacao">
+							<h:outputText value="5" class="badge"
+								style="color:black;background-color:yellow;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao6" title="Contrato Pago">
+							<h:outputText value="6" class="badge"
+								style="color:white;background-color:green;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao8" title="Stand By" action="#"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="8" class="badge"
+								style="color:white;background-color:#9400D3;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+					</p:overlayPanel>
+
+					<h:panelGrid style="width:95%;" columns="1">
+						<p:outputLabel id="email"
+							value="Email: #{historicoLeadMB.lead.cliente.email}"
+							style="font-size:12px;" />
+						<p:outputLabel id="telefone"
+							value="Contato: #{historicoLeadMB.lead.cliente.telefonecelular}"
+							style="font-size:12px;" />
+						<h:panelGroup>
+							<p:outputLabel value="Último contato:" style="font-size:13px;" />
+							<p:outputLabel id="data"
+								value="#{historicoLeadMB.lead.ultimocontato}"
+								style="font-size:13px;margin-left:1%;">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:outputLabel>
+						</h:panelGroup>
+					</h:panelGrid>
+					<hr/>
+					<h:panelGroup id="painelBotoes">
+						<h:panelGroup>
+							<h:panelGrid style="width:100%;" columns="8">
+
+								<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
+									action="#" style="margin-left:8%;">
+									<h:panelGrid columns="1" style="text-align:center;">
+										<img src="../../resources/img/emitirvendas.png" width="48" />
+										<p:outputLabel value="EMISSÃO DE CONTRATO"
+											style="font-size:11px;" />
+									</h:panelGrid>
+								</p:commandLink>
+							</h:panelGrid>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:panelGrid style="width:98%;">
+						<p:dataScroller id="tabelaHistorico" var="historico"
+							value="#{historicoLeadMB.listaHistorico}" chunkSize="10"
+							mode="inline" scrollHeight="390">
+							<f:facet name="header">
+								<h:panelGrid style="margin-left:2%;width:98%;" columns="2"
+									columnClasses="tamanhonotificacao2, tamanho50right">
+									<h:panelGroup>
+										<img src="../../resources/img/historico.png" width="28"
+											style="margin-top: -3%;" />
+										<p:outputLabel value="Histórico"
+											style="font-size:22px;color:#3C4A58;" />
+									</h:panelGroup>
+									<p:commandLink id="btnAdd"
+										action="#{historicoLeadMB.cadHistorico()}">
+										<i class="fa  fa-plus-circle"
+											style="font-size: 23px; color: #fff;" />
+										<p:ajax event="dialogReturn"
+											listener="#{historicoLeadMB.gerarListahistorico()}"
+											update="tabelaHistorico" />
+									</p:commandLink>
+								</h:panelGrid>
+							</f:facet>
+							<p:outputPanel>
+								<h:panelGrid columns="1" style="width:100%;"
+									class="#{historicoClienteMB.retornarCorHistorico(historico.idleadhistorico)}">
+									<h:panelGroup>
+										<img src="../../resources/img/historico.png" width="15" />
+										
+										<h:outputLabel value="#{historico.datalancamento}"
+											style="font-size: 13px;color:#4C4C4C;font-weight: 500;">
+											<f:convertDateTime pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</h:outputLabel>
+										
+										<h:outputLabel value=" - #{historico.descricao}"
+											style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
+
+										
+										<p:commandLink id="btnExcluir" title="Excluir"
+											style="margin-left:26%;margin-rigth:2%;" action="#"
+											update="tabelaHistorico">
+											<i class="fa fa-trash-o" />
+										</p:commandLink>
+									</h:panelGroup>
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dataScroller>
+					</h:panelGrid>
+					<br></br>
+					<div align="right">
+						<h:outputText value="1" class="badge"
+							style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;color:white;" />
+						<h:outputText value="Novo Lead"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="2" class="badge"
+							style="background-color:#2E5495;padding: 4px 6px;margin-left:3%;color:white;" />
+						<h:outputText value="Primeiro Contato"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="3" class="badge"
+							style="background-color:#FF8C00;padding: 4px 6px;margin-left:3%;color:white;" />
+						<h:outputText value="Oportunidade Real"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="4" class="badge"
+							style="background-color:#B22222;padding: 4px 6px;margin-left:3%;color:white;" />
+						<h:outputText value="Negociação Final"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="5" class="badge"
+							style="background-color:yellow;padding: 4px 6px;color:black;margin-left:3%;" />
+						<h:outputText value="Contrato Emitido"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+					</div>
+				</h:panelGroup>
+			</h:panelGrid>
+			<br></br>
+		</div>
+		<script>
+			function limitTextArea(element, limit) {
+
+				if (element.value.length > limit) {
+					element.value = element.value.substring(0, limit);
+				}
+
+			}
+		</script>
+		<br />
+		<br />
+		<br />
+	</ui:define>
+</ui:composition>
 </html>
