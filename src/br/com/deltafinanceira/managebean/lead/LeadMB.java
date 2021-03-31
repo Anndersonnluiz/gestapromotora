@@ -34,6 +34,10 @@ public class LeadMB implements Serializable{
 	private int nHoje;
 	private int nAtrasados;
 	private int nTodos;
+	private String status;
+	private int nProx7;
+	private int nStandBy;
+	private int nContratos;
 	
 	
 	@PostConstruct
@@ -95,6 +99,46 @@ public class LeadMB implements Serializable{
 	}
 
 
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public int getnProx7() {
+		return nProx7;
+	}
+
+
+	public void setnProx7(int nProx7) {
+		this.nProx7 = nProx7;
+	}
+
+
+	public int getnStandBy() {
+		return nStandBy;
+	}
+
+
+	public void setnStandBy(int nStandBy) {
+		this.nStandBy = nStandBy;
+	}
+
+
+	public int getnContratos() {
+		return nContratos;
+	}
+
+
+	public void setnContratos(int nContratos) {
+		this.nContratos = nContratos;
+	}
+ 
+
 	public String novo() {
 		return "cadLead";	
 	}
@@ -102,15 +146,34 @@ public class LeadMB implements Serializable{
 	
 	public void gerarListaLead(int situacao) {
 		String datahoje = Formatacao.ConvercaoDataNfe(new Date());
+		Date dataHojeD = Formatacao.ConvercaoStringData(datahoje);
+		Date data7D = Formatacao.SomarDiasData(dataHojeD, 7);
+		String data7 = Formatacao.ConvercaoDataNfe(data7D);
 		LeadFacade leadFacade = new LeadFacade();
 		String sql = "Select l From Lead l Where l.cliente.usuario.idusuario=" 
 				+ usuarioLogadoMB.getUsuario().getIdusuario();
 		if (situacao == 1) {
 			sql = sql + " and l.situacao=1";
+			status = "Novos";
 		}else if(situacao == 2) {
-			sql = sql + " and l.proximocontato='" + datahoje + "'";
+			sql = sql + " and (l.situacao<>1 and l.situacao<>7 and l.situacao<>8)"
+					+ " and l.proximocontato='" + datahoje + "'";
+			status = "Hoje";
 		}else if(situacao == 3) {
-			sql = sql + " and l.proximocontato<'" + datahoje + "'";
+			sql = sql + " and (l.situacao<>1 and l.situacao<>7 and l.situacao<>8)" 
+					+ " and l.proximocontato<'" + datahoje + "'";
+			status = "Atrasados";
+		}else if(situacao == 5) {
+			sql = sql + " and (l.situacao<>1 and l.situacao<>7 and l.situacao<>8)"
+					+ " and l.proximocontato>'" + datahoje + "' and l.proximocontato<='"
+					+ data7 + "'";
+			status = "Próx. 7 Dias";
+		}else if(situacao == 6) {
+			sql = sql + " and l.situacao=7";
+			status = "Stand By";
+		}else if(situacao == 7) {
+			sql = sql + " and (l.situacao=5 or l.situacao=6)";
+			status = "Pós Venda";
 		}
 		sql = sql + " ORDER BY l.proximocontato DESC";
 		listaLead = leadFacade.lista(sql);
@@ -124,7 +187,7 @@ public class LeadMB implements Serializable{
 		String datahoje = Formatacao.ConvercaoDataNfe(new Date());
 		Date dataHojeD = Formatacao.ConvercaoStringData(datahoje);
 		LeadFacade leadFacade = new LeadFacade();
-		String sql = "Select l From Lead l Where l.situacao<=6"
+		String sql = "Select l From Lead l Where l.situacao<8"
 				+ " and l.cliente.usuario.idusuario=" 
 				+ usuarioLogadoMB.getUsuario().getIdusuario();
 		listaLead = leadFacade.lista(sql);
@@ -135,18 +198,44 @@ public class LeadMB implements Serializable{
 		nHoje = 0;
 		nNovos = 0;
 		nTodos = 0;
+		nProx7 = 0;
+		nStandBy = 0;
+		nContratos = 0;
+		String dProx = "";
+		Date dataProximo = null;
+		Date data7 = null;
 		for (int i = 0; i < listaLead.size(); i++) {
+			if (listaLead.get(i).getProximocontato() != null) {
+				dProx = Formatacao.ConvercaoDataNfe(listaLead.get(i).getProximocontato());
+				dataProximo = Formatacao.ConvercaoStringData(dProx);
+				data7 = Formatacao.SomarDiasData(dataHojeD, 7);
+			}
 			if (listaLead.get(i).getSituacao() == 1) {
 				nNovos = nNovos + 1;
-			}else if(listaLead.get(i).getProximocontato() != null 
-					&& listaLead.get(i).getProximocontato().equals(dataHojeD)) {
+				nTodos = nTodos + 1;
+			}else if((listaLead.get(i).getSituacao() != 8 && listaLead.get(i).getSituacao() !=7) 
+					&& (dataProximo != null 
+					&& dataProximo.equals(dataHojeD))) {
 				nHoje = nHoje + 1;
-			}else if(listaLead.get(i).getProximocontato() != null 
-					&& listaLead.get(i).getProximocontato().before(dataHojeD)) {
+				nTodos = nTodos + 1;
+			}else if((listaLead.get(i).getSituacao() != 8 && listaLead.get(i).getSituacao() !=7) 
+					&& (dataProximo != null 
+					&& dataProximo.before(dataHojeD))) {
 				nAtrasados = nAtrasados + 1;
+				nTodos = nTodos + 1;
+			}else if((listaLead.get(i).getSituacao() != 8 && listaLead.get(i).getSituacao() !=7) 
+					&& (dataProximo != null 
+					&& (dataProximo.before(data7) || dataProximo.equals(data7)))) {
+				nProx7 = nProx7 + 1;
+				nTodos = nTodos + 1;
+			}else if(listaLead.get(i).getSituacao() == 7) {
+				nStandBy = nStandBy + 1;
+				nTodos = nTodos + 1;
+			}else if(listaLead.get(i).getSituacao() == 5 || listaLead.get(i).getSituacao() == 6) {
+				nContratos = nContratos + 1;
 			}
-			nTodos = nTodos + 1;
 		}
+		status = "Todos";
 	}
 	
 	
@@ -156,7 +245,14 @@ public class LeadMB implements Serializable{
 		session.setAttribute("lead", lead);
 		return "historicoLead";
 	}
-	 
+	
+	
+	public String editar(Lead lead) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("lead", lead);
+		return "cadLead";
+	}
 	
 	
 	

@@ -14,6 +14,8 @@ import br.com.deltafinanceira.facade.ContratoUnificacaoFacade;
 import br.com.deltafinanceira.facade.DadosBancarioFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.HistoricoUsuarioFacade;
+import br.com.deltafinanceira.facade.LeadFacade;
+import br.com.deltafinanceira.facade.LeadHistoricoFacade;
 import br.com.deltafinanceira.facade.MetaFaturamentoMensalFacade;
 import br.com.deltafinanceira.facade.OrgaoBancoFacade;
 import br.com.deltafinanceira.facade.PromotoraFacade;
@@ -30,6 +32,8 @@ import br.com.deltafinanceira.model.Contratounificacao;
 import br.com.deltafinanceira.model.Dadosbancario;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Historicousuario;
+import br.com.deltafinanceira.model.Lead;
+import br.com.deltafinanceira.model.Leadhistorico;
 import br.com.deltafinanceira.model.Metafaturamentomensal;
 import br.com.deltafinanceira.model.Notificacao;
 import br.com.deltafinanceira.model.OrgaoBanco;
@@ -146,6 +150,8 @@ public class CadContratoMB implements Serializable {
 
 	private List<Contratounificacao> listaContratoUnificacao;
 
+	private Lead lead;
+
 	@PostConstruct
 	public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -155,6 +161,8 @@ public class CadContratoMB implements Serializable {
 		this.banco = (Banco) session.getAttribute("banco");
 		this.coeficiente = (Coeficiente) session.getAttribute("coeficiente");
 		this.voltarTela = (String) session.getAttribute("voltarTela");
+		this.lead = (Lead) session.getAttribute("lead");
+		session.removeAttribute("lead");
 		session.removeAttribute("orgaobanco");
 		session.removeAttribute("contrato");
 		session.removeAttribute("coeficiente");
@@ -499,26 +507,8 @@ public class CadContratoMB implements Serializable {
 		if (this.listaOrgaoBanco == null)
 			this.listaOrgaoBanco = new ArrayList<>();
 	}
-	
-	public void ajustes() {
-		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		Usuario usuario = usuarioFacade.consultar(13);
-		ClienteFacade clienteFacade = new ClienteFacade();
-		List<Cliente> listaCliente = clienteFacade.lista("Select c From Cliente c");
-		if (listaCliente == null) {
-			listaCliente = new ArrayList<Cliente>();
-		}
-		for (int i = 0; i < listaCliente.size(); i++) {
-			if (listaCliente.get(i).getUsuario() == null) {
-				listaCliente.get(i).setUsuario(usuario);
-				clienteFacade.salvar(listaCliente.get(i));;
-			}
-		}
-		System.out.println("Terminou!!");
-	}
 
 	public void buscarCliente() {
-		ajustes();
 		ClienteFacade clienteFacade = new ClienteFacade();
 		this.cliente = clienteFacade.consultarCpf(this.cpf);
 		this.contrato.setCliente(this.cliente);
@@ -598,8 +588,23 @@ public class CadContratoMB implements Serializable {
 		ContratoFacade contratoFacade = new ContratoFacade();
 		if (this.contrato == null || this.contrato.getIdcontrato() == null) {
 			this.contrato.setIdregracoeficiente(0);
-			if (this.contrato.getBanco() == null || this.contrato.getBanco().getIdbanco() == null)
+			if (this.contrato.getBanco() == null || this.contrato.getBanco().getIdbanco() == null) {
 				this.contrato.setBanco(this.banco);
+			}
+			if (lead != null && lead.getIdlead() != null) {
+				LeadFacade leadFacade = new LeadFacade();
+				lead.setSituacao(5);
+				lead.setCorsituacao("yellow");
+				lead.setUltimocontato(new Date());
+				lead = leadFacade.salvar(lead);
+				LeadHistoricoFacade leadHistoricoFacade = new LeadHistoricoFacade();
+				Leadhistorico leadhistorico = new Leadhistorico();
+				leadhistorico.setDatalancamento(new Date());
+				leadhistorico.setDescricao("CONTRATO EMITIDO: " + contrato.getTipooperacao().getApelido() + " - "
+						+ contrato.getNomeoperacao());
+				leadhistorico.setLead(lead);
+				leadHistoricoFacade.salvar(leadhistorico);
+			}
 		}
 		if (this.promotora == null || this.promotora.getIdpromotora() == null) {
 			PromotoraFacade promotoraFacade = new PromotoraFacade();
@@ -614,7 +619,9 @@ public class CadContratoMB implements Serializable {
 				this.contrato.setCodigocontrato(gerarCodigo(0));
 			this.contrato = contratoFacade.salvar(this.contrato);
 			if (this.novo) {
-				gerarNotificacao(this.contrato);
+				if (usuarioLogadoMB.getUsuario().getIdusuario() != 1) {
+					gerarNotificacao(this.contrato);
+				}
 				gerarComissao(this.contrato);
 				Historicousuario historicousuario = new Historicousuario();
 				salvarHistorico(historicousuario, this.contrato);

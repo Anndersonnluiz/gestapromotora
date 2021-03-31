@@ -20,8 +20,9 @@
 			<h:panelGrid style="width:95%;margin:2%;" columns="1"
 				columnClasses="tamanhoavisos, width47">
 				<h:panelGroup>
-					<p:commandLink id="btnVoltar" style="font-size:13px;" action="#{historicoLeadMB.voltar()}"
-						title="Voltar" value="Consulta de Leads">
+					<p:commandLink id="btnVoltar" style="font-size:13px;"
+						action="#{historicoLeadMB.voltar()}" title="Voltar"
+						value="Consulta de Leads">
 					</p:commandLink>
 					<p:outputLabel value="> Histórico"
 						style="margin-left:1%;color:#4D5C52;font-size:13px;" />
@@ -46,7 +47,8 @@
 
 					<p:overlayPanel id="painelSituacao" for="btnSituacao"
 						hideEffect="fade" style="background:#fff;">
-						<p:commandLink id="btnSituacao1" title="Lead Recebido" action="#"
+						<p:commandLink id="btnSituacao1" title="Novo Lead"
+							action="#{historicoLeadMB.alterarSituacao(1)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="1" class="badge"
 								style="color:white;background-color:#1E90FF;padding:5px 10px;font-size:22px;" />
@@ -54,7 +56,8 @@
 						<br></br>
 						<br></br>
 						<p:commandLink id="btnSituacao2" title="Primeiro Contato"
-							action="#" update="btnSituacao,painelSituacao">
+							action="#{historicoLeadMB.alterarSituacao(2)}"
+							update="btnSituacao,painelSituacao">
 							<h:outputText value="2" class="badge"
 								style="color:white;background-color:#2E5495;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
@@ -62,36 +65,49 @@
 						<br></br>
 
 						<p:commandLink id="btnSituacao3" title="Oportunidade Real"
-							action="#" update="btnSituacao,painelSituacao">
+							action="#{historicoLeadMB.alterarSituacao(3)}"
+							update="btnSituacao,painelSituacao">
 							<h:outputText value="3" class="badge"
 								style="color:white;background-color:#FF8C00;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
 						<br></br>
 						<br></br>
 						<p:commandLink id="btnSituacao4" title="Negociação Final"
-							action="#" update="btnSituacao,painelSituacao">
+							action="#{historicoLeadMB.alterarSituacao(4)}"
+							update="btnSituacao,painelSituacao">
 							<h:outputText value="4" class="badge"
 								style="color:white;background-color:#B22222;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
 						<br></br>
 						<br></br>
 						<p:commandLink id="btnSituacao5" title="Contrato Emitido"
-							action="#" update="btnSituacao,painelSituacao">
+							action="#{historicoLeadMB.alterarSituacao(5)}"
+							update="btnSituacao,painelSituacao">
 							<h:outputText value="5" class="badge"
 								style="color:black;background-color:yellow;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
 						<br></br>
 						<br></br>
-						<p:commandLink id="btnSituacao6" title="Contrato Pago">
+						<p:commandLink id="btnSituacao6" title="Contrato Pago"
+							action="#{historicoLeadMB.alterarSituacao(6)}">
 							<h:outputText value="6" class="badge"
 								style="color:white;background-color:green;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
 						<br></br>
 						<br></br>
-						<p:commandLink id="btnSituacao8" title="Stand By" action="#"
+						<p:commandLink id="btnSituacao7" title="Stand By"
+							action="#{historicoLeadMB.alterarSituacao(7)}"
+							update="btnSituacao,painelSituacao">
+							<h:outputText value="7" class="badge"
+								style="color:white;background-color:#9400D3;padding:5px 10px;font-size:22px;" />
+						</p:commandLink>
+						<br></br>
+						<br></br>
+						<p:commandLink id="btnSituacao8" title="Cancelada"
+							action="#{historicoLeadMB.alterarSituacao(8)}"
 							update="btnSituacao,painelSituacao">
 							<h:outputText value="8" class="badge"
-								style="color:white;background-color:#9400D3;padding:5px 10px;font-size:22px;" />
+								style="color:white;background-color:gray;padding:5px 10px;font-size:22px;" />
 						</p:commandLink>
 					</p:overlayPanel>
 
@@ -112,16 +128,33 @@
 							</p:outputLabel>
 						</h:panelGroup>
 					</h:panelGrid>
-					<hr/>
+					<hr />
 					<h:panelGroup id="painelBotoes">
 						<h:panelGroup>
-							<h:panelGrid style="width:100%;" columns="8">
-
-								<p:commandLink id="btnEmitirVenda" title="Emissão de vendas"
-									action="#" style="margin-left:8%;">
+							<h:panelGrid style="width:50%;" columns="2">
+								<p:commandLink id="btnSimulacao" title="Simulação de contrato"
+									action="#{historicoLeadMB.simulacaoContrato()}">
 									<h:panelGrid columns="1" style="text-align:center;">
-										<img src="../../resources/img/emitirvendas.png" width="48" />
+										<img src="../../resources/img/simulacao.png" width="35" />
+										<p:outputLabel value="SIMULAÇÃO DE CONTRATO"
+											style="font-size:11px;" />
+									</h:panelGrid>
+								</p:commandLink>
+								<p:commandLink id="btnEmitirVenda" title="Emissão de contrato"
+									action="#{historicoLeadMB.emissaoContrato()}"
+									rendered="#{!historicoLeadMB.contratoemitido}">
+									<h:panelGrid columns="1" style="text-align:center;">
+										<img src="../../resources/img/emitirvendas.png" width="35" />
 										<p:outputLabel value="EMISSÃO DE CONTRATO"
+											style="font-size:11px;" />
+									</h:panelGrid>
+								</p:commandLink>
+								<p:commandLink id="btnVerVenda" title="Visualizar Contratos"
+									action="#{historicoLeadMB.historicoContrato()}"
+									rendered="#{historicoLeadMB.contratoemitido}">
+									<h:panelGrid columns="1" style="text-align:center;">
+										<img src="../../resources/img/vendas.png" width="35" />
+										<p:outputLabel value="VISUALIZAR CONTRATOS"
 											style="font-size:11px;" />
 									</h:panelGrid>
 								</p:commandLink>
@@ -133,7 +166,7 @@
 					<h:panelGrid style="width:98%;">
 						<p:dataScroller id="tabelaHistorico" var="historico"
 							value="#{historicoLeadMB.listaHistorico}" chunkSize="10"
-							mode="inline" scrollHeight="390">
+							mode="inline" scrollHeight="300">
 							<f:facet name="header">
 								<h:panelGrid style="margin-left:2%;width:98%;" columns="2"
 									columnClasses="tamanhonotificacao2, tamanho50right">
@@ -158,23 +191,22 @@
 									class="#{historicoClienteMB.retornarCorHistorico(historico.idleadhistorico)}">
 									<h:panelGroup>
 										<img src="../../resources/img/historico.png" width="15" />
-										
 										<h:outputLabel value="#{historico.datalancamento}"
-											style="font-size: 13px;color:#4C4C4C;font-weight: 500;">
+											style="font-size: 13px;color:#4C4C4C;font-weight: bold;">
 											<f:convertDateTime pattern="dd/MM/yyyy"
 												timeZone="America/Sao_Paulo" />
 										</h:outputLabel>
-										
 										<h:outputLabel value=" - #{historico.descricao}"
 											style="margin-left:1.5%;font-size: 13px;color:#4C4C4C;font-weight: 500;" />
 
-										
+
 										<p:commandLink id="btnExcluir" title="Excluir"
 											style="margin-left:26%;margin-rigth:2%;" action="#"
 											update="tabelaHistorico">
 											<i class="fa fa-trash-o" />
 										</p:commandLink>
 									</h:panelGroup>
+									<hr />
 								</h:panelGrid>
 							</p:outputPanel>
 						</p:dataScroller>
@@ -204,6 +236,23 @@
 						<h:outputText value="5" class="badge"
 							style="background-color:yellow;padding: 4px 6px;color:black;margin-left:3%;" />
 						<h:outputText value="Contrato Emitido"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+					</div>
+					<br />
+					<div align="right">
+						<h:outputText value="6" class="badge"
+							style="background-color:green;padding: 4px 6px;margin-left:2%;color:white;" />
+						<h:outputText value="Contrado Pago"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="7" class="badge"
+							style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;color:white;" />
+						<h:outputText value="Stand By"
+							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+
+						<h:outputText value="8" class="badge"
+							style="background-color:gray;padding: 4px 6px;margin-left:3%;color:white;" />
+						<h:outputText value="Cancelada"
 							style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 					</div>
 				</h:panelGroup>

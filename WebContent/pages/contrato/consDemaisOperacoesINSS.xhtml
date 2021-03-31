@@ -280,7 +280,7 @@
 
 
 				<p:column headerText="Corretor"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.usuario.nome}" />
 				</p:column>
 				<p:column headerText="Operador"
@@ -288,42 +288,47 @@
 					<h:outputText value="#{contrato.operador}" />
 				</p:column>
 				<p:column headerText="CPF"
-					style="width:14%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:14%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.cliente.cpf}" />
 				</p:column>
 				<p:column headerText="Cliente"
-					style="width:15%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:15%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.cliente.nome}" />
 				</p:column>
 				<p:column headerText="Banco/Órgão"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText
 						value="#{contrato.orgaoBanco.banco.nome} /
 							#{contrato.orgaoBanco.nome}" />
 				</p:column>
 				<p:column headerText="Operação"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.tipooperacao.apelido}" />
 				</p:column>
 				<p:column headerText="Margem"
-					style="width:10%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.margemutilizada}">
 						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Situação"
-					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.situacao.descricao}" />
 				</p:column>
+				<p:column headerText="Promotora"
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.promotora.descricao}">
+					</h:outputText>
+				</p:column>
 				<p:column headerText="Última Situação"
-					style="width:12%; font-size:12px; background:white; color:black; border:none;text-align:left;">
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.ultimamudancasituacao}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText=""
-					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					style="width:10%; text-align:left; font-size:11px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false"
 						action="#{demaisOperacoesInssMB.editar(contrato)}"
 						style="text-align: left;color:black;">

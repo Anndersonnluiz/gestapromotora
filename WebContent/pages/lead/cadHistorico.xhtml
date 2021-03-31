@@ -54,12 +54,14 @@
 				columnClasses="tamanhoavisos,tamanho11">
 				<p:outputLabel value="Data" style="font-size:12px;color:#777777;" />
 				<p:outputLabel />
-
-				<p:inputMask id="data" value="#{cadHistoricoMB.leadhistorico.datalancamento}" size="12"
+				
+				<p:calendar id="dataUlt" value="#{cadHistoricoMB.leadhistorico.datalancamento}" mask="true" size="12"
 					locale="pt" pattern="dd/MM/yyyy">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
-				</p:inputMask>
+					<p:ajax event="change" />
+					<p:ajax event="dateSelect" />
+				</p:calendar>
 				<p:outputLabel />
 				<p:outputLabel />
 

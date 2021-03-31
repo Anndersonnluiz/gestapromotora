@@ -23,23 +23,8 @@
 		<br />
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
-				<div class="form-row">
-					<div class="form-group col-md-4">
-						<label for="usuario">Corretor</label>
-						<h:selectOneMenu id="usuario" style="width: 100%;"
-							immediate="true" value="#{historicoContratoMB.usuario}"
-							converter="UsuarioConverter" styleClass="form-control"
-							onchange="usuario">
-							<f:selectItem itemLabel="Selecione" itemValue="0"
-								noSelectionOption="true" />
-							<f:selectItems value="#{historicoContratoMB.listaUsuario}"
-								var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
-								itemValue="#{usuarioSelecionado}" />
-							<f:attribute name="listaUsuario"
-								value="#{historicoContratoMB.listaUsuario}" />
-						</h:selectOneMenu>
-					</div>
-					<div class="form-group col-md-4">
+				<div class="form-row" style="font-size:14px;">
+					<div class="form-group col-md-5">
 						<label for="inputRG">Tipo de Operação</label>
 						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
 							value="#{historicoContratoMB.tipooiperacao}"
@@ -54,7 +39,7 @@
 								value="#{historicoContratoMB.listaTipoOperacao}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-7">
 						<label for="inputNome">Banco</label>
 						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
 							immediate="true" value="#{historicoContratoMB.banco}"
@@ -84,8 +69,8 @@
 								value="#{historicoContratoMB.listaSituacao}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-3">
-						<label>.</label>
+					<div class="form-group col-md-4">
+						<label style="color:white;">.</label>
 						<div>
 							<p:commandLink ajax="false" styleClass="btn btn-primary"
 								style="color:white;" value="Pesquisar"

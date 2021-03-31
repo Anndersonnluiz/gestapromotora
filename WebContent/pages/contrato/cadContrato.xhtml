@@ -253,9 +253,9 @@
 			<div class="form-group col-md-5">
 				<label for="inputCpf">CPF</label>
 				<h:panelGrid columns="2" style="width:100%;">
-					<p:inputMask mask="999.999.999-99" id="inputCpf"
+					<p:inputMask mask="999.999.999-99" id="inputCpf" 
 						styleClass="form-control" value="#{cadContratoMB.cpf}" />
-					<p:commandLink id="btnCliente" value="Buscar"
+					<p:commandLink id="btnCliente" value="Buscar" rendered="false"
 						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
 							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
 							inputnomemae, inputValorSalario, inputResidencial, inputcomercial, inputcelular, nconta, digconta, digagencia, agencia,

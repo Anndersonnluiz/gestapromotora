@@ -8,14 +8,14 @@
 	<ui:define name="corpo">
 		<h4>Cadastro de Cliente</h4>
 		<hr />
-		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000" />
 
 		<div class="form-row" style="font-size: 14px;">
 			<div class="form-group col-md-6">
 				<label for="inputRG">Tipo de Operação</label>
 				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
-					value="#{cadLeadMB.tipooperacao}"
-					converter="TipoOperacaoConverter" styleClass="form-control">
+					value="#{cadLeadMB.tipooperacao}" converter="TipoOperacaoConverter"
+					styleClass="form-control">
 					<f:selectItem itemLabel="Selecione" itemValue="0"
 						noSelectionOption="true" />
 					<f:selectItems value="#{cadLeadMB.listaTipoOperacao}"
@@ -30,16 +30,29 @@
 		<h6>Dados pessoais</h6>
 		<hr />
 		<div class="form-row" style="font-size: 14px;">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-5">
+				<label for="inputCpf">CPF</label>
+				<h:panelGrid columns="2" style="width:100%;">
+					<p:inputMask mask="999.999.999-99" id="inputCpf"
+						styleClass="form-control" value="#{cadLeadMB.cpf}" />
+					<p:commandLink id="btnCliente" value="Buscar"
+						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
+							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
+							inputnomemae, inputValorSalario, inputResidencial, inputcomercial, inputcelular, nconta, digconta, digagencia, agencia,
+							tipoconta, titular, codbanco, growl"
+						action="#{cadLeadMB.buscarCliente()}" ajax="false"
+						styleClass="btn btn-primary" />
+				</h:panelGrid>
+			</div>
+
+			<div class="form-group col-md-7">
 				<label for="inputNome">Nome</label>
 				<h:inputText value="#{cadLeadMB.cliente.nome}" class="form-control"
 					id="inputNome" placeholder="Nome" />
 			</div>
-			<div class="form-group col-md-3">
-				<label for="inputCpf">CPF</label>
-				<p:inputMask mask="999.999.999-99" id="inputCpf"
-					styleClass="form-control" value="#{cadLeadMB.cliente.cpf}" />
-			</div>
+		</div>
+
+		<div class="form-row" style="font-size: 14px;">
 			<div class="form-group col-md-3">
 				<label for="dataNasc">Data Nascimento</label>
 				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
@@ -48,11 +61,8 @@
 						timeZone="America/Sao_Paulo" />
 					<p:ajax event="dateSelect" />
 					<p:ajax event="blur" />
-				</p:calendar>
+				</p:calendar> 
 			</div>
-		</div>
-
-		<div class="form-row" style="font-size: 14px;">
 			<div class="form-group col-md-2">
 				<label for="inputRG">RG</label>
 				<h:inputText value="#{cadLeadMB.cliente.rg}" class="form-control"
@@ -260,7 +270,7 @@
 		</div>
 
 
-
+ 
 		<br />
 		<hr />
 		<div align="center">

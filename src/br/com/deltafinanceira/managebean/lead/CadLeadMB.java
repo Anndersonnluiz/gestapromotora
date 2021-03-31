@@ -25,6 +25,7 @@ import br.com.deltafinanceira.model.Dadosbancario;
 import br.com.deltafinanceira.model.Lead;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.util.Formatacao;
+import br.com.deltafinanceira.util.Mensagem;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
 
 @Named
@@ -44,6 +45,7 @@ public class CadLeadMB implements Serializable {
 	private Banco bancoDadosBancario;
 	private List<Tipooperacao> listaTipoOperacao;
 	private Tipooperacao tipooperacao;
+	private String cpf;
 
 	@PostConstruct
 	public void init() {
@@ -56,13 +58,19 @@ public class CadLeadMB implements Serializable {
 		if (lead == null) {
 			lead = new Lead();
 			lead.setSituacao(1);
+			lead.setCorsituacao("#1E90FF");
 			dadosbancario = new Dadosbancario();
 			cliente = new Cliente();
 			cliente.setUsuario(usuarioLogadoMB.getUsuario());
 		} else {
 			this.cliente = this.lead.getCliente();
+			cpf = this.cliente.getCpf();
 			buscarDadosBancarios(this.cliente.getDadosbancario());
 			this.bancoDadosBancario = this.dadosbancario.getBanco();
+			if (lead.getIdoperacao() > 0) {
+				TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
+				tipooperacao = tipoOperacaoFacade.consultar(lead.getIdoperacao());
+			}
 		}
 	}
 
@@ -122,13 +130,20 @@ public class CadLeadMB implements Serializable {
 		this.listaTipoOperacao = listaTipoOperacao;
 	}
 
-
 	public Tipooperacao getTipooperacao() {
 		return tipooperacao;
 	}
 
 	public void setTipooperacao(Tipooperacao tipooperacao) {
 		this.tipooperacao = tipooperacao;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public void salvarDadosBancarios() {
@@ -188,6 +203,7 @@ public class CadLeadMB implements Serializable {
 		String diames = "" + Formatacao.getDiaData(this.cliente.getNascimento())
 				+ (Formatacao.getMesData(this.cliente.getNascimento()) + 1);
 		this.cliente.setDiames(Integer.parseInt(diames));
+		this.cliente.setCpf(cpf);
 		cliente = clienteFacade.salvar(this.cliente);
 		lead.setCliente(cliente);
 		lead.setTipooperacao(tipooperacao.getApelido());
@@ -195,13 +211,32 @@ public class CadLeadMB implements Serializable {
 		leadFacade.salvar(lead);
 		return "consLead";
 	}
-	
-	
+
 	public void gerarListaTipoOperacao() {
-	    TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-	    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Order By t.descricao");
-	    if (this.listaTipoOperacao == null)
-	      this.listaTipoOperacao = new ArrayList<>(); 
-	  }
+		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
+		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Order By t.descricao");
+		if (this.listaTipoOperacao == null)
+			this.listaTipoOperacao = new ArrayList<>();
+	}
+
+	public void buscarCliente() {
+		ClienteFacade clienteFacade = new ClienteFacade();
+		Cliente cliente;
+		cliente = clienteFacade.consultarCpf(this.cpf);
+		if (cliente != null
+				&& cliente.getUsuario().getIdusuario() != this.usuarioLogadoMB.getUsuario().getIdusuario()) {
+			Mensagem.lancarMensagemWarn("Este cliente pertence ao corretor(a): ", cliente.getUsuario().getNome());
+			this.cliente = new Cliente();
+			this.dadosbancario = new Dadosbancario();
+			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
+		}else {
+			this.cliente = cliente;
+		}
+	}
+	
+	
+	public String cancelar() {
+		return "consLead";
+	}
 
 }

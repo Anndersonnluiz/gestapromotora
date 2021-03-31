@@ -26,8 +26,26 @@
 		<br />
 		<div class="row" style="color: white;">
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaPortabilidade(1)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+				<p:commandLink action="#{leadMB.gerarListaLead(4)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Todos</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nTodos}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink action="#{leadMB.gerarListaLead(1)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -44,8 +62,8 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaPortabilidade(2)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+				<p:commandLink action="#{leadMB.gerarListaLead(2)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-warning shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -62,8 +80,26 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaPortabilidade(3)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead">
+				<p:commandLink action="#{leadMB.gerarListaLead(5)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-danger shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Próx. 7 Dias</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nProx7}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink action="#{leadMB.gerarListaLead(3)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-danger shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -80,27 +116,48 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaPortabilidade(4)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead">
-					<div class="card border-left-primary shadow h-100 py-2">
+				<p:commandLink action="#{leadMB.gerarListaLead(6)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-danger shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div style="font-size: 11px;"
 										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Todos</div>
+										Stand By</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										#{leadMB.nTodos}</div>
+										#{leadMB.nStandBy}</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</p:commandLink>
 			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink action="#{leadMB.gerarListaLead(7)}"
+					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-danger shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pós Venda</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{leadMB.nContratos}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:commandLink>
+			</div>
+			
 		</div>
 		<br />
 		<br />
-
+		<div class="form-row" id="panelStatus">
+			<h5>#{leadMB.status}</h5>
+		</div>
 
 		<div align="right" style="margin-right: 1%;">
 			<p:commandLink style="text-decoration:none;" ajax="false"
@@ -148,7 +205,12 @@
 				</h:outputText>
 			</p:column>
 			<p:column headerText=""
-				style="width:8%; text-align:left; font-size:13px; background:white; color:black; border:#fff;">
+				style="width:9%; text-align:left; font-size:13px; background:white; color:black; border:#fff;">
+				
+				<p:commandLink ajax="false" action="#{leadMB.editar(lead)}"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
 				<p:commandLink ajax="false" action="#{leadMB.historico(lead)}"
 					style="text-align: left;color:black;">
 					<span data-feather="file-plus"></span>
@@ -186,14 +248,19 @@
 		</div>
 		<br/>
 		<div class="row">
-			<h:outputText value="7" class="badge"
+			<h:outputText value="6" class="badge"
 				style="background-color:green;padding: 4px 6px;margin-left:2%;color:white;" />
 			<h:outputText value="Contrado Pago"
 				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 
-			<h:outputText value="8" class="badge"
+			<h:outputText value="7" class="badge"
 				style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;color:white;" />
 			<h:outputText value="Stand By"
+				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
+				
+			<h:outputText value="8" class="badge"
+				style="background-color:gray;padding: 4px 6px;margin-left:3%;color:white;" />
+			<h:outputText value="Cancelada"
 				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 		</div>
 		<br />
