@@ -51,6 +51,15 @@
 
 		<div class="form-row">
 			<div class="form-group col-md-3">
+				<label>Comissão Total (%)</label>
+				<h:inputText
+					value="#{cadCoeficienteMB.coeficiente.comissaototal}"
+					class="form-control" id="cmstotal" placeholder="Prazo">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+		
+			<div class="form-group col-md-3">
 				<label>Comissão Loja (%)</label>
 				<h:inputText
 					value="#{cadCoeficienteMB.coeficiente.comissaoloja}"

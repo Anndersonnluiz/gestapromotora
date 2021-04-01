@@ -19,15 +19,58 @@
 
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
-
+				<h:panelGroup rendered="#{leadMB.verificarAcesso}">
+					<div class="form-row" style="font-size: 14px;">
+						<div class="form-group col-md-5">
+							<label for="usuario">Corretor</label>
+							<h:selectOneMenu id="usuario" style="width: 100%;"
+								immediate="true" value="#{leadMB.usuario}"
+								converter="UsuarioConverter" styleClass="form-control"
+								onchange="usuario">
+								<f:selectItem itemLabel="Selecione" itemValue="0"
+									noSelectionOption="true" />
+								<f:selectItems value="#{leadMB.listaUsuario}"
+									var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+									itemValue="#{usuarioSelecionado}" />
+								<f:attribute name="listaUsuario"
+									value="#{leadMB.listaUsuario}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group col-md-7">
+							<label for="nomecliente">Nome Cliente</label>
+							<h:inputText class="form-control" id="nomecliente"
+								value="#{leadMB.nomecliente}">
+							</h:inputText>
+						</div>
+					</div>
+				</h:panelGroup>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="cpf">CPF</label>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							styleClass="form-control" value="#{leadMB.cpf}" />
+					</div>
+					<div class="form-group col-md-4">
+						<label style="color: white;">.</label>
+						<div>
+							<p:commandLink ajax="false"
+								styleClass="btn btn-primary text-white" value="Pesquisar"
+								action="#{leadMB.pesquisar()}" update="idTabelaLead, panelFiltros" />
+							<p:commandLink ajax="false" style="margin-left:1%;"
+								styleClass="btn btn-link" value="Limpar"
+								action="#{leadMB.limpar()}"
+								update="idTabelaLead, cpf, nomecliente, panelFiltros, usuario" />
+						</div>
+					</div>
+				</div>
 			</p:tab>
 		</p:accordionPanel>
 		<br />
 		<br />
-		<div class="row" style="color: white;">
+		<div class="row" style="color: white;" id="panelFiltros">
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(4)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+				<p:commandLink action="#{leadMB.gerarListaLead(4)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -44,8 +87,8 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(1)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+				<p:commandLink action="#{leadMB.gerarListaLead(1)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -62,8 +105,8 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(2)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+				<p:commandLink action="#{leadMB.gerarListaLead(2)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-warning shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -80,9 +123,9 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(5)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
-					<div class="card border-left-danger shadow h-100 py-2">
+				<p:commandLink action="#{leadMB.gerarListaLead(5)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-info shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
@@ -98,8 +141,8 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(3)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
+				<p:commandLink action="#{leadMB.gerarListaLead(3)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
 					<div class="card border-left-danger shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -116,9 +159,9 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(6)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
-					<div class="card border-left-danger shadow h-100 py-2">
+				<p:commandLink action="#{leadMB.gerarListaLead(6)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-dark shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
@@ -134,9 +177,9 @@
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink action="#{leadMB.gerarListaLead(7)}"
-					ajax="false" style="text-decoration:none;" update="idTabelaLead, panelStatus">
-					<div class="card border-left-danger shadow h-100 py-2">
+				<p:commandLink action="#{leadMB.gerarListaLead(7)}" ajax="false"
+					style="text-decoration:none;" update="idTabelaLead, panelStatus">
+					<div class="card border-left-success shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
@@ -151,7 +194,7 @@
 					</div>
 				</p:commandLink>
 			</div>
-			
+
 		</div>
 		<br />
 		<br />
@@ -167,7 +210,7 @@
 		</div>
 		<br />
 		<p:dataTable id="idTabelaLead" var="lead" widgetVar="cellCars"
-			editable="true" editMode="cell" value="#{leadMB.listaLead}"
+			editable="true" editMode="cell" value="#{leadMB.listaLeadFiltro}"
 			style="border:none;" class="tabelacontas" scrollRows="10"
 			scrollable="true" scrollHeight="400" selectionMode="single"
 			rowKey="#{lead.idlead}">
@@ -186,8 +229,8 @@
 			</p:column>
 			<p:column headerText="Situação"
 				style="width:10%; font-size:11px; background:white;border:none;text-align:center;">
-				<h:outputText value="#{lead.situacao}" 
-				style="color:white;font-size:13px;background-color:#{lead.corsituacao}"
+				<h:outputText value="#{lead.situacao}"
+					style="color:white;font-size:13px;background-color:#{lead.corsituacao}"
 					styleClass="badge" />
 			</p:column>
 			<p:column headerText="Último Contato"
@@ -206,7 +249,7 @@
 			</p:column>
 			<p:column headerText=""
 				style="width:9%; text-align:left; font-size:13px; background:white; color:black; border:#fff;">
-				
+
 				<p:commandLink ajax="false" action="#{leadMB.editar(lead)}"
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
@@ -219,7 +262,7 @@
 
 			</p:column>
 		</p:dataTable>
-		<br/>
+		<br />
 		<div class="row">
 			<h:outputText value="1" class="badge"
 				style="background-color:#1E90FF;padding: 4px 6px;margin-left:2%;color:white;" />
@@ -246,7 +289,7 @@
 			<h:outputText value="Contrato Emitido"
 				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
 		</div>
-		<br/>
+		<br />
 		<div class="row">
 			<h:outputText value="6" class="badge"
 				style="background-color:green;padding: 4px 6px;margin-left:2%;color:white;" />
@@ -257,7 +300,7 @@
 				style="background-color:#9400D3;padding: 4px 6px;margin-left:3%;color:white;" />
 			<h:outputText value="Stand By"
 				style="margin-left:0.5%;font-size:12px;color:#3C4A58;" />
-				
+
 			<h:outputText value="8" class="badge"
 				style="background-color:gray;padding: 4px 6px;margin-left:3%;color:white;" />
 			<h:outputText value="Cancelada"

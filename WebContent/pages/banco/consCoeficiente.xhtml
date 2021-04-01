@@ -37,6 +37,12 @@
 				<h:outputText value="#{coeficiente.nometabela}" />
 			</h:column>
 			<p:column>
+				<f:facet name="header">Cms Total</f:facet>
+				<h:outputText value="#{coeficiente.comissaototal}">
+					<f:convertNumber minFractionDigits="2" locale="pt_BR" />
+				</h:outputText>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Cms Loja</f:facet>
 				<h:outputText value="#{coeficiente.comissaoloja}">
 					<f:convertNumber minFractionDigits="2" locale="pt_BR" />

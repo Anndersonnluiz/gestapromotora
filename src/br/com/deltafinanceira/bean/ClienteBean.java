@@ -11,25 +11,9 @@ public class ClienteBean {
 	  
 	  private Date nascimento;
 	  
-	  private String rg;
-	  
-	  private String orgaroemissor;
-	  
-	  private String ufrg;
-	  
-	  private String nomepai;
-	  
-	  private String nomemae;
+	  private String endereco;
 	  
 	  private String cep;
-	  
-	  private String tipologradouro;
-	  
-	  private String logradouro;
-	  
-	  private String numero;
-	  
-	  private String complemento;
 	  
 	  private String bairro;
 	  
@@ -43,7 +27,19 @@ public class ClienteBean {
 	  
 	  private String telefonecelular;
 	  
+	  private String telefonesecundario;
+	  
 	  private String email;
+	  
+	  private float margem;
+	  
+	  private int cdbanco;
+	  
+	  private String agencia;
+	  
+	  private String conta;
+	  
+	  private float valorsalario;
 
 	public String getNome() {
 		return nome;
@@ -69,84 +65,12 @@ public class ClienteBean {
 		this.nascimento = nascimento;
 	}
 
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public String getOrgaroemissor() {
-		return orgaroemissor;
-	}
-
-	public void setOrgaroemissor(String orgaroemissor) {
-		this.orgaroemissor = orgaroemissor;
-	}
-
-	public String getUfrg() {
-		return ufrg;
-	}
-
-	public void setUfrg(String ufrg) {
-		this.ufrg = ufrg;
-	}
-
-	public String getNomepai() {
-		return nomepai;
-	}
-
-	public void setNomepai(String nomepai) {
-		this.nomepai = nomepai;
-	}
-
-	public String getNomemae() {
-		return nomemae;
-	}
-
-	public void setNomemae(String nomemae) {
-		this.nomemae = nomemae;
-	}
-
 	public String getCep() {
 		return cep;
 	}
 
 	public void setCep(String cep) {
 		this.cep = cep;
-	}
-
-	public String getTipologradouro() {
-		return tipologradouro;
-	}
-
-	public void setTipologradouro(String tipologradouro) {
-		this.tipologradouro = tipologradouro;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
 	}
 
 	public String getBairro() {
@@ -203,6 +127,62 @@ public class ClienteBean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefonesecundario() {
+		return telefonesecundario;
+	}
+
+	public void setTelefonesecundario(String telefonesecundario) {
+		this.telefonesecundario = telefonesecundario;
+	}
+
+	public float getMargem() {
+		return margem;
+	}
+
+	public void setMargem(float margem) {
+		this.margem = margem;
+	}
+
+	public int getCdbanco() {
+		return cdbanco;
+	}
+
+	public void setCdbanco(int cdbanco) {
+		this.cdbanco = cdbanco;
+	}
+
+	public String getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(String agencia) {
+		this.agencia = agencia;
+	}
+
+	public String getConta() {
+		return conta;
+	}
+
+	public void setConta(String conta) {
+		this.conta = conta;
+	}
+
+	public float getValorsalario() {
+		return valorsalario;
+	}
+
+	public void setValorsalario(float valorsalario) {
+		this.valorsalario = valorsalario;
 	}
 	  
 	  

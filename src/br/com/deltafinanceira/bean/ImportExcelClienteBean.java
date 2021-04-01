@@ -29,24 +29,25 @@ public class ImportExcelClienteBean {
 					ClienteBean clienteVO = null;
 
 					@Override
-					public boolean lendoColuna(int linha, int coluna, @SuppressWarnings("rawtypes") Map dadosColuna) throws ListenerException {
+					public boolean lendoColuna(int linha, int coluna, @SuppressWarnings("rawtypes") Map dadosColuna)
+							throws ListenerException {
 						LinhaColunaListenerVo voAtual = (LinhaColunaListenerVo) dadosColuna
 								.get(ColunaListener.CHAVE_VO_COLUNA);
 						if (linha > 1) { // Pula primeira linha pois é a linha que possui o título
 							switch (coluna) {
-							case 1: //Coluna
-								if (clienteVO == null) {
-									clienteVO = new ClienteBean();
-								}
-								String nome = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setNome(nome);
-								break;
-							case 2: //Coluna
+							case 1: // Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
 								String cpf = voAtual.getCelulaAtual().getStringCellValue();
 								clienteVO.setCpf(cpf);
+								break;
+							case 2: // Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String nome = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setNome(nome);
 								break;
 							case 3:// Coluna
 								if (clienteVO == null) {
@@ -55,61 +56,132 @@ public class ImportExcelClienteBean {
 								Date nascimento = voAtual.getCelulaAtual().getDateCellValue();
 								clienteVO.setNascimento(nascimento);
 								break;
-							case 4:// Coluna
+							case 9:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
-								String rg = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setRg(rg);
+								Double valorsalario = voAtual.getCelulaAtual().getNumericCellValue();
+								clienteVO.setValorsalario(valorsalario.floatValue());
 								break;
-							case 5:// Coluna
+							case 10:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
-								String ufrg = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setUfrg(ufrg);
+								Double margem = voAtual.getCelulaAtual().getNumericCellValue();
+								clienteVO.setMargem(margem.floatValue());
+								;
 								break;
-							case 6:// Coluna
+							case 26:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
-								String nomepai = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setNomepai(nomepai);
+								String ufestado = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setUfestado(ufestado);
 								break;
-							case 7:// Coluna
+							case 27:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
-								String nomemae = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setNomemae(nomemae);
-							case 8:// Coluna
+								String cidade = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setCidade(cidade);
+							case 28:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String bairro = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setBairro(bairro);
+								break;
+							case 29:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
 								String cep = voAtual.getCelulaAtual().getStringCellValue();
 								clienteVO.setCep(cep);
 								break;
-							case 9:// Coluna
+							case 30:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
 								String endereco = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setLogradouro(endereco);
+								clienteVO.setEndereco(endereco);
 								break;
-							case 10:// Coluna
+							case 31:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
-								String telefone = voAtual.getCelulaAtual().getStringCellValue();
-								clienteVO.setTelefonecelular(telefone);
+								String telefoneCelular = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setTelefonecelular(telefoneCelular);
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
 								break;
-							case 11:// Coluna
+							case 32:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String telefoneResidencial = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setTelefoneresidencial(telefoneResidencial);
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 33:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String telefoneComercial = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setTelefonecomercial(telefoneComercial);
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 34:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String telefoneSecundario = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setTelefonesecundario(telefoneSecundario);
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 35:// Coluna
 								if (clienteVO == null) {
 									clienteVO = new ClienteBean();
 								}
 								String email = voAtual.getCelulaAtual().getStringCellValue();
 								clienteVO.setEmail(email);
-								
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 36:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								Double cdbanco = voAtual.getCelulaAtual().getNumericCellValue();
+								clienteVO.setCdbanco(cdbanco.intValue());
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 37:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String agencia = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setAgencia(agencia);
+
+								listaClienteBean.add(clienteVO);
+								clienteVO = null;
+								break;
+							case 38:// Coluna
+								if (clienteVO == null) {
+									clienteVO = new ClienteBean();
+								}
+								String conta = voAtual.getCelulaAtual().getStringCellValue();
+								clienteVO.setConta(conta);
+
 								listaClienteBean.add(clienteVO);
 								clienteVO = null;
 							}

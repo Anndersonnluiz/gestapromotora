@@ -1,17 +1,22 @@
 package br.com.deltafinanceira.managebean.cliente;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.deltafinanceira.bean.ClienteBean;
+import br.com.deltafinanceira.bean.ImportExcelClienteBean;
 import br.com.deltafinanceira.facade.ClienteFacade;
 import br.com.deltafinanceira.model.Cliente;
+import br.com.deltafinanceira.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -77,6 +82,21 @@ public class ImportarClienteMB implements Serializable{
 			cliente = clienteFacade.salvar(cliente);
 		}
 		return "importarCliente";
+	}
+	
+	
+	public void fileUploadListener(FileUploadEvent e) {
+		this.file = e.getFile();
+		ImportExcelClienteBean importExcelClienteBean = new ImportExcelClienteBean();
+		try {
+			listaDados = importExcelClienteBean.importar(file.getInputstream());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		if (listaDados == null) {
+			listaDados = new ArrayList<ClienteBean>();
+		}
+		Mensagem.lancarMensagemInfo("Importação feita com sucesso", "");
 	}
 	
 	

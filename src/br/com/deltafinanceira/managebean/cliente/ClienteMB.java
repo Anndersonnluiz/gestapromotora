@@ -165,4 +165,9 @@ public class ClienteMB implements Serializable {
     session.setAttribute("corretor", corretor);
     return "relatorioCliente";
   }
+  
+  
+  public String importar() {
+	  return "importarCliente";
+  }
 }

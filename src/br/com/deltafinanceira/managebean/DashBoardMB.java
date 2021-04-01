@@ -583,7 +583,7 @@ public class DashBoardMB implements Serializable {
 				if (this.usuarioLogadoMB.getUsuario().isSupervisao()) {
 					this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
 				} else if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.fatutamento += ((Historicocomissao) lista.get(i)).getCmdbruta();
+					this.fatutamento += ((Historicocomissao) lista.get(i)).getComissaototal();
 				} else {
 					this.fatutamento += ((Historicocomissao) lista.get(i)).getCmsliq();
 				}
@@ -591,7 +591,7 @@ public class DashBoardMB implements Serializable {
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 19
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorReceber += ((Historicocomissao) lista.get(i)).getCmdbruta();
+					this.valorReceber += ((Historicocomissao) lista.get(i)).getComissaototal();
 				} else {
 					this.valorReceber += ((Historicocomissao) lista.get(i)).getCmsliq();
 				}
@@ -599,7 +599,7 @@ public class DashBoardMB implements Serializable {
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 28
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorPagar += ((Historicocomissao) lista.get(i)).getCmdbruta();
+					this.valorPagar += ((Historicocomissao) lista.get(i)).getComissaototal();
 				} else {
 					this.valorPagar += ((Historicocomissao) lista.get(i)).getCmsliq();
 				}
@@ -607,7 +607,7 @@ public class DashBoardMB implements Serializable {
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 36
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getCmdbruta();
+					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getComissaototal();
 				} else {
 					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getCmsliq();
 				}
@@ -618,7 +618,7 @@ public class DashBoardMB implements Serializable {
 			} else if (((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("Pago")
 					&& ((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
 				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getCmdbruta();
+					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getComissaototal();
 				} else {
 					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getCmsliq();
 				}
