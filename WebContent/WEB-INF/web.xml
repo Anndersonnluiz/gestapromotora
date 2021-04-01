@@ -29,7 +29,7 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>45</session-timeout>
+		<session-timeout>-1</session-timeout>
 	</session-config>
 	<listener>
 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>

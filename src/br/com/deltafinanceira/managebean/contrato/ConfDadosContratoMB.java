@@ -70,9 +70,10 @@ public class ConfDadosContratoMB implements Serializable {
 				TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
 				tipooiperacao = tipoOperacaoFacade.consultar(lead.getIdoperacao());
 			}
+			this.contrato.setCliente(lead.getCliente());
 		}
 		this.contrato = new Contrato();
-		this.contrato.setCliente(lead.getCliente());
+
 		gerarListaBanco();
 		gerarListaTipoOperacao();
 		this.contrato.setDatacadastro(new Date());

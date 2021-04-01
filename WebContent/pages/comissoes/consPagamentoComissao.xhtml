@@ -78,18 +78,19 @@
 							<f:selectItem itemLabel="SIAPE/GOV/PREF" itemValue="2" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-4">
-						<label>Situação</label>
-						<h:selectOneMenu style="width: 100%;" id="situacao"
-							disabled="true" value="#{historicoComissaoMB.situacao}"
-							styleClass="form-control">
-							<f:selectItem itemLabel="TODOS" itemValue="0" />
-							<f:selectItem itemLabel="AGUARDANDO ASSINATURA" itemValue="1" />
-							<f:selectItem itemLabel="AGUARDANDO PAGAMENTO" itemValue="2" />
-							<f:selectItem itemLabel="CANCELADOS" itemValue="3" />
-							<f:selectItem itemLabel="COMISSÃO RECEBIDA" itemValue="6" />
-							<f:selectItem itemLabel="PAGO AO CLIENTE" itemValue="4" />
-							<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
+					<div class="form-group col-md-5">
+						<label for="inputNome">Banco</label>
+						<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							immediate="true" value="#{historicoComissaoMB.banco}"
+							converter="BancoConverter" styleClass="form-control">
+							<f:selectItem itemLabel="Selecione" itemValue="0"
+								noSelectionOption="true" />
+							<f:selectItems value="#{historicoComissaoMB.listaBanco}"
+								var="bancoSelecionado" itemLabel="#{bancoSelecionado.nome}"
+								itemValue="#{bancoSelecionado}" />
+							<f:attribute name="listaBanco"
+								value="#{historicoComissaoMB.listaBanco}" />
+							<p:ajax event="blur" />
 						</h:selectOneMenu>
 					</div>
 					<div class="form-group col-md-4">
@@ -104,7 +105,7 @@
 								<p:ajax event="blur" />
 							</p:calendar>
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;"
+								style="widht:100%;font-size:14px;"
 								value="#{historicoComissaoMB.datafin}" id="datafin" size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
@@ -113,29 +114,31 @@
 							</p:calendar>
 						</h:panelGrid>
 					</div>
-					<div class="form-group col-md-4">
-						<label for="usuario">Periodo Cadastramento</label>
-						<h:panelGrid columns="2" style="width:80%;">
-							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;"
-								value="#{historicoComissaoMB.dataCadastroIni}"
-								id="dataCadastroini" size="9">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="dateSelect" />
-								<p:ajax event="blur" />
-							</p:calendar>
-							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;"
-								value="#{historicoComissaoMB.dataCadastroFinal}"
-								id="dataCadastrofin" size="9">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="dateSelect" />
-								<p:ajax event="blur" />
-							</p:calendar>
-						</h:panelGrid>
-					</div>
+					<h:panelGroup rendered="false">
+						<div class="form-group col-md-4">
+							<label for="usuario">Periodo Cad.</label>
+							<h:panelGrid columns="2" style="width:80%;">
+								<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+									style="widht:100%;font-size:14px;"
+									value="#{historicoComissaoMB.dataCadastroIni}"
+									id="dataCadastroini" size="9">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="dateSelect" />
+									<p:ajax event="blur" />
+								</p:calendar>
+								<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+									style="widht:80%;font-size:14px;"
+									value="#{historicoComissaoMB.dataCadastroFinal}"
+									id="dataCadastrofin" size="9">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										timeZone="America/Sao_Paulo" />
+									<p:ajax event="dateSelect" />
+									<p:ajax event="blur" />
+								</p:calendar>
+							</h:panelGrid>
+						</div>
+					</h:panelGroup>
 
 					<div class="form-group col-md-4">
 						<label style="color: white;">.</label>
@@ -217,6 +220,10 @@
 			</div>
 		</div>
 		<br />
+		<br />
+		<div class="form-row" id="panelStatus">
+			<h5>#{historicoComissaoMB.nomeSituacao}</h5>
+		</div>
 		<div align="right">
 			<p:commandLink action="#{historicoComissaoMB.fichaComissoes()}"
 				style="font-size:14px;">

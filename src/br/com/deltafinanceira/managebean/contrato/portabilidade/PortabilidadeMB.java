@@ -710,7 +710,7 @@ public class PortabilidadeMB implements Serializable {
     if (this.usuario != null && this.usuario.getIdusuario() != null)
       sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuario.getIdusuario(); 
     if (this.banco != null && this.banco.getIdbanco() != null)
-      sql = String.valueOf(sql) + " and c.valorescoeficiente.coeficiente.orgaoBanco.banco.idbanco=" + this.banco.getIdbanco(); 
+      sql = String.valueOf(sql) + " and c.orgaoBanco.banco.idbanco=" + this.banco.getIdbanco(); 
     if (this.promotora != null && this.promotora.getIdpromotora() != null)
       sql = String.valueOf(sql) + " and c.promotora.idpromotora=" + this.promotora.getIdpromotora(); 
     ContratoFacade contratoFacade = new ContratoFacade();

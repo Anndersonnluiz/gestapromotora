@@ -12,9 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.deltafinanceira.facade.BancoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
+import br.com.deltafinanceira.model.Banco;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.model.Usuario;
@@ -59,6 +61,9 @@ public class HistoricoComissaoMB implements Serializable {
 	private Date dataCadastroFinal;
 	private Integer convenio;
 	private float valortotal;
+	private List<Banco> listaBanco;
+	private Banco banco;
+	private String nomeSituacao;
 
 	@PostConstruct
 	public void init() {
@@ -74,6 +79,7 @@ public class HistoricoComissaoMB implements Serializable {
 		gerarListaInicial();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
+		gerarListaBanco();
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			unicoUsuario = true;
 			usuario = usuarioLogadoMB.getUsuario();
@@ -316,6 +322,30 @@ public class HistoricoComissaoMB implements Serializable {
 		this.convenio = convenio;
 	}
 
+	public List<Banco> getListaBanco() {
+		return listaBanco;
+	}
+
+	public void setListaBanco(List<Banco> listaBanco) {
+		this.listaBanco = listaBanco;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+	public String getNomeSituacao() {
+		return nomeSituacao;
+	}
+
+	public void setNomeSituacao(String nomeSituacao) {
+		this.nomeSituacao = nomeSituacao;
+	}
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
@@ -325,18 +355,23 @@ public class HistoricoComissaoMB implements Serializable {
 		if (tipoFiltro.equalsIgnoreCase("19")) {
 			sql = sql + " and h.contrato.situacao.idsituacao=19 and h.tipo='PENDENTE'";
 			situacao = 2;
+			nomeSituacao = "Aguardando Pagamento";
 		} else if (tipoFiltro.equalsIgnoreCase("28")) {
 			sql = sql + " and h.contrato.situacao.idsituacao=28 and h.tipo='PENDENTE'";
 			situacao = 1;
+			nomeSituacao = "Aguardando Assinatura";
 		} else if (tipoFiltro.equalsIgnoreCase("36")) {
 			sql = sql + " and h.contrato.situacao.idsituacao=36 and h.tipo='PENDENTE'";
 			situacao = 5;
+			nomeSituacao = "Pendência de Averbação";
 		} else if (tipoFiltro.equalsIgnoreCase("comissao")) {
 			sql = sql + " and h.tipo='Pago'";
 			situacao = 6;
+			nomeSituacao = "Comissão Recebida";
 		} else if (tipoFiltro.equalsIgnoreCase("16")) {
 			sql = sql + " and h.tipo<>'Pago' and h.contrato.situacao.idsituacao=16";
 			situacao = 4;
+			nomeSituacao = "Pago ao Cliente";
 		}
 		if (this.convenio > 0) {
 			if (this.convenio == 1) {
@@ -428,6 +463,9 @@ public class HistoricoComissaoMB implements Serializable {
 				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=false";
 			}
 		}
+		if (this.banco != null && this.banco.getIdbanco() != null) {
+			sql = String.valueOf(sql) + " and h.contrato.orgaoBanco.banco.idbanco=" + this.banco.getIdbanco();
+		}
 		sql = sql + " order by h.contrato.datapagamento";
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		listaComissao = historicoComissaoFacade.lista(sql);
@@ -476,6 +514,7 @@ public class HistoricoComissaoMB implements Serializable {
 		dataCadastroFinal = null;
 		dataCadastroIni = null;
 		convenio = 0;
+		banco = null;
 		gerarListaInicial();
 	}
 
@@ -577,6 +616,13 @@ public class HistoricoComissaoMB implements Serializable {
 			historicocomissao.setBaixa(false);
 		}
 		historicoComissaoFacade.salvar(historicocomissao);
+	}
+
+	public void gerarListaBanco() {
+		BancoFacade bancoFacade = new BancoFacade();
+		this.listaBanco = bancoFacade.lista("Select b From Banco b Where b.visualizar=true ORDER BY b.nome");
+		if (this.listaBanco == null)
+			this.listaBanco = new ArrayList<>();
 	}
 
 }
