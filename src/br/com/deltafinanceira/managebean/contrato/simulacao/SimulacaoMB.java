@@ -178,14 +178,14 @@ public class SimulacaoMB implements Serializable {
   
   public void gerarListaUsuario() {
     UsuarioFacade usuarioFacade = new UsuarioFacade();
-    this.listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
+    this.listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.treinamento=false order by u.nome");
     if (this.listaUsuario == null)
       this.listaUsuario = new ArrayList<>(); 
   }
   
   public void pesquisar() {
     String sql = "Select s From Simulacaocontrato s WHERE  s.contrato.cliente.nome like '%" + 
-      this.nomeCliente + "%' and s.contrato.cliente.cpf like '%" + this.cpf + "%'";
+      this.nomeCliente + "%' and s.contrato.usuario.treinamento=false and s.contrato.cliente.cpf like '%" + this.cpf + "%'";
     if (this.usuario != null && this.usuario.getIdusuario() != null && 
       !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao().equalsIgnoreCase("Operacional"))
       sql = String.valueOf(sql) + " and s.contrato.usuario.idusuario=" + this.usuario.getIdusuario(); 

@@ -6,7 +6,6 @@ import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.PromotoraFacade;
-import br.com.deltafinanceira.facade.RegrasCoeficienteFacade;
 import br.com.deltafinanceira.facade.SituacaoFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
@@ -15,7 +14,6 @@ import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Promotora;
-import br.com.deltafinanceira.model.Regrascoeficiente;
 import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.model.Usuario;
@@ -695,7 +693,7 @@ public class PortabilidadeMB implements Serializable {
   
   public void gerarListaUsuario() {
     UsuarioFacade usuarioFacade = new UsuarioFacade();
-    String sql = "Select u From Usuario u WHERE u.ativo=true";
+    String sql = "Select u From Usuario u WHERE u.ativo=true and u.treinamento=false";
     sql = String.valueOf(sql) + " and u.departamento.iddepartamento=7 order by u.nome";
     this.listaUsuario = usuarioFacade.listar(sql);
     if (this.listaUsuario == null)
@@ -704,7 +702,7 @@ public class PortabilidadeMB implements Serializable {
   
   public void pesquisar() {
     String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.cliente.nome like '%" + this.nomeCliente + 
-      "%' and c.cliente.cpf like '%" + this.cpf + "%' and c.simulacao=false";
+      "%' and u.treinamento=false and c.cliente.cpf like '%" + this.cpf + "%' and c.simulacao=false";
     if (this.nSituacao > 0)
       sql = String.valueOf(sql) + " and c.situacao.idsituacao=" + this.nSituacao; 
     if (this.usuario != null && this.usuario.getIdusuario() != null)
@@ -733,8 +731,11 @@ public class PortabilidadeMB implements Serializable {
     ContratoFacade contratoFacade = new ContratoFacade();
     String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.simulacao=false";
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
-      !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional())
+      !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
       sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario(); 
+    }else {
+    	sql = sql + " and c.usuario.treinamento=false";
+    }
     this.listaContratoPesquisa = contratoFacade.lista(sql);
     if (this.listaContratoPesquisa == null)
       this.listaContratoPesquisa = new ArrayList<>(); 

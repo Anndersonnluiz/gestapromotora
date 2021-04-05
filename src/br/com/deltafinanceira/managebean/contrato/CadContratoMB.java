@@ -619,7 +619,7 @@ public class CadContratoMB implements Serializable {
 				this.contrato.setCodigocontrato(gerarCodigo(0));
 			this.contrato = contratoFacade.salvar(this.contrato);
 			if (this.novo) {
-				if (usuarioLogadoMB.getUsuario().getIdusuario() != 1) {
+				if (usuarioLogadoMB.getUsuario().getIdusuario() != 1 && !usuarioLogadoMB.getUsuario().isTreinamento()) {
 					gerarNotificacao(this.contrato);
 				}
 				gerarComissao(this.contrato);
@@ -977,7 +977,7 @@ public class CadContratoMB implements Serializable {
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		this.listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
+		this.listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.treinamento=false order by u.nome");
 		if (this.listaUsuario == null)
 			this.listaUsuario = new ArrayList<>();
 	}
@@ -1051,7 +1051,9 @@ public class CadContratoMB implements Serializable {
 			contratoMais.setParcela(((Contratounificacao) this.listaContratoUnificacao.get(i)).getParcela());
 			contratoMais = contratoFacade.salvar(contratoMais);
 			if (this.novo) {
-				gerarNotificacao(contratoMais);
+				if (usuarioLogadoMB.getUsuario().getIdusuario() != 1 && !usuarioLogadoMB.getUsuario().isTreinamento()) {
+					gerarNotificacao(contratoMais);
+				}
 				gerarComissao(contratoMais);
 				Historicousuario historicousuario = new Historicousuario();
 				salvarHistorico(historicousuario, contratoMais);

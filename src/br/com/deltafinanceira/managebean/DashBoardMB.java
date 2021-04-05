@@ -551,7 +551,8 @@ public class DashBoardMB implements Serializable {
 		Date dataInicio = Formatacao.ConvercaoStringData("2020-10-31");
 		this.mesatual = Formatacao.getMesData(new Date()) + 1;
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
+		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false"
+				+ " and h.contrato.usuario.treinamento=false";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && !this.usuarioLogadoMB.getUsuario().isSupervisao())
 			sql = String.valueOf(sql) + " and h.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario();
 		if (this.convenio > 0) {

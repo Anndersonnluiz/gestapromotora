@@ -247,6 +247,8 @@ public class LeadMB implements Serializable {
 		String sql = "Select l From Lead l Where l.situacao<8";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && !this.usuarioLogadoMB.getUsuario().isSupervisao()) {
 			sql = sql + " and l.cliente.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		}else {
+			sql = sql + " and l.cliente.usuario.treinamento=false";
 		}
 		listaLead = leadFacade.lista(sql);
 		if (listaLead == null) {

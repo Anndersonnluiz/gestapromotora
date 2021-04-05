@@ -286,7 +286,7 @@ public class ContratoMB implements Serializable {
   
   public void gerarListaUsuario() {
     UsuarioFacade usuarioFacade = new UsuarioFacade();
-    String sql = "Select u From Usuario u WHERE u.ativo=true";
+    String sql = "Select u From Usuario u WHERE u.ativo=true and u.treinamento=false";
     sql = String.valueOf(sql) + " and u.departamento.iddepartamento=7 order by u.nome";
     this.listaUsuario = usuarioFacade.listar(sql);
     if (this.listaUsuario == null)
@@ -295,7 +295,7 @@ public class ContratoMB implements Serializable {
   
   public void pesquisar() {
     String sql = "Select c From Contrato c WHERE  c.cliente.nome like '%" + 
-      this.nomeCliente + "%' and c.cliente.cpf like '%" + this.cpf + "%'";
+      this.nomeCliente + "%' and c.usuario.treinamento=false and c.cliente.cpf like '%" + this.cpf + "%'";
     if (this.usuario != null && this.usuario.getIdusuario() != null && 
       !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getDescricao().equalsIgnoreCase("Operacional"))
       sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuario.getIdusuario(); 

@@ -49,8 +49,11 @@ public class FormalizacaoMB implements Serializable {
     ContratoFacade contratoFacade = new ContratoFacade();
     String sql = "Select c From Contrato c WHERE c.situacao.idsituacao=37  and c.simulacao=false";
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
-      !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional())
-      sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario(); 
+      !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
+      sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario();
+    }else {
+    	sql = sql + " and c.usuario.treinamento=false";
+    }
     this.listaContrato = contratoFacade.lista(sql);
     if (this.listaContrato == null)
       this.listaContrato = new ArrayList<>(); 

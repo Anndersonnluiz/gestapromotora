@@ -382,7 +382,7 @@ public class AlterarSituacaoMB implements Serializable {
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		String sql = "Select u From Usuario u WHERE u.operador=true order by u.nome";
+		String sql = "Select u From Usuario u WHERE u.operador=true and u.treinamento=false order by u.nome";
 		this.listaUsuario = usuarioFacade.listar(sql);
 		if (this.listaUsuario == null)
 			this.listaUsuario = new ArrayList<>();

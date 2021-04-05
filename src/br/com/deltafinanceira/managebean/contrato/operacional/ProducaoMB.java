@@ -341,8 +341,11 @@ public class ProducaoMB implements Serializable {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.contrato.situacao.idsituacao<>2 and h.contrato.ultimamudancasituacao>='2020-11-01' and h.baixa=false and h.contrato.simulacao=false";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral()
-				&& this.usuarioLogadoMB.getUsuario().isResponsaveldepartamento())
+				&& this.usuarioLogadoMB.getUsuario().isResponsaveldepartamento()) {
 			sql = String.valueOf(sql) + " and h.contrato.usuario.departamento.iddepartamento=7";
+		}else {
+			sql = sql + " and h.contrato.usuario.treinamento=false";
+		}
 		sql = String.valueOf(sql) + " order by h.contrato.ultimamudancasituacao";
 		this.listaComissao = historicoComissaoFacade.lista(sql);
 		if (this.listaComissao == null)
@@ -390,7 +393,8 @@ public class ProducaoMB implements Serializable {
 
 	public void pesquisar() {
 		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.contrato.simulacao=false and h.contrato.cliente.nome like '%"
-				+ this.nomecliente + "%' and h.contrato.cliente.cpf like '%" + this.cpf + "%'";
+				+ this.nomecliente + "%' and h.contrato.usuario.treinamento=false and h.contrato.cliente.cpf like '%"
+				+ this.cpf + "%'";
 		if (this.tipooiperacao != null && this.tipooiperacao.getIdtipooperacao() != null)
 			sql = String.valueOf(sql) + " and h.contrato.tipooperacao.idtipooperacao="
 					+ this.tipooiperacao.getIdtipooperacao();
@@ -490,7 +494,7 @@ public class ProducaoMB implements Serializable {
 
 	public void gerarListaUsuario() {
 		UsuarioFacade usuarioFacade = new UsuarioFacade();
-		String sql = "Select u From Usuario u WHERE u.ativo=true ";
+		String sql = "Select u From Usuario u WHERE u.ativo=true and u.treinamento=false";
 		sql = String.valueOf(sql) + " and u.departamento.iddepartamento=7";
 		this.listaUsuario = usuarioFacade.listar(sql);
 		if (this.listaUsuario == null)

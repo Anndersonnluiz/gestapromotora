@@ -145,7 +145,7 @@ public class ClienteMB implements Serializable {
   
   public void gerarListaUsuario() {
     UsuarioFacade usuarioFacade = new UsuarioFacade();
-    String sql = "Select u From Usuario u WHERE u.ativo=true";
+    String sql = "Select u From Usuario u WHERE u.ativo=true and u.treinamento=false";
     sql = String.valueOf(sql) + " and u.departamento.iddepartamento=7 order by u.nome";
     this.listaUsuario = usuarioFacade.listar(sql);
     if (this.listaUsuario == null)

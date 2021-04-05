@@ -171,7 +171,7 @@ public class FaturamentoMB implements Serializable {
   
   public void gerarListaUsuario() {
     UsuarioFacade usuarioFacade = new UsuarioFacade();
-    this.listaUsuario = usuarioFacade.listar("Select u From Usuario u order by u.nome");
+    this.listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.treinamento=false order by u.nome");
     if (this.listaUsuario == null)
       this.listaUsuario = new ArrayList<>(); 
   }
