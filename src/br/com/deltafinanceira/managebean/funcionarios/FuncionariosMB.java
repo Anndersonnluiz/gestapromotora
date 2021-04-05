@@ -11,9 +11,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import br.com.deltafinanceira.facade.FuncionarioFacade;
-import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Funcionario;
-import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Mensagem;
 
 @Named

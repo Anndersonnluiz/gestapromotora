@@ -74,11 +74,8 @@
 						itemValue="#{bancoSelecionado}" />
 					<f:attribute name="listaBanco"
 						value="#{alterarSituacaoMB.listaBanco}" />
-					
-					<f:ajax event="change" render="orgaobanco"
-						listener="#{alterarSituacaoMB.gerarListaOrgao()}" />
-				</h:selectOneMenu>
-			</div>
+				</h:selectOneMenu> 
+			</div> 
 			<div class="form-group col-md-2">
 				<label style="color: white">.</label> <br />
 				<p:commandLink id="btnPesquisar" value="Pesquisar Orgão"

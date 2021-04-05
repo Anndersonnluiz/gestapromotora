@@ -10,17 +10,18 @@
 		id="accordionSidebar">
 
 		<!-- Sidebar - Brand -->
-		<a
-			class="sidebar-brand d-flex align-items-center justify-content-center"
-			href="/deltafinanceira/dashboard.jsf">
-			<div class="sidebar-brand-icon">
-				<img class="img-profile rounded-circle"
-					src="../../resources/img/logobranca2.png" width="55" />
-			</div>
-			<div class="sidebar-brand-text mx-3" style="font-size: 13px;">BEM
-				VINDO(A)</div>
-		</a>
-
+		<div style="background: #f5fffb; border-radius: 5px;">
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="/deltafinanceira/dashboard.jsf">
+				<div class="sidebar-brand-icon">
+					<img class="img-profile rounded-circle"
+						src="../../resources/img/logodelta.png" width="55" />
+				</div>
+				<div class="sidebar-brand-text mx-3 text-primary"
+					style="font-size: 12px;">BEM VINDO(A)</div>
+			</a>
+		</div>
 		<!-- Divider -->
 		<hr class="sidebar-divider my-0" />
 
@@ -98,12 +99,20 @@
 			<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
+					<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.treinamento}">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							Emissão </a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.treinamento}">
+						<a class="collapse-item"
+							href="/deltafinanceira/pages/lead/consLead.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Lead </a>
+					</h:panelGroup>
 					<a class="collapse-item"
-						href="/deltafinanceira/pages/lead/consLead.jsf" role="button"
-						aria-haspopup="true" aria-expanded="false"> Lead </a> <a
-						class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consContrato.jsf">
-						Busca Rápida </a> <a class="collapse-item"
+						href="/deltafinanceira/pages/contrato/consContrato.jsf"> Busca
+						Rápida </a> <a class="collapse-item"
 						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
 						Portabilidade </a> <a class="collapse-item"
@@ -199,7 +208,8 @@
 						class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-							<span class="badge badge-danger badge-counter" style="font-size:14px;">#{dashBoardMB.nNotificacao}</span>
+							<span class="badge badge-danger badge-counter"
+							style="font-size: 14px;">#{dashBoardMB.nNotificacao}</span>
 					</a> <!-- Dropdown - Alerts -->
 						<div
 							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -240,7 +250,7 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <i class="fas fa-birthday-cake fa-fw"></i>
 							<!-- Counter - Messages --> <span
-							class="badge badge-danger badge-counter" style="font-size:14px;">#{usuarioLogadoMB.nAniversario}</span>
+							class="badge badge-danger badge-counter" style="font-size: 14px;">#{usuarioLogadoMB.nAniversario}</span>
 					</a> <!-- Dropdown - Messages -->
 						<div
 							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"

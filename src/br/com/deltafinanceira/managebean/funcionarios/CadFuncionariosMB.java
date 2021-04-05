@@ -33,7 +33,6 @@ import br.com.deltafinanceira.facade.FuncionarioArquivoFacade;
 import br.com.deltafinanceira.facade.FuncionarioFacade;
 import br.com.deltafinanceira.managebean.contrato.AnexarArquivoMB;
 import br.com.deltafinanceira.model.Banco;
-import br.com.deltafinanceira.model.Contratoarquivo;
 import br.com.deltafinanceira.model.Dadosbancario;
 import br.com.deltafinanceira.model.Funcionario;
 import br.com.deltafinanceira.model.Funcionarioarquivo;

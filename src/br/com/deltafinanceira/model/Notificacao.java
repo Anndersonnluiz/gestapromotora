@@ -37,6 +37,8 @@ public class Notificacao implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(name = "datalancamento")
 	private Date datalancamento;
+	@Column(name = "tipooperacao")
+	private String tipooperacao;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
@@ -118,6 +120,16 @@ public class Notificacao implements Serializable{
 
 	public void setIdcontrato(int idcontrato) {
 		this.idcontrato = idcontrato;
+	}
+
+
+	public String getTipooperacao() {
+		return tipooperacao;
+	}
+
+
+	public void setTipooperacao(String tipooperacao) {
+		this.tipooperacao = tipooperacao;
 	}
 
 

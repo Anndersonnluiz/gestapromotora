@@ -306,15 +306,15 @@
 			</p:column>
 			<p:column headerText="$ Loja"
 				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
-				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:right;">
-				<h:outputText value="#{comissao.cmdbruta}">
+				style="width:8%; font-size:11px; background:white;border:none;text-align:right; color:black;">
+				<h:outputText value="#{comissao.cmdbruta}" style="color:green;">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="$ Corretor"
-				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
-				<h:outputText value="#{comissao.cmsliq}">
+				style="width:9%; font-size:11px; background:white; border:none;text-align:right; color:black;">
+				<h:outputText value="#{comissao.cmsliq}" style="color:red;">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />
 				</h:outputText>
@@ -335,6 +335,8 @@
 			</p:column>
 
 		</p:dataTable>
+
+		
 		<br />
 		<div class="row" style="color: white;" id="panelNumeros">
 			<div class="col-xl-3 col-md-4 mb-4">

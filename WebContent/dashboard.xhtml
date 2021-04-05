@@ -21,8 +21,9 @@
 	<link href="resources/vendor/fontawesome-free/css/all.min.css"
 		rel="stylesheet" type="text/css" />
 
-	<link rel="sortcut icon" href="resources/img/FaviconLogo.png" type="image/png" />
-	
+	<link rel="sortcut icon" href="resources/img/FaviconLogo.png"
+		type="image/png" />
+
 	<link
 		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 		rel="stylesheet" />
@@ -38,17 +39,18 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="dashboard.jsf">
-				<div class="sidebar-brand-icon">
-					<img class="img-profile rounded-circle"
-						src="resources/img/logobranca2.png" width="55" />
-				</div>
-				<div class="sidebar-brand-text mx-3" style="font-size: 13px;">BEM
-					VINDO(A)</div>
-			</a>
-
+			<div style="background: #f5fffb; border-radius: 5px;">
+				<a
+					class="sidebar-brand d-flex align-items-center justify-content-center"
+					href="dashboard.jsf">
+					<div class="sidebar-brand-icon">
+						<img class="img-profile rounded-circle"
+							src="resources/img/logodelta.png" width="55" />
+					</div>
+					<div class="sidebar-brand-text mx-3 text-primary"
+						style="font-size: 12px;">BEM VINDO(A)</div>
+				</a>
+			</div>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0" />
 
@@ -123,18 +125,26 @@
 				<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="pages/lead/consLead.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							Lead </a> <a class="collapse-item"
-							href="pages/contrato/consContrato.jsf"> Busca Rápida </a> <a
-							class="collapse-item" href="pages/contrato/consPortabilidade.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							Portabilidade </a> <a class="collapse-item"
+						<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.treinamento}">
+							<a class="collapse-item"
+								href="pages/contrato/confDadosContrato.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> Emissão </a>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.treinamento}">
+							<a class="collapse-item" href="pages/lead/consLead.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Lead </a>
+						</h:panelGroup>
+						<a class="collapse-item" href="pages/contrato/consContrato.jsf">
+							Busca Rápida </a> <a class="collapse-item"
+							href="pages/contrato/consPortabilidade.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Portabilidade </a> <a
+							class="collapse-item"
 							href="pages/contrato/consDemaisOperacoesINSS.jsf"> Demais
 							Ope. INSS </a> <a class="collapse-item"
 							href="pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
 							SIAPE </a>
-					</div> 
+					</div>
 				</div></li>
 
 			<li class="nav-item"><h:panelGroup
@@ -214,7 +224,8 @@
 							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter" style="font-size:14px;">#{dashBoardMB.nNotificacao}</span>
+								<span class="badge badge-danger badge-counter"
+								style="font-size: 14px;">#{dashBoardMB.nNotificacao}</span>
 						</a> <!-- Dropdown - Alerts -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -230,7 +241,8 @@
 
 								<ui:repeat var="notificacao"
 									value="#{dashBoardMB.listaNotificacao}">
-									<a class="dropdown-item d-flex align-items-center" href="#">
+									<a class="dropdown-item d-flex align-items-center"
+										href="pages/notificacao/consNotificacao.jsf">
 										<div class="mr-3">
 											<div class="icon-circle bg-secondary">
 												<i class="fas fa-bell text-white"></i>
@@ -256,7 +268,8 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-birthday-cake fa-fw"></i>
 								<!-- Counter - Messages --> <span
-								class="badge badge-danger badge-counter" style="font-size:14px;">#{usuarioLogadoMB.nAniversario}</span>
+								class="badge badge-danger badge-counter"
+								style="font-size: 14px;">#{usuarioLogadoMB.nAniversario}</span>
 						</a> <!-- Dropdown - Messages -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"

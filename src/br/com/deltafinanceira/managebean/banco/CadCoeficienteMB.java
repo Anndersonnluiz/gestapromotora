@@ -1,11 +1,9 @@
 package br.com.deltafinanceira.managebean.banco;
 
 import br.com.deltafinanceira.facade.CoeficienteFacade;
-import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.model.Coeficiente;
-import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.OrgaoBanco;
 import br.com.deltafinanceira.model.Tipooperacao;
@@ -18,7 +16,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.w3c.dom.ls.LSInput;
 
 @Named
 @ViewScoped

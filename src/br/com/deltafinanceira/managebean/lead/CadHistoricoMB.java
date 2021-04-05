@@ -1,7 +1,6 @@
 package br.com.deltafinanceira.managebean.lead;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;

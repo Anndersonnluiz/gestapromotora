@@ -10,7 +10,8 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("RegrasCoeficienteConverter")
 public class RegrasCoeficienteConverter implements Converter {
   public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
-    List<Regrascoeficiente> listaRegrasValores = (List<Regrascoeficiente>)arg1.getAttributes().get("listaRegrasValores");
+    @SuppressWarnings("unchecked")
+	List<Regrascoeficiente> listaRegrasValores = (List<Regrascoeficiente>)arg1.getAttributes().get("listaRegrasValores");
     if (listaRegrasValores != null) {
       for (Regrascoeficiente regrascoeficiente1 : listaRegrasValores) {
         if (regrascoeficiente1.getNometabela().equalsIgnoreCase(arg2))

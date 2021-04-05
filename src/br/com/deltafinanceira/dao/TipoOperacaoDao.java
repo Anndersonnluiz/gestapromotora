@@ -7,7 +7,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.com.deltafinanceira.connection.ConectionFactory;
-import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.model.Tipooperacao;
 
 public class TipoOperacaoDao {
