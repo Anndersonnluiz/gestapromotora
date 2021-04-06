@@ -267,6 +267,7 @@ public class AlterarSituacaoMB implements Serializable {
 		notificacao.setTitulo("Contrato: " + this.contrato.getCodigocontrato());
 		notificacao.setDescricao("Seu contrato do(a) cliente: " + this.contrato.getCliente().getNome()
 				+ " mudou seu status para: " + this.situacao.getDescricao());
+		notificacao.setTipooperacao(contrato.getTipooperacao().getDescricao());
 		notificacaoDao.salvar(notificacao);
 	}
 

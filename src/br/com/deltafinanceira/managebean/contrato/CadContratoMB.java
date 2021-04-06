@@ -661,6 +661,7 @@ public class CadContratoMB implements Serializable {
 				notificacao.setVisto(false);
 				notificacao.setUsuario(listaUsuario.get(i));
 				notificacao.setIdcontrato(contrato.getIdcontrato().intValue());
+				notificacao.setTipooperacao(contrato.getTipooperacao().getDescricao());
 				notificacao.setTitulo("Novo Contrato: " + contrato.getCodigocontrato());
 				notificacao.setDescricao(String.valueOf(contrato.getTipooperacao().getDescricao())
 						+ " emitido pelo corretor(a) " + this.usuarioLogadoMB.getUsuario().getNome());

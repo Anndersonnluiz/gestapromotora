@@ -20,13 +20,16 @@
 
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-		type="text/css"/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-			rel="stylesheet"/>
+		type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
 
-			<!-- Custom styles for this template-->
-			<link href="css/sb-admin-2.min.css" rel="stylesheet"/>
+	<!-- Custom styles for this template-->
+	<link href="css/sb-admin-2.min.css" rel="stylesheet" />
+	
+	<link rel="sortcut icon" href="resources/img/FaviconLogo.png"
+		type="image/png" />
 </h:head>
 <h:body style="width:100%;">
 	<p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -56,21 +59,20 @@
 							<!-- Nested Row within Card Body -->
 							<div class="row">
 								<div class="col-lg-6 d-none d-lg-block bg-login-image">
-									<img src="resources/img/novalogo.png" width="420"/>								</div>
+									<img src="resources/img/novalogo.png" width="420" />
+								</div>
 								<div class="col-lg-6">
 									<div class="p-5">
-										<div class="text-center">
-											
-										</div>
+										<div class="text-center"></div>
 										<div class="form-group">
 											<p:inputText id="nome" styleClass="form-control input_pass"
 												value="#{usuarioLogadoMB.login}" required="required"
-												requiredMessage="Campo Obrigatorio" placeholder="LOGIN"/>
+												requiredMessage="Campo Obrigatorio" placeholder="LOGIN" />
 										</div>
 										<div class="form-group">
 											<p:password id="senha" styleClass="form-control input_pass"
 												value="#{usuarioLogadoMB.senha}" required="required"
-												requiredMessage="Campo Obrigatorio" placeholder="SENHA"/>
+												requiredMessage="Campo Obrigatorio" placeholder="SENHA" />
 										</div>
 										<div style="width: 100%;">
 											<p:commandLink title="ENTRAR" value="Entrar"
@@ -81,7 +83,7 @@
 										</div>
 									</div>
 								</div>
-							</div> 
+							</div>
 						</div>
 					</div>
 

@@ -41,8 +41,10 @@
 		<class>br.com.deltafinanceira.model.Metatipooperacao</class>
 		<class>br.com.deltafinanceira.model.Lead</class>
 		<class>br.com.deltafinanceira.model.Leadhistorico</class>
+		<class>br.com.deltafinanceira.model.Avisos</class>
+		<class>br.com.deltafinanceira.model.Avisosusuario</class>
 		<properties> 
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemasdelta.com.br:3306/sistemad_deltafinanceira"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
 			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>

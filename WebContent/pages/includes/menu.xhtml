@@ -27,7 +27,7 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item active"><a class="nav-link"
-			href="/deltafinanceira/dashboard.jsf"> <i
+			href="/dashboard.jsf"> <i
 				class="fas fa-fw fa-home"></i> <span>Dashboard</span></a></li>
 
 		<!-- Divider -->
@@ -43,32 +43,32 @@
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item"
-						href="/deltafinanceira/pages/banco/consBanco.jsf">Banco</a>
+						href="/pages/banco/consBanco.jsf">Banco</a>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/filial/consFilial.jsf">Filial</a>
+							href="/pages/filial/consFilial.jsf">Filial</a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/tipocolaborador/consTipoColaborador.jsf">
+							href="/pages/tipocolaborador/consTipoColaborador.jsf">
 							Grupo de Acessos </a>
 					</h:panelGroup>
 					<h:panelGroup
 						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/promotora/consPromotora.jsf">
+							href="/pages/promotora/consPromotora.jsf">
 							Promotora </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/funcionarios/consFuncionarios.jsf">
+							href="/pages/funcionarios/consFuncionarios.jsf">
 							Funcionários </a>
 					</h:panelGroup>
 				</div>
 			</div></li>
 
 		<li class="nav-item"><a class="nav-link"
-			href="/deltafinanceira/pages/cliente/consCliente.jsf"> <i
+			href="/pages/cliente/consCliente.jsf"> <i
 				class="fas fa-fw fa-users"></i> <span>Carteira de Clientes</span>
 		</a></li>
 
@@ -99,26 +99,21 @@
 			<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
-					<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.treinamento}">
-						<a class="collapse-item"
-							href="/deltafinanceira/pages/contrato/confDadosContrato.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							Emissão </a>
-					</h:panelGroup>
-					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.treinamento}">
-						<a class="collapse-item"
-							href="/deltafinanceira/pages/lead/consLead.jsf" role="button"
-							aria-haspopup="true" aria-expanded="false"> Lead </a>
-					</h:panelGroup>
 					<a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consContrato.jsf"> Busca
+						href="/pages/contrato/confDadosContrato.jsf"
+						role="button" aria-haspopup="true" aria-expanded="false">
+						Emissão </a> <a class="collapse-item"
+						href="/pages/lead/consLead.jsf" role="button"
+						aria-haspopup="true" aria-expanded="false"> Emissão (Novo) </a> <a
+						class="collapse-item"
+						href="/pages/contrato/consContrato.jsf"> Busca
 						Rápida </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consPortabilidade.jsf"
+						href="/pages/contrato/consPortabilidade.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
 						Portabilidade </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consDemaisOperacoesINSS.jsf">
+						href="/pages/contrato/consDemaisOperacoesINSS.jsf">
 						Demais Ope. INSS </a> <a class="collapse-item"
-						href="/deltafinanceira/pages/contrato/consDemaisOperacoes.jsf">
+						href="/pages/contrato/consDemaisOperacoes.jsf">
 						Demais Ope. SIAPE </a>
 				</div>
 			</div></li>
@@ -134,10 +129,10 @@
 					aria-labelledby="headingFive" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/despesa/consDespesa.jsf"
+							href="/pages/despesa/consDespesa.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Tipo Despesa </a> <a class="collapse-item"
-							href="/deltafinanceira/pages/financeiro/consContasPagar.jsf">
+							href="/pages/financeiro/consContasPagar.jsf">
 							Contas a Pagar </a>
 					</div>
 				</div>
@@ -145,28 +140,28 @@
 
 
 		<li class="nav-item"><a class="nav-link collapsed" href="#"
-			data-toggle="collapse" data-target="#collapseFor"
-			aria-expanded="true" aria-controls="collapseFor"> <i
+			data-toggle="collapse" data-target="#collapseSex"
+			aria-expanded="true" aria-controls="collapseSex"> <i
 				class="fas fa-fw fa-cog"></i> <span>Configurações</span>
 		</a>
-			<div id="collapseFor" class="collapse" aria-labelledby="headingTwo"
+			<div id="collapseSex" class="collapse" aria-labelledby="headingTwo"
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/contrato/trocarTitular.jsf"
+							href="/pages/contrato/trocarTitular.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Titular </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/cliente/trocaCliente.jsf"
+							href="/pages/cliente/trocaCliente.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Cliente </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/deltafinanceira/pages/historico/consHistoricoUsuario.jsf"
+							href="/pages/historico/consHistoricoUsuario.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Histórico de Usuário </a>
 					</h:panelGroup>
@@ -240,7 +235,7 @@
 							</ui:repeat>
 
 							<a class="dropdown-item text-center small text-gray-500"
-								href="/deltafinanceira/pages/notificacao/consNotificacao.jsf">Todas
+								href="/pages/notificacao/consNotificacao.jsf">Todas
 								Notificações</a>
 						</div></li>
 
@@ -278,7 +273,7 @@
 								</a>
 							</ui:repeat>
 							<a class="dropdown-item text-center small text-gray-500"
-								href="/deltafinanceira/pages/notificacao/consAniversariantes.jsf">Todos
+								href="/pages/notificacao/consAniversariantes.jsf">Todos
 								os Aniversariantes</a>
 						</div></li>
 
@@ -296,7 +291,7 @@
 						<div
 							class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 							aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="pages/usuario/alterarSenha.jsf"
+							<a class="dropdown-item" href="/pages/usuario/alterarSenha.jsf"
 								role="button" aria-haspopup="true" aria-expanded="false">
 								Alterar Senha </a>
 							<div class="dropdown-divider"></div>

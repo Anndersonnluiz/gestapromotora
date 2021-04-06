@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Consulta de Avisos</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<div align="right">
+			<div align="right" style="margin-right: 1%;">
+			<p:commandLink style="text-decoration:none;"
+				ajax="false"
+				action="#" >
+				<img src="../../resources/img/cadastro.png" width="35"/>
+			</p:commandLink>
+		</div>
+		</div>
+		<h:dataTable id="idTabelaNotificacao" var="notificacao"
+			styleClass="table table-bordered"
+			value="#{notificacaoMB.listaNotificacao}" cellspacing="0">
+			<h:column>
+				<f:facet name="header">Periodo</f:facet>
+				<h:outputText value="#{notificacao.datalancamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+				-
+				<h:outputText value="#{notificacao.datalancamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</h:column>
+			<h:column >
+				<f:facet name="header">Responsável</f:facet>
+				<h:outputText value="#{notificacao.tipooperacao}" />
+			</h:column> 
+			<h:column >
+				<f:facet name="header">Titulo</f:facet>
+				<h:outputText value="#{notificacao.tipooperacao}" />
+			</h:column> 
+			<h:column>
+				<p:commandLink ajax="false"
+					action="#"
+					style="text-align: left;color:black;">
+					<span data-feather="edit"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

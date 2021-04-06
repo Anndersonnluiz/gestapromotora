@@ -221,16 +221,17 @@ public class CadLeadMB implements Serializable {
 
 	public void buscarCliente() {
 		ClienteFacade clienteFacade = new ClienteFacade();
-		Cliente cliente;
 		cliente = clienteFacade.consultarCpf(this.cpf);
-		if (cliente != null
-				&& cliente.getUsuario().getIdusuario() != this.usuarioLogadoMB.getUsuario().getIdusuario()) {
-			Mensagem.lancarMensagemWarn("Este cliente pertence ao corretor(a): ", cliente.getUsuario().getNome());
+		if (this.cliente == null) {
 			this.cliente = new Cliente();
 			this.dadosbancario = new Dadosbancario();
 			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
-		}else {
-			this.cliente = cliente;
+		} else if (this.cliente != null
+				&& this.cliente.getUsuario().getIdusuario() != this.usuarioLogadoMB.getUsuario().getIdusuario()) {
+			Mensagem.lancarMensagemWarn("Este cliente pertence ao corretor(a): ", this.cliente.getUsuario().getNome());
+			this.cliente = new Cliente();
+			this.dadosbancario = new Dadosbancario();
+			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
 		}
 	}
 	

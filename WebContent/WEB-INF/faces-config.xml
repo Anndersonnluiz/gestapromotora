@@ -751,6 +751,38 @@
 		</navigation-case>
 	</navigation-rule>
     
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consAvisos</from-outcome>
+			<to-view-id>pages/avisos/consAvisos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadAvisos</from-outcome>
+			<to-view-id>pages/avisos/cadAvisos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarAvisos</from-outcome>
+			<to-view-id>pages/avisos/visualizarAvisos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
 	<application>
         <action-listener>
             org.primefaces.application.DialogActionListener
