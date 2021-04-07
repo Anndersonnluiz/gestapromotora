@@ -10,9 +10,9 @@ public class AvisosFacade {
 	
 	private AvisosDao avisosDao;
 	
-	public void salvar(Avisos avisos) {
+	public Avisos salvar(Avisos avisos) {
 		avisosDao = new AvisosDao();
-		avisosDao.salvar(avisos);
+		return avisosDao.salvar(avisos);
 	}
 
 	public Avisos consultar(int idavisos) {

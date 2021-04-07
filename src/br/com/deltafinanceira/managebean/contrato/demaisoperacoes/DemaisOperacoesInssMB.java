@@ -448,7 +448,8 @@ public class DemaisOperacoesInssMB implements Serializable {
   
   public void gerarListaDemaisOperacoes(int situacao) {
     ContratoFacade contratoFacade = new ContratoFacade();
-    String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%' and c.operacaoinss=true  and c.simulacao=false";
+    String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao not like '%Portabilidade%'"
+    		+ " and c.operacaoinss=true  and c.simulacao=false";
     if (situacao > 0)
       sql = String.valueOf(sql) + " and c.situacao.idsituacao =" + situacao; 
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 

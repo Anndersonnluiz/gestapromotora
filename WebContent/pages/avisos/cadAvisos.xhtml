@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Cadastro de Avisos</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-</body>
+
+
+		<div class="form-row">
+
+			<div class="form-group col-md-3">
+				<label>Prioridade</label>
+				<h:selectOneMenu style="width: 100%;"
+					id="tipoconta" value="#{cadAvisosMB.avisos.prioridade}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Baixa" itemValue="Baixa" />
+					<f:selectItem itemLabel="Média" itemValue="Média" />
+					<f:selectItem itemLabel="Alta" itemValue="Alta" />
+				</h:selectOneMenu>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputNome">Titulo</label>
+				<h:inputText value="#{cadAvisosMB.avisos.titulo}"
+					class="form-control" id="inputNome" />
+			</div>
+			<div class="form-group col-md-6">
+				<label>Periodo de Exibição</label>
+				<br/>
+				<h:panelGroup>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:100%;"
+						value="#{cadAvisosMB.avisos.datainicio}" id="datavenc" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:100%;margin-left:2%;"
+						value="#{cadAvisosMB.avisos.datafinal}" id="datapag" size="12">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGroup>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="inputNome">Descrição</label>
+				<h:inputTextarea value="#{cadAvisosMB.avisos.descricao}"
+					class="form-control" id="inputDescricao" />
+			</div>
+		</div>
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" styleClass="btn btn-primary"
+				value="Salvar" action="#{cadAvisosMB.salvar()}" />
+			<p:commandLink ajax="false" styleClass="btn btn-danger"
+				style="margin-left:2%;" value="Cancelar" action="#{cadAvisosMB.cancelar()}" />
+		</div>
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>
 </html>

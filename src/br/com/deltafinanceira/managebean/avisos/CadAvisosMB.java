@@ -1,6 +1,8 @@
 package br.com.deltafinanceira.managebean.avisos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -9,7 +11,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import br.com.deltafinanceira.facade.AvisosFacade;
+import br.com.deltafinanceira.facade.AvisosUsuarioFacade;
+import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Avisos;
+import br.com.deltafinanceira.model.Avisosusuario;
+import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Mensagem;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
 
@@ -24,6 +31,7 @@ public class CadAvisosMB implements Serializable{
 	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Avisos avisos;
+	private boolean novo;
 	
 	
 	
@@ -36,12 +44,12 @@ public class CadAvisosMB implements Serializable{
 		if (avisos == null) {
 			avisos = new Avisos();
 			avisos.setNomeusuario(usuarioLogadoMB.getUsuario().getNome());
+			novo = true;
+		}else {
+			novo = false;
 		}
 	}
 	
-	
-
-
 
 	public Avisos getAvisos() {
 		return avisos;
@@ -55,9 +63,22 @@ public class CadAvisosMB implements Serializable{
 	
 	
 	
-	public String cancelar() {
-		return "consAvisos";
+	public boolean isNovo() {
+		return novo;
 	}
+
+
+
+
+
+	public void setNovo(boolean novo) {
+		this.novo = novo;
+	}
+
+
+
+
+	
 	
 	
 	public String salvar() {
@@ -69,10 +90,20 @@ public class CadAvisosMB implements Serializable{
 			}else {
 				avisos.setCorprioridade("red");
 			}
+			AvisosFacade avisosFacade = new AvisosFacade();
+			avisos = avisosFacade.salvar(avisos);
+			if (novo) {
+				lancarAvisos();
+			}
+			
 		}
 		return "consAvisos";
 	}
-	
+
+
+	public String cancelar() {
+		return "consAvisos";
+	}
 	
 	
 	
@@ -97,6 +128,23 @@ public class CadAvisosMB implements Serializable{
 	}
 	
 	
+	
+	public void lancarAvisos() {
+		UsuarioFacade usuarioFacade = new UsuarioFacade();
+		List<Usuario> listaUsuario = usuarioFacade.listar("Select u From Usuario u Where u.ativo=true"
+				+ " and u.treinamento=false");
+		if (listaUsuario == null) {
+			listaUsuario = new ArrayList<Usuario>();
+		}
+		AvisosUsuarioFacade avisosUsuarioFacade = new AvisosUsuarioFacade();
+		for (int i = 0; i < listaUsuario.size(); i++) {
+			Avisosusuario avisosusuario = new Avisosusuario();
+			avisosusuario.setAvisos(avisos);
+			avisosusuario.setUsuario(listaUsuario.get(i));
+			avisosusuario.setVisto(false);
+			avisosUsuarioFacade.salvar(avisosusuario);
+		}
+	}
 	
 	
 	

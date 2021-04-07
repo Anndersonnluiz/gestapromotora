@@ -11,43 +11,44 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-		<div align="right">
-			<div align="right" style="margin-right: 1%;">
-			<p:commandLink style="text-decoration:none;"
-				ajax="false"
-				action="#" >
-				<img src="../../resources/img/cadastro.png" width="35"/>
+		<div align="right" style="margin-right: 1%;">
+			<p:commandLink style="text-decoration:none;" ajax="false"
+				action="#{avisosMB.novo()}">
+				<img src="../../resources/img/cadastro.png" width="35" />
 			</p:commandLink>
 		</div>
-		</div>
-		<h:dataTable id="idTabelaNotificacao" var="notificacao"
-			styleClass="table table-bordered"
-			value="#{notificacaoMB.listaNotificacao}" cellspacing="0">
+		<br />
+		<h:dataTable id="idTabelaAvisos" var="avisos"
+			styleClass="table table-bordered" value="#{avisosMB.listaAvisos}"
+			cellspacing="0">
 			<h:column>
 				<f:facet name="header">Periodo</f:facet>
-				<h:outputText value="#{notificacao.datalancamento}">
+				<h:outputText value="#{avisos.datainicio}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 				-
-				<h:outputText value="#{notificacao.datalancamento}">
+				<h:outputText value="#{avisos.datafinal}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
 			</h:column>
-			<h:column >
-				<f:facet name="header">Responsável</f:facet>
-				<h:outputText value="#{notificacao.tipooperacao}" />
-			</h:column> 
-			<h:column >
-				<f:facet name="header">Titulo</f:facet>
-				<h:outputText value="#{notificacao.tipooperacao}" />
-			</h:column> 
 			<h:column>
-				<p:commandLink ajax="false"
-					action="#"
+				<f:facet name="header">Responsável</f:facet>
+				<h:outputText value="#{avisos.nomeusuario}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Titulo</f:facet>
+				<h:outputText value="#{avisos.titulo}" />
+			</h:column>
+			<h:column>
+				<p:commandLink ajax="false" action="#{avisosMB.editar(avisos)}"
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false" action="#{avisosMB.vistos(avisos)}"
+					style="text-align: left;color:black;">
+					<span data-feather="eye"></span>
 				</p:commandLink>
 			</h:column>
 		</h:dataTable>

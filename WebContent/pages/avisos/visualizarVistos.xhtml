@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Visualizações do Usuário</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+		<div align="right" style="margin-right: 1%;">
+			<p:commandLink style="text-decoration:none;" ajax="false"
+				action="#{visualizarVistosMB.voltar()}">
+				<img src="../../resources/img/voltar.png" width="35" />
+			</p:commandLink>
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaAvisos" var="avisos"
+			styleClass="table table-bordered"
+			value="#{visualizarVistosMB.listaVistos}" cellspacing="0">
+			<h:column>
+				<f:facet name="header">Usuário</f:facet>
+				<h:outputText value="#{avisos.usuario.nome}" />
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

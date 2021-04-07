@@ -5,8 +5,10 @@ import br.com.deltafinanceira.dao.MetaFaturamentoMensalDao;
 import br.com.deltafinanceira.dao.NotificacaoDao;
 import br.com.deltafinanceira.dao.RankingVendasAnualDao;
 import br.com.deltafinanceira.dao.RankingVendasDao;
+import br.com.deltafinanceira.facade.AvisosUsuarioFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.NotificacaoFacade;
+import br.com.deltafinanceira.model.Avisosusuario;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Metafaturamentoanual;
 import br.com.deltafinanceira.model.Metafaturamentomensal;
@@ -113,11 +115,16 @@ public class DashBoardMB implements Serializable {
 	private List<Notificacao> listaNotificacao;
 	
 	private int convenio = 0;
+	
+	private List<Avisosusuario> listaAvisos;
+	
+	private int nAvisos;
 
 	@PostConstruct
 	public void init() {
 		faturamentoMensal();
 		listarNotificacao();
+		listaAvisos();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		this.mesAtual = Formatacao.nomeMes(mes);
 		if (this.usuarioLogadoMB.getUsuario().isDiretoria() || this.usuarioLogadoMB.getUsuario().isSupervisao()) {
@@ -455,6 +462,22 @@ public class DashBoardMB implements Serializable {
 		this.convenio = convenio;
 	}
 
+	public List<Avisosusuario> getListaAvisos() {
+		return listaAvisos;
+	}
+
+	public void setListaAvisos(List<Avisosusuario> listaAvisos) {
+		this.listaAvisos = listaAvisos;
+	}
+
+	public int getnAvisos() {
+		return nAvisos;
+	}
+
+	public void setnAvisos(int nAvisos) {
+		this.nAvisos = nAvisos;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -725,6 +748,19 @@ public class DashBoardMB implements Serializable {
 		}
 		listaNotificacao = new ArrayList<Notificacao>();
 		listarNotificacao();
+	}
+	
+	
+	public void listaAvisos() {
+		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
+		AvisosUsuarioFacade avisosUsuarioFacade = new AvisosUsuarioFacade();
+		listaAvisos = avisosUsuarioFacade.lista("Select a From Avisosusuario a Where a.usuario.idusuario="
+		+ usuarioLogadoMB.getUsuario().getIdusuario() + " and a.visto=false and a.avisos.datainicio<='" + 
+				dataHoje + "' and a.avisos.datafinal>='" + dataHoje + "'");
+		if (listaAvisos == null) {
+			listaAvisos = new ArrayList<Avisosusuario>();
+		}
+		nAvisos = listaAvisos.size();
 	}
 	
 	

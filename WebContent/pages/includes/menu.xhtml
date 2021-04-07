@@ -27,8 +27,7 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item active"><a class="nav-link"
-			href="/dashboard.jsf"> <i
-				class="fas fa-fw fa-home"></i> <span>Dashboard</span></a></li>
+			href="/dashboard.jsf"> <i class="fas fa-fw fa-home"></i> <span>Dashboard</span></a></li>
 
 		<!-- Divider -->
 		<hr class="sidebar-divider" />
@@ -42,27 +41,28 @@
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
-					<a class="collapse-item"
-						href="/pages/banco/consBanco.jsf">Banco</a>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-						<a class="collapse-item"
-							href="/pages/filial/consFilial.jsf">Filial</a>
+						<a class="collapse-item" href="/pages/avisos/consAvisos.jsf">
+							Avisos </a>
+					</h:panelGroup>
+					<a class="collapse-item" href="/pages/banco/consBanco.jsf">Banco</a>
+					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+						<a class="collapse-item" href="/pages/filial/consFilial.jsf">Filial</a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/pages/tipocolaborador/consTipoColaborador.jsf">
-							Grupo de Acessos </a>
+							href="/pages/tipocolaborador/consTipoColaborador.jsf"> Grupo
+							de Acessos </a>
 					</h:panelGroup>
 					<h:panelGroup
 						rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.cadastrarpromotora}">
-						<a class="collapse-item"
-							href="/pages/promotora/consPromotora.jsf">
+						<a class="collapse-item" href="/pages/promotora/consPromotora.jsf">
 							Promotora </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
 						<a class="collapse-item"
-							href="/pages/funcionarios/consFuncionarios.jsf">
-							Funcionários </a>
+							href="/pages/funcionarios/consFuncionarios.jsf"> Funcionários
+						</a>
 					</h:panelGroup>
 				</div>
 			</div></li>
@@ -100,21 +100,19 @@
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item"
-						href="/pages/contrato/confDadosContrato.jsf"
+						href="/pages/contrato/confDadosContrato.jsf" role="button"
+						aria-haspopup="true" aria-expanded="false"> Emissão </a> <a
+						class="collapse-item" href="/pages/lead/consLead.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
-						Emissão </a> <a class="collapse-item"
-						href="/pages/lead/consLead.jsf" role="button"
-						aria-haspopup="true" aria-expanded="false"> Emissão (Novo) </a> <a
-						class="collapse-item"
-						href="/pages/contrato/consContrato.jsf"> Busca
-						Rápida </a> <a class="collapse-item"
-						href="/pages/contrato/consPortabilidade.jsf"
+						Emissão (Novo) </a> <a class="collapse-item"
+						href="/pages/contrato/consContrato.jsf"> Busca Rápida </a> <a
+						class="collapse-item" href="/pages/contrato/consPortabilidade.jsf"
 						role="button" aria-haspopup="true" aria-expanded="false">
 						Portabilidade </a> <a class="collapse-item"
-						href="/pages/contrato/consDemaisOperacoesINSS.jsf">
-						Demais Ope. INSS </a> <a class="collapse-item"
-						href="/pages/contrato/consDemaisOperacoes.jsf">
-						Demais Ope. SIAPE </a>
+						href="/pages/contrato/consDemaisOperacoesINSS.jsf"> Demais
+						Ope. INSS </a> <a class="collapse-item"
+						href="/pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
+						SIAPE </a>
 				</div>
 			</div></li>
 
@@ -128,12 +126,11 @@
 				<div id="collapseFive" class="collapse"
 					aria-labelledby="headingFive" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item"
-							href="/pages/despesa/consDespesa.jsf"
+						<a class="collapse-item" href="/pages/despesa/consDespesa.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Tipo Despesa </a> <a class="collapse-item"
-							href="/pages/financeiro/consContasPagar.jsf">
-							Contas a Pagar </a>
+							href="/pages/financeiro/consContasPagar.jsf"> Contas a Pagar
+						</a>
 					</div>
 				</div>
 			</h:panelGroup></li>
@@ -148,22 +145,20 @@
 				data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-						<a class="collapse-item"
-							href="/pages/contrato/trocarTitular.jsf"
+						<a class="collapse-item" href="/pages/contrato/trocarTitular.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Titular </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{dashBoardMB.viewPagoCliente}">
-						<a class="collapse-item"
-							href="/pages/cliente/trocaCliente.jsf"
+						<a class="collapse-item" href="/pages/cliente/trocaCliente.jsf"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							Troca de Cliente </a>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 						<a class="collapse-item"
-							href="/pages/historico/consHistoricoUsuario.jsf"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							Histórico de Usuário </a>
+							href="/pages/historico/consHistoricoUsuario.jsf" role="button"
+							aria-haspopup="true" aria-expanded="false"> Histórico de
+							Usuário </a>
 					</h:panelGroup>
 				</div>
 			</div></li>
@@ -204,7 +199,7 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
 							<span class="badge badge-danger badge-counter"
-							style="font-size: 14px;">#{dashBoardMB.nNotificacao}</span>
+							style="font-size: 16px;">#{dashBoardMB.nNotificacao}</span>
 					</a> <!-- Dropdown - Alerts -->
 						<div
 							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -221,7 +216,7 @@
 
 							<ui:repeat var="notificacao"
 								value="#{dashBoardMB.listaNotificacao}">
-								<a class="dropdown-item d-flex align-items-center" href="#">
+								<a class="dropdown-item d-flex align-items-center" href="/pages/notificacao/consNotificacao.jsf">
 									<div class="mr-3">
 										<div class="icon-circle bg-secondary">
 											<i class="fas fa-bell text-white"></i>
@@ -245,7 +240,7 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <i class="fas fa-birthday-cake fa-fw"></i>
 							<!-- Counter - Messages --> <span
-							class="badge badge-danger badge-counter" style="font-size: 14px;">#{usuarioLogadoMB.nAniversario}</span>
+							class="badge badge-danger badge-counter" style="font-size: 16px;">#{usuarioLogadoMB.nAniversario}</span>
 					</a> <!-- Dropdown - Messages -->
 						<div
 							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -255,7 +250,7 @@
 
 							<ui:repeat var="aniversario"
 								value="#{usuarioLogadoMB.listaCliente}">
-								<a class="dropdown-item d-flex align-items-center" href="#">
+								<a class="dropdown-item d-flex align-items-center" href="/pages/notificacao/consAniversariantes.jsf">
 									<div class="mr-3">
 										<div class="icon-circle bg-info">
 											<i class="fas fa-birthday-cake text-white"></i>
@@ -273,8 +268,46 @@
 								</a>
 							</ui:repeat>
 							<a class="dropdown-item text-center small text-gray-500"
-								href="/pages/notificacao/consAniversariantes.jsf">Todos
-								os Aniversariantes</a>
+								href="/pages/notificacao/consAniversariantes.jsf">Todos os
+								Aniversariantes</a>
+						</div></li>
+
+
+					<!-- Nav Item - Alerts -->
+					<li class="nav-item dropdown no-arrow mx-1" id="idavisos"><a
+						class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i
+							class="fas fa-exclamation-triangle fa-fw"></i> <!-- Counter - Alerts -->
+							<span class="badge badge-danger badge-counter"
+							style="font-size: 16px;">#{dashBoardMB.nAvisos}</span>
+					</a> <!-- Dropdown - Alerts -->
+						<div
+							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="alertsDropdown">
+							<h6 class="dropdown-header">Avisos</h6>
+
+							<ui:repeat var="notificacao" value="#{dashBoardMB.listaAvisos}">
+								<a class="dropdown-item d-flex align-items-center"
+									href="/pages/avisos/visualizarAvisos.jsf">
+									<div class="mr-3">
+										<div class="icon-circle"
+											style="background-color:#{notificacao.avisos.corprioridade}">
+											<i class="fas fa-bell text-white"></i>
+										</div>
+									</div>
+									<div>
+										<div class="small text-gray-500">#{notificacao.avisos.nomeusuario}
+
+										</div>
+										<span class="font-weight-bold">
+											#{notificacao.avisos.titulo} </span>
+									</div>
+								</a>
+							</ui:repeat>
+
+							<a class="dropdown-item text-center small text-gray-500"
+								href="/pages/avisos/visualizarAvisos.jsf">Todos Avisos</a>
 						</div></li>
 
 					<div class="topbar-divider d-none d-sm-block"></div>
