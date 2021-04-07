@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Visualizar Avisos</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
-</body>
+		
+		<div align="right">
+			<p:commandLink ajax="false" update="idTabelaAvisos"
+				action="#{visualizarAvisosMB.vistoTodos()}" styleClass="btn btn-link"
+				value="Limpar (TODOS)" style="text-align: left;">
+			</p:commandLink>
+		</div>
+		<br/>
+		<h:dataTable id="idTabelaAvisos" var="avisos"
+			styleClass="table table-bordered" value="#{visualizarAvisosMB.listaAvisos}"
+			cellspacing="0">
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				<h:outputText value="#{avisos.avisos.titulo}" /> -
+				<h:outputText value="#{avisos.avisos.descricao}" />
+			</h:column>
+			
+			<h:column>	
+				<h:outputText value="#{avisos.avisos.nomeusuario}" />
+			</h:column>
+			<h:column>
+				<p:commandLink ajax="false" action="#{visualizarAvisosMB.visto(avisos)}"
+					style="text-align: left;color:black;" update="idTabelaAvisos">
+					<span data-feather="check-circle"></span>
+				</p:commandLink>
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
 </html>

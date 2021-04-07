@@ -75,7 +75,7 @@ public class NotificacaoMB implements Serializable{
 	
 	
 	public void visto(Notificacao notificacao) {
-		NotificacaoDao notificacaoDao = new NotificacaoDao();
+		NotificacaoFacade notificacaoDao = new NotificacaoFacade();
 		notificacao.setVisto(true);
 		notificacaoDao.salvar(notificacao);
 		listaNotificacao.remove(notificacao);

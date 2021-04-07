@@ -119,6 +119,10 @@ public class DashBoardMB implements Serializable {
 	private List<Avisosusuario> listaAvisos;
 	
 	private int nAvisos;
+	
+	private boolean verificarAvisos;
+	
+	private boolean verificarNotificacoes;
 
 	@PostConstruct
 	public void init() {
@@ -478,6 +482,22 @@ public class DashBoardMB implements Serializable {
 		this.nAvisos = nAvisos;
 	}
 
+	public boolean isVerificarAvisos() {
+		return verificarAvisos;
+	}
+
+	public void setVerificarAvisos(boolean verificarAvisos) {
+		this.verificarAvisos = verificarAvisos;
+	}
+
+	public boolean isVerificarNotificacoes() {
+		return verificarNotificacoes;
+	}
+
+	public void setVerificarNotificacoes(boolean verificarNotificacoes) {
+		this.verificarNotificacoes = verificarNotificacoes;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -715,6 +735,11 @@ public class DashBoardMB implements Serializable {
 			}
 		}
 		this.nNotificacao = listaNotificacao.size();
+		if (nNotificacao > 0) {
+			verificarNotificacoes = true;
+		}else {
+			verificarNotificacoes = false;
+		}
 	}
 
 	public String producaoGeral() {
@@ -761,6 +786,11 @@ public class DashBoardMB implements Serializable {
 			listaAvisos = new ArrayList<Avisosusuario>();
 		}
 		nAvisos = listaAvisos.size();
+		if (nAvisos > 0) {
+			verificarAvisos = true;
+		}else {
+			verificarAvisos = false;
+		}
 	}
 	
 	

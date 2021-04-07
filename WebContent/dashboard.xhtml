@@ -305,23 +305,22 @@
 						<li class="nav-item dropdown no-arrow mx-1" id="idavisos"><a
 							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-exclamation-triangle fa-fw"></i> <!-- Counter - Alerts -->
+							aria-expanded="false"> <i
+								class="fas fa-exclamation-triangle fa-fw"></i> <!-- Counter - Alerts -->
 								<span class="badge badge-danger badge-counter"
 								style="font-size: 16px;">#{dashBoardMB.nAvisos}</span>
 						</a> <!-- Dropdown - Alerts -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header">
-									Avisos
-								</h6>
+								<h6 class="dropdown-header">Avisos</h6>
 
-								<ui:repeat var="notificacao"
-									value="#{dashBoardMB.listaAvisos}">
+								<ui:repeat var="notificacao" value="#{dashBoardMB.listaAvisos}">
 									<a class="dropdown-item d-flex align-items-center"
 										href="pages/avisos/visualizarAvisos.jsf">
 										<div class="mr-3">
-											<div class="icon-circle" style="background-color:#{notificacao.avisos.corprioridade}">
+											<div class="icon-circle"
+												style="background-color:#{notificacao.avisos.corprioridade}">
 												<i class="fas fa-bell text-white"></i>
 											</div>
 										</div>
@@ -330,8 +329,7 @@
 
 											</div>
 											<span class="font-weight-bold">
-												#{notificacao.avisos.titulo}
-											</span>
+												#{notificacao.avisos.titulo} </span>
 										</div>
 									</a>
 								</ui:repeat>
@@ -372,6 +370,24 @@
 				<!-- End of Topbar -->
 				<div class="container-fluid">
 					<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-8">
+						<h:panelGroup rendered="#{dashBoardMB.verificarNotificacoes}">
+							<div>
+								<i class="fas fa-bell fa-fw"
+									style="font-size: 22px; color: red;"></i>
+								<!-- Counter - Alerts -->
+								<p:outputLabel value="VOCÊ TEM NOVAS NOTIFICAÇÕES!!"
+									style="color:red;" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dashBoardMB.verificarAvisos}">
+							<div>
+								<i class="fas fa-exclamation-triangle fa-fw"
+									style="font-size: 22px; color: red;"></i>
+								<!-- Counter - Alerts -->
+								<p:outputLabel value="VOCÊ TEM NOVOS AVISOS!!"
+									style="color:red;" />
+							</div>
+						</h:panelGroup>
 						<h:panelGroup
 							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.financeiro}">
 							<div class="form-row">
@@ -634,6 +650,7 @@
 										</div>
 									</div>
 								</div>
+
 							</h:panelGroup>
 
 
@@ -666,20 +683,6 @@
 								</div>
 							</div>
 						</h:panelGroup>
-						<div class="row" style="color: white;">
-
-							<h:panelGroup
-								rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.comissaorecebida}">
-
-								<div class="col-md-3">
-									<div class="panel-stat3">
-										<p:commandLink action="#">
-
-										</p:commandLink>
-									</div>
-								</div>
-							</h:panelGroup>
-						</div>
 						<h:panelGroup rendered="false">
 							<br />
 
