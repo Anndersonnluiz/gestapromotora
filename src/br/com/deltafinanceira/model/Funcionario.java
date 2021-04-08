@@ -58,6 +58,8 @@ public class Funcionario implements Serializable{
 	private String ondetrabalha;
 	@Column(name = "cep")
 	private String cep;
+	@Column(name = "rg")
+	private String rg;
 	@JoinColumn(name = "dadosbancario_iddadosbancario", referencedColumnName = "iddadosbancario")
 	@ManyToOne(optional = false)
 	private Dadosbancario dadosbancario;
@@ -227,6 +229,16 @@ public class Funcionario implements Serializable{
 
 	public void setDadosbancario(Dadosbancario dadosbancario) {
 		this.dadosbancario = dadosbancario;
+	}
+
+
+	public String getRg() {
+		return rg;
+	}
+
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
 

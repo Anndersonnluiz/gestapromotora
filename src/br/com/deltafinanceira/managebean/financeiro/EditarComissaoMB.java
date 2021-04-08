@@ -213,7 +213,8 @@ public class EditarComissaoMB implements Serializable{
 		historicousuario.setHora(Formatacao.foramtarHoraString());
 		historicousuario.setUsuario(usuarioLogadoMB.getUsuario());
 		historicousuario.setDescricao("Situação alterada de " + alteracoesBean.getDescricao() +
-				" para " + historicocomissao.getContrato().getSituacao().getDescricao());
+				" para " + historicocomissao.getContrato().getSituacao().getDescricao() 
+				+ ", Cliente: " + historicocomissao.getContrato().getCliente().getNome());
 		historicoUsuarioFacade.salvar(historicousuario);
 	}
 	

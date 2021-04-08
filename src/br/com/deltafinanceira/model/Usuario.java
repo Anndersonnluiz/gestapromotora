@@ -66,6 +66,9 @@ public class Usuario implements Serializable {
 
 	@Column(name = "treinamento")
 	private boolean treinamento;
+	
+	@Column(name = "tipovenda")
+	private String tipovenda;
 
 	@JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
 	@ManyToOne(optional = false)
@@ -229,6 +232,14 @@ public class Usuario implements Serializable {
 
 	public void setTreinamento(boolean treinamento) {
 		this.treinamento = treinamento;
+	}
+
+	public String getTipovenda() {
+		return tipovenda;
+	}
+
+	public void setTipovenda(String tipovenda) {
+		this.tipovenda = tipovenda;
 	}
 
 	public int hashCode() {

@@ -12,24 +12,30 @@
 		<h6>Dados pessoais</h6>
 		<hr />
 		<div class="form-row" style="font-size: 14px;">
-			<div class="form-group col-md-8">
+			<div class="form-group col-md-5">
 				<label for="inputNome">Nome</label>
 				<h:inputText value="#{cadFuncionariosMB.funcionario.nome}"
 					class="form-control" id="inputNome" placeholder="Nome" />
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<label for="inputCpf">CPF</label>
 				<p:inputMask mask="999.999.999-99" id="inputCpf"
 					styleClass="form-control"
 					value="#{cadFuncionariosMB.funcionario.cpf}" />
 			</div>
+			<div class="form-group col-md-3">
+				<label for="inputRG">RG</label>
+				<h:inputText value="#{cadFuncionariosMB.funcionario.rg}"
+					class="form-control" id="inputRG" placeholder="Nome Mãe" />
+			</div>
 		</div>
 
 		<div class="form-row" style="font-size: 14px;">
+
 			<div class="form-group col-md-2">
 				<label for="dataNasc">Data Nascimento</label>
 				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:98%;"
-					size="9" value="#{cadFuncionariosMB.funcionario.nascimento}"
+					size="10" value="#{cadFuncionariosMB.funcionario.nascimento}"
 					id="dataNasc">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
@@ -39,7 +45,7 @@
 			</div>
 			<div class="form-group col-md-2">
 				<label for="dataEmissao">Data Contratação</label>
-				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="9"
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="10"
 					style="widht:98%;"
 					value="#{cadFuncionariosMB.funcionario.contratacao}"
 					id="dataEmissao">
@@ -68,16 +74,13 @@
 
 		<div class="form-row" style="font-size: 14px;">
 			<div class="form-group col-md-4">
-				<label for="inputCEP">CEP</label>
-
-				<h:panelGrid columns="2" style="width:100%;">
-					<h:inputText value="#{cadFuncionariosMB.funcionario.cep}"
-						class="form-control" id="inputCEP" placeholder="CEP" />
-					<p:commandLink id="btnConfirmar" value="Buscar"
-						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado"
-						action="#{cadFuncionariosMB.buscarendereco()}" ajax="false"
-						styleClass="btn btn-primary" />
-				</h:panelGrid>
+				<label for="inputCEP">CEP</label> <br />
+				<p:inputText value="#{cadFuncionariosMB.funcionario.cep}"
+					id="inputCEP" placeholder="Pesquisar CEP">
+					<p:ajax event="change"
+						listener="#{cadFuncionariosMB.buscarendereco()}"
+						update="inputCidade, inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado" />
+				</p:inputText>
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputTipoLogradouro">Tipo Logradouro</label>

@@ -20,6 +20,7 @@ import br.com.deltafinanceira.model.OrgaoBanco;
 import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Formatacao;
+import br.com.deltafinanceira.util.Mensagem;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -227,34 +228,55 @@ public class AlterarSituacaoMB implements Serializable {
 	}
 
 	public String salvar() {
-		ContratoFacade contratoFacade = new ContratoFacade();
-		this.contrato.setSituacao(this.situacao);
-		this.contrato.setUltimamudancasituacao(new Date());
-		this.contrato.setOrgaoBanco(this.orgaoBanco);
-		if (this.situacao.getIdsituacao().intValue() == 16)
-			this.contrato.setDatapagamento(new Date());
-		gerarProducao();
-		if (this.coeficiente != null && this.coeficiente.getIdcoeficiente() != null) {
-			this.contrato.setIdregracoeficiente(this.coeficiente.getIdcoeficiente().intValue());
-			gerarComissao();
-		}
-		gerarNotificacao();
-		if (contrato.getSituacao().getIdsituacao() != 35) {
-			contrato.setPossuioperador(true);
-			if (operador != null && operador.getIdusuario() != null){
-				contrato.setIdoperador(operador.getIdusuario());
-				contrato.setOperador(operador.getNome());
+		if (validarDados()) {
+			ContratoFacade contratoFacade = new ContratoFacade();
+			this.contrato.setSituacao(this.situacao);
+			this.contrato.setUltimamudancasituacao(new Date());
+			this.contrato.setOrgaoBanco(this.orgaoBanco);
+			if (this.situacao.getIdsituacao().intValue() == 16)
+				this.contrato.setDatapagamento(new Date());
+			gerarProducao();
+			if (this.coeficiente != null && this.coeficiente.getIdcoeficiente() != null) {
+				this.contrato.setIdregracoeficiente(this.coeficiente.getIdcoeficiente().intValue());
+				gerarComissao();
+			}else {
+				this.contrato.setIdregracoeficiente(0);
 			}
-		} else {
-			contrato.setPossuioperador(false);
-			contrato.setIdoperador(0);
+			gerarNotificacao();
+			if (contrato.getSituacao().getIdsituacao() != 35) {
+				contrato.setPossuioperador(true);
+				if (operador != null && operador.getIdusuario() != null){
+					contrato.setIdoperador(operador.getIdusuario());
+					contrato.setOperador(operador.getNome());
+				}
+			} else {
+				contrato.setPossuioperador(false);
+				contrato.setIdoperador(0);
+			}
+			this.contrato = contratoFacade.salvar(this.contrato);
+			if (!this.alteracaoBean.getDescricao().equalsIgnoreCase(this.contrato.getSituacao().getDescricao())) {
+				Historicousuario historicousuario = new Historicousuario();
+				salvarHistorico(historicousuario);
+			}
+			return this.voltar;
 		}
-		this.contrato = contratoFacade.salvar(this.contrato);
-		if (!this.alteracaoBean.getDescricao().equalsIgnoreCase(this.contrato.getSituacao().getDescricao())) {
-			Historicousuario historicousuario = new Historicousuario();
-			salvarHistorico(historicousuario);
+		return "";
+	}
+	
+	public boolean validarDados() {
+		if (situacao == null || situacao.getIdsituacao() == null) {
+			Mensagem.lancarMensagemInfo("Selecione a nova situação do contrato", "");
+			return false;
 		}
-		return this.voltar;
+		if (orgaoBanco == null || orgaoBanco.getIdorgaobanco() == null) {
+			Mensagem.lancarMensagemInfo("Selecione um novo Orgão", "");
+			return false;
+		}
+		if (banco == null || banco.getIdbanco() == null) {
+			Mensagem.lancarMensagemInfo("Selecione um novo Banco", "");
+			return false;
+		}
+		return true;
 	}
 
 	public void gerarNotificacao() {
@@ -286,10 +308,16 @@ public class AlterarSituacaoMB implements Serializable {
 		historicousuario.setIdcontrato(this.contrato.getIdcontrato().intValue());
 		historicousuario.setHora(Formatacao.foramtarHoraString());
 		historicousuario.setUsuario(this.usuarioLogadoMB.getUsuario());
+		String convenio = "";
+		if (contrato.isOperacaoinss()) {
+			convenio = "INSS";
+		}else {
+			convenio = "SIAPE";
+		}
 		historicousuario.setDescricao("Situação alterada de " + this.alteracaoBean.getDescricao() + " para "
 				+ this.contrato.getSituacao().getDescricao() + ", Tipo do contrato: "
-				+ this.contrato.getTipooperacao().getDescricao() + ", Código contrato: "
-				+ this.contrato.getCodigocontrato());
+				+ this.contrato.getTipooperacao().getDescricao() + " - " + convenio + ", Cliente: "
+				+ contrato.getCliente().getNome());
 		historicoUsuarioFacade.salvar(historicousuario);
 	}
 

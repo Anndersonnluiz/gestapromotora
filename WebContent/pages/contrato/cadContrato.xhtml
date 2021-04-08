@@ -13,8 +13,7 @@
 			closable="false" resizable="false" showHeader="false">
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
-		<p:messages id="growl" showDetail="true" sticky="false" life="3000"
-			closable="true" />
+
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="usuario">Corretor</label>
@@ -247,22 +246,22 @@
 			</div>
 		</div>
 		<br />
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000"
+			closable="true" />
 		<h6>Dados pessoais</h6>
 		<hr />
 		<div class="form-row">
 			<div class="form-group col-md-5">
 				<label for="inputCpf">CPF</label>
-				<h:panelGrid columns="2" style="width:100%;">
-					<p:inputMask mask="999.999.999-99" id="inputCpf" 
-						styleClass="form-control" value="#{cadContratoMB.cpf}" />
-					<p:commandLink id="btnCliente" value="Buscar" rendered="false"
+				<br/>
+				<p:inputMask mask="999.999.999-99" id="inputCpf"
+					value="#{cadContratoMB.cpf}">
+					<p:ajax event="change" listener="#{cadContratoMB.buscarCliente()}"
 						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
 							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
-							inputnomemae, inputValorSalario, inputResidencial, inputcomercial, inputcelular, nconta, digconta, digagencia, agencia,
-							tipoconta, titular, codbanco, growl"
-						action="#{cadContratoMB.buscarCliente()}" ajax="false"
-						styleClass="btn btn-primary" />
-				</h:panelGrid>
+							inputnomemae, inputValorSalario, inputResidencial, inputcelular, nconta, digconta, digagencia, agencia,
+							tipoconta, growl" />
+				</p:inputMask>
 			</div>
 
 			<div class="form-group col-md-7">
@@ -382,17 +381,22 @@
 				<label for="inputCEP">CEP</label>
 
 				<h:panelGrid columns="2" style="width:100%;">
-					<h:inputText value="#{cadContratoMB.cliente.cep}"
-						style="border-color:black;" class="form-control" id="inputCEP"
-						placeholder="CEP" />
-					<p:commandLink id="btnConfirmar" value="Buscar"
+					<p:inputText value="#{cadContratoMB.cliente.cep}"
+						style="border-color:black;" id="inputCEP" placeholder="CEP">
+						<p:ajax event="change"
+							listener="#{cadContratoMB.buscarendereco()}"
+							update=":formulario:inputTipoLogradouro, :formulario:inputlogradouro, growlCep, 
+							:formulario:inputNumero, :formulario:inputComplemento, :formulario:inputBairro, 
+							:formulario:inputCidade, :formulario:inputUfEstado" />
+					</p:inputText>
+					<p:commandLink id="btnConfirmar" value="Buscar" rendered="false"
 						update=":formulario:inputTipoLogradouro, growlCep" process="@this"
 						action="#{cadContratoMB.buscarendereco()}"
 						styleClass="btn btn-primary" ajax="false" />
 				</h:panelGrid>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="form-row" id="panelEndereco">
 			<div class="form-group col-md-3">
 				<label for="inputTipoLogradouro">Tipo Logradouro</label>
 				<h:inputText value="#{cadContratoMB.cliente.tipologradouro}"
@@ -414,7 +418,7 @@
 		</div>
 
 
-		<div class="form-row">
+		<div class="form-row" id="panelEndereco2">
 			<div class="form-group col-md-3">
 				<label for="inputComplemento">Complemento</label>
 				<h:inputText value="#{cadContratoMB.cliente.complemento}"
@@ -530,7 +534,7 @@
 
 				</div>
 				<div class="form-group col-md-5">
-					<label for="inputNome">Banco</label>
+					<label for="exampleBancoOperacao">Banco</label>
 					<h:selectOneMenu id="exampleBancoOperacao"
 						style="width: 100%;border-color:black;"
 						value="#{cadContratoMB.contratounificacao.banco}"
@@ -574,8 +578,9 @@
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label>Parcela</label>
-					<h:inputText value="#{cadContratoMB.contratounificacao.parcela}" onkeypress="mascara(this, valor);"
-						id="parcela" style="border-color:black;" class="form-control"
+					<h:inputText value="#{cadContratoMB.contratounificacao.parcela}"
+						onkeypress="mascara(this, valor);" id="parcela"
+						style="border-color:black;" class="form-control"
 						placeholder="Parcela">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:inputText>
@@ -730,7 +735,7 @@
 			</div>
 		</div>
 		<br />
-		<h:dataTable id="idTabelaContrato" var="contrato"  rowIndexVar="rowIx"
+		<h:dataTable id="idTabelaContrato" var="contrato" rowIndexVar="rowIx"
 			styleClass="table table-striped table-bordered display"
 			value="#{cadContratoMB.listaContratoArquivo}" cellspacing="0">
 
