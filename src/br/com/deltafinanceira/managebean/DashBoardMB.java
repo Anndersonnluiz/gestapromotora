@@ -129,6 +129,7 @@ public class DashBoardMB implements Serializable {
 		faturamentoMensal();
 		listarNotificacao();
 		listaAvisos();
+		gerarRankingMensal();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		this.mesAtual = Formatacao.nomeMes(mes);
 		if (this.usuarioLogadoMB.getUsuario().isDiretoria() || this.usuarioLogadoMB.getUsuario().isSupervisao()) {
@@ -546,9 +547,12 @@ public class DashBoardMB implements Serializable {
 		RankingVendasDao rankingVendasDao = new RankingVendasDao();
 		List<Rankingvendas> listaRanking = rankingVendasDao
 				.lista("Select r From Rankingvendas r WHERE r.mes=" + (Formatacao.getMesData(new Date()) + 1)
-						+ " AND r.ano=" + Formatacao.getAnoData(new Date()) + " ORDER BY r.valorvenda DESC");
+						+ " AND r.ano=" + Formatacao.getAnoData(new Date()) + " ORDER BY r.comissaovenda DESC");
 		if (listaRanking == null)
 			listaRanking = new ArrayList<>();
+		primeiroMes = new Rankingvendas();
+		segundoMes = new Rankingvendas();
+		terceiroMes = new Rankingvendas();
 		for (int i = 0; i < listaRanking.size(); i++) {
 			if (i == 0) {
 				this.primeiroMes = listaRanking.get(i);

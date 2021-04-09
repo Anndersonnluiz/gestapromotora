@@ -654,7 +654,7 @@ public class CadContratoMB implements Serializable {
 					"Select u From Usuario u WHERE u.tipocolaborador.acessocolaborador.notificacaooperacional=true and u.departamento.filial.idfilial="
 							+
 
-							this.usuarioLogadoMB.getUsuario().getDepartamento().getFilial().getIdfilial());
+							this.usuario.getDepartamento().getFilial().getIdfilial());
 			for (int i = 0; i < listaUsuario.size(); i++) {
 				Notificacao notificacao = new Notificacao();
 				notificacao.setDatalancamento(new Date());
@@ -664,7 +664,7 @@ public class CadContratoMB implements Serializable {
 				notificacao.setTipooperacao(contrato.getTipooperacao().getDescricao());
 				notificacao.setTitulo("Novo Contrato: " + contrato.getCodigocontrato());
 				notificacao.setDescricao(String.valueOf(contrato.getTipooperacao().getDescricao())
-						+ " emitido pelo corretor(a) " + this.usuarioLogadoMB.getUsuario().getNome());
+						+ " emitido pelo corretor(a) " + this.usuario.getNome());
 				notificacaoDao.salvar(notificacao);
 			}
 		} catch (SQLException e) {
@@ -725,10 +725,10 @@ public class CadContratoMB implements Serializable {
 		}
 		if (this.contrato.getParcelaspagas() > 12
 				&& this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+			rankingvendas.setComissaovenda(rankingvendas.getValorvenda()
 					+ this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
 		} else {
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+			rankingvendas.setComissaovenda(rankingvendas.getValorvenda()
 					+ this.contrato.getValoroperacao() * this.coeficiente.getComissaocorretor() / 100.0F);
 		}
 		rankingVendasFacade.salvar(rankingvendas);
@@ -764,7 +764,7 @@ public class CadContratoMB implements Serializable {
 		Historicocomissao historicocomissao = new Historicocomissao();
 		historicocomissao.setDatalancamento(new Date());
 		historicocomissao.setContrato(contrato);
-		historicocomissao.setUsuario(this.usuarioLogadoMB.getUsuario());
+		historicocomissao.setUsuario(this.usuario);
 		historicocomissao.setTipo("PENDENTE");
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		int ano = Formatacao.getAnoData(new Date());
@@ -1006,7 +1006,7 @@ public class CadContratoMB implements Serializable {
 		historicousuario.setTitulo("Novo");
 		historicousuario.setIcone("novo.png");
 		historicousuario.setHora(Formatacao.foramtarHoraString());
-		historicousuario.setUsuario(this.usuarioLogadoMB.getUsuario());
+		historicousuario.setUsuario(this.usuario);
 		String convenio = "";
 		if (contrato.isOperacaoinss()) {
 			convenio = "INSS";

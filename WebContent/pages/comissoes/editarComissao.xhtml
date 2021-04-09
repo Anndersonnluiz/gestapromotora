@@ -123,11 +123,13 @@
 			<hr/>
 			<br />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Salvar" action="#{editarComissaoMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					style="margin-left:2%;" value="Cancelar"
-					action="#{editarComissaoMB.voltar()}" />
+				<p:commandLink ajax="false" action="#{editarComissaoMB.salvar()}" >
+					<img src="../../resources/img/salvar.png" width="40" />
+				</p:commandLink>
+				<p:commandLink ajax="false" style="margin-left:2%;text-decoration:none;"
+					action="#{editarComissaoMB.voltar()}" >
+					<img src="../../resources/img/cancel.png" width="40" />
+				</p:commandLink>
 			</div>
 			<br />
 			<br />

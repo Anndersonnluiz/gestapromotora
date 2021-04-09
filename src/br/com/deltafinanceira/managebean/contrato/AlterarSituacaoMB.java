@@ -8,6 +8,7 @@ import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.HistoricoUsuarioFacade;
 import br.com.deltafinanceira.facade.OrgaoBancoFacade;
+import br.com.deltafinanceira.facade.RankingVendasFacade;
 import br.com.deltafinanceira.facade.SituacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
@@ -17,6 +18,7 @@ import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Historicousuario;
 import br.com.deltafinanceira.model.Notificacao;
 import br.com.deltafinanceira.model.OrgaoBanco;
+import br.com.deltafinanceira.model.Rankingvendas;
 import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Formatacao;
@@ -233,8 +235,14 @@ public class AlterarSituacaoMB implements Serializable {
 			this.contrato.setSituacao(this.situacao);
 			this.contrato.setUltimamudancasituacao(new Date());
 			this.contrato.setOrgaoBanco(this.orgaoBanco);
-			if (this.situacao.getIdsituacao().intValue() == 16)
-				this.contrato.setDatapagamento(new Date());
+			if (this.situacao.getIdsituacao().intValue() == 16) {
+				if (contrato.getDatapagamento() == null) {
+					this.contrato.setDatapagamento(new Date());
+					if (contrato.getSituacao().getIdsituacao() == 2 || contrato.getSituacao().getIdsituacao() == 5) {
+						gerarRankingMensal();
+					}
+				}
+			}
 			gerarProducao();
 			if (this.coeficiente != null && this.coeficiente.getIdcoeficiente() != null) {
 				this.contrato.setIdregracoeficiente(this.coeficiente.getIdcoeficiente().intValue());
@@ -261,6 +269,37 @@ public class AlterarSituacaoMB implements Serializable {
 			return this.voltar;
 		}
 		return "";
+	}
+	
+	
+	public void gerarRankingMensal() {
+		Rankingvendas rankingvendas;
+		RankingVendasFacade rankingVendasFacade = new RankingVendasFacade();
+		int mes = Formatacao.getMesData(new Date()) + 1;
+		int ano = Formatacao.getAnoData(new Date());
+		List<Rankingvendas> listaRanking = rankingVendasFacade
+				.lista("Select r From Rankingvendas r WHERE r.mes=" + mes + " AND r.ano=" + ano
+						+ " AND r.usuario.idusuario=" + this.contrato.getUsuario().getIdusuario());
+		if (listaRanking != null && listaRanking.size() > 0) {
+			rankingvendas = listaRanking.get(0);
+		} else {
+			rankingvendas = new Rankingvendas();
+			rankingvendas.setAno(ano);
+			rankingvendas.setMes(mes);
+			rankingvendas.setUsuario(contrato.getUsuario());
+		}
+		if (this.contrato.getParcelaspagas() > 12
+				&& this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
+			rankingvendas.setComissaovenda(rankingvendas.getValorvenda()
+					+ this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
+			rankingvendas.setValorvenda(0.0f);
+		} else {
+			rankingvendas.setComissaovenda(rankingvendas.getComissaovenda()
+					+ this.contrato.getValorcliente() * this.coeficiente.getComissaoloja() / 100.0F);
+			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
+					+ this.contrato.getValorcliente());
+		}
+		rankingVendasFacade.salvar(rankingvendas);
 	}
 	
 	public boolean validarDados() {
@@ -341,7 +380,7 @@ public class AlterarSituacaoMB implements Serializable {
 		CoeficienteFacade coeficienteFacade = new CoeficienteFacade();
 		if (orgaoBanco != null && orgaoBanco.getIdorgaobanco() != null) {
 			this.listaCoefiente = coeficienteFacade.lista("Select c From Coeficiente c WHERE c.orgaoBanco.idorgaobanco="
-					+ this.orgaoBanco.getIdorgaobanco() + " AND c.tipooperacao.idtipooperacao="
+					+ this.orgaoBanco.getIdorgaobanco() + " AND c.ativo=true AND c.tipooperacao.idtipooperacao="
 					+ this.contrato.getTipooperacao().getIdtipooperacao());
 		}
 		if (this.listaCoefiente == null)

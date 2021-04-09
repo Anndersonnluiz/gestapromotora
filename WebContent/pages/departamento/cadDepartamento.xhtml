@@ -15,19 +15,23 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="inputNome">Descrição</label>
-				<h:inputText value="#{cadDepartamentoMB.departamento.descricao}" class="form-control"
-					id="inputNome"  />
+				<h:inputText value="#{cadDepartamentoMB.departamento.descricao}"
+					class="form-control" id="inputNome" />
 			</div>
 		</div>
 
 		<br />
 		<hr />
 		<div align="center">
-			<p:commandLink ajax="false" styleClass="btn btn-primary"
-				value="Salvar" action="#{cadDepartamentoMB.salvar()}" />
-			<p:commandLink ajax="false" styleClass="btn btn-danger"
-				style="margin-left:2%;" value="Cancelar"
-				action="#{cadDepartamentoMB.cancelar()}" />
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{cadDepartamentoMB.salvar()}">
+				<img src="../../resources/img/salvar.png" width="40" />
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				style="margin-left:2%;text-decoration:none;"
+				action="#{cadDepartamentoMB.cancelar()}">
+				<img src="../../resources/img/cancel.png" width="40" />
+			</p:commandLink>
 		</div>
 		<br />
 		<br />

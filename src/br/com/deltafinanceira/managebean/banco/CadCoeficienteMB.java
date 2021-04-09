@@ -41,6 +41,7 @@ public class CadCoeficienteMB implements Serializable {
 		gerarListaTipoOperacao();
 		if (this.coeficiente == null) {
 			this.coeficiente = new Coeficiente();
+			this.coeficiente.setAtivo(true);
 		} else {
 			this.tipooiperacao = this.coeficiente.getTipooperacao();
 		}
@@ -90,12 +91,12 @@ public class CadCoeficienteMB implements Serializable {
 		this.coeficiente.setOrgaoBanco(this.orgaoBanco);
 		this.coeficiente.setTipooperacao(this.tipooiperacao);
 		this.coeficiente = coeficienteFacade.salvar(this.coeficiente);
-		recalcularContratos();
+		//recalcularContratos();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("orgaobanco", this.orgaoBanco);
 		return "consCoeficiente";
-	}
+	} 
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();

@@ -93,7 +93,7 @@
 						itemValue="#{orgaoBancoSelecionado}" />
 					<f:attribute name="listaOrgao"
 						value="#{alterarSituacaoMB.listaOrgao}" />
-					
+
 					<p:ajax event="change" update="comboCoeficiente" />
 					<p:ajax event="change"
 						listener="#{alterarSituacaoMB.gerarListaValores()}"
@@ -171,11 +171,15 @@
 		<br />
 		<br />
 		<div align="center">
-			<p:commandLink ajax="false" styleClass="btn btn-primary"
-				update="growl" value="Salvar" action="#{alterarSituacaoMB.salvar()}" />
-			<p:commandLink ajax="false" styleClass="btn btn-danger"
-				style="margin-left:2%;" value="Cancelar"
-				action="#{alterarSituacaoMB.cancelar()}" />
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{alterarSituacaoMB.salvar()}">
+				<img src="../../resources/img/salvar.png" width="40" />
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				style="margin-left:2%;text-decoration:none;"
+				action="#{alterarSituacaoMB.cancelar()}">
+				<img src="../../resources/img/cancel.png" width="40" />
+			</p:commandLink>
 		</div>
 		<br />
 		<br />

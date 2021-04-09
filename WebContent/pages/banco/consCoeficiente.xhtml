@@ -66,6 +66,12 @@
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
 				</p:commandLink>
+				<p:commandLink ajax="false"
+					action="#{coeficienteMB.desativarCoeficiente(coeficiente)}"
+					update=":formulario:growl, idTabelaCoeficiente"
+					style="text-align: left;color:black;">
+					<span data-feather="trash"></span>
+				</p:commandLink>
 				<p:commandLink ajax="false" rendered="false"
 					action="#{coeficienteMB.novosValores(coeficiente)}"
 					title="Valores Coeficientes" style="text-align: left;color:black;">

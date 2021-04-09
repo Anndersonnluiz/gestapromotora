@@ -31,6 +31,8 @@ public class Rankingvendas implements Serializable{
 	private int ano;
 	@Column(name = "valorvenda")
 	private float valorvenda;
+	@Column(name = "comissaovenda")
+	private float comissaovenda;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
@@ -93,6 +95,16 @@ public class Rankingvendas implements Serializable{
 	
 	
 	
+	public float getComissaovenda() {
+		return comissaovenda;
+	}
+
+
+	public void setComissaovenda(float comissaovenda) {
+		this.comissaovenda = comissaovenda;
+	}
+
+
 	@Override
 	public int hashCode() {
 		int hash = 0;

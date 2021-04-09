@@ -129,7 +129,8 @@
 				<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.emissaocontrato}">
+						<h:panelGroup
+							rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.emissaocontrato}">
 							<a class="collapse-item"
 								href="pages/contrato/confDadosContrato.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> Emissão </a>
@@ -686,150 +687,62 @@
 								</div>
 							</div>
 						</h:panelGroup>
-						<h:panelGroup rendered="false">
-							<br />
+						<br /> <br />
 
-							<h3>RANKING DE VENDAS</h3>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<h4>CORRETORES DO MÊS</h4>
 							<hr />
-
-							<div class="form-row">
-								<div class="form-group col-md-6">
-									<h5>RANKING DO MÊS - #{dashBoardMB.mesAtual}</h5>
-									<div style="border: 2px solid black; border-radius: 10px;">
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/primeirolugar.png"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.primeiroMes.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.primeiroMes.valorvenda}"
-													style="font-weight:bold;font-size:18px;margin-left:2%;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
-										<hr />
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/segundolugar.jpg"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.segundoMes.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.segundoMes.valorvenda}"
-													style="font-weight:bold;font-size:18px;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
-										<hr />
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/terceirolugar.png"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.terceiroMes.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.terceiroMes.valorvenda}"
-													style="font-weight:bold;font-size:18px;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
-									</div>
+							<!-- Project Card Example -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">RANKING DE
+										VENDAS</h6>
 								</div>
-								<div class="form-group col-md-6">
-									<h5>RANKING DO ANO - 2020</h5>
-									<div style="border: 2px solid black; border-radius: 10px;">
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/primeirolugar.png"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.primeiroAno.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.primeiroAno.valorvenda}"
-													style="font-weight:bold;font-size:18px;margin-left:2%;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
-										<hr />
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/segundolugar.jpg"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.segundoAno.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.segundoAno.valorvenda}"
-													style="font-weight:bold;font-size:18px;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
-										<hr />
-										<div class="form-row">
-											<div class="form-group col-md-3">
-												<br /> <img src="resources/img/terceirolugar.png"
-													style="width: 80%;" />
-											</div>
-											<div class="form-group col-md-9">
-												<br />
-												<p:outputLabel
-													value="#{dashBoardMB.terceiroAno.usuario.nome}"
-													style="font-weight:bold;font-size:16px;" />
-												<hr />
-												<p:outputLabel value="R$"
-													style="font-weight:bold;font-size:18px;" />
-												<p:outputLabel value="#{dashBoardMB.terceiroAno.valorvenda}"
-													style="font-weight:bold;font-size:18px;">
-													<f:convertNumber locale="pt_BR" minFractionDigits="2"
-														maxFractionDigits="2" />
-												</p:outputLabel>
-											</div>
-										</div>
+								<div class="card-body">
+									<h4 class="small font-weight-bold">
+										1° #{dashBoardMB.primeiroMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.primeiroMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-success" role="progressbar"
+											style="width: 100%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										2° #{dashBoardMB.segundoMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.segundoMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 60%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										3° #{dashBoardMB.terceiroMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.terceiroMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-danger" role="progressbar"
+											style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
 									</div>
 								</div>
 							</div>
-							<br />
-
 						</h:panelGroup>
 					</main>
 				</div>

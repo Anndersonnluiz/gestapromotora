@@ -6,31 +6,35 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/pages/templates/padrao.xhtml">
 	<ui:define name="corpo">
-			<br />
-			<h4>Cadastro Novo Roteiro</h4>
-			<hr />
-			<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+		<br />
+		<h4>Cadastro Novo Roteiro</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
 
-			<div class="form-row">
-				<div class="form-group col-md-12">
-					<label for="inputNome">Link</label>
-					<h:inputText value="#{cadRoteiroMB.orgaoBanco.link}"
-						class="form-control" id="inputNome" placeholder="Link" />
-				</div>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<label for="inputNome">Link</label>
+				<h:inputText value="#{cadRoteiroMB.orgaoBanco.link}"
+					class="form-control" id="inputNome" placeholder="Link" />
 			</div>
+		</div>
 
-			<br />
-			<hr />
-			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-dark" value="Salvar"
-					action="#{cadRoteiroMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					style="margin-left:2%;" value="Cancelar"
-					action="#{cadRoteiroMB.cancelar()}" />
-			</div>
-			<br />
-			<br />
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{cadRoteiroMB.salvar()}">
+				<img src="../../resources/img/salvar.png" width="40" />
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				style="margin-left:2%;text-decoration:none;"
+				action="#{cadRoteiroMB.cancelar()}">
+				<img src="../../resources/img/cancel.png" width="40" />
+			</p:commandLink>
+		</div>
+		<br />
+		<br />
 
 	</ui:define>
 </ui:composition>

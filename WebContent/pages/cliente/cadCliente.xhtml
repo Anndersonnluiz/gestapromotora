@@ -247,11 +247,13 @@
 			<br />
 			<hr />
 			<div align="center">
-				<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Salvar" action="#{cadClienteMB.salvar()}" />
-				<p:commandLink ajax="false" styleClass="btn btn-danger"
-					style="margin-left:2%;" value="Cancelar"
-					action="#{cadClienteMB.cancelar()}" />
+				<p:commandLink ajax="false" action="#{cadClienteMB.salvar()}" >
+					<img src="../../resources/img/salvar.png" width="40" />
+				</p:commandLink>
+				<p:commandLink ajax="false" style="margin-left:2%;text-decoration:none;"
+					action="#{cadClienteMB.cancelar()}" >
+					<img src="../../resources/img/cancel.png" width="40" />
+				</p:commandLink>
 			</div>
 			<br />
 			<br />

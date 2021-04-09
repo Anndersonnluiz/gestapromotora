@@ -25,11 +25,6 @@
 			rowKey="#{contrato.idcontrato}">
 
 
-
-			<p:column headerText="Código"
-				style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{contrato.codigocontrato}" />
-			</p:column>
 			<p:column headerText="Corretor"
 				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contrato.usuario.nome}" />
@@ -38,7 +33,7 @@
 				style="width:13%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contrato.cliente.cpf}" />
 			</p:column>
-			<p:column headerText="Nome do Cliente"
+			<p:column headerText="Cliente"
 				style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{contrato.cliente.nome}" />
 			</p:column>
