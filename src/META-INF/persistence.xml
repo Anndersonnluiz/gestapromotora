@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="deltafinanceiraPU" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="deltafinanceiraPU" transaction-type="RESOURCE_LOCAL" >
 		<class>br.com.deltafinanceira.model.Tipocolaborador</class>
 		<class>br.com.deltafinanceira.model.Dadosbancario</class>
 		<class>br.com.deltafinanceira.model.Usuario</class>
@@ -44,6 +44,7 @@
 		<class>br.com.deltafinanceira.model.Avisos</class>
 		<class>br.com.deltafinanceira.model.Avisosusuario</class>
 		<class>br.com.deltafinanceira.model.Usuariocomissao</class>
+		<class>br.com.deltafinanceira.model.Formalizacao</class>
 		<properties> 
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemasdelta.com.br:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

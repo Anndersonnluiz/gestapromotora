@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @Named
 @ViewScoped
-public class FormalizacaoMB implements Serializable {
+public class PendenciasMB implements Serializable {
   private static final long serialVersionUID = 1L;
   
   @Inject
@@ -41,7 +41,7 @@ public class FormalizacaoMB implements Serializable {
     HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
     session.setAttribute("contrato", contrato);
     session.setAttribute("orgaobanco", contrato.getOrgaoBanco());
-    session.setAttribute("voltarTela", "consFormalizacao");
+    session.setAttribute("voltarTela", "consPendencias");
     return "cadContrato";
   }
   
@@ -70,7 +70,7 @@ public class FormalizacaoMB implements Serializable {
     FacesContext fc = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
     session.setAttribute("contrato", contrato);
-    session.setAttribute("voltarTela", "consFormalizacao");
+    session.setAttribute("voltarTela", "consPendencias");
     return "alterarSituacao";
   }
 }

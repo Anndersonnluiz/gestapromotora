@@ -605,8 +605,8 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>consFormalizacao</from-outcome>
-			<to-view-id>pages/operacional/consFormalizacao.xhtml</to-view-id>
+			<from-outcome>consPendencias</from-outcome>
+			<to-view-id>pages/operacional/consPendencias.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -787,6 +787,26 @@
 		<navigation-case>
 			<from-outcome>visualizarVistos</from-outcome>
 			<to-view-id>pages/avisos/visualizarVistos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consFormalizacao</from-outcome>
+			<to-view-id>pages/formalizacao/consFormalizacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFormalizacao</from-outcome>
+			<to-view-id>pages/formalizacao/cadFormalizacao.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
