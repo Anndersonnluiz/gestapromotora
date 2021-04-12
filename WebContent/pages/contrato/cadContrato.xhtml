@@ -641,7 +641,7 @@
 				<h:column>
 					<p:commandLink action="#{cadContratoMB.excluirOperacao(rowIx)}"
 						update="idTabelaUnificacao" style="text-align: left;color:black;">
-						<span data-feather="trash"></span>
+						<img src="../../resources/img/lixeira.png" width="30" />
 					</p:commandLink>
 				</h:column>
 			</h:dataTable>
@@ -734,43 +734,43 @@
 			</div>
 		</div>
 		<br />
-		<h:dataTable id="idTabelaContrato" var="contrato" rowIndexVar="rowIx"
-			styleClass="table table-striped table-bordered display"
+		<p:dataTable id="idTabelaContrato" var="contrato" rowIndexVar="rowIx"
+			styleClass="table table-striped table-bordered display" style="font-size:16px;"
 			value="#{cadContratoMB.listaContratoArquivo}" cellspacing="0">
-
-			<h:column>
+ 
+			<p:column style="width:15%;">
 				<f:facet name="header">Data</f:facet>
 				<h:outputText value="#{contrato.dataupload}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column style="width:20%;">
 				<f:facet name="header">Documento</f:facet>
 				<h:outputText value="#{contrato.tipoarquivo.descricao}">
 				</h:outputText>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column style="width:32%;">
 				<f:facet name="header">Descrição</f:facet>
 				<h:outputText value="#{contrato.nomearquivo}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
+			<p:column style="width:8%;">
 
 				<p:commandLink ajax="false"
 					action="#{cadContratoMB.excluirArquivo(rowIx)}"
 					style="text-align: left;color:black;" update="idTabelaContrato">
-					<span data-feather="trash"></span>
+					<img src="../../resources/img/lixeira.png" width="30" />
 				</p:commandLink>
 
 				<p:commandLink ajax="false"
 					action="#{cadContratoMB.baixarArquivoFTP(contrato)}"
 					style="text-align: left;color:black;">
-					<span data-feather="download"></span>
+					<img src="../../resources/img/baixar.png" width="30" />
 
 				</p:commandLink>
-			</h:column>
-		</h:dataTable>
+			</p:column>
+		</p:dataTable>
 
 		<br />
 		<hr />

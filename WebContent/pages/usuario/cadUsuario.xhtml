@@ -187,6 +187,73 @@
 					class="form-control" placeholder="Digito da conta" />
 			</div>
 		</div>
+		<br />
+
+		<h6>Comissionamento</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputRG">Tipo de Operação</label>
+				<h:selectOneMenu id="tipooperacao" style="width: 100%;"
+					value="#{cadUsuarioMB.tipooperacao}"
+					converter="TipoOperacaoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadUsuarioMB.listaTipoOperacao}"
+						var="tipoOperacaoSelecionado"
+						itemLabel="#{tipoOperacaoSelecionado.descricao}"
+						itemValue="#{tipoOperacaoSelecionado}" />
+					<f:attribute name="listaTipoOperacao"
+						value="#{cadUsuarioMB.listaTipoOperacao}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Comissão Corretor (%)</label>
+				<h:inputText
+					value="#{cadUsuarioMB.usuariocomissao.comissaocorretor}"
+					class="form-control" id="flatrepassada" placeholder="Prazo">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-3">
+				<label style="color: white;">.</label>
+				<div>
+					<p:commandLink ajax="false" style="text-decoration:none;"
+						action="#{cadUsuarioMB.adicionarComissao()}"
+						update="flatrepassada, tipooperacao, idTabelaUsuario">
+						<img src="../../resources/img/check.png" width="40" />
+					</p:commandLink>
+				</div>
+			</div>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaUsuario" var="comissao"
+			style="font-size:16px;" rowIndexVar="rowIx"
+			styleClass="table table-striped table-bordered display"
+			value="#{cadUsuarioMB.listaUsuarioComissao}" cellspacing="0">
+
+			<p:column style="text-align:left;">
+				<f:facet name="header">Tipo Operação</f:facet>
+				<h:outputText value="#{comissao.tipooperacao.descricao}" />
+			</p:column>
+
+			<p:column style="text-align:right;width:20%;">
+				<f:facet name="header">Comissão (%)</f:facet>
+				<h:outputText value="#{comissao.comissaocorretor}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"
+						maxFractionDigits="2" />
+				</h:outputText>
+			</p:column>
+			<p:column style="width:15%;">
+				<p:commandLink ajax="false"
+					action="#{cadUsuarioMB.excluirComissao(rowIx)}"
+					update=":formulario:growl, idTabelaUsuario"
+					style="text-align: left;color:black;">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+			</p:column> 
+		</p:dataTable>
 
 		<br />
 		<hr />

@@ -66,9 +66,9 @@ public class AlterarSituacaoMB implements Serializable {
 	private List<Coeficiente> listaCoefiente;
 
 	private Coeficiente coeficiente;
-	
+
 	private List<Usuario> listaUsuario;
-	
+
 	private Usuario operador;
 
 	@PostConstruct
@@ -238,7 +238,8 @@ public class AlterarSituacaoMB implements Serializable {
 			if (this.situacao.getIdsituacao().intValue() == 16) {
 				if (contrato.getDatapagamento() == null) {
 					this.contrato.setDatapagamento(new Date());
-					if (contrato.getSituacao().getIdsituacao() == 2 || contrato.getSituacao().getIdsituacao() == 5) {
+					if (contrato.getSituacao().getIdsituacao() == 2 || contrato.getSituacao().getIdsituacao() == 5
+							|| contrato.getSituacao().getIdsituacao() == 12) {
 						gerarRankingMensal();
 					}
 				}
@@ -247,13 +248,13 @@ public class AlterarSituacaoMB implements Serializable {
 			if (this.coeficiente != null && this.coeficiente.getIdcoeficiente() != null) {
 				this.contrato.setIdregracoeficiente(this.coeficiente.getIdcoeficiente().intValue());
 				gerarComissao();
-			}else {
+			} else {
 				this.contrato.setIdregracoeficiente(0);
 			}
 			gerarNotificacao();
 			if (contrato.getSituacao().getIdsituacao() != 35) {
 				contrato.setPossuioperador(true);
-				if (operador != null && operador.getIdusuario() != null){
+				if (operador != null && operador.getIdusuario() != null) {
 					contrato.setIdoperador(operador.getIdusuario());
 					contrato.setOperador(operador.getNome());
 				}
@@ -270,16 +271,14 @@ public class AlterarSituacaoMB implements Serializable {
 		}
 		return "";
 	}
-	
-	
+
 	public void gerarRankingMensal() {
 		Rankingvendas rankingvendas;
 		RankingVendasFacade rankingVendasFacade = new RankingVendasFacade();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		int ano = Formatacao.getAnoData(new Date());
-		List<Rankingvendas> listaRanking = rankingVendasFacade
-				.lista("Select r From Rankingvendas r WHERE r.mes=" + mes + " AND r.ano=" + ano
-						+ " AND r.usuario.idusuario=" + this.contrato.getUsuario().getIdusuario());
+		List<Rankingvendas> listaRanking = rankingVendasFacade.lista("Select r From Rankingvendas r WHERE r.mes=" + mes
+				+ " AND r.ano=" + ano + " AND r.usuario.idusuario=" + this.contrato.getUsuario().getIdusuario());
 		if (listaRanking != null && listaRanking.size() > 0) {
 			rankingvendas = listaRanking.get(0);
 		} else {
@@ -288,20 +287,13 @@ public class AlterarSituacaoMB implements Serializable {
 			rankingvendas.setMes(mes);
 			rankingvendas.setUsuario(contrato.getUsuario());
 		}
-		if (this.contrato.getParcelaspagas() > 12
-				&& this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
-			rankingvendas.setComissaovenda(rankingvendas.getValorvenda()
-					+ this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
-			rankingvendas.setValorvenda(0.0f);
-		} else {
-			rankingvendas.setComissaovenda(rankingvendas.getComissaovenda()
-					+ this.contrato.getValorcliente() * this.coeficiente.getComissaoloja() / 100.0F);
-			rankingvendas.setValorvenda(rankingvendas.getValorvenda()
-					+ this.contrato.getValorcliente());
-		}
+
+		rankingvendas.setComissaovenda(rankingvendas.getComissaovenda()
+				+ this.contrato.getValorcliente() * this.coeficiente.getComissaoloja() / 100.0F);
+		rankingvendas.setValorvenda(rankingvendas.getValorvenda() + this.contrato.getValorcliente());
 		rankingVendasFacade.salvar(rankingvendas);
 	}
-	
+
 	public boolean validarDados() {
 		if (situacao == null || situacao.getIdsituacao() == null) {
 			Mensagem.lancarMensagemInfo("Selecione a nova situação do contrato", "");
@@ -350,7 +342,7 @@ public class AlterarSituacaoMB implements Serializable {
 		String convenio = "";
 		if (contrato.isOperacaoinss()) {
 			convenio = "INSS";
-		}else {
+		} else {
 			convenio = "SIAPE";
 		}
 		historicousuario.setDescricao("Situação alterada de " + this.alteracaoBean.getDescricao() + " para "

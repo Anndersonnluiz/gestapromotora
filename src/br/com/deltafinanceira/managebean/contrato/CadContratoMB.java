@@ -933,9 +933,11 @@ public class CadContratoMB implements Serializable {
 
 	public void excluirArquivo(String ilinha) {
 		int linha = Integer.parseInt(ilinha);
-		ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
-		contratoArquivoFacade
-				.excluir(((Contratoarquivo) this.listaContratoArquivo.get(linha)).getIdcontratoarquivo().intValue());
+		if (listaContratoArquivo.get(linha).getIdcontratoarquivo() != null) {
+			ContratoArquivoFacade contratoArquivoFacade = new ContratoArquivoFacade();
+			contratoArquivoFacade.excluir(
+					((Contratoarquivo) this.listaContratoArquivo.get(linha)).getIdcontratoarquivo().intValue());
+		}
 		if (linha >= 0)
 			this.listaContratoArquivo.remove(linha);
 	}
@@ -1010,11 +1012,12 @@ public class CadContratoMB implements Serializable {
 		String convenio = "";
 		if (contrato.isOperacaoinss()) {
 			convenio = "INSS";
-		}else {
+		} else {
 			convenio = "SIAPE";
 		}
-		historicousuario.setDescricao("Nova Emissão de contrato; Tipo do contrato: "
-				+ contrato.getTipooperacao().getDescricao() + " - " + convenio + ", Cliente: " + contrato.getCliente().getNome());
+		historicousuario
+				.setDescricao("Nova Emissão de contrato; Tipo do contrato: " + contrato.getTipooperacao().getDescricao()
+						+ " - " + convenio + ", Cliente: " + contrato.getCliente().getNome());
 		historicousuario.setIdcontrato(contrato.getIdcontrato().intValue());
 		historicoUsuarioFacade.salvar(historicousuario);
 	}
