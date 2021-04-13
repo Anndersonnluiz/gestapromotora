@@ -6,9 +6,11 @@ import br.com.deltafinanceira.dao.NotificacaoDao;
 import br.com.deltafinanceira.dao.RankingVendasAnualDao;
 import br.com.deltafinanceira.dao.RankingVendasDao;
 import br.com.deltafinanceira.facade.AvisosUsuarioFacade;
+import br.com.deltafinanceira.facade.FormalizacaoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.NotificacaoFacade;
 import br.com.deltafinanceira.model.Avisosusuario;
+import br.com.deltafinanceira.model.Formalizacao;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Metafaturamentoanual;
 import br.com.deltafinanceira.model.Metafaturamentomensal;
@@ -113,16 +115,18 @@ public class DashBoardMB implements Serializable {
 	private int nFormalizacaoPendencia;
 
 	private List<Notificacao> listaNotificacao;
-	
+
 	private int convenio = 0;
-	
+
 	private List<Avisosusuario> listaAvisos;
-	
+
 	private int nAvisos;
-	
+
 	private boolean verificarAvisos;
-	
+
 	private boolean verificarNotificacoes;
+
+	private int nFormalizacao;
 
 	@PostConstruct
 	public void init() {
@@ -130,6 +134,7 @@ public class DashBoardMB implements Serializable {
 		listarNotificacao();
 		listaAvisos();
 		gerarRankingMensal();
+		gerarListaFormalizacao();
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		this.mesAtual = Formatacao.nomeMes(mes);
 		if (this.usuarioLogadoMB.getUsuario().isDiretoria() || this.usuarioLogadoMB.getUsuario().isSupervisao()) {
@@ -499,6 +504,14 @@ public class DashBoardMB implements Serializable {
 		this.verificarNotificacoes = verificarNotificacoes;
 	}
 
+	public int getnFormalizacao() {
+		return nFormalizacao;
+	}
+
+	public void setnFormalizacao(int nFormalizacao) {
+		this.nFormalizacao = nFormalizacao;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -732,16 +745,16 @@ public class DashBoardMB implements Serializable {
 			listaNotificacao = new ArrayList<>();
 		this.listaNotificacao = new ArrayList<Notificacao>();
 		for (int i = 0; i < listaNotificacao.size(); i++) {
-			if (this.listaNotificacao.size() <3) {
+			if (this.listaNotificacao.size() < 3) {
 				this.listaNotificacao.add(listaNotificacao.get(i));
-			}else {
+			} else {
 				i = listaNotificacao.size();
 			}
 		}
 		this.nNotificacao = listaNotificacao.size();
 		if (nNotificacao > 0) {
 			verificarNotificacoes = true;
-		}else {
+		} else {
 			verificarNotificacoes = false;
 		}
 	}
@@ -750,11 +763,18 @@ public class DashBoardMB implements Serializable {
 		return "consProducao";
 	}
 
-	public String formalizacao() {
+	public String pendencias() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("voltar", "dashboard");
 		return "consPendencias";
+	}
+	
+	public String formalizacao() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("voltar", "dashboard");
+		return "consFormalizacao";
 	}
 
 	public String receitaPendenciaDocs() {
@@ -764,8 +784,7 @@ public class DashBoardMB implements Serializable {
 		session.setAttribute("convenio", convenio);
 		return "consPagamentoComissao";
 	}
-	
-	
+
 	public void vistoTodos() {
 		NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
 		if (listaNotificacao == null) {
@@ -778,25 +797,40 @@ public class DashBoardMB implements Serializable {
 		listaNotificacao = new ArrayList<Notificacao>();
 		listarNotificacao();
 	}
-	
-	
+
 	public void listaAvisos() {
 		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
 		AvisosUsuarioFacade avisosUsuarioFacade = new AvisosUsuarioFacade();
 		listaAvisos = avisosUsuarioFacade.lista("Select a From Avisosusuario a Where a.usuario.idusuario="
-		+ usuarioLogadoMB.getUsuario().getIdusuario() + " and a.visto=false and a.avisos.datainicio<='" + 
-				dataHoje + "' and a.avisos.datafinal>='" + dataHoje + "'");
+				+ usuarioLogadoMB.getUsuario().getIdusuario() + " and a.visto=false and a.avisos.datainicio<='"
+				+ dataHoje + "' and a.avisos.datafinal>='" + dataHoje + "'");
 		if (listaAvisos == null) {
 			listaAvisos = new ArrayList<Avisosusuario>();
 		}
 		nAvisos = listaAvisos.size();
 		if (nAvisos > 0) {
 			verificarAvisos = true;
-		}else {
+		} else {
 			verificarAvisos = false;
 		}
 	}
 	
 	
+	public void gerarListaFormalizacao() {
+		FormalizacaoFacade formalizacaoFacade = new FormalizacaoFacade();
+		List<Formalizacao> listaFormalizacao = formalizacaoFacade.lista("Select f From Formalizacao f Where f.emitidocontrato=false");
+		if (listaFormalizacao == null) {
+			listaFormalizacao = new ArrayList<Formalizacao>();
+		}
+		nFormalizacao = 0;
+		for (int i = 0; i < listaFormalizacao.size(); i++) {
+			nFormalizacao = nFormalizacao + 1;
+		}
+	}
 	
+	
+	
+	
+	
+
 }

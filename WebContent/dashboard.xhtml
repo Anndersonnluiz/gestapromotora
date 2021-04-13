@@ -134,9 +134,9 @@
 							<a class="collapse-item"
 								href="pages/contrato/confDadosContrato.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> Emissão </a>
-							<a class="collapse-item" href="pages/lead/consLead.jsf"
+							<a class="collapse-item" href="pages/formalizacao/consFormalizacao.jsf"
 								role="button" aria-haspopup="true" aria-expanded="false">
-								Emissão (Novo) </a>
+								Formalização </a>
 						</h:panelGroup>
 						<a class="collapse-item" href="pages/contrato/consContrato.jsf">
 							Busca Rápida </a> <a class="collapse-item"
@@ -418,17 +418,39 @@
 						<hr />
 						<!-- Content Row -->
 						<div class="row" id="panelValores">
-
+							
+							<h:panelGroup rendered="#{usuarioLogadoMB.usuario.formalizacao}">
+								<div class="col-xl-3 col-md-6 mb-4">
+									<div class="card border-left-danger shadow h-100 py-2">
+										<div class="card-body">
+											<div class="row no-gutters align-items-center">
+												<div class="col mr-2">
+													<p:commandLink action="#{dashBoardMB.formalizacao()}"
+														style="width:100%;text-decoration:none;" ajax="false">
+														<div style="font-size: 12px;"
+															class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+															Formalização</div>
+														<div class="h5 mb-0 font-weight-bold text-gray-800">#{dashBoardMB.nFormalizacao}</div>
+													</p:commandLink>
+												</div>
+												<div class="col-auto">
+													<i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</h:panelGroup>
 							<div class="col-xl-3 col-md-6 mb-4">
 								<div class="card border-left-danger shadow h-100 py-2">
 									<div class="card-body">
 										<div class="row no-gutters align-items-center">
 											<div class="col mr-2">
-												<p:commandLink action="#{dashBoardMB.formalizacao()}"
+												<p:commandLink action="#{dashBoardMB.pendencias()}"
 													style="width:100%;text-decoration:none;" ajax="false">
 													<div style="font-size: 12px;"
 														class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-														Formalização e Pendência</div>
+														Pendências</div>
 													<div class="h5 mb-0 font-weight-bold text-gray-800">#{dashBoardMB.nFormalizacaoPendencia}</div>
 												</p:commandLink>
 											</div>

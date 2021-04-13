@@ -19,7 +19,7 @@
 
 		<p:dataTable id="idTabelaFormalizacao" var="contrato"
 			widgetVar="cellCars" editable="true" editMode="cell"
-			value="#{formalizacaoMB.listaContrato}" style="border:none;"
+			value="#{pendenciasMB.listaContrato}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
 			scrollHeight="400" selectionMode="single"
 			rowKey="#{contrato.idcontrato}">
@@ -56,20 +56,20 @@
 			<p:column headerText=""
 				style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 				<p:commandLink ajax="false"
-					action="#{formalizacaoMB.editar(contrato)}"
+					action="#{pendenciasMB.editar(contrato)}"
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
 				</p:commandLink>
 
 				<p:commandLink ajax="false"
 					rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}"
-					action="#{formalizacaoMB.alterarSituacao(contrato)}"
+					action="#{pendenciasMB.alterarSituacao(contrato)}"
 					style="text-align: left;color:black;">
 					<span data-feather="arrow-right"></span>
 				</p:commandLink>
 
 				<p:commandLink
-					action="#{formalizacaoMB.historicoContrato(contrato)}"
+					action="#{pendenciasMB.historicoContrato(contrato)}"
 					style="text-align: left;color:black;">
 					<span data-feather="file-text"></span>
 				</p:commandLink>

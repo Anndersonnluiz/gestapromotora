@@ -14,7 +14,6 @@ import br.com.deltafinanceira.facade.FormalizacaoFacade;
 import br.com.deltafinanceira.facade.SituacaoFacade;
 import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Formalizacao;
-import br.com.deltafinanceira.util.Mensagem;
 
 @Named
 @ViewScoped
@@ -53,7 +52,6 @@ public class FormalizacaoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("formalizacao", formalizacao);
-		session.setAttribute("voltarTela", "consFormalizacao");
 		return "cadFormalizacao";
 	}
 
@@ -61,41 +59,33 @@ public class FormalizacaoMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("formalizacao", formalizacao);
-		session.setAttribute("voltarTela", "consFormalizacao");
 		return "fichaFormalizacao";
 	}
 
-	public String cadContrato() {
+	public String cadContrato(Formalizacao formalizacao) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		SituacaoFacade situacaoFacade = new SituacaoFacade();
 		Contrato contrato = new Contrato();
 		contrato.setSituacao(situacaoFacade.consultar(1));
-		if (condition) {
-			
+		if (formalizacao.getUsuario().getTipovenda().equalsIgnoreCase("INSS")) {
+			contrato.setOperacaoinss(true);
+			contrato.setCredpessoal(false);
+			contrato.setNomeoperacao("INSS");
+		} else if (formalizacao.getUsuario().getTipovenda().equalsIgnoreCase("SIAPE")) {
+			contrato.setOperacaoinss(false);
+			contrato.setCredpessoal(false);
+			contrato.setNomeoperacao("SIAPE");
 		}
-		if (this.tipoOpcoes == 1) {
-			this.contrato.setOperacaoinss(true);
-			this.contrato.setCredpessoal(false);
-			this.contrato.setNomeoperacao("INSS");
-		} else if (this.tipoOpcoes == 2) {
-			this.contrato.setOperacaoinss(false);
-			this.contrato.setCredpessoal(false);
-			this.contrato.setNomeoperacao("SIAPE");
-		} else if (this.tipoOpcoes == 3) {
-			this.contrato.setOperacaoinss(false);
-			this.contrato.setCredpessoal(true);
-			this.contrato.setNomeoperacao("CRED PESSOAL");
-		}
-		if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
-			this.contrato.setVoltarTela("consPortabilidade");
-		} else if (this.contrato.isOperacaoinss()) {
-			this.contrato.setVoltarTela("consDemaisOperacoesINSS");
-		} else {
-			this.contrato.setVoltarTela("consDemaisOperacoes");
-		}
+		contrato.setTipooperacao(formalizacao.getTipooperacao());
+		contrato.setVoltarTela("consFormalizacao");
 		session.setAttribute("contrato", contrato);
+		session.setAttribute("formalizacao", formalizacao);
 		return "cadContrato";
+	}
+
+	public String novo() {
+		return "cadFormalizacao";
 	}
 
 }

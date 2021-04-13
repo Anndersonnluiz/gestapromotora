@@ -12,6 +12,7 @@ import br.com.deltafinanceira.facade.ContratoArquivoFacade;
 import br.com.deltafinanceira.facade.ContratoFacade;
 import br.com.deltafinanceira.facade.ContratoUnificacaoFacade;
 import br.com.deltafinanceira.facade.DadosBancarioFacade;
+import br.com.deltafinanceira.facade.FormalizacaoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.HistoricoUsuarioFacade;
 import br.com.deltafinanceira.facade.LeadFacade;
@@ -30,6 +31,7 @@ import br.com.deltafinanceira.model.Contrato;
 import br.com.deltafinanceira.model.Contratoarquivo;
 import br.com.deltafinanceira.model.Contratounificacao;
 import br.com.deltafinanceira.model.Dadosbancario;
+import br.com.deltafinanceira.model.Formalizacao;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Historicousuario;
 import br.com.deltafinanceira.model.Lead;
@@ -151,6 +153,8 @@ public class CadContratoMB implements Serializable {
 	private List<Contratounificacao> listaContratoUnificacao;
 
 	private Lead lead;
+	
+	private Formalizacao formalizacao;
 
 	@PostConstruct
 	public void init() {
@@ -162,6 +166,8 @@ public class CadContratoMB implements Serializable {
 		this.coeficiente = (Coeficiente) session.getAttribute("coeficiente");
 		this.voltarTela = (String) session.getAttribute("voltarTela");
 		this.lead = (Lead) session.getAttribute("lead");
+		this.formalizacao = (Formalizacao) session.getAttribute("formalizacao");
+		session.removeAttribute("formalizacao");
 		session.removeAttribute("lead");
 		session.removeAttribute("orgaobanco");
 		session.removeAttribute("contrato");
@@ -189,7 +195,19 @@ public class CadContratoMB implements Serializable {
 			this.contratounificacao = new Contratounificacao();
 			buscarUnificacoes();
 		} else {
-			this.usuario = this.usuarioLogadoMB.getUsuario();
+			if (formalizacao != null) {
+				this.usuario = formalizacao.getUsuario();
+				contrato.setSecretaria(formalizacao.getTipobeneficio());
+				contrato.setMatricula("" + formalizacao.getNumerobeneficio());
+				cpf = formalizacao.getCpf();
+				buscarCliente();
+				contrato.setObservacao(formalizacao.getObservacoes());
+				cliente.setTelefonecelular(formalizacao.getTelefone1());
+				cliente.setTelefonecomercial(formalizacao.getTelefone2());
+				cliente.setTelefoneresidencial(formalizacao.getTelefone3());
+			}else {
+				this.usuario = this.usuarioLogadoMB.getUsuario();
+			}
 			this.promotora = this.contrato.getPromotora();
 			this.contratounificacao = new Contratounificacao();
 			BancoFacade bancoFacade = new BancoFacade();
@@ -201,7 +219,9 @@ public class CadContratoMB implements Serializable {
 		if (this.cliente != null) {
 			if (this.cliente.getDadosbancario() != null)
 				this.dadosbancario = this.cliente.getDadosbancario();
-			this.cpf = this.cliente.getCpf();
+				if (cliente.getCpf() != null && cliente.getCpf().length() > 0) {
+					this.cpf = this.cliente.getCpf();
+				}
 		} else {
 			this.cliente = new Cliente();
 			this.dadosbancario = new Dadosbancario();
@@ -604,6 +624,11 @@ public class CadContratoMB implements Serializable {
 						+ contrato.getNomeoperacao());
 				leadhistorico.setLead(lead);
 				leadHistoricoFacade.salvar(leadhistorico);
+			}
+			if (formalizacao != null) {
+				FormalizacaoFacade formalizacaoFacade = new FormalizacaoFacade();
+				formalizacao.setEmitidocontrato(true);
+				formalizacaoFacade.salvar(formalizacao);
 			}
 		}
 		if (this.promotora == null || this.promotora.getIdpromotora() == null) {

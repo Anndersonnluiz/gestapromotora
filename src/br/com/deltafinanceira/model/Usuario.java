@@ -69,6 +69,9 @@ public class Usuario implements Serializable {
 	
 	@Column(name = "tipovenda")
 	private String tipovenda;
+	
+	@Column(name = "formalizacao")
+	private boolean formalizacao;
 
 	@JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
 	@ManyToOne(optional = false)
@@ -240,6 +243,14 @@ public class Usuario implements Serializable {
 
 	public void setTipovenda(String tipovenda) {
 		this.tipovenda = tipovenda;
+	}
+
+	public boolean isFormalizacao() {
+		return formalizacao;
+	}
+
+	public void setFormalizacao(boolean formalizacao) {
+		this.formalizacao = formalizacao;
 	}
 
 	public int hashCode() {
