@@ -97,5 +97,13 @@ public class FuncionariosMB implements Serializable {
 		listaFuncionarios.remove(funcionario);
 		Mensagem.lancarMensagemInfo("Funcionário excluido com sucesso", "");
 	}
+	
+	
+	public String ficha(Funcionario funcionario) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("funcionario", funcionario);
+		return "fichaFuncionario";
+	}
 
 }

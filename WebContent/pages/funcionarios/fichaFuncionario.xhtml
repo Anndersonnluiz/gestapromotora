@@ -33,13 +33,13 @@
 
 		<div align="center" id="noprint">
 			<p:commandLink ajax="false" styleClass="btn btn-primary"
-				value="Voltar" action="#{fichaFormalizacaoMB.voltar()}" />
+				value="Voltar" action="#{fichaFuncionariosMB.voltar()}" />
 			<a href="javascript:;" onclick="window.print();return false"><button
 					type="button" class="btn btn-primary" title="Imprimir">Imprimir</button></a>
 
 		</div>
 		<div align="left" style="margin-left: 5%;">
-			<p:commandLink action="#{fichaFormalizacaoMB.voltar()}" ajax="false">
+			<p:commandLink action="#{fichaFuncionariosMB.voltar()}" ajax="false">
 				<img src="../../resources/img/outralogo.png" width="20%" />
 			</p:commandLink>
 		</div>
@@ -90,12 +90,12 @@
 						</h:outputText>
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>Telefone: </b> #{fichaFuncionariosMB.funcionario.telefone1}
+						<b>Telefone: </b> #{fichaFuncionariosMB.funcionario.telefone}
 					</h:panelGroup>
 					<p:outputLabel />
 					<p:outputLabel />
 					<h:panelGroup>
-						<b>Banco Trabalha: </b> #{fichaFuncionariosMB.funcionario.telefone2}
+						<b>Banco Trabalha: </b> #{fichaFuncionariosMB.funcionario.ondetrabalha}
 					</h:panelGroup>
 				</h:panelGrid>
 			</h:panelGrid>
@@ -109,21 +109,22 @@
 				style="border:1.5px solid;width:100%;border-color:#9C9C9C;">
 				<h:panelGrid style="width:100%;margin:1%;" columns="2">
 					<h:panelGroup>
-						<b>CEP:</b> #{fichaFuncionariosMB.funcionario.nomecliente}</h:panelGroup>
+						<b>CEP:</b> #{fichaFuncionariosMB.funcionario.cep}</h:panelGroup>
 					<h:panelGroup>
-						<b>Logradouro: </b> #{fichaFuncionariosMB.funcionario.cpf}</h:panelGroup>
+						<b>Logradouro: </b> #{fichaFuncionariosMB.funcionario.tipologradouro} 
+						#{fichaFuncionariosMB.funcionario.cpf} 
+						#{fichaFuncionariosMB.funcionario.numero}</h:panelGroup>
 					<p:outputLabel />
 					<p:outputLabel />
 					<h:panelGroup>
-						<b>Complemento: </b> #{fichaFuncionariosMB.funcionario.tipobeneficio}
+						<b>Complemento: </b> #{fichaFuncionariosMB.funcionario.complemento}
 					</h:panelGroup>
 
 					<h:panelGroup>
 						<b>Bairro: </b>
 						<h:outputText
-							value="#{fichaContratoMB.contrato.cliente.nascimento}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
+							value="#{fichaFuncionariosMB.funcionario.bairro}">
+							
 						</h:outputText>
 					</h:panelGroup>
 					<p:outputLabel />
@@ -131,19 +132,24 @@
 					<h:panelGroup>
 						<b>Cidade: </b>
 						<h:outputText
-							value="#{fichaContratoMB.contrato.cliente.nascimento}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
+							value="#{fichaFuncionariosMB.funcionario.cidade}">
+							
 						</h:outputText>
 					</h:panelGroup>
 					<h:panelGroup>
-						<b>UF: </b> #{fichaFuncionariosMB.funcionario.telefone1}
+						<b>UF: </b> #{fichaFuncionariosMB.funcionario.ufestado}
 					</h:panelGroup>
 					<p:outputLabel />
 					<p:outputLabel />
 				</h:panelGrid>
 			</h:panelGrid>
 			<br /> <br /> <br /> <br />
+			<hr width="80%" align="left" style="border: 0.5px solid #9C9C9C;" />
+			<p>Assinatura do(a) Funcionario(a):
+				#{fichaFuncionariosMB.funcionario.nome}</p>
+			<br /> <br /> <br /> <br />
+			<hr width="80%" align="left" style="border: 0.5px solid #9C9C9C;" />
+			<p>Assinatura DELTA FINANCEIRA</p>
 		</div>
 	</h:form>
 </h:body>

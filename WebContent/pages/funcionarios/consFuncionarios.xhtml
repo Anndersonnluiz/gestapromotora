@@ -80,6 +80,10 @@
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
 				</p:commandLink>
+				<p:commandLink action="#{funcionariosMB.ficha(funcionario)}"
+						style="text-align: left;color:black;">
+						<span data-feather="printer"></span>
+					</p:commandLink>
 				<p:commandLink ajax="false"
 					action="#{funcionariosMB.excluir(funcionario)}"
 					update=":formulario:growl, idTabelaCliente"
