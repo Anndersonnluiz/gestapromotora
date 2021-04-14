@@ -63,7 +63,10 @@
 					<span data-feather="edit"></span>
 				</p:commandLink>
 
-
+				<p:commandLink action="#{formalizacaoMB.ficha(formalizacao)}"
+						style="text-align: left;color:black;">
+						<span data-feather="printer"></span>
+					</p:commandLink>
 				<p:commandLink action="#{formalizacaoMB.cadContrato(formalizacao)}"
 					style="text-align: left;color:black;" rendered="#{usuarioLogadoMB.usuario.formalizacao}">
 					<span data-feather="file-text"></span>
