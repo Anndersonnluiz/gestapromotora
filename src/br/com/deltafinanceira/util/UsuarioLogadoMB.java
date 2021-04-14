@@ -8,6 +8,7 @@ import br.com.deltafinanceira.model.Cliente;
 import br.com.deltafinanceira.model.Filial;
 import br.com.deltafinanceira.model.Notificacao;
 import br.com.deltafinanceira.model.Usuario;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -60,6 +61,10 @@ public class UsuarioLogadoMB implements Serializable {
 	private Filial filial;
 
 	private List<Cliente> listaCliente;
+	
+	private boolean emitirSIAPE;
+	
+	private boolean emitirINSS;
 
 	@PostConstruct
 	public void init() {
@@ -177,6 +182,22 @@ public class UsuarioLogadoMB implements Serializable {
 		this.listaCliente = listaCliente;
 	}
 
+	public boolean isEmitirSIAPE() {
+		return emitirSIAPE;
+	}
+
+	public void setEmitirSIAPE(boolean emitirSIAPE) {
+		this.emitirSIAPE = emitirSIAPE;
+	}
+
+	public boolean isEmitirINSS() {
+		return emitirINSS;
+	}
+
+	public void setEmitirINSS(boolean emitirINSS) {
+		this.emitirINSS = emitirINSS;
+	}
+
 	public String logar() {
 		if (this.logar)
 			return "dashboard";
@@ -201,6 +222,14 @@ public class UsuarioLogadoMB implements Serializable {
 				} else {
 					mensagemOl();
 					this.nomeUsuario = this.usuario.getNome();
+					if (usuario.getTipovenda().equalsIgnoreCase("SIAPE") 
+							|| usuario.getTipovenda().equalsIgnoreCase("INSS e SIAPE")) {
+						emitirSIAPE = true;
+					}
+					if (usuario.getTipovenda().equalsIgnoreCase("INSS") 
+							|| usuario.getTipovenda().equalsIgnoreCase("INSS e SIAPE")) {
+						emitirINSS = true;
+					}
 					gerarListaCliente();
 					return this.logar = true;
 				}

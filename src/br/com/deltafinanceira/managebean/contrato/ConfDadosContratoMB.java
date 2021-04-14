@@ -78,7 +78,7 @@ public class ConfDadosContratoMB implements Serializable {
 		gerarListaTipoOperacao();
 		this.contrato.setDatacadastro(new Date());
 		SituacaoFacade situacaoFacade = new SituacaoFacade();
-		this.contrato.setSituacao(situacaoFacade.consultar(37));
+		this.contrato.setSituacao(situacaoFacade.consultar(1));
 		this.tipoOpcoes = 1;
 		this.contrato.setTipooperacao(tipooiperacao);
 	}
