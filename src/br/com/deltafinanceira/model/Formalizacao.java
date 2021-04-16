@@ -1,6 +1,7 @@
 package br.com.deltafinanceira.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class Formalizacao implements Serializable{
 	@Column(name = "tipobeneficio")
 	private String tipobeneficio;
 	@Column(name = "numerobeneficio")
-	private int numerobeneficio;
+	private BigInteger numerobeneficio;
 	@Column(name = "valoroferta")
 	private float valoroferta;
 	@Column(name = "telefone1")
@@ -110,13 +111,13 @@ public class Formalizacao implements Serializable{
 
 
 
-	public int getNumerobeneficio() {
+	public BigInteger getNumerobeneficio() {
 		return numerobeneficio;
 	}
 
 
 
-	public void setNumerobeneficio(int numerobeneficio) {
+	public void setNumerobeneficio(BigInteger numerobeneficio) {
 		this.numerobeneficio = numerobeneficio;
 	}
 

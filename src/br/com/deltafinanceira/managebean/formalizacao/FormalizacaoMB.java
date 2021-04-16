@@ -68,15 +68,9 @@ public class FormalizacaoMB implements Serializable {
 		SituacaoFacade situacaoFacade = new SituacaoFacade();
 		Contrato contrato = new Contrato();
 		contrato.setSituacao(situacaoFacade.consultar(1));
-		if (formalizacao.getUsuario().getTipovenda().equalsIgnoreCase("INSS")) {
-			contrato.setOperacaoinss(true);
-			contrato.setCredpessoal(false);
-			contrato.setNomeoperacao("INSS");
-		} else if (formalizacao.getUsuario().getTipovenda().equalsIgnoreCase("SIAPE")) {
-			contrato.setOperacaoinss(false);
-			contrato.setCredpessoal(false);
-			contrato.setNomeoperacao("SIAPE");
-		}
+		contrato.setOperacaoinss(true);
+		contrato.setCredpessoal(false);
+		contrato.setNomeoperacao("INSS");
 		contrato.setTipooperacao(formalizacao.getTipooperacao());
 		contrato.setVoltarTela("consFormalizacao");
 		session.setAttribute("contrato", contrato);

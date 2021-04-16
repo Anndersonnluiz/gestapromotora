@@ -380,14 +380,14 @@
 				<label for="inputCEP">CEP</label>
 
 				<h:panelGrid columns="2" style="width:100%;">
-					<p:inputText value="#{cadContratoMB.cliente.cep}"
-						style="border-color:black;" id="inputCEP" placeholder="CEP">
+					<p:inputMask value="#{cadContratoMB.cliente.cep}" mask="99999-999"
+						style="border-color:black;" id="inputCEP">
 						<p:ajax event="change"
 							listener="#{cadContratoMB.buscarendereco()}"
 							update=":formulario:inputTipoLogradouro, :formulario:inputlogradouro, growlCep, 
 							:formulario:inputNumero, :formulario:inputComplemento, :formulario:inputBairro, 
 							:formulario:inputCidade, :formulario:inputUfEstado" />
-					</p:inputText>
+					</p:inputMask>
 					<p:commandLink id="btnConfirmar" value="Buscar" rendered="false"
 						update=":formulario:inputTipoLogradouro, growlCep" process="@this"
 						action="#{cadContratoMB.buscarendereco()}"

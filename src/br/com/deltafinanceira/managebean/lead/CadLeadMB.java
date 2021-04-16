@@ -214,7 +214,7 @@ public class CadLeadMB implements Serializable {
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Order By t.descricao");
+		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true Order By t.descricao");
 		if (this.listaTipoOperacao == null)
 			this.listaTipoOperacao = new ArrayList<>();
 	}

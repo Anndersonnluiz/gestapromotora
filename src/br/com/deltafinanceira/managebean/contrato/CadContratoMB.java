@@ -225,7 +225,7 @@ public class CadContratoMB implements Serializable {
 		} else {
 			this.cliente = new Cliente();
 			this.dadosbancario = new Dadosbancario();
-			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
+			this.cliente.setUsuario(this.usuario);
 		}
 		this.bancoDadosBancario = this.dadosbancario.getBanco();
 	}
@@ -512,7 +512,7 @@ public class CadContratoMB implements Serializable {
 
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		this.listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.nome");
+		this.listaBancoOperacao = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.codigo");
 		if (this.listaBancoOperacao == null)
 			this.listaBancoOperacao = new ArrayList<>();
 		this.listaBanco = this.listaBancoOperacao;
@@ -535,13 +535,13 @@ public class CadContratoMB implements Serializable {
 		if (this.cliente == null) {
 			this.cliente = new Cliente();
 			this.dadosbancario = new Dadosbancario();
-			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
+			this.cliente.setUsuario(this.usuario);
 		} else if (this.cliente != null
-				&& this.cliente.getUsuario().getIdusuario() != this.usuarioLogadoMB.getUsuario().getIdusuario()) {
+				&& this.cliente.getUsuario().getIdusuario() != usuario.getIdusuario() && this.cliente.getUsuario().getIdusuario() != 13) {
 			Mensagem.lancarMensagemWarn("Este cliente pertence ao corretor(a): ", this.cliente.getUsuario().getNome());
 			this.cliente = new Cliente();
 			this.dadosbancario = new Dadosbancario();
-			this.cliente.setUsuario(this.usuarioLogadoMB.getUsuario());
+			this.cliente.setUsuario(this.usuario);
 		}
 	}
 
@@ -586,7 +586,7 @@ public class CadContratoMB implements Serializable {
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true");
 		if (this.listaTipoOperacao == null)
 			this.listaTipoOperacao = new ArrayList<>();
 	}

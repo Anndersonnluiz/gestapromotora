@@ -17,25 +17,7 @@
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
 		<div class="row" style="color: white;" >
-			<div class="col-xl-3 col-md-3 mb-3">
-				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(37)}"
-					ajax="false" style="text-decoration:none;" update="@all">
-					<div class="card border-left-primary shadow h-100 py-2">
-						<div class="card-body">
-							<div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									<div style="font-size: 11px;"
-										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-										Pêndencias</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">
-										#{portabilidadeMB.nFormalizacaoPendencia}</div>
-								</div>
-							</div>
-						</div>
-					</div> 
-				</p:commandLink>
-			</div>
+			
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
 					action="#{portabilidadeMB.gerarListaPortabilidade(1)}"
@@ -49,6 +31,25 @@
 										Aguardando Digitação</div>
 									<div class="h5 mb-0 font-weight-bold text-gray-800">
 										#{portabilidadeMB.nDigitados}</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</p:commandLink>
+			</div>
+			<div class="col-xl-3 col-md-3 mb-3">
+				<p:commandLink
+					action="#{portabilidadeMB.gerarListaPortabilidade(37)}"
+					ajax="false" style="text-decoration:none;" update="@all">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div style="font-size: 11px;"
+										class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+										Pêndencias</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">
+										#{portabilidadeMB.nFormalizacaoPendencia}</div>
 								</div>
 							</div>
 						</div>
@@ -290,11 +291,10 @@
 
 
 			<p:dataTable id="idTabelaPortabilidade" var="contrato"
-				widgetVar="cellCars" editable="true" editMode="cell"
-				value="#{portabilidadeMB.listaContrato}" style="border:none;"
+				value="#{portabilidadeMB.listaContrato}" style="overflow: auto;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
-				scrollHeight="300" selectionMode="single"
-				rowKey="#{contrato.idcontrato}">
+				scrollHeight="300" selectionMode="single" reflow="true"
+				rowKey="#{contrato.idcontrato}" scrollWidth="1200">
 
 
 

@@ -3,6 +3,7 @@ package br.com.deltafinanceira.managebean.usuario;
 import br.com.deltafinanceira.facade.BancoFacade;
 import br.com.deltafinanceira.facade.DadosBancarioFacade;
 import br.com.deltafinanceira.facade.DepartamentoFacade;
+import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.TipoColaboradorFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioComissaoFacade;
@@ -10,6 +11,7 @@ import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
 import br.com.deltafinanceira.model.Dadosbancario;
 import br.com.deltafinanceira.model.Departamento;
+import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Tipocolaborador;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.model.Usuario;
@@ -248,7 +250,7 @@ public class CadUsuarioMB implements Serializable {
 
 	public void gerarListaBanco() {
 		BancoFacade bancoFacade = new BancoFacade();
-		this.listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.nome");
+		this.listaBanco = bancoFacade.lista("Select b From Banco b WHERE b.visualizar=true ORDER BY b.codigo");
 		if (this.listaBanco == null)
 			this.listaBanco = new ArrayList<>();
 	}
@@ -263,7 +265,7 @@ public class CadUsuarioMB implements Serializable {
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Order By t.descricao");
+		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true Order By t.descricao");
 		if (this.listaTipoOperacao == null)
 			this.listaTipoOperacao = new ArrayList<>();
 	}
@@ -282,14 +284,14 @@ public class CadUsuarioMB implements Serializable {
 			usuariocomissao.setTipooperacao(tipooperacao);
 			listaUsuarioComissao.add(usuariocomissao);
 			usuariocomissao = new Usuariocomissao();
-		}else {
+		} else {
 			Mensagem.lancarMensagemInfo("Selecione o Tipo de Operação", "Comissionamento");
 		}
 	}
 
 	public void excluirComissao(String slinha) {
 		int linha = Integer.parseInt(slinha);
-		Usuariocomissao usuariocomissao = listaUsuarioComissao.get(linha); 
+		Usuariocomissao usuariocomissao = listaUsuarioComissao.get(linha);
 		if (usuariocomissao.getIdusuariocomissao() != null) {
 			UsuarioComissaoFacade usuarioComissaoFacade = new UsuarioComissaoFacade();
 			usuarioComissaoFacade.excluir(usuariocomissao.getIdusuariocomissao());
@@ -303,6 +305,29 @@ public class CadUsuarioMB implements Serializable {
 		for (int i = 0; i < listaUsuarioComissao.size(); i++) {
 			listaUsuarioComissao.get(i).setUsuario(usuario);
 			ususComissaoFacade.salvar(listaUsuarioComissao.get(i));
+		}
+	}
+
+	public void recalcularComissoes(Usuariocomissao usuariocomissao) {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		List<Historicocomissao> listaComissoes = historicoComissaoFacade
+				.lista("Select h From Historicocomissao h " + "Where h.contrato.tipooperacao.idtipooperacao="
+						+ usuariocomissao.getTipooperacao().getIdtipooperacao() + " AND h.usuario.idusuario="
+						+ usuario.getIdusuario() + " AND h.contrato.situacao.idsituacao<>16");
+		if (listaComissoes == null) {
+			listaComissoes = new ArrayList<Historicocomissao>();
+		}
+		for (int i = 0; i < listaComissoes.size(); i++) {
+			if (listaComissoes.get(i).getContrato().getParcelaspagas() > 12
+					&& listaComissoes.get(i).getContrato().getTipooperacao().getIdtipooperacao().intValue() == 1) {
+				listaComissoes.get(i)
+						.setCmsliq(listaComissoes.get(i).getContrato().getValorquitar() * usuariocomissao.getComissaocorretor() / 100.0F);
+				listaComissoes.get(i).setComissaototal(listaComissoes.get(i).getCmdbruta() + listaComissoes.get(i).getCmsliq());
+			} else if (listaComissoes.get(i).getContrato().getTipooperacao().getIdtipooperacao().intValue() != 1) {
+				listaComissoes.get(i)
+						.setCmsliq(listaComissoes.get(i).getContrato().getValorcliente() * usuariocomissao.getComissaocorretor() / 100.0F);
+				listaComissoes.get(i).setComissaototal(listaComissoes.get(i).getCmdbruta() + listaComissoes.get(i).getCmsliq());
+			}
 		}
 	}
 

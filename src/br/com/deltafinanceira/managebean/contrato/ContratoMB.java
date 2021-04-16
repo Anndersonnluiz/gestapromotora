@@ -335,7 +335,7 @@ public class ContratoMB implements Serializable {
   
   public void gerarListaTipoOperacao() {
     TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true");
     if (this.listaTipoOperacao == null)
       this.listaTipoOperacao = new ArrayList<>(); 
   }

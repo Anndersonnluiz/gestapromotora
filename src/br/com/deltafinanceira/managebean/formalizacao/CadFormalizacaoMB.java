@@ -136,7 +136,7 @@ public class CadFormalizacaoMB implements Serializable{
 	
 	
 	public String cancelar() {
-		return "consFormalizacao";
+		return "dashBoard";
 	}
 	
 	
@@ -166,7 +166,7 @@ public class CadFormalizacaoMB implements Serializable{
 	
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true");
 		if (this.listaTipoOperacao == null)
 			this.listaTipoOperacao = new ArrayList<>();
 	}

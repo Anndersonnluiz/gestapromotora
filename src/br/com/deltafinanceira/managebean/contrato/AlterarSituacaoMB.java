@@ -10,6 +10,7 @@ import br.com.deltafinanceira.facade.HistoricoUsuarioFacade;
 import br.com.deltafinanceira.facade.OrgaoBancoFacade;
 import br.com.deltafinanceira.facade.RankingVendasFacade;
 import br.com.deltafinanceira.facade.SituacaoFacade;
+import br.com.deltafinanceira.facade.UsuarioComissaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
 import br.com.deltafinanceira.model.Coeficiente;
@@ -21,6 +22,7 @@ import br.com.deltafinanceira.model.OrgaoBanco;
 import br.com.deltafinanceira.model.Rankingvendas;
 import br.com.deltafinanceira.model.Situacao;
 import br.com.deltafinanceira.model.Usuario;
+import br.com.deltafinanceira.model.Usuariocomissao;
 import br.com.deltafinanceira.util.Formatacao;
 import br.com.deltafinanceira.util.Mensagem;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
@@ -420,17 +422,21 @@ public class AlterarSituacaoMB implements Serializable {
 			historicocomissao.setAno(ano);
 			historicocomissao.setMes(mes);
 		}
+		Usuariocomissao usuariocomissao = buscarComissaoUsuario();
 		if (this.contrato.getParcelaspagas() > 12
 				&& this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
-			historicocomissao.setCmdbruta(this.contrato.getValorquitar() * this.coeficiente.getComissaoloja() / 100.0F);
 			historicocomissao
-					.setCmsliq(this.contrato.getValorquitar() * this.coeficiente.getComissaocorretor() / 100.0F);
+					.setCmsliq(this.contrato.getValorquitar() * usuariocomissao.getComissaocorretor() / 100.0F);
+			historicocomissao.setCmdbruta(this.contrato.getValorquitar()
+					* (this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
+
 			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 		} else if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
 			historicocomissao
-					.setCmdbruta(this.contrato.getValorcliente() * this.coeficiente.getComissaoloja() / 100.0F);
+					.setCmsliq(this.contrato.getValorcliente() * usuariocomissao.getComissaocorretor() / 100.0F);
 			historicocomissao
-					.setCmsliq(this.contrato.getValorcliente() * this.coeficiente.getComissaocorretor() / 100.0F);
+					.setCmdbruta(this.contrato.getValorcliente() *
+							(this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
 			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 		} else {
 			historicocomissao.setCmdbruta(0.0F);
@@ -447,4 +453,23 @@ public class AlterarSituacaoMB implements Serializable {
 		if (this.listaUsuario == null)
 			this.listaUsuario = new ArrayList<>();
 	}
+
+	public Usuariocomissao buscarComissaoUsuario() {
+		UsuarioComissaoFacade usuarioComissaoFacade = new UsuarioComissaoFacade();
+		List<Usuariocomissao> listaUsuarioComissao = usuarioComissaoFacade.listar(
+				"Select u From Usuariocomissao u " + "Where u.usuario.idusuario=" + contrato.getUsuario().getIdusuario()
+						+ " AND u.tipooperacao.idtipooperacao=" + contrato.getTipooperacao().getIdtipooperacao());
+		if (listaUsuarioComissao == null) {
+			listaUsuarioComissao = new ArrayList<Usuariocomissao>();
+		}
+		Usuariocomissao usuariocomissao;
+		if (listaUsuarioComissao.size() > 0) {
+			usuariocomissao = listaUsuarioComissao.get(0);
+		} else {
+			usuariocomissao = new Usuariocomissao();
+			usuariocomissao.setComissaocorretor(0);
+		}
+		return usuariocomissao;
+	}
+
 }

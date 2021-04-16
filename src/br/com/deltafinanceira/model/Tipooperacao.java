@@ -29,6 +29,8 @@ public class Tipooperacao implements Serializable{
 	private boolean margem;
 	@Column(name = "apelido")
 	private String apelido;
+	@Column(name = "ativo")
+	private boolean ativo;
 	
 	
 	
@@ -82,6 +84,18 @@ public class Tipooperacao implements Serializable{
 
 	public void setApelido(String apelido) {
 		this.apelido = apelido;
+	}
+
+
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 

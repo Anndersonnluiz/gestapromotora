@@ -37,6 +37,11 @@
 					<f:facet name="header">Comercial</f:facet>
 					<h:outputText value="#{cliente.telefonecomercial}" />
 				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Corretor</f:facet>
+					<h:outputText value="#{cliente.usuario.nome}" />
+				</h:column>
 
 			</h:dataTable>
 	</ui:define>

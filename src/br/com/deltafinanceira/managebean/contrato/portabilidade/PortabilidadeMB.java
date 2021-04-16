@@ -729,7 +729,8 @@ public class PortabilidadeMB implements Serializable {
   
   public void gerarListaInicial() {
     ContratoFacade contratoFacade = new ContratoFacade();
-    String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.simulacao=false";
+    String sql = "Select c From Contrato c WHERE c.tipooperacao.descricao like '%Portabilidade%' and c.simulacao=false "
+    		+ "and c.ultimamudancasituacao>='2021-01-01'";
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
       !this.usuarioLogadoMB.getUsuario().getTipocolaborador().getAcessocolaborador().isAcessooperacional()) {
       sql = String.valueOf(sql) + " and c.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario(); 
@@ -780,7 +781,7 @@ public class PortabilidadeMB implements Serializable {
   
   public void gerarListaTipoOperacao() {
     TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+    this.listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true");
     if (this.listaTipoOperacao == null)
       this.listaTipoOperacao = new ArrayList<>(); 
   }

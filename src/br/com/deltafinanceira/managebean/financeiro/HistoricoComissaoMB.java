@@ -539,7 +539,7 @@ public class HistoricoComissaoMB implements Serializable {
 
 	public void gerarListaTipoOperacao() {
 		TipoOperacaoFacade tipoOperacaoFacade = new TipoOperacaoFacade();
-		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t");
+		listaTipoOperacao = tipoOperacaoFacade.lista("Select t From Tipooperacao t Where t.ativo=true");
 		if (listaTipoOperacao == null) {
 			listaTipoOperacao = new ArrayList<Tipooperacao>();
 		}
