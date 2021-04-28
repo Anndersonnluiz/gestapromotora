@@ -434,9 +434,46 @@ public class AlterarSituacaoMB implements Serializable {
 		} else if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
 			historicocomissao
 					.setCmsliq(this.contrato.getValorcliente() * usuariocomissao.getComissaocorretor() / 100.0F);
+			historicocomissao.setCmdbruta(this.contrato.getValorcliente()
+					* (this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
+			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
+		} else {
+			historicocomissao.setCmdbruta(0.0F);
+			historicocomissao.setCmsliq(0.0F);
+			historicocomissao.setComissaototal(0.0F);
+		}
+		historicoComissaoFacade.salvar(historicocomissao);
+	}
+
+	public void gerarComissaoSuperVisor() {
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		Historicocomissao historicocomissao = historicoComissaoFacade
+				.consultarPorContrato(this.contrato.getIdcontrato().intValue());
+		if (historicocomissao == null) {
+			historicocomissao = new Historicocomissao();
+			historicocomissao.setDatalancamento(new Date());
+			historicocomissao.setContrato(this.contrato);
+			historicocomissao.setUsuario(this.contrato.getUsuario());
+			historicocomissao.setTipo("PENDENTE");
+			int mes = Formatacao.getMesData(new Date()) + 1;
+			int ano = Formatacao.getAnoData(new Date());
+			historicocomissao.setAno(ano);
+			historicocomissao.setMes(mes);
+		} 
+		Usuariocomissao usuariocomissao = buscarComissaoUsuario();
+		if (this.contrato.getParcelaspagas() > 12
+				&& this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
 			historicocomissao
-					.setCmdbruta(this.contrato.getValorcliente() *
-							(this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
+					.setCmsliq(this.contrato.getValorquitar() * usuariocomissao.getComissaocorretor() / 100.0F);
+			historicocomissao.setCmdbruta(this.contrato.getValorquitar()
+					* (this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
+
+			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
+		} else if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() != 1) {
+			historicocomissao
+					.setCmsliq(this.contrato.getValorcliente() * usuariocomissao.getComissaocorretor() / 100.0F);
+			historicocomissao.setCmdbruta(this.contrato.getValorcliente()
+					* (this.coeficiente.getComissaototal() - usuariocomissao.getComissaocorretor()) / 100.0F);
 			historicocomissao.setComissaototal(historicocomissao.getCmdbruta() + historicocomissao.getCmsliq());
 		} else {
 			historicocomissao.setCmdbruta(0.0F);
@@ -470,6 +507,17 @@ public class AlterarSituacaoMB implements Serializable {
 			usuariocomissao.setComissaocorretor(0);
 		}
 		return usuariocomissao;
+	}
+
+	public List<Usuariocomissao> buscarComissaoUsuarioSupervisor() {
+		UsuarioComissaoFacade usuarioComissaoFacade = new UsuarioComissaoFacade();
+		List<Usuariocomissao> listaUsuarioComissao = usuarioComissaoFacade
+				.listar("Select u From Usuariocomissao u " + "Where u.usuario.comissaovenda=true"
+						+ " AND u.tipooperacao.idtipooperacao=" + contrato.getTipooperacao().getIdtipooperacao());
+		if (listaUsuarioComissao == null) {
+			listaUsuarioComissao = new ArrayList<Usuariocomissao>();
+		}
+		return listaUsuarioComissao;
 	}
 
 }

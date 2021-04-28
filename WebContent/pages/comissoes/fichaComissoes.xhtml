@@ -6,8 +6,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Ficha Contrato</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Delta Financeira</title>
 	<!-- Bootstrap core CSS -->
 	<link href="../../resources/bootstrap/css/bootstrap.min.css"
@@ -95,13 +93,13 @@
 					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.contrato.cliente.nome}" />
 				</p:column>
-				<p:column headerText="Contrato"
+				<p:column headerText="Banco"
 					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.codigocontrato}" />
+					<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
 				</p:column>
 				<p:column headerText="Operação"
 					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
+					<h:outputText value="#{comissao.contrato.tipooperacao.apelido}" />
 				</p:column>
 				<p:column headerText="Promotora"
 					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">

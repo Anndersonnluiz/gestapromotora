@@ -149,6 +149,7 @@ public class EditarComissaoMB implements Serializable{
 	public String salvar() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		historicocomissao.getContrato().setSituacao(situacao);
+		historicocomissao.setCmdbruta(historicocomissao.getComissaototal() - historicocomissao.getCmsliq());
 		if (!historicocomissao.getTipo().equalsIgnoreCase(tipoAntigo)
 				&& historicocomissao.getTipo().equalsIgnoreCase("Pago")) {
 			historicocomissao.getContrato().setUltimamudancasituacao(new Date());

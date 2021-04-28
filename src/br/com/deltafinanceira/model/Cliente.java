@@ -386,7 +386,7 @@ public int hashCode() {
   }
   
   public boolean equals(Object object) {
-    if (!(object instanceof Banco))
+    if (!(object instanceof Cliente))
       return false; 
     Cliente other = (Cliente)object;
     if ((this.idcliente == null && other.idcliente != null) || (

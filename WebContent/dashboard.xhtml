@@ -77,6 +77,9 @@
 						</h:panelGroup>
 						<a class="collapse-item" href="pages/banco/consBanco.jsf">Banco</a>
 						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<a class="collapse-item" href="pages/campanhas/consCampanhas.jsf">Campanhas</a>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
 							<a class="collapse-item" href="pages/filial/consFilial.jsf">Filial</a>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
@@ -129,14 +132,12 @@
 				<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h:panelGroup
-							rendered="#{usuarioLogadoMB.emitirSIAPE}">
+						<h:panelGroup rendered="#{usuarioLogadoMB.emitirSIAPE}">
 							<a class="collapse-item"
 								href="pages/contrato/confDadosContrato.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> Emissão </a>
 						</h:panelGroup>
-						<h:panelGroup
-							rendered="#{usuarioLogadoMB.emitirINSS}">
+						<h:panelGroup rendered="#{usuarioLogadoMB.emitirINSS}">
 							<a class="collapse-item"
 								href="pages/formalizacao/cadFormalizacao.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> Formalização </a>
@@ -377,6 +378,7 @@
 				<!-- End of Topbar -->
 				<div class="container-fluid">
 					<main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-8">
+
 						<h:panelGroup rendered="#{dashBoardMB.verificarNotificacoes}">
 							<div>
 								<i class="fas fa-bell fa-fw"
@@ -710,8 +712,28 @@
 										</div>
 									</div>
 								</div>
+							</div> 
+						</h:panelGroup>
+						<br /> <br />
+						
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<h4>CAMPANHAS</h4>
+							<hr />
+							<div class="form-row">
+								<div class="card form-group col-md-5" style="margin:2%;">
+
+									<div class="card-body">
+										<h5 class="card-title">Card title</h5>
+										<hr/>
+										<p class="card-text">Some quick example text to build on
+											the card title and make up the bulk of the card's content.</p>
+										<a href="#" class="btn btn-primary">Go somewhere</a>
+									</div>
+								</div>
+								
 							</div>
 						</h:panelGroup>
+						
 						<br /> <br />
 
 						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">

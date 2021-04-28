@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Cadastro de Campanhas</h4>
+		<hr />
+		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+
+
+
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputNome">Titulo</label>
+				<h:inputText value="#{cadCampanhasMB.campanhas.titulo}"
+					class="form-control" id="inputNome" />
+			</div>
+			<div class="form-group col-md-6">
+				<label>Periodo de Validade</label> <br />
+				<h:panelGroup>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" style="widht:100%;"
+						value="#{cadCampanhasMB.campanhas.datainicial}" id="datavenc" size="11">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+					<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
+						style="widht:100%;margin-left:2%;"
+						value="#{cadCampanhasMB.campanhas.datafinal}" id="datapag" size="12">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:ajax event="dateSelect" />
+						<p:ajax event="blur" />
+					</p:calendar>
+				</h:panelGroup>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="inputNome">Descrição</label>
+				<h:inputTextarea value="#{cadCampanhasMB.campanhas.descricao}"
+					class="form-control" id="inputDescricao" />
+			</div>
+		</div>
+		<br />
+
+		<h6>Corretores</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputRG">Corretor</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{cadCampanhasMB.usuario}" converter="UsuarioConverter"
+					styleClass="form-control" onchange="usuario">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadCampanhasMB.listaUsuario}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaUsuario"
+						value="#{cadCampanhasMB.listaUsuario}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label style="color: white;">.</label>
+				<div>
+					<p:commandLink ajax="false" style="text-decoration:none;"
+						action="#{cadCampanhasMB.adicionarUsuario()}"
+						update="usuario, idTabelaUsuario">
+						<img src="../../resources/img/check.png" width="40" />
+					</p:commandLink>
+				</div>
+			</div>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaUsuario" var="campanhas"
+			style="font-size:16px;" rowIndexVar="rowIx"
+			styleClass="table table-striped table-bordered display"
+			value="#{cadCampanhasMB.listaCampanhasUsuario}" cellspacing="0">
+
+			<p:column style="text-align:left;">
+				<f:facet name="header">Corretor</f:facet>
+				<h:outputText value="#{campanhas.usuario.nome}" />
+			</p:column>
+
+			<p:column style="width:15%;">
+				<p:commandLink ajax="false"
+					action="#{cadCampanhasMB.excluirUsuario(rowIx)}"
+					update=":formulario:growl, idTabelaUsuario"
+					style="text-align: left;color:black;">
+					<span data-feather="trash"></span>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{cadCampanhasMB.salvar()}">
+				<img src="../../resources/img/salvar.png" width="40" />
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				style="margin-left:2%;text-decoration:none;"
+				action="#{cadCampanhasMB.cancelar()}">
+				<img src="../../resources/img/cancel.png" width="40" />
+			</p:commandLink>
+		</div>
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>
+</html>

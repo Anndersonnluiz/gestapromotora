@@ -72,6 +72,9 @@ public class Usuario implements Serializable {
 	
 	@Column(name = "formalizacao")
 	private boolean formalizacao;
+	
+	@Column(name = "comissaovenda")
+	private boolean comissaovenda;
 
 	@JoinColumn(name = "tipocolaborador_idtipocolaborador", referencedColumnName = "idtipocolaborador")
 	@ManyToOne(optional = false)
@@ -251,6 +254,14 @@ public class Usuario implements Serializable {
 
 	public void setFormalizacao(boolean formalizacao) {
 		this.formalizacao = formalizacao;
+	}
+
+	public boolean isComissaovenda() {
+		return comissaovenda;
+	}
+
+	public void setComissaovenda(boolean comissaovenda) {
+		this.comissaovenda = comissaovenda;
 	}
 
 	public int hashCode() {

@@ -45,8 +45,11 @@
 		<class>br.com.deltafinanceira.model.Avisosusuario</class>
 		<class>br.com.deltafinanceira.model.Usuariocomissao</class>
 		<class>br.com.deltafinanceira.model.Formalizacao</class>
-		<properties> 
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemasdelta.com.br3306/sistemad_deltafinanceira"/>
+		<class>br.com.deltafinanceira.model.Campanhas</class>
+		<class>br.com.deltafinanceira.model.Campanhascontrato</class>
+		<class>br.com.deltafinanceira.model.Campanhasusuario</class>
+		<properties>  
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemasdelta.com.br:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="780920**Delta"/>
 			<property name="javax.persistence.jdbc.user" value="sistemad_deltafinanceira"/>

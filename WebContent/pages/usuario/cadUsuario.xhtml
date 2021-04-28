@@ -80,15 +80,21 @@
 					<f:selectItem itemLabel="INSS e SIAPE" itemValue="INSS e SIAPE" />
 				</h:selectOneMenu>
 			</div>
+			<br />
+
+			<h6>Permissões</h6>
+			<hr />
 			<div class="form-group col-md-4">
-				<label>Responsável pelo Departamento</label> <br />
+				<label
+					title="Visualiza todos os contratos e andamento de contrato de todos que estão dentro do seu departamento!!">Responsável
+					pelo Departamento</label> <br />
 				<h:panelGroup>
 					<p:selectBooleanCheckbox
 						value="#{cadUsuarioMB.usuario.responsaveldepartamento}" />
 				</h:panelGroup>
 			</div>
 			<div class="form-group col-md-4">
-				<label>Acesso Geral no Sistema</label> <br />
+				<label title="Acesso geral, libera todas as funções do sistema para o usuário!!">Acesso Geral no Sistema</label> <br />
 				<h:panelGroup>
 					<p:selectBooleanCheckbox
 						value="#{cadUsuarioMB.usuario.acessogeral}" />
@@ -112,6 +118,13 @@
 				<h:panelGroup>
 					<p:selectBooleanCheckbox
 						value="#{cadUsuarioMB.usuario.formalizacao}" />
+				</h:panelGroup>
+			</div>
+			<div class="form-group col-md-4">
+				<label title="Recebe Comissão de todos os contrato pagos ao cliente">Comissão Por Venda</label> <br />
+				<h:panelGroup>
+					<p:selectBooleanCheckbox
+						value="#{cadUsuarioMB.usuario.comissaovenda}" />
 				</h:panelGroup>
 			</div>
 		</div>
@@ -259,7 +272,7 @@
 					style="text-align: left;color:black;">
 					<span data-feather="trash"></span>
 				</p:commandLink>
-			</p:column> 
+			</p:column>
 		</p:dataTable>
 
 		<br />
