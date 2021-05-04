@@ -6,6 +6,8 @@ import br.com.deltafinanceira.dao.NotificacaoDao;
 import br.com.deltafinanceira.dao.TipoArquivoDao;
 import br.com.deltafinanceira.dao.UsuarioDao;
 import br.com.deltafinanceira.facade.BancoFacade;
+import br.com.deltafinanceira.facade.CampanhasContratoFacade;
+import br.com.deltafinanceira.facade.CampanhasUsuarioFacade;
 import br.com.deltafinanceira.facade.ClienteFacade;
 import br.com.deltafinanceira.facade.CoeficienteFacade;
 import br.com.deltafinanceira.facade.ContratoArquivoFacade;
@@ -25,6 +27,8 @@ import br.com.deltafinanceira.facade.RankingVendasFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
 import br.com.deltafinanceira.model.Banco;
+import br.com.deltafinanceira.model.Campanhascontrato;
+import br.com.deltafinanceira.model.Campanhasusuario;
 import br.com.deltafinanceira.model.Cliente;
 import br.com.deltafinanceira.model.Coeficiente;
 import br.com.deltafinanceira.model.Contrato;
@@ -650,6 +654,7 @@ public class CadContratoMB implements Serializable {
 				gerarComissao(this.contrato);
 				Historicousuario historicousuario = new Historicousuario();
 				salvarHistorico(historicousuario, this.contrato);
+				gerarListaCampanhasCorretor();
 			}
 			verificarUpload(this.contrato);
 		}
@@ -1098,4 +1103,29 @@ public class CadContratoMB implements Serializable {
 			contratoUnificacaoFacade.salvar(this.listaContratoUnificacao.get(i));
 		}
 	}
+	
+	
+	public void gerarListaCampanhasCorretor() {
+		CampanhasUsuarioFacade campanhasUsuarioFacade = new CampanhasUsuarioFacade();
+		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
+		String sql = "Select c From Campanhasusuario c Where c.campanhas.datainicial>='" + dataHoje
+				+ "' and c.campanhas.datafinal<='" + dataHoje + "'";
+		sql = sql + " and c.usuario.idusuario=" + contrato.getUsuario().getIdusuario();
+		
+		List<Campanhasusuario> listaCampanhasUsuario = campanhasUsuarioFacade.lista(sql);
+		
+		if (listaCampanhasUsuario == null) {
+			listaCampanhasUsuario = new ArrayList<Campanhasusuario>();
+		}
+		CampanhasContratoFacade campanhasContratoFacade = new CampanhasContratoFacade();
+		for (int i = 0; i < listaCampanhasUsuario.size(); i++) {
+			Campanhascontrato campanhascontrato = new Campanhascontrato();
+			campanhascontrato.setCampanhas(listaCampanhasUsuario.get(i).getCampanhas());
+			campanhascontrato.setContrato(contrato);
+			campanhasContratoFacade.salvar(campanhascontrato);
+		}
+	}
+	
+	
+	
 }

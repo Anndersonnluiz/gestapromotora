@@ -195,6 +195,9 @@ public class Contrato implements Serializable {
   @Column(name = "credpessoal")
   private boolean credpessoal;
   
+  @Column(name = "obsfinanceiro")
+  private String obsfinanceiro;
+  
   @Transient
   private String voltarTela;
   
@@ -646,6 +649,16 @@ public String getNomeoperacao() {
 
 public void setNomeoperacao(String nomeoperacao) {
 	this.nomeoperacao = nomeoperacao;
+}
+
+
+public String getObsfinanceiro() {
+	return obsfinanceiro;
+}
+
+
+public void setObsfinanceiro(String obsfinanceiro) {
+	this.obsfinanceiro = obsfinanceiro;
 }
 
 

@@ -6,10 +6,14 @@ import br.com.deltafinanceira.dao.NotificacaoDao;
 import br.com.deltafinanceira.dao.RankingVendasAnualDao;
 import br.com.deltafinanceira.dao.RankingVendasDao;
 import br.com.deltafinanceira.facade.AvisosUsuarioFacade;
+import br.com.deltafinanceira.facade.CampanhasFacade;
+import br.com.deltafinanceira.facade.CampanhasUsuarioFacade;
 import br.com.deltafinanceira.facade.FormalizacaoFacade;
 import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.NotificacaoFacade;
 import br.com.deltafinanceira.model.Avisosusuario;
+import br.com.deltafinanceira.model.Campanhas;
+import br.com.deltafinanceira.model.Campanhasusuario;
 import br.com.deltafinanceira.model.Formalizacao;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Metafaturamentoanual;
@@ -127,7 +131,13 @@ public class DashBoardMB implements Serializable {
 	private boolean verificarNotificacoes;
 
 	private int nFormalizacao;
+	
+	private List<Campanhas> listaCampanhas;
 
+	private List<Campanhasusuario> listaCampanhasUsuario;
+	
+	
+	
 	@PostConstruct
 	public void init() {
 		faturamentoMensal();
@@ -135,6 +145,11 @@ public class DashBoardMB implements Serializable {
 		listaAvisos();
 		gerarRankingMensal();
 		gerarListaFormalizacao();
+		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
+			gerarListaCampanhas();
+		}else {
+			gerarListaCampanhasCorretor();
+		}
 		int mes = Formatacao.getMesData(new Date()) + 1;
 		this.mesAtual = Formatacao.nomeMes(mes);
 		if (this.usuarioLogadoMB.getUsuario().isDiretoria() || this.usuarioLogadoMB.getUsuario().isSupervisao()) {
@@ -512,6 +527,22 @@ public class DashBoardMB implements Serializable {
 		this.nFormalizacao = nFormalizacao;
 	}
 
+	public List<Campanhas> getListaCampanhas() {
+		return listaCampanhas;
+	}
+
+	public void setListaCampanhas(List<Campanhas> listaCampanhas) {
+		this.listaCampanhas = listaCampanhas;
+	}
+
+	public List<Campanhasusuario> getListaCampanhasUsuario() {
+		return listaCampanhasUsuario;
+	}
+
+	public void setListaCampanhasUsuario(List<Campanhasusuario> listaCampanhasUsuario) {
+		this.listaCampanhasUsuario = listaCampanhasUsuario;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -825,6 +856,35 @@ public class DashBoardMB implements Serializable {
 		nFormalizacao = 0;
 		for (int i = 0; i < listaFormalizacao.size(); i++) {
 			nFormalizacao = nFormalizacao + 1;
+		}
+	}
+	
+	
+	
+	public void gerarListaCampanhasCorretor() {
+		CampanhasUsuarioFacade campanhasUsuarioFacade = new CampanhasUsuarioFacade();
+		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
+		String sql = "Select c From Campanhasusuario c Where c.campanhas.datafinal>='" + dataHoje
+				+ "'";
+		sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
+		
+		listaCampanhasUsuario = campanhasUsuarioFacade.lista(sql);
+		
+		if (listaCampanhasUsuario == null) {
+			listaCampanhasUsuario = new ArrayList<Campanhasusuario>();
+		}
+	}
+	
+	
+	public void gerarListaCampanhas() {
+		CampanhasFacade campanhasFacade = new CampanhasFacade();
+		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
+		String sql = "Select c From Campanhas c Where c.datafinal>='" + dataHoje
+				+ "'";
+		listaCampanhas = campanhasFacade.lista(sql);
+		
+		if (listaCampanhas == null) {
+			listaCampanhas = new ArrayList<Campanhas>();
 		}
 	}
 	

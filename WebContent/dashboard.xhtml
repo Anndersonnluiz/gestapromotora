@@ -712,28 +712,77 @@
 										</div>
 									</div>
 								</div>
-							</div> 
-						</h:panelGroup>
-						<br /> <br />
-						
-						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-							<h4>CAMPANHAS</h4>
-							<hr />
-							<div class="form-row">
-								<div class="card form-group col-md-5" style="margin:2%;">
-
-									<div class="card-body">
-										<h5 class="card-title">Card title</h5>
-										<hr/>
-										<p class="card-text">Some quick example text to build on
-											the card title and make up the bulk of the card's content.</p>
-										<a href="#" class="btn btn-primary">Go somewhere</a>
-									</div>
-								</div>
-								
 							</div>
 						</h:panelGroup>
-						
+						<br /> <br />
+
+						<h4>CAMPANHAS</h4>
+						<hr />
+						<h:panelGroup rendered="#{!usuarioLogadoMB.usuario.acessogeral}">
+
+							<div class="form-row">
+								<ui:repeat var="campanha"
+									value="#{dashBoardMB.listaCampanhasUsuario}">
+									<div class="card form-group col-md-5" style="margin: 2%;">
+
+										<div class="card-body">
+											<h5 class="card-title">#{campanha.campanhas.titulo}</h5>
+											<hr />
+											<p class="card-text">
+												<h:outputText value="#{campanha.campanhas.datainicial}">
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+												</h:outputText>
+												-
+												<h:outputText value="#{campanha.campanhas.datafinal}">
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+												</h:outputText>
+												<br /> <br />
+												<p:outputLabel style="font-size:14px;"
+													value="#{campanha.campanhas.descricao}" />
+											</p>
+										</div>
+									</div>
+								</ui:repeat>
+							</div>
+						</h:panelGroup>
+
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+
+							<div class="form-row">
+								<ui:repeat var="campanha" value="#{dashBoardMB.listaCampanhas}">
+									<div class="card form-group col-md-5" style="margin: 2%;">
+
+										<div class="card-body">
+											<h5 class="card-title">#{campanha.titulo}</h5>
+											<hr />
+											<p class="card-text">
+												<h:outputText value="#{campanha.datainicial}">
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+												</h:outputText>
+												-
+												<h:outputText value="#{campanha.datafinal}">
+													<f:convertDateTime pattern="dd/MM/yyyy"
+														timeZone="America/Sao_Paulo" />
+												</h:outputText>
+												<br /> <br />
+												<p:outputLabel style="font-size:14px;"
+													value="#{campanha.descricao}" />
+											</p>
+											<div style="width: 100%;">
+												<p:commandLink title="Ranking" value="Ranking" rendered="false"
+													style="font-weight:bold;font-size:20px;text-decoration:none;"
+													styleClass="btn btn-primary text-white col-lg-12"
+													action="#" />
+											</div>
+										</div>
+									</div>
+								</ui:repeat>
+							</div>
+						</h:panelGroup>
+
 						<br /> <br />
 
 						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
