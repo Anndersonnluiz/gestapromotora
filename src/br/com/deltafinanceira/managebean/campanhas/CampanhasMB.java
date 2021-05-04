@@ -17,61 +17,49 @@ import br.com.deltafinanceira.util.Formatacao;
 
 @Named
 @ViewScoped
-public class CampanhasMB implements Serializable{
+public class CampanhasMB implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Campanhas> listaCampanhas;
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
 		gerarListaCampanhas();
 	}
 
-
-
 	public List<Campanhas> getListaCampanhas() {
 		return listaCampanhas;
 	}
 
-
-
 	public void setListaCampanhas(List<Campanhas> listaCampanhas) {
 		this.listaCampanhas = listaCampanhas;
 	}
-	
-	
-	
-	
+
 	public void gerarListaCampanhas() {
 		CampanhasFacade campanhasFacade = new CampanhasFacade();
 		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
-		listaCampanhas = campanhasFacade.lista("Select c From Campanhas c Where c.datafinal>='" + dataHoje
-				+ "'");
+		listaCampanhas = campanhasFacade.lista("Select c From Campanhas c Where c.datafinal>='" + dataHoje + "'");
 		if (listaCampanhas == null) {
 			listaCampanhas = new ArrayList<Campanhas>();
 		}
 	}
-	
-	
+
 	public String novo() {
 		return "cadCampanhas";
 	}
-	
-	
+
 	public String editar(Campanhas campanhas) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("campanhas", campanhas);
 		return "cadCampanhas";
 	}
-	
-	
-	
-	
+
+	public String importar() {
+		return "importarCliente";
+	}
 
 }

@@ -742,6 +742,15 @@
 												<p:outputLabel style="font-size:14px;"
 													value="#{campanha.campanhas.descricao}" />
 											</p>
+											<hr />
+											<div style="width: 50%;" align="right">
+												<p:commandLink title="Iniciar"
+													style="font-weight:bold;font-size:14px;text-decoration:none;margin-left:2%;"
+													action="#" >
+													<img src="resources/img/play.png" width="40" />
+													Iniciar
+												</p:commandLink>
+											</div>
 										</div>
 									</div>
 								</ui:repeat>
@@ -771,11 +780,20 @@
 												<p:outputLabel style="font-size:14px;"
 													value="#{campanha.descricao}" />
 											</p>
+											<hr />
 											<div style="width: 100%;">
-												<p:commandLink title="Ranking" value="Ranking" rendered="false"
-													style="font-weight:bold;font-size:20px;text-decoration:none;"
-													styleClass="btn btn-primary text-white col-lg-12"
-													action="#" />
+												<p:commandLink title="Ranking"
+													style="font-weight:bold;font-size:14px;text-decoration:none;"
+													action="#" >
+													<img src="resources/img/classificacao.png" width="40"  />
+													Contratos
+												</p:commandLink>
+												<p:commandLink title="Iniciar"
+													style="font-weight:bold;font-size:14px;text-decoration:none;margin-left:2%;"
+													action="#" >
+													<img src="resources/img/play.png" width="40" />
+													Iniciar
+												</p:commandLink>
 											</div>
 										</div>
 									</div>

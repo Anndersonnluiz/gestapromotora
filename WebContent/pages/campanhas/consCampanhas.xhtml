@@ -19,8 +19,8 @@
 		</div>
 		<br />
 		<h:dataTable id="idTabelaCampanhas" var="campanhas"
-			styleClass="table table-bordered" value="#{campanhasMB.listaCampanhas}"
-			cellspacing="0">
+			styleClass="table table-bordered"
+			value="#{campanhasMB.listaCampanhas}" cellspacing="0">
 			<h:column>
 				<f:facet name="header">Periodo</f:facet>
 				<h:outputText value="#{campanhas.datainicial}">
@@ -38,9 +38,15 @@
 				<h:outputText value="#{campanhas.titulo}" />
 			</h:column>
 			<h:column>
-				<p:commandLink ajax="false" action="#{campanhasMB.editar(campanhas)}"
+				<p:commandLink ajax="false"
+					action="#{campanhasMB.editar(campanhas)}"
 					style="text-align: left;color:black;">
 					<span data-feather="edit"></span>
+				</p:commandLink>
+				<p:commandLink ajax="false" style="color:black;text-decoration:none;"
+					title="Importar Cliente"
+					action="#{campanhasMB.importar()}" >
+					<span data-feather="upload"></span>
 				</p:commandLink>
 			</h:column>
 		</h:dataTable>

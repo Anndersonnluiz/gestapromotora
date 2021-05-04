@@ -821,6 +821,36 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>importarCliente</from-outcome>
+			<to-view-id>pages/cliente/importarCliente.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consCampanhas</from-outcome>
+			<to-view-id>pages/campanhas/consCampanhas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadCampanhas</from-outcome>
+			<to-view-id>pages/campanhas/cadCampanhas.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	<application>
         <action-listener>
             org.primefaces.application.DialogActionListener

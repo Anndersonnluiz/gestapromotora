@@ -71,7 +71,7 @@ public class ImportarClienteMB implements Serializable{
 	
 	
 	public String cancelar() {
-		return "consCliente";
+		return "consCampanhas";
 	}
 	
 	
