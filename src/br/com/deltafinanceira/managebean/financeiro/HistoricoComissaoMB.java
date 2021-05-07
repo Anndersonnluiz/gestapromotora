@@ -524,6 +524,7 @@ public class HistoricoComissaoMB implements Serializable {
 		session.setAttribute("historicocomissao", historicocomissao);
 		session.setAttribute("tipoFiltro", tipoFiltro);
 		session.setAttribute("convenio", convenio);
+		session.setAttribute("voltar", "consPagamentoComissao");
 		return "editarComissao";
 	}
 

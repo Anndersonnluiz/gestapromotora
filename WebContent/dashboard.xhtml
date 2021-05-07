@@ -173,6 +173,23 @@
 					</div>
 				</h:panelGroup></li>
 
+			<li class="nav-item"><h:panelGroup
+					rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse"
+						data-target="#collapseEit" aria-expanded="true"
+						aria-controls="collapseEit"> <i
+						class="fas fa-funnel-dollar fa-file"></i> <span>Relatórios</span>
+					</a>
+					<div id="collapseEit" class="collapse"
+						aria-labelledby="headingFive" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<a class="collapse-item" href="pages/relatorios/consComissaoSupervisor.jsf"
+								role="button" aria-haspopup="true" aria-expanded="false">
+								Comissão Supervisor(a) </a> 
+						</div>
+					</div>
+				</h:panelGroup></li>
+
 
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseFor"
@@ -746,7 +763,7 @@
 											<div style="width: 50%;" align="right">
 												<p:commandLink title="Iniciar"
 													style="font-weight:bold;font-size:14px;text-decoration:none;margin-left:2%;"
-													action="#" >
+													action="#">
 													<img src="resources/img/play.png" width="40" />
 													Iniciar
 												</p:commandLink>
@@ -784,13 +801,13 @@
 											<div style="width: 100%;">
 												<p:commandLink title="Ranking"
 													style="font-weight:bold;font-size:14px;text-decoration:none;"
-													action="#" >
-													<img src="resources/img/classificacao.png" width="40"  />
+													action="#">
+													<img src="resources/img/classificacao.png" width="40" />
 													Contratos
 												</p:commandLink>
 												<p:commandLink title="Iniciar"
 													style="font-weight:bold;font-size:14px;text-decoration:none;margin-left:2%;"
-													action="#" >
+													action="#">
 													<img src="resources/img/play.png" width="40" />
 													Iniciar
 												</p:commandLink>

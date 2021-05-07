@@ -639,7 +639,7 @@ public class DashBoardMB implements Serializable {
 	}
 
 	public void faturamentoMensal() {
-		Date dataInicio = Formatacao.ConvercaoStringData("2020-10-31");
+		Date dataInicio = Formatacao.ConvercaoStringData("2021-01-01");
 		this.mesatual = Formatacao.getMesData(new Date()) + 1;
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false"
@@ -672,55 +672,59 @@ public class DashBoardMB implements Serializable {
 		for (int i = 0; i < lista.size(); i++) {
 			if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 16
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
-				if (this.usuarioLogadoMB.getUsuario().isSupervisao()) {
-					this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
-				} else if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.fatutamento += ((Historicocomissao) lista.get(i)).getComissaototal();
-				} else {
-					this.fatutamento += ((Historicocomissao) lista.get(i)).getCmsliq();
-				}
+				this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
+//				if (this.usuarioLogadoMB.getUsuario().isSupervisao()) {
+//					this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
+//				} else if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//					this.fatutamento += ((Historicocomissao) lista.get(i)).getComissaototal();
+//				} else {
+//					this.fatutamento += ((Historicocomissao) lista.get(i)).getCmsliq();
+//				}
 				this.nProducao++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 19
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
-				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorReceber += ((Historicocomissao) lista.get(i)).getComissaototal();
-				} else {
-					this.valorReceber += ((Historicocomissao) lista.get(i)).getCmsliq();
-				}
+				this.valorReceber += ((Historicocomissao) lista.get(i)).getProdliq();
+//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//					this.valorReceber += ((Historicocomissao) lista.get(i)).getComissaototal();
+//				} else {
+//					this.valorReceber += ((Historicocomissao) lista.get(i)).getCmsliq();
+//				}
 				this.nAguardandoPagamento++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 28
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
-				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorPagar += ((Historicocomissao) lista.get(i)).getComissaototal();
-				} else {
-					this.valorPagar += ((Historicocomissao) lista.get(i)).getCmsliq();
-				}
+				this.valorPagar += ((Historicocomissao) lista.get(i)).getProdliq();
+//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//					this.valorPagar += ((Historicocomissao) lista.get(i)).getComissaototal();
+//				} else {
+//					this.valorPagar += ((Historicocomissao) lista.get(i)).getCmsliq();
+//				}
 				this.nAguardandoAssinatura++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 36
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
-				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getComissaototal();
-				} else {
-					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getCmsliq();
-				}
+				this.valorAverbacao += ((Historicocomissao) lista.get(i)).getProdliq();
+//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getComissaototal();
+//				} else {
+//					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getCmsliq();
+//				}
 				this.nPendenciaAverbacao++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 5
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.nPendenciaDocumento++;
 			} else if (((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("Pago")
 					&& ((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
-				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getComissaototal();
-				} else {
-					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getCmsliq();
-				}
+				this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getProdliq();
+//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
+//					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getComissaototal();
+//				} else {
+//					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getCmsliq();
+//				}
 				this.nComissaoRecebida++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao()
 					.intValue() == 37) {
 				this.nFormalizacaoPendencia++;
 			}
-			if (((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")
-					&& ((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
+			if (((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
 				this.valorProducao += ((Historicocomissao) lista.get(i)).getProdliq();
 				this.nTotalProducao++;
 			}
@@ -791,6 +795,10 @@ public class DashBoardMB implements Serializable {
 	}
 
 	public String producaoGeral() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("convenio", convenio);
+		session.setAttribute("tipoFiltro", "0");
 		return "consProducao";
 	}
 

@@ -24,7 +24,7 @@
 		<class>br.com.deltafinanceira.model.Metafaturamentomensal</class>
 		<class>br.com.deltafinanceira.model.Rankingvendas</class>
 		<class>br.com.deltafinanceira.model.Tipodespesa</class>
-		<class>br.com.deltafinanceira.model.Contaspagar</class>
+		<class>br.com.deltafinanceira.model.Contaspagar</class> 
 		<class>br.com.deltafinanceira.model.Tipoarquivo</class>
 		<class>br.com.deltafinanceira.model.Contratoarquivo</class>
 		<class>br.com.deltafinanceira.model.Contasreceber</class>
@@ -48,6 +48,7 @@
 		<class>br.com.deltafinanceira.model.Campanhas</class>
 		<class>br.com.deltafinanceira.model.Campanhascontrato</class>
 		<class>br.com.deltafinanceira.model.Campanhasusuario</class>
+		<class>br.com.deltafinanceira.model.Comissaovenda</class>
 		<properties>  
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sistemasdelta.com.br:3306/sistemad_deltafinanceira"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

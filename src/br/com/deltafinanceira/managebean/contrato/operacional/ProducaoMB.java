@@ -81,12 +81,26 @@ public class ProducaoMB implements Serializable {
 
 	private Date dataCadastroFinal;
 
-	private int convenio;
+	private Integer convenio;
 
 	private String nomecliente;
 
+	private boolean situacaoTodos;
+	private boolean situacaoAguardandoAssinatura;
+	private boolean situacaoAguardandoPagamento;
+	private boolean situacaoPendenciaAverbacao;
+	private boolean situacaoPagoCliente;
+	private boolean situacaoComissaoRecebida;
+	private String tipoFiltro;
+
 	@PostConstruct
 	public void init() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		convenio = (Integer) session.getAttribute("convenio");
+		session.removeAttribute("convenio");
+		tipoFiltro = (String) session.getAttribute("tipoFiltro");
+		session.removeAttribute("tipoFiltro");
 		gerarListaInicial();
 		gerarListaUsuario();
 		gerarListaTipoOperacao();
@@ -337,14 +351,81 @@ public class ProducaoMB implements Serializable {
 		this.nomecliente = nomecliente;
 	}
 
+	public boolean isSituacaoTodos() {
+		return situacaoTodos;
+	}
+
+	public void setSituacaoTodos(boolean situacaoTodos) {
+		this.situacaoTodos = situacaoTodos;
+	}
+
+	public boolean isSituacaoAguardandoAssinatura() {
+		return situacaoAguardandoAssinatura;
+	}
+
+	public void setSituacaoAguardandoAssinatura(boolean situacaoAguardandoAssinatura) {
+		this.situacaoAguardandoAssinatura = situacaoAguardandoAssinatura;
+	}
+
+	public boolean isSituacaoAguardandoPagamento() {
+		return situacaoAguardandoPagamento;
+	}
+
+	public void setSituacaoAguardandoPagamento(boolean situacaoAguardandoPagamento) {
+		this.situacaoAguardandoPagamento = situacaoAguardandoPagamento;
+	}
+
+	public boolean isSituacaoPendenciaAverbacao() {
+		return situacaoPendenciaAverbacao;
+	}
+
+	public void setSituacaoPendenciaAverbacao(boolean situacaoPendenciaAverbacao) {
+		this.situacaoPendenciaAverbacao = situacaoPendenciaAverbacao;
+	}
+
+	public boolean isSituacaoPagoCliente() {
+		return situacaoPagoCliente;
+	}
+
+	public void setSituacaoPagoCliente(boolean situacaoPagoCliente) {
+		this.situacaoPagoCliente = situacaoPagoCliente;
+	}
+
+	public boolean isSituacaoComissaoRecebida() {
+		return situacaoComissaoRecebida;
+	}
+
+	public void setSituacaoComissaoRecebida(boolean situacaoComissaoRecebida) {
+		this.situacaoComissaoRecebida = situacaoComissaoRecebida;
+	}
+
+	public void setConvenio(Integer convenio) {
+		this.convenio = convenio;
+	}
+
+	public String getTipoFiltro() {
+		return tipoFiltro;
+	}
+
+	public void setTipoFiltro(String tipoFiltro) {
+		this.tipoFiltro = tipoFiltro;
+	}
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h WHERE h.tipo='PENDENTE' and h.baixa=false and h.contrato.situacao.idsituacao<>2 and h.contrato.ultimamudancasituacao>='2020-11-01' and h.contrato.simulacao=false";
+		String sql = "Select h From Historicocomissao h WHERE h.baixa=false and h.contrato.situacao.idsituacao<>2 and h.contrato.ultimamudancasituacao>='2020-11-01' and h.contrato.simulacao=false";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral()
 				&& this.usuarioLogadoMB.getUsuario().isResponsaveldepartamento()) {
 			sql = String.valueOf(sql) + " and h.contrato.usuario.departamento.iddepartamento=7";
-		}else {
+		} else {
 			sql = sql + " and h.contrato.usuario.treinamento=false";
+		}
+		if (this.convenio > 0) {
+			if (this.convenio == 1) {
+				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=true";
+			} else if (this.convenio == 2) {
+				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=false";
+			}
 		}
 		sql = String.valueOf(sql) + " order by h.contrato.ultimamudancasituacao";
 		this.listaComissao = historicoComissaoFacade.lista(sql);
@@ -408,20 +489,39 @@ public class ProducaoMB implements Serializable {
 			sql = String.valueOf(sql) + " and h.contrato.datacadastro>='"
 					+ Formatacao.ConvercaoDataNfe(this.dataCadastroIni) + "'" + " and h.contrato.datacadastro<='"
 					+ Formatacao.ConvercaoDataNfe(this.dataCadastroFinal) + "'";
-		if (this.situacao > 0)
-			if (this.situacao == 1) {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=28";
-			} else if (this.situacao == 2) {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=19";
-			} else if (this.situacao == 3) {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=2";
-			} else if (this.situacao == 4) {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=16 and h.tipo<>'Pago'";
-			} else if (this.situacao == 6) {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=16 and h.tipo='Pago'";
-			} else {
-				sql = String.valueOf(sql) + " and h.contrato.situacao.idsituacao=36";
+		if (situacaoAguardandoAssinatura || situacaoAguardandoPagamento 
+				|| situacaoComissaoRecebida || situacaoPagoCliente || situacaoPendenciaAverbacao) {
+			sql = sql + " and (";
+			if (situacaoAguardandoAssinatura) {
+				sql = sql + " h.contrato.situacao.idsituacao=28";
+				if (situacaoAguardandoPagamento 
+						|| situacaoComissaoRecebida || situacaoPagoCliente || situacaoPendenciaAverbacao) {
+					sql = sql + " or ";
+				}
 			}
+			if (situacaoAguardandoPagamento) {
+				sql = sql + " h.contrato.situacao.idsituacao=19";
+				if (situacaoComissaoRecebida || situacaoPagoCliente || situacaoPendenciaAverbacao) {
+					sql = sql + " or ";
+				}
+			}
+			if (situacaoComissaoRecebida) {
+				sql = sql + " h.contrato.situacao.idsituacao=16 and h.tipo='Pago'";
+				if (situacaoPagoCliente || situacaoPendenciaAverbacao) {
+					sql = sql + " or ";
+				}
+			}
+			if (situacaoPagoCliente) {
+				sql = sql + " h.contrato.situacao.idsituacao=16 and h.tipo='PENDENTE'";
+				if (situacaoPendenciaAverbacao) {
+					sql = sql + " or ";
+				}
+			}
+			if (situacaoPendenciaAverbacao) {
+				sql = sql + " h.contrato.situacao.idsituacao=36";
+			}
+			sql = sql + ") ";
+		}
 		if (this.statusTipo != null && this.statusTipo.length() > 0)
 			sql = String.valueOf(sql) + " and h.tipo='" + this.statusTipo + "'";
 		if (this.usuarioLogadoMB.getUsuario().isSupervisao())
@@ -491,6 +591,11 @@ public class ProducaoMB implements Serializable {
 		this.dataCadastroIni = null;
 		this.convenio = 0;
 		this.nomecliente = "";
+		this.situacaoAguardandoAssinatura = false;
+		this.situacaoAguardandoPagamento = false;
+		this.situacaoComissaoRecebida = false;
+		this.situacaoPagoCliente = false;
+		this.situacaoPendenciaAverbacao = false;
 		gerarListaInicial();
 	}
 
@@ -526,6 +631,7 @@ public class ProducaoMB implements Serializable {
 			listaSelecionado = this.listaComissao;
 		}
 		session.setAttribute("listaComissao", listaSelecionado);
+		session.setAttribute("convenio", convenio);
 		String periodo = "";
 		if (this.dataCadastroIni != null && this.dataCadastroFinal != null) {
 			periodo = String.valueOf(Formatacao.ConvercaoDataPadrao(this.dataCadastroIni)) + " a "
@@ -542,5 +648,16 @@ public class ProducaoMB implements Serializable {
 		}
 		session.setAttribute("corretor", corretor);
 		return "relatorioProducao";
+	}
+	
+	
+	public String editar(Historicocomissao historicocomissao) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("historicocomissao", historicocomissao);
+		session.setAttribute("tipoFiltro", "0");
+		session.setAttribute("convenio", convenio);
+		session.setAttribute("voltar", "consProducao");
+		return "editarComissao";
 	}
 }

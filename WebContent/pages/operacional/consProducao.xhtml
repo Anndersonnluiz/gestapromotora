@@ -10,36 +10,61 @@
 		<hr />
 		<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
 
+
 		<p:accordionPanel activeIndex="null">
 			<p:tab title="Filtros">
+				<h6>Situação do Contrato</h6>
+				<hr/>
+				<div class="form-row" style="font-size: 14px;">
+					<div class="form-group col-md-3">
+						<label>Perdência de Averbação</label> <br />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{producaoMB.situacaoPendenciaAverbacao}" />
+						</h:panelGroup>
+					</div>
+					<div class="form-group col-md-3">
+						<label>Aguardando Assinatura</label> <br />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{producaoMB.situacaoAguardandoAssinatura}" />
+						</h:panelGroup>
+					</div>
+					<div class="form-group col-md-3">
+						<label>Aguardando Pagamento</label> <br />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{producaoMB.situacaoAguardandoPagamento}" />
+						</h:panelGroup>
+					</div>
+					<div class="form-group col-md-3">
+						<label>Pago ao Cliente</label> <br />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{producaoMB.situacaoPagoCliente}" />
+						</h:panelGroup>
+					</div>
+					<div class="form-group col-md-3">
+						<label>Comissão Recebida</label> <br />
+						<h:panelGroup>
+							<p:selectBooleanCheckbox value="#{producaoMB.situacaoComissaoRecebida}" />
+						</h:panelGroup>
+					</div>
+				</div>
+				<br/>
+				<h6>Dados Cliente</h6>
+				<hr/>
 				<div class="form-row" style="font-size: 14px;">
 
 
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-5">
 						<label for="nomecliente">Nome Cliente</label>
 						<h:inputText class="form-control" id="nomecliente"
 							value="#{producaoMB.nomecliente}">
 						</h:inputText>
-					</div>
-					<div class="form-group col-md-6">
-						<label>Situação</label>
-						<h:selectOneMenu style="width: 100%;" id="situacao"
-							value="#{producaoMB.situacao}" styleClass="form-control">
-							<f:selectItem itemLabel="TODOS" itemValue="0" />
-							<f:selectItem itemLabel="AGUARDANDO ASSINATURA" itemValue="1" />
-							<f:selectItem itemLabel="AGUARDANDO PAGAMENTO" itemValue="2" />
-							<f:selectItem itemLabel="CANCELADOS" itemValue="3" />
-							<f:selectItem itemLabel="PAGO AO CLIENTE" itemValue="4" />
-							<f:selectItem itemLabel="PENDÊNCIA AVERBAÇÃO" itemValue="5" />
-							<f:selectItem itemLabel="COMISSÃO RECEBIDA" itemValue="6" />
-						</h:selectOneMenu>
 					</div>
 					<div class="form-group col-md-3">
 						<label for="cpf">CPF</label>
 						<p:inputMask mask="999.999.999-99" id="cpf"
 							styleClass="form-control" value="#{producaoMB.cpf}" />
 					</div>
-					<div class="form-group col-md-5">
+					<div class="form-group col-md-4">
 						<label for="usuario">Corretor</label>
 						<h:selectOneMenu id="usuario" style="width: 100%;"
 							immediate="true" value="#{producaoMB.usuario}"
@@ -54,7 +79,12 @@
 								value="#{producaoMB.listaUsuario}" />
 						</h:selectOneMenu>
 					</div>
-					<div class="form-group col-md-4">
+				</div>
+				<br/>
+				<h6>Operação</h6>
+				<hr/>
+				<div class="form-row" style="font-size: 14px;">
+					<div class="form-group col-md-3">
 						<label for="usuario">Convênio</label>
 						<h:selectOneMenu style="width: 100%;" id="convenio"
 							value="#{producaoMB.convenio}" styleClass="form-control">
@@ -64,7 +94,7 @@
 						</h:selectOneMenu>
 					</div>
 
-					<div class="form-group col-md-7">
+					<div class="form-group col-md-5">
 						<label for="inputRG">Tipo de Operação</label>
 						<h:selectOneMenu id="tipooperacao" style="width: 100%;"
 							value="#{producaoMB.tipooiperacao}"
@@ -80,7 +110,7 @@
 						</h:selectOneMenu>
 					</div>
 					<div class="form-group col-md-4">
-						<label for="usuario">Periodo Última Situação</label>
+						<label for="usuario">Periodo Lançamento</label>
 						<h:panelGrid columns="2" style="width:80%;">
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
 								style="widht:80%;font-size:14px;" value="#{producaoMB.dataini}"
@@ -93,31 +123,6 @@
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
 								style="widht:80%;font-size:14px;" value="#{producaoMB.datafin}"
 								id="datafin" size="9">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="dateSelect" />
-								<p:ajax event="blur" />
-							</p:calendar>
-						</h:panelGrid>
-					</div>
-
-
-					<div class="form-group col-md-4">
-						<label for="usuario">Periodo Cadastramento</label>
-						<h:panelGrid columns="2" style="width:80%;">
-							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;"
-								value="#{producaoMB.dataCadastroIni}" id="dataCadastroini"
-								size="9">
-								<f:convertDateTime pattern="dd/MM/yyyy"
-									timeZone="America/Sao_Paulo" />
-								<p:ajax event="dateSelect" />
-								<p:ajax event="blur" />
-							</p:calendar>
-							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;"
-								value="#{producaoMB.dataCadastroFinal}" id="dataCadastrofin"
-								size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
 								<p:ajax event="dateSelect" />
@@ -267,11 +272,9 @@
 			</div>
 
 		</div>
-		<br />
 		<div align="right">
 			<p:commandLink action="#{producaoMB.relatorioGeral()}"
-				style="font-size:14px;"
-				>
+				style="font-size:14px;">
 				<img src="../../resources/img/impressora.png" width="35" />
 			</p:commandLink>
 
@@ -280,7 +283,7 @@
 		<p:dataTable id="idTabelaComissao" var="comissao"
 			value="#{producaoMB.listaComissao}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single"
+			scrollHeight="350" selectionMode="single"
 			rowKey="#{comissao.idhistoricocomissao}">
 
 
@@ -305,10 +308,6 @@
 					value="#{comissao.contrato.orgaoBanco.banco.nome} / 
 					#{comissao.contrato.orgaoBanco.nome}" />
 			</p:column>
-			<p:column headerText="Cadastro"
-				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.codigocontrato}" />
-			</p:column>
 			<p:column headerText="Operação"
 				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<h:outputText value="#{comissao.contrato.tipooperacao.apelido}" />
@@ -328,9 +327,19 @@
 						maxFractionDigits="2" />
 				</h:outputText>
 			</p:column>
+			<p:column headerText="CMS Recebida"
+				style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+				<h:outputText value="#{comissao.tipo}" />
+			</p:column>
 			<p:column headerText=""
-				style="width:5%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
-				<p:selectBooleanCheckbox value="#{comissao.selecionado}" />
+				style="width:7%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+				<p:commandLink ajax="false"
+					rendered="#{usuarioLogadoMB.usuario.comissao}"
+					action="#{producaoMB.editar(comissao)}"
+					style="text-align: left;color:black;" title="Editar">
+					<span data-feather="edit"></span>
+				</p:commandLink> 
+				<p:selectBooleanCheckbox value="#{comissao.selecionado}" style="margin-left:2%;"/>
 			</p:column>
 		</p:dataTable>
 		<br />
