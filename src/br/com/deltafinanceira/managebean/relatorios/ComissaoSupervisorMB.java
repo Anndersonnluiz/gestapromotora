@@ -12,17 +12,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.deltafinanceira.facade.BancoFacade;
 import br.com.deltafinanceira.facade.ComisaoVendaFacade;
-import br.com.deltafinanceira.facade.HistoricoComissaoFacade;
 import br.com.deltafinanceira.facade.TipoOperacaoFacade;
 import br.com.deltafinanceira.facade.UsuarioFacade;
-import br.com.deltafinanceira.model.Banco;
 import br.com.deltafinanceira.model.Comissaovenda;
 import br.com.deltafinanceira.model.Historicocomissao;
 import br.com.deltafinanceira.model.Tipooperacao;
 import br.com.deltafinanceira.model.Usuario;
 import br.com.deltafinanceira.util.Formatacao;
+import br.com.deltafinanceira.util.Mensagem;
 import br.com.deltafinanceira.util.UsuarioLogadoMB;
 
 @Named
@@ -252,7 +250,7 @@ public class ComissaoSupervisorMB implements Serializable {
 
 	public void gerarListaInicial() {
 		ComisaoVendaFacade comisaoVendaFacade = new ComisaoVendaFacade();
-		String sql = "Select c From Comissaovenda c WHERE c.contrato.simulacao=false";
+		String sql = "Select c From Comissaovenda c WHERE c.contrato.simulacao=false and c.baixa=false";
 		sql = sql + " order by c.contrato.datapagamento";
 		listaComissao = comisaoVendaFacade.lista(sql);
 		if (listaComissao == null) {
@@ -286,7 +284,7 @@ public class ComissaoSupervisorMB implements Serializable {
 	}
 
 	public void pesquisar() {
-		String sql = "Select c From Comissaovenda c Where c.contrato.simulacao=false ";
+		String sql = "Select c From Comissaovenda c Where c.contrato.simulacao=false and c.baixa=false";
 		if (tipooiperacao != null && tipooiperacao.getIdtipooperacao() != null) {
 			sql = sql + " and c.contrato.tipooperacao.idtipooperacao=" + tipooiperacao.getIdtipooperacao();
 		}
@@ -375,8 +373,8 @@ public class ComissaoSupervisorMB implements Serializable {
 		}
 		session.setAttribute("listaComissao", listaSelecionado);
 		String periodo = "";
-		if (dataini != null && datafin != null) {
-			periodo = Formatacao.ConvercaoDataPadrao(dataini) + " a " + Formatacao.ConvercaoDataPadrao(datafin);
+		if (dataCadastroIni != null && dataCadastroFinal != null) {
+			periodo = Formatacao.ConvercaoDataPadrao(dataCadastroIni) + " a " + Formatacao.ConvercaoDataPadrao(dataCadastroFinal);
 		} else {
 			periodo = "Sem Periodo";
 		}
@@ -388,7 +386,7 @@ public class ComissaoSupervisorMB implements Serializable {
 			supervisor = "Todos";
 		}
 		session.setAttribute("supervisor", supervisor);
-		return "fichaComissoesSupervisor";
+		return "fichaComissaoSupervisor";
 	}
 
 	public void selecionarTodosContratos() {
@@ -418,6 +416,30 @@ public class ComissaoSupervisorMB implements Serializable {
 		if (listaTipoOperacao == null) {
 			listaTipoOperacao = new ArrayList<Tipooperacao>();
 		}
+	}
+	 
+	
+	public void baixarTodos() {
+		boolean selecionado = false;
+		List<Comissaovenda> listaSelecionado = new ArrayList<Comissaovenda>();
+		for (int i = 0; i < listaComissao.size(); i++) {
+			if (listaComissao.get(i).isSelecionado()) {
+				listaSelecionado.add(listaComissao.get(i));
+				selecionado = true;
+			}
+		}
+		if (!selecionado) {
+			listaSelecionado = listaComissao;
+		}
+		ComisaoVendaFacade comisaoVendaFacade = new ComisaoVendaFacade();
+		for (int i = 0; i < listaSelecionado.size(); i++) {
+			listaSelecionado.get(i).setBaixa(true);
+			listaSelecionado.get(i).setDescricaobaixa("thumbs-up");
+			listaSelecionado.get(i).setCorbaixa("green");
+			comisaoVendaFacade.salvar(listaSelecionado.get(i));
+			listaComissao.remove(listaSelecionado.get(i));
+		}
+		Mensagem.lancarMensagemInfo("Baixa Realizada", "");
 	}
 
 }

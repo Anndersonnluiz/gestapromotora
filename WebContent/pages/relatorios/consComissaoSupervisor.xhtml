@@ -69,7 +69,7 @@
 						</h:panelGrid>
 					</div>
 
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-4" id="idbotoespesquisar">
 						<label style="color: white;">.</label>
 						<div>
 							<p:commandLink ajax="false"
@@ -86,7 +86,7 @@
 			</p:tab>
 		</p:accordionPanel>
 		<hr />
-		<div class="row" style="color: white;" id="panelNumeros">
+		<div class="row" style="color: white;" id="panelNumeros2">
 			<div class="col-xl-3 col-md-3 mb-3">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
@@ -135,7 +135,12 @@
 		</div>
 		<br />
 		<br />
-		<div align="right">
+		<div align="right" id="idbotoes">
+			<p:commandLink action="#{comissaoSupervisorMB.baixarTodos()}"
+				style="font-size:14px;"
+				update="idTabelaComissao, growl">
+				<img src="../../resources/img/baixartodos.png" width="35" />
+			</p:commandLink>
 			<p:commandLink action="#{comissaoSupervisorMB.fichaComissoes()}"
 				style="font-size:14px;">
 				<img src="../../resources/img/impressora.png" width="35" />
@@ -191,15 +196,6 @@
 			<p:column headerText="Produção"
 				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 				<h:outputText value="#{comissao.prodliq}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2"
-						maxFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Corretor"
-				rendered="#{usuarioLogadoMB.usuario.acessogeral}"
-				style="width:9%; font-size:11px; background:white; border:none;text-align:right; color:black;">
-				<h:outputText value="#{comissao.comissaocorretor}"
-					style="color:red;">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"
 						maxFractionDigits="2" />
 				</h:outputText>

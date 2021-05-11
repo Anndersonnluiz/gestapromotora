@@ -456,9 +456,9 @@ public class AlterarSituacaoMB implements Serializable {
 			if (contrato.isOperacaoinss()) {
 				Comissaovenda comissaovenda = new Comissaovenda();
 				comissaovenda.setComissaocorretor(comissaoCorretor);
-				comissaovenda.setComissaovenda((comissaoCorretor * listaUsuariocomissao.get(i).getComissaocorretor()) / 100.0F);
+				comissaovenda.setComissaovenda((contrato.getValorcliente() * listaUsuariocomissao.get(i).getComissaocorretor()) / 100.0F);
 				comissaovenda.setContrato(contrato);
-				comissaovenda.setDatalancamento(contrato.getUltimamudancasituacao());
+				comissaovenda.setDatalancamento(new Date());
 				comissaovenda.setProdliq(contrato.getValorcliente());
 				comissaovenda.setUsuario(listaUsuariocomissao.get(i).getUsuario());
 				comissaovenda.setDescricao("Percentual da venda para o(a) Supervisor(a):" + listaUsuariocomissao.get(i).getUsuario().getNome());

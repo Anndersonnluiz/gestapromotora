@@ -427,7 +427,7 @@ public class ProducaoMB implements Serializable {
 				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=false";
 			}
 		}
-		sql = String.valueOf(sql) + " order by h.contrato.ultimamudancasituacao";
+		sql = String.valueOf(sql) + " order by h.datalancamento";
 		this.listaComissao = historicoComissaoFacade.lista(sql);
 		if (this.listaComissao == null)
 			this.listaComissao = new ArrayList<>();
@@ -486,8 +486,8 @@ public class ProducaoMB implements Serializable {
 					+ Formatacao.ConvercaoDataNfe(this.dataini) + "' and h.contrato.ultimamudancasituacao<='"
 					+ Formatacao.ConvercaoDataNfe(this.datafin) + "'";
 		if (this.dataCadastroIni != null && this.dataCadastroFinal != null)
-			sql = String.valueOf(sql) + " and h.contrato.datacadastro>='"
-					+ Formatacao.ConvercaoDataNfe(this.dataCadastroIni) + "'" + " and h.contrato.datacadastro<='"
+			sql = String.valueOf(sql) + " and h.datalancamento>='"
+					+ Formatacao.ConvercaoDataNfe(this.dataCadastroIni) + "'" + " and h.datalancamento<='"
 					+ Formatacao.ConvercaoDataNfe(this.dataCadastroFinal) + "'";
 		if (situacaoAguardandoAssinatura || situacaoAguardandoPagamento 
 				|| situacaoComissaoRecebida || situacaoPagoCliente || situacaoPendenciaAverbacao) {
@@ -532,7 +532,7 @@ public class ProducaoMB implements Serializable {
 			} else if (this.convenio == 2) {
 				sql = String.valueOf(sql) + " and h.contrato.operacaoinss=false";
 			}
-		sql = String.valueOf(sql) + " order by h.contrato.datapagamento";
+		sql = String.valueOf(sql) + " order by h.datalancamento";
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		this.listaComissao = historicoComissaoFacade.lista(sql);
 		if (this.listaComissao == null)

@@ -14,33 +14,30 @@
 	<link href="../../resources/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="../../resources/css/css.css" rel="stylesheet" />
 	<style>
-		@media print {
-			#noprint {
-				display: none;
-			}
-			body {
-				background: #fff;
-			}
-		}
-	</style>
+@media print {
+	#noprint {
+		display: none;
+	}
+	body {
+		background: #fff;
+	}
+}
+</style>
 </h:head>
 <h:body style="background:white;">
 	<br />
 	<h:form>
-	
+
 		<div align="center" id="noprint">
 			<p:commandLink ajax="false" styleClass="btn btn-primary"
-					value="Voltar" action="#{fichaComissoesMB.voltar()}" />
+				value="Voltar" action="#{fichaComissaoSupervisorMB.voltar()}" />
 			<a href="javascript:;" onclick="window.print();return false"><button
 					type="button" class="btn btn-primary" title="Imprimir">Imprimir</button></a>
 		</div>
-		
+
 		<br />
 
-		<div align="center">
-			<h4>RELATÓRIO: #{fichaComissoesMB.nomeSituacao}</h4>
-		</div>
-		<br />
+
 		<div
 			style="font-family: sans-serif; font-size: 16px; width: 90%; margin-left: 5%;">
 
@@ -49,67 +46,67 @@
 				style="border: 2px solid;width:100%;border-color:#9C9C9C;">
 				<h:panelGrid style="width:100%;" columns="2">
 					<h:panelGroup>
-						<b>Corretor: </b>
-					#{fichaComissoesMB.corretor}
+						<b>Supervisor: </b>
+					#{fichaComissaoSupervisorMB.supervisor}
 				</h:panelGroup>
 
 					<h:panelGroup>
 						<b>Periodo: </b>
-					#{fichaComissoesMB.periodo}
+					#{fichaComissaoSupervisorMB.periodo}
 				</h:panelGroup>
 				</h:panelGrid>
 
 			</h:panelGrid>
 			<br />
-			<h:panelGroup align="center">
+			<h:panelGroup align="center"> 
 				<b>LISTA DE CONTRATOS </b>
 			</h:panelGroup>
 			<br />
+			<br/>
 			<p:dataTable id="idTabelaComissao" var="comissao"
-				value="#{fichaComissoesMB.listaComissao}">
+				value="#{comissaoSupervisorMB.listaComissao}">
 
 
 				<p:column headerText="Lançamento"
-					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
+					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.datalancamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Corretor"
-					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.usuario.nome}" />
-				</p:column>
-				<p:column headerText="CPF"
-					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.cliente.cpf}" />
-				</p:column>
-				<p:column headerText="Cliente"
-					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.cliente.nome}" />
-				</p:column>
-				<p:column headerText="Banco"
-					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
-				</p:column>
 				<p:column headerText="Operação"
-					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.contrato.tipooperacao.apelido}" />
 				</p:column>
-				<p:column headerText="Promotora"
-					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.promotora.descricao}" />
+				<p:column headerText="Banco"
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
 				</p:column>
-				<p:column headerText="PROD."
+				<p:column headerText="Cliente"
+					style="width:20%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.cliente.nome}" />
+				</p:column>
+				<p:column headerText="Corretor(a)"
+					style="width:15%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.usuario.nome}" />
+				</p:column>
+				<p:column headerText="Supervisor(a)"
+					style="width:15%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.usuario.nome}" />
+				</p:column>
+				<p:column headerText="Produção"
 					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 					<h:outputText value="#{comissao.prodliq}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2"
+							maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="$ Corretor"
-					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
-					<h:outputText value="#{comissao.cmsliq}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				<p:column headerText="Supervisor(a)"
+					style="width:8%; font-size:11px; background:white;border:none;text-align:right; color:black;">
+					<h:outputText value="#{comissao.comissaovenda}"
+						style="color:green;">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2"
+							maxFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 			</p:dataTable>
@@ -124,7 +121,7 @@
 					<h:panelGroup style="text-align:right;">
 						<b>Produção: </b>
 						<b>R$ <p:outputLabel style="color:green;"
-								value="#{fichaComissoesMB.valorProducao}">
+								value="#{fichaComissaoSupervisorMB.valorProducao}">
 								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 							</p:outputLabel>
 						</b>
@@ -132,44 +129,41 @@
 					<h:panelGroup style="text-align:right;">
 						<b>Comissão: </b>
 						<b>R$ <p:outputLabel style="color:green;"
-								value="#{fichaComissoesMB.comissaoRecebida}">
+								value="#{fichaComissaoSupervisorMB.comissaoRecebida}">
 								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 							</p:outputLabel>
 						</b>
-					</h:panelGroup>
-					<h:panelGroup>
-						<b>Meta: </b>
 					</h:panelGroup>
 				</h:panelGrid>
 				<h:panelGrid style="width:100%;font-size:20px;" columns="4">
 					<h:panelGroup>
 						<b>Contratos:</b>
-						<b><p:outputLabel value="#{fichaComissoesMB.nContratos}" /></b>
+						<b><p:outputLabel value="#{fichaComissaoSupervisorMB.nContratos}" /></b>
 					</h:panelGroup>
-					<h:panelGroup rendered="#{fichaComissoesMB.viewPortabilidade}">
+					<h:panelGroup rendered="#{fichaComissaoSupervisorMB.viewPortabilidade}">
 						<b>Portabilidade:</b>
-						<b><p:outputLabel value="#{fichaComissoesMB.nPortabilidade}" /></b>
+						<b><p:outputLabel value="#{fichaComissaoSupervisorMB.nPortabilidade}" /></b>
 					</h:panelGroup>
-					<h:panelGroup rendered="#{fichaComissoesMB.viewMargem}">
+					<h:panelGroup rendered="#{fichaComissaoSupervisorMB.viewMargem}">
 						<b>Margem:</b>
-						<b><p:outputLabel value="#{fichaComissoesMB.nMargem}" /></b>
+						<b><p:outputLabel value="#{fichaComissaoSupervisorMB.nMargem}" /></b>
 					</h:panelGroup>
-					<h:panelGroup rendered="#{fichaComissoesMB.viewCartao}">
+					<h:panelGroup rendered="#{fichaComissaoSupervisorMB.viewCartao}">
 						<b>Cartão:</b>
-						<b><p:outputLabel value="#{fichaComissoesMB.nCartao}" /></b>
+						<b><p:outputLabel value="#{fichaComissaoSupervisorMB.nCartao}" /></b>
 					</h:panelGroup>
-					<h:panelGroup rendered="#{fichaComissoesMB.viewRefinanciamento}">
+					<h:panelGroup rendered="#{fichaComissaoSupervisorMB.viewRefinanciamento}">
 						<b>Refin:</b>
-						<b><p:outputLabel value="#{fichaComissoesMB.nRefinanciamento}" /></b>
+						<b><p:outputLabel value="#{fichaComissaoSupervisorMB.nRefinanciamento}" /></b>
 					</h:panelGroup>
 				</h:panelGrid>
 			</h:panelGrid>
-			<br />
+			<br /> 
 			<h:panelGrid columns="1" style="width:100%;">
 				<p>
 					<b>Declaro que li e concordo com o(s) valor(es) do contrato(s)
 						acima a serem pagos referente ao periodo de:
-						#{fichaComissoesMB.periodo}. </b>
+						#{fichaComissaoSupervisorMB.periodo}. </b>
 
 				</p>
 				<br />
@@ -178,7 +172,7 @@
 				<br />
 				<br />
 				<hr width="80%" align="left" style="color: black;" />
-				<p>Assinatura do(a) Corretor(a): #{fichaComissoesMB.corretor}</p>
+				<p>Assinatura do(a) Supervisor(a): #{fichaComissaoSupervisorMB.supervisor}</p>
 				<br />
 				<br />
 				<br />

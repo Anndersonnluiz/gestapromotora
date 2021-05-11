@@ -40,6 +40,12 @@ public class Comissaovenda implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(name = "datalancamento")
 	private Date datalancamento;
+	@Column(name = "baixa")
+	private boolean baixa;
+	@Column(name = "descricaobaixa")
+	private String descricaobaixa;
+	@Column(name = "corbaixa")
+	private String corbaixa;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
@@ -163,6 +169,42 @@ public class Comissaovenda implements Serializable{
 
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
+	}
+
+
+
+	public boolean isBaixa() {
+		return baixa;
+	}
+
+
+
+	public void setBaixa(boolean baixa) {
+		this.baixa = baixa;
+	}
+
+
+
+	public String getDescricaobaixa() {
+		return descricaobaixa;
+	}
+
+
+
+	public void setDescricaobaixa(String descricaobaixa) {
+		this.descricaobaixa = descricaobaixa;
+	}
+
+
+
+	public String getCorbaixa() {
+		return corbaixa;
+	}
+
+
+
+	public void setCorbaixa(String corbaixa) {
+		this.corbaixa = corbaixa;
 	}
 
 

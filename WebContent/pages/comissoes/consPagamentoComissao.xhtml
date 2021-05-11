@@ -143,21 +143,23 @@
 					<div class="form-group col-md-4">
 						<label style="color: white;">.</label>
 						<div>
-							<p:commandLink ajax="false"
-								styleClass="btn btn-primary text-white" value="Pesquisar"
-								action="#{historicoComissaoMB.pesquisar()}"
-								update="idTabelaComissao, panelNumeros" />
+							<h:panelGroup>
+								<p:commandLink ajax="false"
+									styleClass="btn btn-primary text-white" value="Pesquisar"
+									action="#{historicoComissaoMB.pesquisar()}"
+									update="idTabelaComissao, panelNumeros, panelNumeros2" />
+							</h:panelGroup>
 							<p:commandLink ajax="false" style="margin-left:1%;"
 								styleClass="btn btn-link" value="Limpar"
 								action="#{historicoComissaoMB.limpar()}"
-								update="idTabelaComissao, cpf, nomecliente, usuario, situacao, tipooperacao, panelNumeros" />
+								update="idTabelaComissao, cpf, nomecliente, usuario, situacao, tipooperacao, panelNumeros, panelNumeros2" />
 						</div>
 					</div>
 				</div>
 			</p:tab>
 		</p:accordionPanel>
 		<hr />
-		<div class="row" style="color: white;" id="panelNumeros">
+		<div class="row" style="color: white;" id="panelNumeros2">
 			<div class="col-xl-3 col-md-3 mb-3">
 				<div class="card border-left-primary shadow h-100 py-2">
 					<div class="card-body">
@@ -225,6 +227,10 @@
 			<h5>#{historicoComissaoMB.nomeSituacao}</h5>
 		</div>
 		<div align="right">
+			<p:commandLink action="#{historicoComissaoMB.baixarTodos()}" rendered="#{historicoComissaoMB.baixarTodos}"
+				style="font-size:14px;" update="@form">
+				<img src="../../resources/img/baixartodos.png" width="35" />
+			</p:commandLink>
 			<p:commandLink action="#{historicoComissaoMB.fichaComissoes()}"
 				style="font-size:14px;">
 				<img src="../../resources/img/impressora.png" width="35" />
@@ -325,7 +331,7 @@
 				<h:outputText value="#{comissao.tipo}" />
 			</p:column>
 			<p:column headerText="Baixa"
-				rendered="#{usuarioLogadoMB.usuario.comissao}"
+				rendered="#{historicoComissaoMB.baixarTodos}"
 				style="width:5%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 				<p:commandLink ajax="false" update="idTabelaComissao"
 					action="#{historicoComissaoMB.pagou(comissao)}" title="Baixa"

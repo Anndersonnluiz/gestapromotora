@@ -113,7 +113,7 @@
 						<label for="usuario">Periodo Lançamento</label>
 						<h:panelGrid columns="2" style="width:80%;">
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;" value="#{producaoMB.dataini}"
+								style="widht:80%;font-size:14px;" value="#{producaoMB.dataCadastroIni}"
 								id="dataini" size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
@@ -121,7 +121,7 @@
 								<p:ajax event="blur" />
 							</p:calendar>
 							<p:calendar locale="pt_BR" pattern="dd/MM/yyyy"
-								style="widht:80%;font-size:14px;" value="#{producaoMB.datafin}"
+								style="widht:80%;font-size:14px;" value="#{producaoMB.dataCadastroFinal}"
 								id="datafin" size="9">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="America/Sao_Paulo" />
@@ -287,9 +287,9 @@
 			rowKey="#{comissao.idhistoricocomissao}">
 
 
-			<p:column headerText="Lançamento"
+			<p:column headerText="Cadastro"
 				style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-				<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
+				<h:outputText value="#{comissao.datalancamento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"
 						timeZone="America/Sao_Paulo" />
 				</h:outputText>

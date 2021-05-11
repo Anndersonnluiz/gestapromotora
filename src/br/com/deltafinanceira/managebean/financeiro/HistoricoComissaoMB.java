@@ -64,6 +64,7 @@ public class HistoricoComissaoMB implements Serializable {
 	private List<Banco> listaBanco;
 	private Banco banco;
 	private String nomeSituacao;
+	private boolean baixarTodos = false;
 
 	@PostConstruct
 	public void init() {
@@ -83,6 +84,9 @@ public class HistoricoComissaoMB implements Serializable {
 		if (!usuarioLogadoMB.getUsuario().isAcessogeral() && !usuarioLogadoMB.getUsuario().isSupervisao()) {
 			unicoUsuario = true;
 			usuario = usuarioLogadoMB.getUsuario();
+		}
+		if (usuarioLogadoMB.getUsuario().isComissao() && tipoFiltro.equalsIgnoreCase("comissao")) {
+			baixarTodos = true;
 		}
 	}
 
@@ -346,6 +350,14 @@ public class HistoricoComissaoMB implements Serializable {
 		this.nomeSituacao = nomeSituacao;
 	}
 
+	public boolean isBaixarTodos() {
+		return baixarTodos;
+	}
+
+	public void setBaixarTodos(boolean baixarTodos) {
+		this.baixarTodos = baixarTodos;
+	}
+
 	public void gerarListaInicial() {
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
 		String sql = "Select h From Historicocomissao h WHERE h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false";
@@ -591,6 +603,28 @@ public class HistoricoComissaoMB implements Serializable {
 		}
 		session.setAttribute("nomeSituacao", nomeSituacao);
 		return "fichaComissoes";
+	}
+	
+	public void baixarTodos() {
+		boolean selecionado = false;
+		List<Historicocomissao> listaSelecionado = new ArrayList<Historicocomissao>();
+		for (int i = 0; i < listaComissao.size(); i++) {
+			if (listaComissao.get(i).isSelecionado()) {
+				listaSelecionado.add(listaComissao.get(i));
+				selecionado = true;
+			}
+		}
+		if (!selecionado) {
+			listaSelecionado = listaComissao;
+		}
+		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
+		for (int i = 0; i < listaSelecionado.size(); i++) {
+			listaSelecionado.get(i).setBaixa(true);
+			listaSelecionado.get(i).setDescricaobaixa("thumbs-up");
+			listaSelecionado.get(i).setCorbaixa("green");
+			historicoComissaoFacade.salvar(listaSelecionado.get(i));
+		}
+		gerarListaInicial();
 	}
 
 	public void selecionarTodosContratos() {
