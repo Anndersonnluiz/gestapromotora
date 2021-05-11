@@ -88,12 +88,12 @@
 		<h6>Secretaria</h6>
 		<hr />
 
-		<div class="form-row">
+		<div class="form-row" style="text-transform: uppercase;">
 			<h:panelGroup rendered="#{!cadContratoMB.contrato.operacaoinss}">
 				<div class="form-group col-md-4">
 					<label for="secretaria">Secretaria</label>
 					<h:inputText value="#{cadContratoMB.contrato.secretaria}"
-						style="border-color:black;" class="form-control" id="secretaria"
+						style="border-color:black;text-transform: uppercase;" class="form-control" id="secretaria"
 						placeholder="Nome" />
 				</div>
 			</h:panelGroup>
@@ -235,13 +235,13 @@
 			<div class="form-group col-md-4">
 				<label for="matricula">Matrícula</label>
 				<h:inputText value="#{cadContratoMB.contrato.matricula}"
-					style="border-color:black;" class="form-control" id="matricula"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="matricula"
 					placeholder="UF - RG" />
 			</div>
 			<div class="form-group col-md-4">
 				<label for="senha">Senha</label>
 				<h:inputText class="form-control" id="senha"
-					style="border-color:black;" value="#{cadContratoMB.contrato.senha}">
+					style="border-color:black;text-transform: uppercase;" value="#{cadContratoMB.contrato.senha}">
 				</h:inputText>
 			</div>
 		</div>
@@ -250,7 +250,7 @@
 			closable="true" />
 		<h6>Dados pessoais</h6>
 		<hr />
-		<div class="form-row">
+		<div class="form-row" style="text-transform: uppercase;">
 			<div class="form-group col-md-5">
 				<label for="inputCpf">CPF</label> <br />
 				<p:inputMask mask="999.999.999-99" id="inputCpf"
@@ -266,12 +266,12 @@
 			<div class="form-group col-md-7">
 				<label for="inputNome">Nome</label>
 				<h:inputText value="#{cadContratoMB.cliente.nome}"
-					style="border-color:black;" class="form-control" id="inputNome"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputNome"
 					placeholder="Nome" />
 			</div>
 		</div>
 
-		<div class="form-row">
+		<div class="form-row" style="text-transform: uppercase;">
 			<div class="form-group col-md-3">
 				<label for="dataNasc">Data Nascimento</label>
 				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="12"
@@ -285,32 +285,32 @@
 			<div class="form-group col-md-2">
 				<label for="inputRG">RG</label>
 				<h:inputText value="#{cadContratoMB.cliente.rg}"
-					style="border-color:black;" class="form-control" id="inputRG"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputRG"
 					placeholder="RG" />
 			</div>
 			<div class="form-group col-md-2">
 				<label for="inputOrgaoEmissor">Orgão Emissor</label>
 				<h:inputText value="#{cadContratoMB.cliente.orgaroemissor}"
-					style="border-color:black;" class="form-control"
+					style="border-color:black;text-transform: uppercase;" class="form-control"
 					id="inputOrgaoEmissor" placeholder="Nome" />
 			</div>
 			<div class="form-group col-md-2">
 				<label for="inputufrg">UF - RG</label>
 				<h:inputText value="#{cadContratoMB.cliente.ufrg}"
-					style="border-color:black;" class="form-control" id="inputufrg"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputufrg"
 					placeholder="UF - RG" />
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputNaturalidade">Naturalidade</label>
 				<h:inputText value="#{cadContratoMB.cliente.naturalidade}"
-					style="border-color:black;" class="form-control"
+					style="border-color:black;text-transform: uppercase;" class="form-control"
 					id="inputNaturalidade" placeholder="Naturalidade" />
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputUfNaturalidade">UF - Naturalidade</label>
 				<h:inputText value="#{cadContratoMB.cliente.ufnaturalidade}"
 					class="form-control" id="inputUfNaturalidade"
-					style="border-color:black;" placeholder="Estado da Naturalidade" />
+					style="border-color:black;text-transform: uppercase;" placeholder="Estado da Naturalidade" />
 			</div>
 			<div class="form-group col-md-3">
 				<label for="dataEmissao">Data Emissão</label>
@@ -326,7 +326,7 @@
 				<label for="inputResidencial">Residêncial</label>
 				<h:inputText value="#{cadContratoMB.cliente.telefoneresidencial}"
 					class="form-control" id="inputResidencial"
-					style="border-color:black;" placeholder="Telefone Residencial" />
+					style="border-color:black;text-transform: uppercase;" placeholder="Telefone Residencial" />
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputcelular">Celular</label>
@@ -337,23 +337,23 @@
 		</div>
 
 
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="form-group col-md-6">
 				<label for="inputnomepai">Nome Pai</label>
 				<h:inputText value="#{cadContratoMB.cliente.nomepai}"
-					style="border-color:black;" class="form-control" id="inputnomepai"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputnomepai"
 					placeholder="Nome Pai" />
 			</div>
 			<div class="form-group col-md-6">
 				<label for="inputnomemae">Noma Mãe</label>
 				<h:inputText value="#{cadContratoMB.cliente.nomemae}"
-					style="border-color:black;" class="form-control" id="inputnomemae"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputnomemae"
 					placeholder="Nome Mãe" />
 			</div>
 		</div>
 
 
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="form-group col-md-3">
 				<label for="inputValorSalario">Valor Salário</label>
 				<h:inputText value="#{cadContratoMB.cliente.valorsalario}"
@@ -365,7 +365,7 @@
 			<div class="form-group col-md-9">
 				<label for="inputEmail">Email</label>
 				<h:inputText value="#{cadContratoMB.cliente.email}"
-					style="border-color:black;" class="form-control" id="inputEmail" />
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputEmail" />
 			</div>
 		</div>
 
@@ -375,7 +375,7 @@
 		<hr />
 		<p:messages id="growlCep" showDetail="true" sticky="false"
 			closable="true" life="3000" />
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="form-group col-md-5">
 				<label for="inputCEP">CEP</label>
 
@@ -395,17 +395,17 @@
 				</h:panelGrid>
 			</div>
 		</div>
-		<div class="form-row" id="panelEndereco">
+		<div class="form-row" id="panelEndereco"  style="text-transform: uppercase;">
 			<div class="form-group col-md-3">
 				<label for="inputTipoLogradouro">Tipo Logradouro</label>
 				<h:inputText value="#{cadContratoMB.cliente.tipologradouro}"
 					class="form-control" id="inputTipoLogradouro"
-					style="border-color:black;" placeholder="Tipo Logradouro" />
+					style="border-color:black;text-transform: uppercase;" placeholder="Tipo Logradouro" />
 			</div>
 			<div class="form-group col-md-6">
 				<label for="inputlogradouro">Logradouro</label>
 				<h:inputText value="#{cadContratoMB.cliente.logradouro}"
-					style="border-color:black;" class="form-control"
+					style="border-color:black;text-transform: uppercase;" class="form-control"
 					id="inputlogradouro" placeholder="Logradouro" />
 			</div>
 			<div class="form-group col-md-3">
@@ -417,29 +417,29 @@
 		</div>
 
 
-		<div class="form-row" id="panelEndereco2">
+		<div class="form-row" id="panelEndereco2"  style="text-transform: uppercase;">
 			<div class="form-group col-md-3">
 				<label for="inputComplemento">Complemento</label>
 				<h:inputText value="#{cadContratoMB.cliente.complemento}"
-					style="border-color:black;" class="form-control"
+					style="border-color:black;text-transform: uppercase;" class="form-control"
 					id="inputComplemento" placeholder="CEP" />
 			</div>
 			<div class="form-group col-md-3">
 				<label for="inputBairro">Bairro</label>
 				<h:inputText value="#{cadContratoMB.cliente.bairro}"
-					style="border-color:black;" class="form-control" id="inputBairro"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputBairro"
 					placeholder="Bairro" />
 			</div>
 			<div class="form-group col-md-4">
 				<label for="inputCidade">Cidade</label>
 				<h:inputText value="#{cadContratoMB.cliente.cidade}"
-					style="border-color:black;" class="form-control" id="inputCidade"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputCidade"
 					placeholder="Cidade" />
 			</div>
 			<div class="form-group col-md-2">
 				<label for="inputUfEstado">UF - Estado</label>
 				<h:inputText value="#{cadContratoMB.cliente.ufestado}"
-					style="border-color:black;" class="form-control" id="inputUfEstado"
+					style="border-color:black;text-transform: uppercase;" class="form-control" id="inputUfEstado"
 					placeholder="UF Estado" />
 			</div>
 		</div>
@@ -449,7 +449,7 @@
 
 		<h6>Dados Bancarios</h6>
 		<hr />
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="formgroup col-md-12">
 				<label style="font-size: 14px;">Recebe por CARTÃO MAGNÉTICO</label>
 				<p:selectOneRadio
@@ -488,7 +488,7 @@
 			</div>
 		</div>
 
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="form-group col-md-3">
 				<label>Tipo conta</label>
 				<h:selectOneMenu style="width: 100%;border-color:black;"
@@ -689,11 +689,11 @@
 		<br />
 		<h6>Outros Informações</h6>
 		<hr />
-		<div class="form-row">
+		<div class="form-row"  style="text-transform: uppercase;">
 			<div class="form-group col-md-12">
 				<label>Observações</label>
 				<h:inputTextarea value="#{cadContratoMB.contrato.observacao}"
-					style="border-color:black;" id="observacao" class="form-control"
+					style="border-color:black;text-transform: uppercase;" id="observacao" class="form-control"
 					placeholder="Observação">
 				</h:inputTextarea>
 			</div>
