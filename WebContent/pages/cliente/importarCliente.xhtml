@@ -16,7 +16,7 @@
 
 			<div class="form-group col-md-6">
 				<p:fileUpload
-					fileUploadListener="#{importacaoClienteMB.fileUploadListener}"
+					fileUploadListener="#{importarClienteMB.fileUploadListener}"
 					label="Importar Arquivo" mode="advanced"
 					value="#{importacaoClienteMB.file}"
 					update="growl, idTabelaCliente" auto="true" />
@@ -26,8 +26,7 @@
 		<p:dataTable id="idTabelaCliente" var="cliente"
 			value="#{importarClienteMB.listaDados}" style="border:none;"
 			class="tabelacontas" scrollRows="10" scrollable="true"
-			scrollHeight="300" selectionMode="single"
-			rowKey="#{cliente.idcliente}">
+			scrollHeight="300">
 
 
 			<p:column headerText="Nome"

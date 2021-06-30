@@ -197,7 +197,7 @@
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label for="usuario">Corretor</label>
-							<h:selectOneMenu id="usuario" style="width: 100%;"
+							<h:selectOneMenu id="usuario" style="width: 100%;text-transform: uppercase;"
 								immediate="true" value="#{demaisOperacoesMB.usuario}"
 								converter="UsuarioConverter" styleClass="form-control"
 								onchange="usuario" disabled="#{demaisOperacoesMB.unicoUsuario}">
@@ -223,7 +223,7 @@
 						</div>
 						<div class="form-group col-md-4">
 							<label for="inputNome">Banco</label>
-							<h:selectOneMenu id="exampleBanco" style="width: 100%;"
+							<h:selectOneMenu id="exampleBanco" style="width: 100%;text-transform: uppercase;"
 								immediate="true" value="#{demaisOperacoesMB.banco}"
 								converter="BancoConverter" styleClass="form-control">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
@@ -238,7 +238,7 @@
 						</div>
 						<div class="form-group col-md-4">
 							<label for="inputNome">Promotora</label>
-							<h:selectOneMenu id="examplePromotora" style="width: 100%;"
+							<h:selectOneMenu id="examplePromotora" style="width: 100%;text-transform: uppercase;"
 								immediate="true" value="#{demaisOperacoesMB.promotora}"
 								converter="PromotoraConverter" styleClass="form-control">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
@@ -267,7 +267,14 @@
 					</div>
 				</p:tab>
 			</p:accordionPanel>
+			<br/>
+			<div align="right">
+				<p:commandLink action="#{demaisOperacoesMB.relatorioGeral()}"
+					style="font-size:14px;">
+					<img src="../../resources/img/impressora.png" width="35" />
+				</p:commandLink>
 
+			</div>
 			<br />
 			<p:dataTable id="idTabelaPortabilidade" var="contrato"
 				widgetVar="cellCars" editable="true" editMode="cell"
@@ -277,7 +284,14 @@
 				rowKey="#{contrato.idcontrato}">
 
 
-
+				
+				<p:column headerText="Emissão"
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.datacadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
 				<p:column headerText="Corretor"
 					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;text-transform: uppercase;">
 					<h:outputText value="#{contrato.usuario.nome}" />
@@ -317,6 +331,13 @@
 				<p:column headerText="Promotora"
 					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{contrato.promotora.descricao}">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Última Situação"
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.ultimamudancasituacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText=""

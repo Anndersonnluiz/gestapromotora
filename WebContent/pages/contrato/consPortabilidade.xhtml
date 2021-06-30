@@ -16,12 +16,12 @@
 			closable="false" resizable="false" showHeader="false">
 			<img src="../../resources/img/novoCarregando.gif" width="130" />
 		</p:dialog>
-		<div class="row" style="color: white;" >
-			
+		<div class="row" style="color: white;">
+
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(1)}"
-					ajax="false" style="text-decoration:none;" update="@all">
+					action="#{portabilidadeMB.gerarListaPortabilidade(1)}" ajax="false"
+					style="text-decoration:none;" update="@all">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -34,7 +34,7 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
@@ -53,13 +53,13 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(5)}"
-					ajax="false" style="text-decoration:none;" update="@all">
+					action="#{portabilidadeMB.gerarListaPortabilidade(5)}" ajax="false"
+					style="text-decoration:none;" update="@all">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -72,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
@@ -91,7 +91,7 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
@@ -110,13 +110,13 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(7)}"
-					ajax="false" style="text-decoration:none;" update="@all">
+					action="#{portabilidadeMB.gerarListaPortabilidade(7)}" ajax="false"
+					style="text-decoration:none;" update="@all">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -129,7 +129,7 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
@@ -148,7 +148,7 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
@@ -167,13 +167,13 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(2)}"
-					ajax="false" style="text-decoration:none;" update="@all">
+					action="#{portabilidadeMB.gerarListaPortabilidade(2)}" ajax="false"
+					style="text-decoration:none;" update="@all">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -186,13 +186,13 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 			<div class="col-xl-3 col-md-3 mb-3">
 				<p:commandLink
-					action="#{portabilidadeMB.gerarListaPortabilidade(0)}"
-					ajax="false" style="text-decoration:none;" update="@all">
+					action="#{portabilidadeMB.gerarListaPortabilidade(0)}" ajax="false"
+					style="text-decoration:none;" update="@all">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
@@ -205,11 +205,13 @@
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</p:commandLink>
 			</div>
 		</div>
-		<br /><br /><br />
+		<br />
+		<br />
+		<br />
 
 		<h:panelGrid rendered="#{portabilidadeMB.mudarsituacao}" id="idtabela">
 			<p:accordionPanel activeIndex="null">
@@ -217,10 +219,11 @@
 					<div class="form-row" style="font-size: 14px;">
 						<div class="form-group col-md-5">
 							<label for="usuario">Corretor</label>
-							<h:selectOneMenu id="usuario" style="width: 100%;"
-								immediate="true" value="#{portabilidadeMB.usuario}"
-								converter="UsuarioConverter" styleClass="form-control"
-								onchange="usuario" disabled="#{portabilidadeMB.unicoUsuario}">
+							<h:selectOneMenu id="usuario"
+								style="width: 100%;text-transform: uppercase;" immediate="true"
+								value="#{portabilidadeMB.usuario}" converter="UsuarioConverter"
+								styleClass="form-control" onchange="usuario"
+								disabled="#{portabilidadeMB.unicoUsuario}">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems value="#{portabilidadeMB.listaUsuario}"
@@ -243,9 +246,10 @@
 						</div>
 						<div class="form-group col-md-5">
 							<label for="inputNome">Banco</label>
-							<h:selectOneMenu id="exampleBanco" style="width: 100%;"
-								immediate="true" value="#{portabilidadeMB.banco}"
-								converter="BancoConverter" styleClass="form-control">
+							<h:selectOneMenu id="exampleBanco"
+								style="width: 100%;text-transform: uppercase;" immediate="true"
+								value="#{portabilidadeMB.banco}" converter="BancoConverter"
+								styleClass="form-control">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems value="#{portabilidadeMB.listaBanco}"
@@ -258,8 +262,9 @@
 						</div>
 						<div class="form-group col-md-4">
 							<label for="inputNome">Promotora</label>
-							<h:selectOneMenu id="examplePromotora" style="width: 100%;"
-								immediate="true" value="#{portabilidadeMB.promotora}"
+							<h:selectOneMenu id="examplePromotora"
+								style="width: 100%;text-transform: uppercase;" immediate="true"
+								value="#{portabilidadeMB.promotora}"
 								converter="PromotoraConverter" styleClass="form-control">
 								<f:selectItem itemLabel="Selecione" itemValue="0"
 									noSelectionOption="true" />
@@ -288,16 +293,29 @@
 					</div>
 				</p:tab>
 			</p:accordionPanel>
+			<br/>
+			<div align="right">
+				<p:commandLink action="#{portabilidadeMB.relatorioGeral()}"
+					style="font-size:14px;">
+					<img src="../../resources/img/impressora.png" width="35" />
+				</p:commandLink>
 
-
+			</div>
+			<br />
 			<p:dataTable id="idTabelaPortabilidade" var="contrato"
 				value="#{portabilidadeMB.listaContrato}" style="overflow: auto;"
 				class="tabelacontas" scrollRows="10" scrollable="true"
 				scrollHeight="300" selectionMode="single" reflow="true"
-				rowKey="#{contrato.idcontrato}" scrollWidth="1200">
+				rowKey="#{contrato.idcontrato}">
 
-
-
+				
+				<p:column headerText="Emissão"
+					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{contrato.datacadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
 				<p:column headerText="Corretor"
 					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;text-transform: uppercase;">
 					<h:outputText value="#{contrato.usuario.nome}" />
@@ -340,7 +358,7 @@
 					</h:outputText>
 				</p:column>
 				<p:column headerText=""
-					style="width:10%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
+					style="width:12%; text-align:left; font-size:12px; background:white; color:black; border:#fff;">
 					<p:commandLink ajax="false"
 						action="#{portabilidadeMB.editar(contrato)}"
 						style="text-align: left;color:black;">

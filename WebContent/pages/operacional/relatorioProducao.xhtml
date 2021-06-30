@@ -76,9 +76,9 @@
 				value="#{relatorioProducaoMB.listaComissao}">
 
 
-				<p:column headerText="Lançamento"
+				<p:column headerText="Cadastro"
 					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.ultimamudancasituacao}">
+					<h:outputText value="#{comissao.datalancamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 					</h:outputText>
@@ -91,27 +91,31 @@
 					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.contrato.cliente.nome}" />
 				</p:column>
-				<p:column headerText="Contrato"
+				<p:column headerText="Banco"
 					style="width:11%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.codigocontrato}" />
+					<h:outputText value="#{comissao.contrato.orgaoBanco.banco.nome}" />
+				</p:column>
+				<p:column headerText=""
+					style="width:5%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.nomeoperacao}" />
 				</p:column>
 				<p:column headerText="Operação"
-					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.tipooperacao.descricao}" />
+					style="width:8%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.contrato.tipooperacao.apelido}" />
 				</p:column>
 				<p:column headerText="Promotora"
 					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
 					<h:outputText value="#{comissao.contrato.promotora.descricao}" />
 				</p:column>
-				<p:column headerText="Situação"
-					style="width:12%; font-size:11px; background:white; color:black; border:none;text-align:left;">
-					<h:outputText value="#{comissao.contrato.situacao.descricao}" />
-				</p:column>
-				<p:column headerText="Produção Liq."
-					style="width:9%; font-size:11px; background:white; color:black; border:none;text-align:right;">
+				<p:column headerText="Produção"
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:right;">
 					<h:outputText value="#{comissao.prodliq}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
+				</p:column>
+				<p:column headerText="CMS Recebida"
+					style="width:10%; font-size:11px; background:white; color:black; border:none;text-align:left;">
+					<h:outputText value="#{comissao.tipo}" />
 				</p:column>
 			</p:dataTable>
 			<br />
@@ -141,7 +145,8 @@
 					</h:panelGroup>
 					<h:panelGroup rendered="#{relatorioProducaoMB.viewPortabilidade}">
 						<b>Portabilidade:</b>
-						<b><p:outputLabel value="#{relatorioProducaoMB.nPortabilidade}" /></b>
+						<b><p:outputLabel
+								value="#{relatorioProducaoMB.nPortabilidade}" /></b>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{relatorioProducaoMB.viewMargem}">
 						<b>Margem:</b>
@@ -153,12 +158,15 @@
 					</h:panelGroup>
 					<h:panelGroup rendered="#{relatorioProducaoMB.viewRefinanciamento}">
 						<b>Refin:</b>
-						<b><p:outputLabel value="#{relatorioProducaoMB.nRefinanciamento}" /></b>
+						<b><p:outputLabel
+								value="#{relatorioProducaoMB.nRefinanciamento}" /></b>
 					</h:panelGroup>
 				</h:panelGrid>
 			</h:panelGrid>
 		</div>
-		<br/><br/><br/>
+		<br />
+		<br />
+		<br />
 	</h:form>
 </h:body>
 </html>

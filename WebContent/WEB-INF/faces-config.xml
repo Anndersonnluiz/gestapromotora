@@ -851,6 +851,46 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>relatorioContratos</from-outcome>
+			<to-view-id>pages/contrato/relatorioContratos.xhtml</to-view-id>
+			<redirect /> 
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consValoresContratos</from-outcome>
+			<to-view-id>pages/financeiro/consValoresContratos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consDemaisFGTS</from-outcome>
+			<to-view-id>pages/contrato/consDemaisFGTS.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>cadFGTS</from-outcome>
+			<to-view-id>pages/contrato/cadFGTS.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	<application>
         <action-listener>
             org.primefaces.application.DialogActionListener

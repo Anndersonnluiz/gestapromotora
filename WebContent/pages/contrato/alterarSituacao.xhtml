@@ -51,14 +51,26 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:inputText>
 			</div>
-			<div class="form-group col-md-3">
-				<label for="valorliberado">Valor Liberado</label>
-				<h:inputText class="form-control" id="valorliberado"
-					disabled="#{alterarSituacaoMB.valorliberado}"
-					value="#{alterarSituacaoMB.contrato.valorcliente}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</h:inputText>
-			</div>
+			<h:panelGroup rendered="#{alterarSituacaoMB.habilitarPortabilidade}">
+				<div class="form-group col-md-3">
+					<label for="valorliberado">Saldo Quitado</label>
+					<h:inputText class="form-control" id="saldoquitado"
+						disabled="#{alterarSituacaoMB.valorliberado}"
+						value="#{alterarSituacaoMB.contrato.saldoquitado}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{!alterarSituacaoMB.habilitarPortabilidade}">
+				<div class="form-group col-md-3">
+					<label for="valorliberado">Valor Liberado</label>
+					<h:inputText class="form-control" id="valorliberado"
+						disabled="#{alterarSituacaoMB.valorliberado}"
+						value="#{alterarSituacaoMB.contrato.valorcliente}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+			</h:panelGroup>
 		</div>
 		<br />
 		<div class="form-row">

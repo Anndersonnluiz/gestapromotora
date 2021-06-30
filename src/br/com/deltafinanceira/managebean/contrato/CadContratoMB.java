@@ -1070,7 +1070,9 @@ public class CadContratoMB implements Serializable {
 	}
 
 	public void buscarUnificacoes() {
-		if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1) {
+		if (this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 1
+				|| this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 7
+				|| this.contrato.getTipooperacao().getIdtipooperacao().intValue() == 8) {
 			ContratoUnificacaoFacade contratoUnificacaoFacade = new ContratoUnificacaoFacade();
 			this.listaContratoUnificacao = contratoUnificacaoFacade.lista(
 					"Select c From Contratounificacao c Where c.contrato.idcontrato=" + this.contrato.getIdcontrato());
@@ -1089,6 +1091,7 @@ public class CadContratoMB implements Serializable {
 				contratoMais.setCodigocontrato(gerarCodigo(i));
 			ContratoFacade contratoFacade = new ContratoFacade();
 			contratoMais.setParcela(((Contratounificacao) this.listaContratoUnificacao.get(i)).getParcela());
+			contratoMais.setMargemutilizada(listaContratoUnificacao.get(i).getParcela());
 			contratoMais = contratoFacade.salvar(contratoMais);
 			if (this.novo) {
 				if (usuarioLogadoMB.getUsuario().getIdusuario() != 1 && !usuarioLogadoMB.getUsuario().isTreinamento()) {

@@ -21,7 +21,7 @@
 	<link href="resources/vendor/fontawesome-free/css/all.min.css"
 		rel="stylesheet" type="text/css" />
 
-	<link rel="sortcut icon" href="resources/img/FaviconLogo.png"
+	<link rel="sortcut icon" href="resources/img/logoemblema.png"
 		type="image/png" />
 
 	<link
@@ -39,13 +39,13 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<div style="background: #f5fffb; border-radius: 5px;">
+			<div style="background: white; border-radius: 5px;">
 				<a
 					class="sidebar-brand d-flex align-items-center justify-content-center"
 					href="dashboard.jsf">
 					<div class="sidebar-brand-icon">
 						<img class="img-profile rounded-circle"
-							src="resources/img/logodelta.png" width="55" />
+							src="resources/img/logoemblema.png" width="45" />
 					</div>
 					<div class="sidebar-brand-text mx-3 text-primary"
 						style="font-size: 12px;">BEM VINDO(A)</div>
@@ -97,6 +97,10 @@
 								href="pages/funcionarios/consFuncionarios.jsf"> Funcionários
 							</a>
 						</h:panelGroup>
+						<h:panelGroup>
+							<a class="collapse-item" href="pages/mobile/telaInicial.jsf">
+								Mobile </a>
+						</h:panelGroup>
 					</div>
 				</div></li>
 
@@ -132,7 +136,7 @@
 				<div id="collapseTree" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h:panelGroup >
+						<h:panelGroup>
 							<a class="collapse-item"
 								href="pages/contrato/confDadosContrato.jsf" role="button"
 								aria-haspopup="true" aria-expanded="false"> Emissão </a>
@@ -150,7 +154,9 @@
 							href="pages/contrato/consDemaisOperacoesINSS.jsf"> Demais
 							Ope. INSS </a> <a class="collapse-item"
 							href="pages/contrato/consDemaisOperacoes.jsf"> Demais Ope.
-							SIAPE </a>
+							SIAPE </a> <a class="collapse-item"
+							href="pages/contrato/consDemaisFGTS.jsf"> Demais Ope.
+							FGTS </a>
 					</div>
 				</div></li>
 
@@ -168,7 +174,9 @@
 								role="button" aria-haspopup="true" aria-expanded="false">
 								Tipo Despesa </a> <a class="collapse-item"
 								href="pages/financeiro/consContasPagar.jsf"> Contas a Pagar
-							</a>
+							</a> <a class="collapse-item"
+								href="pages/financeiro/consValoresContratos.jsf"> Valores
+								Contrato </a>
 						</div>
 					</div>
 				</h:panelGroup></li>
@@ -183,9 +191,10 @@
 					<div id="collapseEit" class="collapse"
 						aria-labelledby="headingFive" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="pages/relatorios/consComissaoSupervisor.jsf"
-								role="button" aria-haspopup="true" aria-expanded="false">
-								Comissão Supervisor(a) </a> 
+							<a class="collapse-item"
+								href="pages/relatorios/consComissaoSupervisor.jsf" role="button"
+								aria-haspopup="true" aria-expanded="false"> Comissão
+								Supervisor(a) </a>
 						</div>
 					</div>
 				</h:panelGroup></li>
@@ -373,7 +382,7 @@
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">#{usuarioLogadoMB.nomeUsuario}</span>
 								<img class="img-profile rounded-circle"
-								src="resources/img/logologin.png" />
+								src="resources/img/logoemblema.png" />
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -439,6 +448,252 @@
 						<h2>Dashboard</h2>
 						<hr />
 						<!-- Content Row -->
+						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
+							<p:outputLabel style="font-size:10px;" value="MÊS DE JUNHO" />
+							<div class="row">
+								<div class="col-xl-6 col-md-6 mb-4">
+									<div class="card border-left-primary shadow h-100 py-2">
+										<div class="card-body">
+											<p:outputLabel style="font-size:12px;" value="PRODUÇÃO GERAL" />
+											<br /> <br />
+											<div class="row no-gutters align-items-center">
+												<div class="row" style="width: 100%;">
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															Produção Total</div>
+														<div class="h4 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorProducao}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															Propostas Realizadas</div>
+														<div class="h4 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;"> <h:outputText
+																	value="#{dashBoardMB.nTotalProducao}">
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+											<br /> <br />
+											<div class="row no-gutters align-items-center">
+												<div class="row" style="width: 100%">
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															Pendência (#{dashBoardMB.nPendencia})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-800">
+															<b>R$ <h:outputText
+																	value="#{dashBoardMB.valorPendencia}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															Sem Pendências (#{dashBoardMB.nSemPendencia})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-800">
+															<b>R$ <h:outputText
+																	value="#{dashBoardMB.valorSemPendencia}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															Canceladas (#{dashBoardMB.nCancelados})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-800">
+															<b>R$ <h:outputText
+																	value="#{dashBoardMB.valorCancelados}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-6 col-md-6 mb-4">
+									<div class="card border-left-primary shadow h-100 py-2">
+										<div class="card-body">
+											<p:outputLabel style="font-size:12px;"
+												value="STATUS DA PRODUÇÃO" />
+											<br /> <br />
+											<div class="row no-gutters align-items-center">
+												<div class="row" style="width: 100%;">
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															PORTABILIDADE (#{dashBoardMB.nPortabilidade})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorPortabilidade}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															MARGEM NOVO (#{dashBoardMB.nMargem})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorMargem}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															CARTÃO(#{dashBoardMB.nCartao})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorCartao}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+											<br /> <br />
+											<div class="row no-gutters align-items-center">
+												<div class="row" style="width: 100%">
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															REFIN(#{dashBoardMB.nRefin})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorRefin}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														<div
+															class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+															REFIN DA PORT(#{dashBoardMB.nRefinPort})</div>
+														<div class="h6 mb-0 font-weight-bold text-gray-600">
+															<b style="color: green;">R$ <h:outputText
+																	value="#{dashBoardMB.valorRefinPort}">
+																	<f:convertNumber minFractionDigits="2"
+																		maxFractionDigits="2" locale="pt_BR" />
+																</h:outputText></b>
+
+
+
+														</div>
+													</div>
+													<div class="col mr-1">
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
+						<br />
+						<h:panelGroup rendered="false">
+							<!-- Project Card Example -->
+							<div class="card shadow mb-4 col-xl-6 col-md-6">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">RANKING DOS
+										CORRETORES</h6>
+								</div>
+								<div class="card-body">
+									<h4 class="small font-weight-bold">
+										1° #{dashBoardMB.primeiroMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.primeiroMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-success" role="progressbar"
+											style="width: 100%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										2° #{dashBoardMB.segundoMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.segundoMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 60%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+									<h4 class="small font-weight-bold">
+										3° #{dashBoardMB.terceiroMes.usuario.nome} <span
+											class="float-right">R$ <h:outputText
+												value="#{dashBoardMB.terceiroMes.valorvenda}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2"
+													maxFractionDigits="2" />
+											</h:outputText>
+										</span>
+									</h4>
+									<div class="progress mb-4">
+										<div class="progress-bar bg-danger" role="progressbar"
+											style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
+						<br /> <br />
 						<div class="row" id="panelValores">
 
 							<h:panelGroup rendered="#{usuarioLogadoMB.usuario.formalizacao}">
@@ -820,61 +1075,7 @@
 
 						<br /> <br />
 
-						<h:panelGroup rendered="#{usuarioLogadoMB.usuario.acessogeral}">
-							<h4>CORRETORES DO MÊS</h4>
-							<hr />
-							<!-- Project Card Example -->
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">RANKING DE
-										VENDAS</h6>
-								</div>
-								<div class="card-body">
-									<h4 class="small font-weight-bold">
-										1° #{dashBoardMB.primeiroMes.usuario.nome} <span
-											class="float-right">R$ <h:outputText
-												value="#{dashBoardMB.primeiroMes.valorvenda}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</h:outputText>
-										</span>
-									</h4>
-									<div class="progress mb-4">
-										<div class="progress-bar bg-success" role="progressbar"
-											style="width: 100%" aria-valuenow="40" aria-valuemin="0"
-											aria-valuemax="100"></div>
-									</div>
-									<h4 class="small font-weight-bold">
-										2° #{dashBoardMB.segundoMes.usuario.nome} <span
-											class="float-right">R$ <h:outputText
-												value="#{dashBoardMB.segundoMes.valorvenda}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</h:outputText>
-										</span>
-									</h4>
-									<div class="progress mb-4">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 60%" aria-valuenow="40" aria-valuemin="0"
-											aria-valuemax="100"></div>
-									</div>
-									<h4 class="small font-weight-bold">
-										3° #{dashBoardMB.terceiroMes.usuario.nome} <span
-											class="float-right">R$ <h:outputText
-												value="#{dashBoardMB.terceiroMes.valorvenda}">
-												<f:convertNumber locale="pt_BR" minFractionDigits="2"
-													maxFractionDigits="2" />
-											</h:outputText>
-										</span>
-									</h4>
-									<div class="progress mb-4">
-										<div class="progress-bar bg-danger" role="progressbar"
-											style="width: 40%" aria-valuenow="40" aria-valuemin="0"
-											aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-						</h:panelGroup>
+
 					</main>
 				</div>
 			</div>

@@ -119,6 +119,7 @@ public class DemaisOperacoesInssMB implements Serializable {
     gerarListaUsuario();
     gerarListaInicial(); 
     gerarListaBanco();
+    gerarListaPromotora();
     if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && 
       !this.usuarioLogadoMB.getUsuario().isSupervisao()) {
       this.unicoUsuario = true;
@@ -623,7 +624,7 @@ public class DemaisOperacoesInssMB implements Serializable {
     } 
     HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
     historicoComissaoFacade.salvar(historicocomissao);
-    Mensagem.lancarMensagemInfo("Lanrealizado com sucesso", "");
+    Mensagem.lancarMensagemInfo("Lançanento realizado com sucesso", "");
   }
   
   public String historicoContrato(Contrato contrato) {
@@ -639,4 +640,32 @@ public class DemaisOperacoesInssMB implements Serializable {
     if (this.listaPromotora == null)
       this.listaPromotora = new ArrayList<>(); 
   }
+  
+  
+  public String relatorioGeral() {
+		boolean selecionado = false;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		List<Contrato> listaSelecionado = new ArrayList<>();
+		for (int i = 0; i < this.listaContrato.size(); i++) {
+			if (((Contrato) this.listaContrato.get(i)).isSelecionado()) {
+				listaSelecionado.add(this.listaContrato.get(i));
+				selecionado = true;
+
+			}
+		}
+		if (!selecionado) {
+			listaSelecionado = this.listaContrato;
+		}
+		session.setAttribute("listaContrato", listaSelecionado);
+		session.setAttribute("voltarTela", "consDemaisOperacoesINSS");
+		String corretor = "";
+		if (this.usuario != null) {
+			corretor = this.usuario.getNome();
+		} else {
+			corretor = "Todos";
+		}
+		session.setAttribute("corretor", corretor);
+		return "relatorioContratos";
+	}
 }

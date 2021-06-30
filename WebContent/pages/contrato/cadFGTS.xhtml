@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/pages/templates/padrao.xhtml">
+	<ui:define name="corpo">
+		<br />
+		<h4>Cadastro de FGTS</h4>
+		<hr />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="../../resources/img/novoCarregando.gif" width="130" />
+		</p:dialog>
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Corretor</label>
+				<h:selectOneMenu id="usuario" style="width: 100%;" immediate="true"
+					value="#{cadFGTSMB.usuario}" converter="UsuarioConverter"
+					styleClass="form-control" onchange="usuario"
+					disabled="#{cadFGTSMB.habilitarUsuario}">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadFGTSMB.listaUsuario}"
+						var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}"
+						itemValue="#{usuarioSelecionado}" />
+					<f:attribute name="listaUsuario"
+						value="#{cadFGTSMB.listaUsuario}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="dataNasc">Assinado no banco ?</label>
+				<div>
+					<p:selectBooleanCheckbox
+						value="#{cadFGTSMB.contrato.assinadobanco}" />
+				</div>
+
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputRG">Tipo de Operação</label>
+				<h:inputText
+					value="#{cadFGTSMB.contrato.tipooperacao.descricao}"
+					style="border-color:black;" disabled="true" class="form-control"
+					placeholder="Operação" />
+			</div>
+		</div>
+		<div class="form-row">
+			<h:panelGroup
+				rendered="#{usuarioLogadoMB.usuario.tipocolaborador.acessocolaborador.acessooperacional}">
+				<div class="form-group col-md-6">
+					<label for="promotora">Promotora</label>
+					<h:selectOneMenu id="promotorahhhj" style="width: 100%;"
+						immediate="true" value="#{cadFGTSMB.promotora}"
+						converter="PromotoraConverter" styleClass="form-control">
+						<f:selectItem itemLabel="Selecione" itemValue="0"
+							noSelectionOption="true" />
+						<f:selectItems value="#{cadFGTSMB.listaPromotora}"
+							var="promotoraSelecionado"
+							itemLabel="#{promotoraSelecionado.descricao}"
+							itemValue="#{promotoraSelecionado}" />
+						<f:attribute name="listaPromotora"
+							value="#{cadFGTSMB.listaPromotora}" />
+						<p:ajax event="blur" />
+					</h:selectOneMenu>
+				</div>
+			</h:panelGroup>
+		</div>
+		<br />
+		
+		<p:messages id="growl" showDetail="true" sticky="false" life="3000"
+			closable="true" />
+		<h6>Dados pessoais</h6>
+		<hr />
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-5">
+				<label for="inputCpf">CPF</label> <br />
+				<p:inputMask mask="999.999.999-99" id="inputCpf"
+					value="#{cadFGTSMB.cpf}">
+					<p:ajax event="change" listener="#{cadFGTSMB.buscarCliente()}"
+						update="inputTipoLogradouro, inputlogradouro, inputNumero, inputComplemento, inputBairro, inputUfEstado, inputNome,
+							inputRG, dataNasc, inputOrgaoEmissor, inputufrg, dataEmissao, inputNaturalidade, inputUfNaturalidade, inputnomepai,
+							inputnomemae, inputValorSalario, inputResidencial, inputcelular, nconta, digconta, digagencia, agencia,
+							tipoconta, growl" />
+				</p:inputMask>
+			</div>
+
+			<div class="form-group col-md-7">
+				<label for="inputNome">Nome</label>
+				<h:inputText value="#{cadFGTSMB.cliente.nome}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputNome" placeholder="Nome" />
+			</div>
+		</div>
+
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-3">
+				<label for="dataNasc">Data Nascimento</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="12"
+					value="#{cadFGTSMB.cliente.nascimento}" id="dataNasc">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputRG">RG</label>
+				<h:inputText value="#{cadFGTSMB.cliente.rg}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputRG" placeholder="RG" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputOrgaoEmissor">Orgão Emissor</label>
+				<h:inputText value="#{cadFGTSMB.cliente.orgaroemissor}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputOrgaoEmissor" placeholder="Nome" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputufrg">UF - RG</label>
+				<h:inputText value="#{cadFGTSMB.cliente.ufrg}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputufrg" placeholder="UF - RG" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputNaturalidade">Naturalidade</label>
+				<h:inputText value="#{cadFGTSMB.cliente.naturalidade}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputNaturalidade"
+					placeholder="Naturalidade" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputUfNaturalidade">UF - Naturalidade</label>
+				<h:inputText value="#{cadFGTSMB.cliente.ufnaturalidade}"
+					class="form-control" id="inputUfNaturalidade"
+					style="border-color:black;text-transform: uppercase;"
+					placeholder="Estado da Naturalidade" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="dataEmissao">Data Emissão</label>
+				<p:calendar locale="pt_BR" pattern="dd/MM/yyyy" size="11"
+					value="#{cadFGTSMB.cliente.emissao}" id="dataEmissao">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:ajax event="dateSelect" />
+					<p:ajax event="blur" />
+				</p:calendar>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputResidencial">Residêncial</label>
+				<h:inputText value="#{cadFGTSMB.cliente.telefoneresidencial}"
+					class="form-control" id="inputResidencial"
+					style="border-color:black;text-transform: uppercase;"
+					placeholder="Telefone Residencial" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputcelular">Celular</label>
+				<h:inputText value="#{cadFGTSMB.cliente.telefonecelular}"
+					style="border-color:black;" class="form-control" id="inputcelular"
+					placeholder="Nome Mãe" />
+			</div>
+		</div>
+
+
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-6">
+				<label for="inputnomepai">Nome Pai</label>
+				<h:inputText value="#{cadFGTSMB.cliente.nomepai}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputnomepai" placeholder="Nome Pai" />
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputnomemae">Noma Mãe</label>
+				<h:inputText value="#{cadFGTSMB.cliente.nomemae}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputnomemae" placeholder="Nome Mãe" />
+			</div>
+		</div>
+
+
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-3">
+				<label for="inputValorSalario">Valor Salário</label>
+				<h:inputText value="#{cadFGTSMB.cliente.valorsalario}"
+					style="border-color:black;" class="form-control"
+					id="inputValorSalario" placeholder="Valor de Salário">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+			<div class="form-group col-md-9">
+				<label for="inputEmail">Email</label>
+				<h:inputText value="#{cadFGTSMB.cliente.email}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputEmail" />
+			</div>
+		</div>
+
+		<br />
+
+		<h6>Endereço</h6>
+		<hr />
+		<p:messages id="growlCep" showDetail="true" sticky="false"
+			closable="true" life="3000" />
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-5">
+				<label for="inputCEP">CEP</label>
+
+				<h:panelGrid columns="2" style="width:100%;">
+					<p:inputMask value="#{cadFGTSMB.cliente.cep}" mask="99999-999"
+						style="border-color:black;" id="inputCEP">
+						<p:ajax event="change"
+							listener="#{cadFGTSMB.buscarendereco()}"
+							update=":formulario:inputTipoLogradouro, :formulario:inputlogradouro, growlCep, 
+							:formulario:inputNumero, :formulario:inputComplemento, :formulario:inputBairro, 
+							:formulario:inputCidade, :formulario:inputUfEstado" />
+					</p:inputMask>
+					<p:commandLink id="btnConfirmar" value="Buscar" rendered="false"
+						update=":formulario:inputTipoLogradouro, growlCep" process="@this"
+						action="#{cadFGTSMB.buscarendereco()}"
+						styleClass="btn btn-primary" ajax="false" />
+				</h:panelGrid>
+			</div>
+		</div>
+		<div class="form-row" id="panelEndereco"
+			style="text-transform: uppercase;">
+			<div class="form-group col-md-3">
+				<label for="inputTipoLogradouro">Tipo Logradouro</label>
+				<h:inputText value="#{cadFGTSMB.cliente.tipologradouro}"
+					class="form-control" id="inputTipoLogradouro"
+					style="border-color:black;text-transform: uppercase;"
+					placeholder="Tipo Logradouro" />
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputlogradouro">Logradouro</label>
+				<h:inputText value="#{cadFGTSMB.cliente.logradouro}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputlogradouro" placeholder="Logradouro" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputNumero">Número</label>
+				<h:inputText value="#{cadFGTSMB.cliente.numero}"
+					style="border-color:black;" class="form-control" id="inputNumero"
+					placeholder="Número" />
+			</div>
+		</div>
+
+
+		<div class="form-row" id="panelEndereco2"
+			style="text-transform: uppercase;">
+			<div class="form-group col-md-3">
+				<label for="inputComplemento">Complemento</label>
+				<h:inputText value="#{cadFGTSMB.cliente.complemento}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputComplemento" placeholder="CEP" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="inputBairro">Bairro</label>
+				<h:inputText value="#{cadFGTSMB.cliente.bairro}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputBairro" placeholder="Bairro" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputCidade">Cidade</label>
+				<h:inputText value="#{cadFGTSMB.cliente.cidade}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputCidade" placeholder="Cidade" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputUfEstado">UF - Estado</label>
+				<h:inputText value="#{cadFGTSMB.cliente.ufestado}"
+					style="border-color:black;text-transform: uppercase;"
+					class="form-control" id="inputUfEstado" placeholder="UF Estado" />
+			</div>
+		</div>
+
+
+		<br />
+
+		<h6>Dados Bancarios</h6>
+		<hr />
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="formgroup col-md-12">
+				<label style="font-size: 14px;">Recebe por CARTÃO MAGNÉTICO</label>
+				<p:selectOneRadio
+					value="#{cadFGTSMB.dadosbancario.cartaomagnetico}">
+					<f:selectItem itemLabel="Sim" itemValue="S" />
+					<f:selectItem itemLabel="Não" itemValue="N" />
+				</p:selectOneRadio>
+			</div>
+			<br />
+			<div class="form-group col-md-5">
+				<label>Banco</label>
+				<h:selectOneMenu id="exampleBanco"
+					style="width: 100%;border-color:black;" immediate="true"
+					value="#{cadFGTSMB.bancoDadosBancario}"
+					converter="BancoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadFGTSMB.listaBanco}"
+						var="bancoSelecionado"
+						itemLabel="#{bancoSelecionado.codigo} - #{bancoSelecionado.nome}"
+						itemValue="#{bancoSelecionado}" />
+					<f:attribute name="listaBanco" value="#{cadFGTSMB.listaBanco}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>Agência</label>
+				<h:inputText value="#{cadFGTSMB.dadosbancario.agencia}"
+					style="border-color:black;" id="agencia" class="form-control"
+					placeholder="Agência" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Agência</label>
+				<h:inputText value="#{cadFGTSMB.dadosbancario.digitoagencia}"
+					id="digagencia" class="form-control" style="border-color:black;"
+					placeholder="Digito da agência" />
+			</div>
+		</div>
+
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-3">
+				<label>Tipo conta</label>
+				<h:selectOneMenu style="width: 100%;border-color:black;"
+					id="tipoconta" value="#{cadFGTSMB.dadosbancario.tipoconta}"
+					styleClass="form-control">
+					<f:selectItem itemLabel="Conta Salario" itemValue="Conta Salario" />
+					<f:selectItem itemLabel="Conta Corrente" itemValue="Conta Corrente" />
+					<f:selectItem itemLabel="Conta Poupança" itemValue="Conta Poupança" />
+					<f:selectItem itemLabel="Ordem Pagamento"
+						itemValue="Ordem Pagamento" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-3">
+				<label>N° Conta</label>
+				<h:inputText value="#{cadFGTSMB.dadosbancario.nconta}"
+					style="border-color:black;" id="nconta" class="form-control"
+					placeholder="Número da conta" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>Dig. Conta</label>
+				<h:inputText value="#{cadFGTSMB.dadosbancario.digitoconta}"
+					style="border-color:black;" id="digconta" class="form-control"
+					placeholder="Digito da conta" />
+			</div>
+		</div>
+		<br />
+		<h6>Dados da Operação</h6>
+		<hr />
+
+		<div class="form-row">
+			<h:panelGroup
+				rendered="#{cadFGTSMB.contrato.tipooperacao.margem}">
+				<div class="form-group col-md-3">
+					<label>Saldo FGTS</label>
+					<h:inputText value="#{cadFGTSMB.contrato.margemutilizada}"
+						id="saldoinadimplencia" class="form-control"
+						style="border-color:black;" placeholder="Saldo Inadimplência">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+				<div class="form-group col-md-3">
+					<label>Valor Liberado</label>
+					<h:inputText value="#{cadFGTSMB.contrato.valorcliente}"
+						style="border-color:black;" id="valorcliente" disabled="true"
+						class="form-control" placeholder="Parcela">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:inputText>
+				</div>
+			</h:panelGroup>
+
+		</div>
+
+		<br />
+		<h6>Outros Informações</h6>
+		<hr />
+		<div class="form-row" style="text-transform: uppercase;">
+			<div class="form-group col-md-12">
+				<label>Observações</label>
+				<h:inputTextarea value="#{cadFGTSMB.contrato.observacao}"
+					style="border-color:black;text-transform: uppercase;"
+					id="observacao" class="form-control" placeholder="Observação">
+				</h:inputTextarea>
+			</div>
+		</div>
+
+		<br />
+		<h6>Upload dos documentos</h6>
+		<hr />
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label>Tipo Documento</label>
+				<h:selectOneMenu id="tipodocumento" style="width: 100%;"
+					immediate="true" value="#{cadFGTSMB.tipoarquivo}"
+					converter="TipoArquivoConverter" styleClass="form-control">
+					<f:selectItem itemLabel="Selecione" itemValue="0"
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadFGTSMB.listaTipoArquivo}"
+						var="tipoArquivoSelecionado"
+						itemLabel="#{tipoArquivoSelecionado.descricao}"
+						itemValue="#{tipoArquivoSelecionado}" />
+					<f:attribute name="listaTipoArquivo"
+						value="#{cadFGTSMB.listaTipoArquivo}" />
+					<p:ajax event="blur" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group col-md-4">
+				<p:fileUpload
+					fileUploadListener="#{cadFGTSMB.fileUploadListener}"
+					label="Anexar Banner" mode="advanced" value="#{cadFGTSMB.file}"
+					update="growl, idTabelaContrato" auto="true" />
+			</div>
+			<div class="form-group col-md-3">
+				<label>.</label>
+				<div>
+					<p:commandLink ajax="false" styleClass="btn btn-primary"
+						rendered="false" value="Adicionar"
+						action="#{cadFGTSMB.salvar()}"
+						update="idTabelaContrato, growl" />
+				</div>
+			</div>
+		</div>
+		<br />
+		<p:dataTable id="idTabelaContrato" var="contrato" rowIndexVar="rowIx"
+			styleClass="table table-striped table-bordered display"
+			style="font-size:16px;" value="#{cadFGTSMB.listaContratoArquivo}"
+			cellspacing="0">
+
+			<p:column style="width:15%;">
+				<f:facet name="header">Data</f:facet>
+				<h:outputText value="#{contrato.dataupload}">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</p:column>
+			<p:column style="width:20%;">
+				<f:facet name="header">Documento</f:facet>
+				<h:outputText value="#{contrato.tipoarquivo.descricao}">
+				</h:outputText>
+			</p:column>
+			<p:column style="width:32%;">
+				<f:facet name="header">Descrição</f:facet>
+				<h:outputText value="#{contrato.nomearquivo}" />
+			</p:column>
+
+			<p:column style="width:8%;">
+
+				<p:commandLink ajax="false"
+					action="#{cadFGTSMB.excluirArquivo(rowIx)}"
+					style="text-align: left;color:black;" update="idTabelaContrato">
+					<img src="../../resources/img/lixeira.png" width="30" />
+				</p:commandLink>
+
+				<p:commandLink ajax="false"
+					action="#{cadFGTSMB.baixarArquivoFTP(contrato)}"
+					style="text-align: left;color:black;">
+					<img src="../../resources/img/baixar.png" width="30" />
+
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+		<br />
+		<hr />
+		<div align="center">
+			<p:commandLink ajax="false" style="text-decoration:none;"
+				action="#{cadFGTSMB.salvar()}">
+				<img src="../../resources/img/salvar.png" width="40" />
+			</p:commandLink>
+			<p:commandLink ajax="false"
+				style="margin-left:2%;text-decoration:none;"
+				action="#{cadFGTSMB.cancelar()}">
+				<img src="../../resources/img/cancel.png" width="40" />
+			</p:commandLink>
+		</div>
+		<br />
+		<br />
+
+		<script>
+		function mascara(o, f) {
+			v_obj = o;
+			v_fun = f;
+			setTimeout(“execmascara()”, 1);
+			}
+
+			        function execmascara() {
+			          v_obj.value = v_fun(v_obj.value);
+			        }
+
+			     function valor(v) {
+			    v = v.replace(/\D/g, "");
+			    v = v.replace(/[0-9]{15}/, "inválido");
+			    v = v.replace(/(\d{1})(\d{11})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 11 digitos
+			    v = v.replace(/(\d{1})(\d{8})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 8 digitos
+			    v = v.replace(/(\d{1})(\d{5})$/, "$1.$2"); // coloca ponto antes dos
+			    // Últimos 5 digitos
+			    v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2"); // coloca virgula antes dos
+			    // Últimos 2 digitos
+			    return v;
+			}
+		
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

@@ -74,6 +74,8 @@ public class AlterarSituacaoMB implements Serializable {
 	private List<Usuario> listaUsuario;
 
 	private Usuario operador;
+	
+	private boolean habilitarPortabilidade = false;
 
 	@PostConstruct
 	public void init() {
@@ -99,9 +101,13 @@ public class AlterarSituacaoMB implements Serializable {
 		} else {
 			this.valorliberado = true;
 		}
+		
 		if (contrato.isPossuioperador()) {
 			UsuarioFacade usuarioFacade = new UsuarioFacade();
 			operador = usuarioFacade.consultar(contrato.getIdoperador());
+		}
+		if (contrato.getTipooperacao().getIdtipooperacao() == 1) {
+			habilitarPortabilidade = true;
 		}
 		gerarListaValores();
 	}
@@ -184,6 +190,20 @@ public class AlterarSituacaoMB implements Serializable {
 
 	public void setCoeficiente(Coeficiente coeficiente) {
 		this.coeficiente = coeficiente;
+	}
+
+	/**
+	 * @return the habilitarPortabilidade
+	 */
+	public boolean isHabilitarPortabilidade() {
+		return habilitarPortabilidade;
+	}
+
+	/**
+	 * @param habilitarPortabilidade the habilitarPortabilidade to set
+	 */
+	public void setHabilitarPortabilidade(boolean habilitarPortabilidade) {
+		this.habilitarPortabilidade = habilitarPortabilidade;
 	}
 
 	public void gerarListaSituacao() {

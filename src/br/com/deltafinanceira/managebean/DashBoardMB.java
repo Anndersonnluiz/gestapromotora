@@ -131,23 +131,53 @@ public class DashBoardMB implements Serializable {
 	private boolean verificarNotificacoes;
 
 	private int nFormalizacao;
-	
+
 	private List<Campanhas> listaCampanhas;
 
 	private List<Campanhasusuario> listaCampanhasUsuario;
+
+	private int nPendencia;
+
+	private int nSemPendencia;
+
+	private int nCancelados;
+
+	private float valorPendencia;
+
+	private float valorSemPendencia;
+
+	private float valorCancelados;
 	
+	private int nPortabilidade;
 	
+	private float valorPortabilidade;
 	
+	private int nMargem;
+	
+	private float valorMargem;
+	
+	private int nCartao;
+	
+	private float valorCartao;
+	
+	private int nRefin;
+	
+	private float valorRefin;
+	
+	private int nRefinPort;
+	
+	private float valorRefinPort;
+
 	@PostConstruct
 	public void init() {
 		faturamentoMensal();
 		listarNotificacao();
 		listaAvisos();
-		gerarRankingMensal();
-		gerarListaFormalizacao();
+		//gerarRankingMensal();
+		//gerarListaFormalizacao();
 		if (usuarioLogadoMB.getUsuario().isAcessogeral()) {
 			gerarListaCampanhas();
-		}else {
+		} else {
 			gerarListaCampanhasCorretor();
 		}
 		int mes = Formatacao.getMesData(new Date()) + 1;
@@ -543,6 +573,212 @@ public class DashBoardMB implements Serializable {
 		this.listaCampanhasUsuario = listaCampanhasUsuario;
 	}
 
+	public int getnPendencia() {
+		return nPendencia;
+	}
+
+	public void setnPendencia(int nPendencia) {
+		this.nPendencia = nPendencia;
+	}
+
+	public int getnSemPendencia() {
+		return nSemPendencia;
+	}
+
+	public void setnSemPendencia(int nSemPendencia) {
+		this.nSemPendencia = nSemPendencia;
+	}
+
+	public int getnCancelados() {
+		return nCancelados;
+	}
+
+	public void setnCancelados(int nCancelados) {
+		this.nCancelados = nCancelados;
+	}
+
+	/**
+	 * @return the valorPendencia
+	 */
+	public float getValorPendencia() {
+		return valorPendencia;
+	}
+
+	/**
+	 * @param valorPendencia the valorPendencia to set
+	 */
+	public void setValorPendencia(float valorPendencia) {
+		this.valorPendencia = valorPendencia;
+	}
+
+	/**
+	 * @return the valorSemPendencia
+	 */
+	public float getValorSemPendencia() {
+		return valorSemPendencia;
+	}
+
+	/**
+	 * @param valorSemPendencia the valorSemPendencia to set
+	 */
+	public void setValorSemPendencia(float valorSemPendencia) {
+		this.valorSemPendencia = valorSemPendencia;
+	}
+
+	/**
+	 * @return the valorCancelados
+	 */
+	public float getValorCancelados() {
+		return valorCancelados;
+	}
+
+	/**
+	 * @param valorCancelados the valorCancelados to set
+	 */
+	public void setValorCancelados(float valorCancelados) {
+		this.valorCancelados = valorCancelados;
+	}
+
+	/**
+	 * @return the nPortabilidade
+	 */
+	public int getnPortabilidade() {
+		return nPortabilidade;
+	}
+
+	/**
+	 * @param nPortabilidade the nPortabilidade to set
+	 */
+	public void setnPortabilidade(int nPortabilidade) {
+		this.nPortabilidade = nPortabilidade;
+	}
+
+	/**
+	 * @return the valorPortabilidade
+	 */
+	public float getValorPortabilidade() {
+		return valorPortabilidade;
+	}
+
+	/**
+	 * @param valorPortabilidade the valorPortabilidade to set
+	 */
+	public void setValorPortabilidade(float valorPortabilidade) {
+		this.valorPortabilidade = valorPortabilidade;
+	}
+
+	/**
+	 * @return the nMargem
+	 */
+	public int getnMargem() {
+		return nMargem;
+	}
+
+	/**
+	 * @param nMargem the nMargem to set
+	 */
+	public void setnMargem(int nMargem) {
+		this.nMargem = nMargem;
+	}
+
+	/**
+	 * @return the valorMargem
+	 */
+	public float getValorMargem() {
+		return valorMargem;
+	}
+
+	/**
+	 * @param valorMargem the valorMargem to set
+	 */
+	public void setValorMargem(float valorMargem) {
+		this.valorMargem = valorMargem;
+	}
+
+	/**
+	 * @return the nCartao
+	 */
+	public int getnCartao() {
+		return nCartao;
+	}
+
+	/**
+	 * @param nCartao the nCartao to set
+	 */
+	public void setnCartao(int nCartao) {
+		this.nCartao = nCartao;
+	}
+
+	/**
+	 * @return the valorCartao
+	 */
+	public float getValorCartao() {
+		return valorCartao;
+	}
+
+	/**
+	 * @param valorCartao the valorCartao to set
+	 */
+	public void setValorCartao(float valorCartao) {
+		this.valorCartao = valorCartao;
+	}
+
+	/**
+	 * @return the nRefin
+	 */
+	public int getnRefin() {
+		return nRefin;
+	}
+
+	/**
+	 * @param nRefin the nRefin to set
+	 */
+	public void setnRefin(int nRefin) {
+		this.nRefin = nRefin;
+	}
+
+	/**
+	 * @return the valorRefin
+	 */
+	public float getValorRefin() {
+		return valorRefin;
+	}
+
+	/**
+	 * @param valorRefin the valorRefin to set
+	 */
+	public void setValorRefin(float valorRefin) {
+		this.valorRefin = valorRefin;
+	}
+
+	/**
+	 * @return the nRefinPort
+	 */
+	public int getnRefinPort() {
+		return nRefinPort;
+	}
+
+	/**
+	 * @param nRefinPort the nRefinPort to set
+	 */
+	public void setnRefinPort(int nRefinPort) {
+		this.nRefinPort = nRefinPort;
+	}
+
+	/**
+	 * @return the valorRefinPort
+	 */
+	public float getValorRefinPort() {
+		return valorRefinPort;
+	}
+
+	/**
+	 * @param valorRefinPort the valorRefinPort to set
+	 */
+	public void setValorRefinPort(float valorRefinPort) {
+		this.valorRefinPort = valorRefinPort;
+	}
+
 	public void listarMetaMensal() {
 		MetaFaturamentoMensalDao metaFaturamentoMensalDao = new MetaFaturamentoMensalDao();
 		this.listaMetaMensal = metaFaturamentoMensalDao
@@ -639,11 +875,12 @@ public class DashBoardMB implements Serializable {
 	}
 
 	public void faturamentoMensal() {
-		Date dataInicio = Formatacao.ConvercaoStringData("2021-01-01");
 		this.mesatual = Formatacao.getMesData(new Date()) + 1;
+		Date dataInicio = Formatacao.ConvercaoStringData("2021-"+mesatual+"-01");
+		String dataSqlInicio = Formatacao.ConvercaoDataNfe(dataInicio);
 		HistoricoComissaoFacade historicoComissaoFacade = new HistoricoComissaoFacade();
-		String sql = "Select h From Historicocomissao h Where h.contrato.situacao.idsituacao<>2 and h.baixa=false and h.contrato.simulacao=false"
-				+ " and h.contrato.usuario.treinamento=false";
+		String sql = "Select h From Historicocomissao h Where h.baixa=false and h.contrato.simulacao=false"
+				+ " and h.contrato.usuario.treinamento=false and h.contrato.datacadastro>='" + dataSqlInicio + "'";
 		if (!this.usuarioLogadoMB.getUsuario().isAcessogeral() && !this.usuarioLogadoMB.getUsuario().isSupervisao())
 			sql = String.valueOf(sql) + " and h.usuario.idusuario=" + this.usuarioLogadoMB.getUsuario().getIdusuario();
 		if (this.convenio > 0) {
@@ -669,64 +906,88 @@ public class DashBoardMB implements Serializable {
 		this.valorProducao = 0.0F;
 		this.nTotalProducao = 0;
 		this.nFormalizacaoPendencia = 0;
+		this.nPendencia = 0;
+		this.nSemPendencia = 0;
+		this.nCancelados = 0;
+		this.valorCancelados = 0.0f;
+		this.valorSemPendencia = 0.0f;
+		this.valorPendencia = 0.0f;
+		this.valorPendencia = 0.0f;
+		this.valorMargem = 0.0f;
+		this.valorCartao = 0.0f;
+		this.valorRefin = 0.0f;
+		this.valorRefinPort = 0.0f;
+		this.nPortabilidade = 0;
+		this.nMargem = 0;
+		this.nCartao = 0;
+		this.nRefin = 0;
+		this.nRefinPort = 0;
 		for (int i = 0; i < lista.size(); i++) {
 			if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 16
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
-//				if (this.usuarioLogadoMB.getUsuario().isSupervisao()) {
-//					this.fatutamento += ((Historicocomissao) lista.get(i)).getProdliq();
-//				} else if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//					this.fatutamento += ((Historicocomissao) lista.get(i)).getComissaototal();
-//				} else {
-//					this.fatutamento += ((Historicocomissao) lista.get(i)).getCmsliq();
-//				}
 				this.nProducao++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 19
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.valorReceber += ((Historicocomissao) lista.get(i)).getProdliq();
-//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//					this.valorReceber += ((Historicocomissao) lista.get(i)).getComissaototal();
-//				} else {
-//					this.valorReceber += ((Historicocomissao) lista.get(i)).getCmsliq();
-//				}
 				this.nAguardandoPagamento++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 28
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.valorPagar += ((Historicocomissao) lista.get(i)).getProdliq();
-//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//					this.valorPagar += ((Historicocomissao) lista.get(i)).getComissaototal();
-//				} else {
-//					this.valorPagar += ((Historicocomissao) lista.get(i)).getCmsliq();
-//				}
 				this.nAguardandoAssinatura++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 36
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.valorAverbacao += ((Historicocomissao) lista.get(i)).getProdliq();
-//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getComissaototal();
-//				} else {
-//					this.valorAverbacao += ((Historicocomissao) lista.get(i)).getCmsliq();
-//				}
 				this.nPendenciaAverbacao++;
+				this.nPendencia = nPendencia + 1;
+				this.valorPendencia = valorPendencia + lista.get(i).getProdliq();
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 5
 					&& ((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("PENDENTE")) {
 				this.nPendenciaDocumento++;
+				this.nPendencia = nPendencia + 1;
+				this.valorPendencia = valorPendencia + lista.get(i).getProdliq();
 			} else if (((Historicocomissao) lista.get(i)).getTipo().equalsIgnoreCase("Pago")
 					&& ((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
 				this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getProdliq();
-//				if (this.usuarioLogadoMB.getUsuario().isAcessogeral()) {
-//					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getComissaototal();
-//				} else {
-//					this.valorComissaoRecebida += ((Historicocomissao) lista.get(i)).getCmsliq();
-//				}
 				this.nComissaoRecebida++;
 			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao()
 					.intValue() == 37) {
 				this.nFormalizacaoPendencia++;
+				this.nPendencia = nPendencia + 1;
+				this.valorPendencia = valorPendencia + lista.get(i).getProdliq();
+			} else if (((Historicocomissao) lista.get(i)).getContrato().getSituacao().getIdsituacao().intValue() == 2) {
+				this.nCancelados = nCancelados + 1;
+				this.valorCancelados = valorCancelados + lista.get(i).getProdliq();
 			}
-			if (((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
+			if (lista.get(i).getContrato().getSituacao().getIdsituacao() != 2
+					&& ((Historicocomissao) lista.get(i)).getContrato().getUltimamudancasituacao().after(dataInicio)) {
 				this.valorProducao += ((Historicocomissao) lista.get(i)).getProdliq();
 				this.nTotalProducao++;
+				if (lista.get(i).getContrato().getSituacao().getIdsituacao() != 5
+						&& lista.get(i).getContrato().getSituacao().getIdsituacao() != 37
+						&& lista.get(i).getContrato().getSituacao().getIdsituacao() != 36) {
+					this.nSemPendencia = nSemPendencia + 1;
+					this.valorSemPendencia = valorSemPendencia + lista.get(i).getProdliq();
+				}
+				
+				if (lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 1) {
+					nPortabilidade = nPortabilidade + 1;
+					valorPortabilidade = valorPortabilidade + lista.get(i).getProdliq();
+				}else if (lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 2) {
+					nMargem = nMargem + 1;
+					valorMargem = valorMargem + lista.get(i).getProdliq();
+				}else if (lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 3
+						|| lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 4
+						|| lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 5) {
+					nCartao = nCartao + 1;
+					valorCartao = valorCartao + lista.get(i).getProdliq();
+				}else if(lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 7) {
+					nRefin = nRefin + 1;
+					valorRefin = valorRefin + lista.get(i).getProdliq();
+				}else if(lista.get(i).getContrato().getTipooperacao().getIdtipooperacao() == 8) {
+					nRefinPort = nRefinPort + 1;
+					valorRefinPort = valorRefinPort + lista.get(i).getProdliq();
+				}
 			}
 		}
 	}
@@ -808,7 +1069,7 @@ public class DashBoardMB implements Serializable {
 		session.setAttribute("voltar", "dashboard");
 		return "consPendencias";
 	}
-	
+
 	public String formalizacao() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
@@ -853,11 +1114,11 @@ public class DashBoardMB implements Serializable {
 			verificarAvisos = false;
 		}
 	}
-	
-	
+
 	public void gerarListaFormalizacao() {
 		FormalizacaoFacade formalizacaoFacade = new FormalizacaoFacade();
-		List<Formalizacao> listaFormalizacao = formalizacaoFacade.lista("Select f From Formalizacao f Where f.emitidocontrato=false");
+		List<Formalizacao> listaFormalizacao = formalizacaoFacade
+				.lista("Select f From Formalizacao f Where f.emitidocontrato=false");
 		if (listaFormalizacao == null) {
 			listaFormalizacao = new ArrayList<Formalizacao>();
 		}
@@ -866,39 +1127,29 @@ public class DashBoardMB implements Serializable {
 			nFormalizacao = nFormalizacao + 1;
 		}
 	}
-	
-	
-	
+
 	public void gerarListaCampanhasCorretor() {
 		CampanhasUsuarioFacade campanhasUsuarioFacade = new CampanhasUsuarioFacade();
 		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
-		String sql = "Select c From Campanhasusuario c Where c.campanhas.datafinal>='" + dataHoje
-				+ "'";
+		String sql = "Select c From Campanhasusuario c Where c.campanhas.datafinal>='" + dataHoje + "'";
 		sql = sql + " and c.usuario.idusuario=" + usuarioLogadoMB.getUsuario().getIdusuario();
-		
+
 		listaCampanhasUsuario = campanhasUsuarioFacade.lista(sql);
-		
+
 		if (listaCampanhasUsuario == null) {
 			listaCampanhasUsuario = new ArrayList<Campanhasusuario>();
 		}
 	}
-	
-	
+
 	public void gerarListaCampanhas() {
 		CampanhasFacade campanhasFacade = new CampanhasFacade();
 		String dataHoje = Formatacao.ConvercaoDataNfe(new Date());
-		String sql = "Select c From Campanhas c Where c.datafinal>='" + dataHoje
-				+ "'";
+		String sql = "Select c From Campanhas c Where c.datafinal>='" + dataHoje + "'";
 		listaCampanhas = campanhasFacade.lista(sql);
-		
+
 		if (listaCampanhas == null) {
 			listaCampanhas = new ArrayList<Campanhas>();
 		}
 	}
-	
-	
-	
-	
-	
 
 }

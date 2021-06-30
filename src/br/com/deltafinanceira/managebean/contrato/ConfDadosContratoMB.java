@@ -230,12 +230,18 @@ public class ConfDadosContratoMB implements Serializable {
 				this.contrato.setVoltarTela("consPortabilidade");
 			} else if (this.contrato.isOperacaoinss()) {
 				this.contrato.setVoltarTela("consDemaisOperacoesINSS");
-			} else {
+			} else if (!this.contrato.isOperacaoinss()) {
 				this.contrato.setVoltarTela("consDemaisOperacoes");
+			}else {
+				this.contrato.setVoltarTela("consDemaisFGTS");
+			}
+			if (contrato.getTipooperacao().getIdtipooperacao() == 17) {
+				return "cadFGTS";
 			}
 		} else {
 			Mensagem.lancarMensagemInfo("Selecione o Tipo de Operação", "");
 		}
+		
 		return "cadContrato";
 	}
 
